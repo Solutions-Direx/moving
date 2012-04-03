@@ -2,18 +2,23 @@
 require 'spec_helper'
 
 describe BootstrapHelper do
+  before(:each) do 
+    helper.output_buffer = ""
+  end
   
   context "modal helper" do
     context "with closeable header" do
       let(:modal_closeable) do
-        helper.modal :id => "test-modal" do |builder|
+        output = helper.modal :id => "test-modal" do |builder|
           builder.header :close_text => "x" do
-            "Header"
+            helper.output_buffer.concat("Header")
           end
           builder.body do
-            "Body"
+            helper.output_buffer.concat("Body")
           end
-          builder.footer { "Footer" }
+          builder.footer do 
+            helper.output_buffer.concat("Footer") 
+          end
         end
       end
     
@@ -24,7 +29,7 @@ describe BootstrapHelper do
       end
     
       it "should render correct header html" do
-        should match /<div class="modal-header"><a class="close" data-dismiss="modal">x<\/a>Header<\/div>/
+        should match /<div class="modal-header"><a class="close" data-dismiss="modal">x<\/a><h3>Header<\/h3><\/div>/
       end
     
       it "should render correct body html" do
@@ -40,12 +45,14 @@ describe BootstrapHelper do
       let(:modal_uncloseable) do
         helper.modal :id => "test-modal" do |builder|
           builder.header :closeable => false, :close_text => "x" do 
-            "Header" 
+            helper.output_buffer.concat("Header")
           end
           builder.body do
-            "Body"
+            helper.output_buffer.concat("Body")
           end
-          builder.footer { "Footer" }
+          builder.footer do
+            helper.output_buffer.concat("Footer")
+          end
         end
       end
     
@@ -56,7 +63,7 @@ describe BootstrapHelper do
       end
     
       it "should render correct header html" do
-        should match /<div class="modal-header">Header<\/div>/
+        should match /<div class="modal-header"><h3>Header<\/h3><\/div>/
       end
     
       it "should render correct body html" do
