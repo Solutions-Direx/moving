@@ -1,9 +1,9 @@
 <h1>Dashboard#show</h1>
 <p>Find me in app/views/dashboard/show.html.erb</p>
-<%= modal :id => "test-modal" do |builder| %>
+<% modal :id => "test-modal" do |builder| %>
   <%= builder.header :closeable => false do %>foo<% end %>
   <%= builder.body do %>
-  <p>lsdfka</p>
+    <p>lsdfka</p>
   <% end %>
   <%= builder.footer do %>
     <a href="#" class="btn">Close</a>

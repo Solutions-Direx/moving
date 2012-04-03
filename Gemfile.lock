@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/100hz/rails-settings.git
+  revision: ba456f2b89c83ee193866f124e502e7bfadac0f2
+  specs:
+    rails-settings (0.1.2)
+      rails (>= 3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -84,6 +91,10 @@ GEM
       railties (>= 3.2.0, < 5.0)
       thor (~> 0.14)
     json (1.6.6)
+    kaminari (0.13.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      railties (>= 3.0.0)
     launchy (2.1.0)
       addressable (~> 2.2.6)
     letter_opener (0.0.2)
@@ -187,9 +198,11 @@ DEPENDENCIES
   guard-rspec
   guard-spork
   jquery-rails
+  kaminari
   letter_opener
   mysql2
   rails (= 3.2.3)
+  rails-settings!
   rspec-rails
   sass-rails (~> 3.2.3)
   simple_form

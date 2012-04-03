@@ -2,15 +2,36 @@
 
 module BootstrapHelper
   
-  # modal do
-  #   header "some text"
-  #   body do
-  #     
-  #   end
-  #   footer do
-  #     
-  #   end
-  # end
+  def button_link_to(text, url, options)
+    klass = ["btn"]
+    if options.has_key?(:large)
+      klass << "btn-large"
+      options.delete(:large)
+    end
+    if options.has_key?(:level)
+      klass << "btn-#{options[:level]}"
+      options.delete(:level)
+    end
+    klass << options[:class].strip.split(/\+/) unless options[:class].blank?
+    options[:class] = klass.flatten.join(" ")
+    link_to text, url, options
+  end
+  
+  def icon_button_link_to(text, url, options)
+    icon = options.delete(:icon) if options.has_key?(:icon)
+    icon_tag = ''
+    if icon
+      klass = ["icon-#{icon}"]
+      if options.has_key?(:white)
+        klass << ["icon-white"]
+        options.delete(:white)
+      end
+      icon_tag = content_tag(:i, '', :class => klass.join(' '))
+    end
+    
+    button_link_to (icon_tag + " #{text}").html_safe, url, options
+  end
+  
   def modal(options = {})
     content_tag(:div, options.merge(:class => "modal")) do
       yield BootstrapModalBuilder.new(self)

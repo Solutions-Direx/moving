@@ -1,0 +1,13 @@
+<p>Hello <%= @user.full_name %>,</p>
+
+<p>Your account has been created.</p>
+
+<p>Below are details:</p>
+
+<p>Username: <%= @user.username %></p>
+<p>Password: <%= @generated_password %></p>
+<p>Email: <%= @user.email %></p>
+
+<p>Click the link below to login and change password:</p>
+
+<%= link_to new_user_session_url, new_user_session_url %>

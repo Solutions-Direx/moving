@@ -23,6 +23,8 @@ end
 gem 'jquery-rails'
 gem 'devise'
 gem 'simple_form'
+gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
+gem 'kaminari'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
