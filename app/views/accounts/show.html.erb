@@ -1,0 +1,25 @@
+<%= simple_nested_form_for(@account, :url => account_url, :method => :put, :html => {:multipart => true} ) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :company_name %>
+    <%= f.input :email %>
+    <%= f.input :phone %>
+    <%= f.input :website %>
+    <%= f.input :tax1_label %>
+    <%= f.input :tax1 %>
+    <%= f.input :tax2_label %>
+    <%= f.input :tax2 %>
+    <%= f.input :compound %>
+    <%= f.input :logo %>
+    <%= f.hidden_field :logo_cache %>
+    <%= image_tag @account.logo_url(:thumb) if @account.logo? %>
+  </div>
+  
+  <%= f.fields_for :addresses %>
+  <p><%= f.link_to_add content_tag(:id, '', :class => "icon-plus") + " Add address", :addresses, :class => "btn" %></p>
+
+  <div class="form-actions">
+    <%= submit_or_cancel(f) %>
+  </div>
+<% end %>

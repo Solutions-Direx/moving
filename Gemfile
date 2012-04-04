@@ -28,6 +28,7 @@ gem 'simple_form'
 gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
 gem 'kaminari'
 gem 'cancan'
+gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

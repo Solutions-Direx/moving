@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
+  helper_method :sort_column
   
   # GET /users
   # GET /users.json
   def index
-    @users = current_account.users.where("id != ?", current_user.id).page(params[:page])
+    @users = current_account.users.where("id != ?", current_user.id).order(sort_column + " " + sort_direction).page(params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
@@ -85,4 +86,11 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+  
+  def sort_column
+    User.column_names.include?(params[:sort]) ? params[:sort] : "first_name"
+  end
+  
 end

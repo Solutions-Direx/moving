@@ -18,3 +18,4 @@
 .sass-cache/*
 .rvmrc
 /coverage/*
+public/uploads/*
