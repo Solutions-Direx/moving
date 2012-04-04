@@ -1,15 +1,6 @@
-<p id="notice"><%= notice %></p>
+<h2><%= @document.name %></h2>
 
-<p>
-  <b>Name:</b>
-  <%= @document.name %>
-</p>
-
-<p>
-  <b>Body:</b>
-  <%= @document.body.html_safe %>
-</p>
-
+<%= simple_format(@document.body) %>
 
 <%= link_to 'Edit', edit_document_path(@document) %> |
 <%= link_to 'Back', documents_path %>
