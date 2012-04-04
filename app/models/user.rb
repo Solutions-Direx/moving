@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   belongs_to :account
   
   # ATTRIBUTES
-  attr_accessible :login, :username, :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :account_id, :role
+  attr_accessible :login, :username, :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :role
   
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'

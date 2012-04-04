@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     generated_password = Devise.friendly_token.first(6)
     @user.password = generated_password
     @user.password_confirmation = generated_password
-
+    
     respond_to do |format|
       if @user.save
         Mailer.user_created_email(@user, generated_password).deliver

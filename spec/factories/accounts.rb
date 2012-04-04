@@ -3,9 +3,9 @@
 FactoryGirl.define do
   factory :account do
     sequence(:company_name) { |n| "Company#{n}" }
-    tax1_label
+    tax1_label ""
     tax1 10
-    tax2_label
+    tax2_label ""
     tax2 5
     compound false
     phone "123-123-123"

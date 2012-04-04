@@ -7,8 +7,10 @@ class Ability
       can :manage, :all
     elsif user.standard?
       can :read, :dashboard
+      can :manage, Document
     elsif user.removal_man?
       can :read, :dashboard
+      can :read, Document
     end
   end
 end

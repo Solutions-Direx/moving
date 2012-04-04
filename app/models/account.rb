@@ -5,6 +5,7 @@ class Account < ActiveRecord::Base
   has_many :users, :dependent => :destroy
   has_many :addresses, :as => :addressable, :dependent => :destroy
   accepts_nested_attributes_for :addresses, :allow_destroy => true
+  has_many :documents, :dependent => :destroy
   
   # ATTRIBUTES
   attr_accessible :company_name, :logo, :logo_cache, :email, :phone, :website, :tax1_label, :tax1, :tax2_label, :tax2, :compound, :addresses_attributes

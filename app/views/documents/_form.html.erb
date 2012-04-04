@@ -1,0 +1,35 @@
+<%= simple_form_for(@document) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <div id="wysihtml5-toolbar" style="display: none;">
+      <a data-wysihtml5-command="bold">bold</a> |
+      <a data-wysihtml5-command="italic">italic</a> |
+      <a data-wysihtml5-command="insertUnorderedList">insertUnorderedList</a> |
+      <a data-wysihtml5-command="insertOrderedList">insertOrderedList</a> |
+
+      <!-- Some wysihtml5 commands like 'createLink' require extra paramaters specified by the user (eg. href) -->
+      <a data-wysihtml5-command="createLink">insert link</a> |
+      <div data-wysihtml5-dialog="createLink" style="display: none;">
+        <label>
+          Link:
+          <input data-wysihtml5-dialog-field="href" value="http://" class="text">
+        </label>
+        <a data-wysihtml5-dialog-action="save">OK</a> <a data-wysihtml5-dialog-action="cancel">Cancel</a>
+      </div>
+    </div>
+    <%= f.input :body, :as => :text, :input_html => {:id => "wysihtml5"} %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+<script>
+var editor = new wysihtml5.Editor("wysihtml5", { // id of textarea element
+  toolbar:      "wysihtml5-toolbar", // id of toolbar element
+  parserRules:  wysihtml5ParserRules // defined in parser rules set 
+});
+</script>
