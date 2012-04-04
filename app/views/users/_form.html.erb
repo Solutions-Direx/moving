@@ -1,5 +1,5 @@
 <% if @user.new_record? %>
-  <div class="alert alert-info">After created, an email with default password will be sent to the user.</div>
+  <div class="alert alert-info">An email with default password will be sent to the user once you create it.</div>
 <% end %>
 
 <%= simple_form_for(@user) do |f| %>
@@ -14,6 +14,6 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <p><%= submit_or_cancel(f) %></p>
   </div>
 <% end %>

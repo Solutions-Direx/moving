@@ -11,8 +11,7 @@ class User < ActiveRecord::Base
   end
   
   # DEVISE
-  devise :database_authenticatable, :timeoutable, :recoverable, 
-         :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :timeoutable, :recoverable, :rememberable, :trackable, :validatable
 
   # ASSOCIATIONS
   belongs_to :account
@@ -25,7 +24,7 @@ class User < ActiveRecord::Base
   attr_accessor :login
   
   # VALIDATIONS
-  validates :account_id, :role, :username, :first_name, :last_name, :presence => true
+  validates :email, :account_id, :role, :username, :first_name, :last_name, :presence => true
   validates :username, :uniqueness => true
   
   # SCOPES

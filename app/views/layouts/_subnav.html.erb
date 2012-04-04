@@ -1,0 +1,11 @@
+<% if user_signed_in? %>
+  <div class="subnav">
+    <ul class="nav nav-pills">
+      <li class="active"><%= link_to "Quotes" %></li>
+      <li><%= link_to "Contracts" %></li>
+      <li><%= link_to "Clients" %></li>
+      <li><%= link_to "Invoices" %></li>
+      <li><%= link_to "Documents" %></li>
+    </ul>
+  </div>
+<% end %>

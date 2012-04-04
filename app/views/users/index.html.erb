@@ -6,24 +6,20 @@
 
 <table class="table table-striped">
   <tr>
+    <th>Name</th>
     <th>Username</th>
     <th>Email</th>
-    <th>First name</th>
-    <th>Last name</th>
     <th>Role</th>
-    <th></th>
     <th></th>
     <th></th>
   </tr>
 
 <% @users.each do |user| %>
   <tr>
+    <td><%= link_to user.full_name, user %></td>
     <td><%= user.username %></td>
     <td><%= user.email %></td>
-    <td><%= user.first_name %></td>
-    <td><%= user.last_name %></td>
     <td><%= user.role %></td>
-    <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
