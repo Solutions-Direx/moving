@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
   let(:user) { FactoryGirl.create(:user, first_name: "Foo", last_name: "Bar") }
   let(:manager) { FactoryGirl.create(:manager) }
-  let(:standard) { FactoryGirl.create(:standard) }
+  let(:standard) { FactoryGirl.create(:standard_user) }
   let(:removal_man) { FactoryGirl.create(:removal_man) }
   
   context "non-existed" do
@@ -39,6 +39,16 @@ describe User do
   
     it "should be removal_man" do
       removal_man.removal_man?.should be_true
+    end
+  end
+  
+  context "abilities" do
+    subject { ability }
+    let(:ability){ Ability.new(user) }
+
+    context "when is a manager" do
+      let(:user){ FactoryGirl.create(:manager) }
+      it{ should be_able_to(:manage, User.new) }
     end
   end
   

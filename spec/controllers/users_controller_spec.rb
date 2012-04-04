@@ -19,6 +19,24 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe UsersController do
+  context "with standard user logged in" do
+    let(:standard_user) { FactoryGirl.create(:standard_user) }
+    it "should not access to user management" do
+      login(standard_user)
+      get :index
+      response.should redirect_to(root_url)
+    end
+  end
+  
+  context "with removal man logged in" do
+    let(:removal_man) { FactoryGirl.create(:removal_man) }
+    it "should not access to user management" do
+      login(removal_man)
+      get :index
+      response.should redirect_to(root_url)
+    end
+  end
+  
   context "with manager logged in" do
     let(:account) { FactoryGirl.create(:account) }
     let(:manager) { FactoryGirl.create(:manager, :account => account) }

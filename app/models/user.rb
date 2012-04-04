@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   attr_accessor :login
   
   # VALIDATIONS
-  validates :email, :account_id, :role, :username, :first_name, :last_name, :presence => true
+  validates :account_id, :role, :username, :first_name, :last_name, :presence => true
   validates :username, :uniqueness => true
   
   # SCOPES
@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   
   [Role::MANAGER, Role::STANDARD, Role::REMOVAL_MAN].each do |method|
    define_method "#{method}?" do
-      self.role = method
+      self.role == method
    end
   end
   

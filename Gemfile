@@ -27,6 +27,7 @@ gem 'devise'
 gem 'simple_form'
 gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
 gem 'kaminari'
+gem 'cancan'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

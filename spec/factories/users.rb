@@ -18,7 +18,7 @@ FactoryGirl.define do
       account_owner true
     end
     
-    factory :standard do
+    factory :standard_user do
       role 'standard'
     end
     
