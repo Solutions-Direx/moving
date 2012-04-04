@@ -3,10 +3,13 @@ class Account < ActiveRecord::Base
   has_many :users, :dependent => :destroy
   
   # ATTRIBUTES
-  attr_accessible :company_name
+  attr_accessible :company_name, :logo
   
   # VALIDATIONS
   validates :company_name, :presence => true, :uniqueness => true
+  
+  # UPLOADER
+  mount_uploader :logo, LogoUploader
   
   def owner
     users.account_owner.first
