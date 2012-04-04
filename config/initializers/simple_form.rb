@@ -54,8 +54,11 @@ SimpleForm.setup do |config|
       ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
       ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
     end
+    
+    config.label_class = 'control-label'
+    config.form_class = 'simple_form form-horizontal'
   end
-
+  
   config.wrappers :prepend, :tag => 'div', :class => "control-group", :error_class => 'error' do |b|
     b.use :html5
     b.use :placeholder
