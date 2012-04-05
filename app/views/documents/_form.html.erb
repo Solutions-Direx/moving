@@ -2,24 +2,25 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :name %>
-    <div id="wysihtml5-toolbar" style="display: none;">
-      <a data-wysihtml5-command="bold">bold</a> |
-      <a data-wysihtml5-command="italic">italic</a> |
-      <a data-wysihtml5-command="insertUnorderedList">insertUnorderedList</a> |
-      <a data-wysihtml5-command="insertOrderedList">insertOrderedList</a> |
-
-      <!-- Some wysihtml5 commands like 'createLink' require extra paramaters specified by the user (eg. href) -->
-      <a data-wysihtml5-command="createLink">insert link</a> |
-      <div data-wysihtml5-dialog="createLink" style="display: none;">
-        <label>
-          Link:
-          <input data-wysihtml5-dialog-field="href" value="http://" class="text">
-        </label>
-        <a data-wysihtml5-dialog-action="save">OK</a> <a data-wysihtml5-dialog-action="cancel">Cancel</a>
+    <%= f.input :name, :label => false, :placeholder => "Title", :input_html => {:class => 'span10'} %>
+    <div id="wysihtml5-toolbar" class="controls">
+      <div class="btn-group">
+          <span data-wysihtml5-dialog="createLink" style="display: none;position:relative; float:right;margin-right:520px;">
+            <label>
+              &nbsp;
+              <input data-wysihtml5-dialog-field="href" value="http://" class="text">
+              <a data-wysihtml5-dialog-action="save">OK</a> <a data-wysihtml5-dialog-action="cancel">Cancel</a>
+            </label>
+          </span>
+        <a class="btn" data-wysihtml5-command="bold"><i class="icon-bold"></i></a>
+        <a class="btn" data-wysihtml5-command="italic"><i class="icon-italic"></i></a>
+        <a class="btn" data-wysihtml5-command="insertUnorderedList"><i class="icon-list"></i></a>
+        <a class="btn" data-wysihtml5-command="insertOrderedList"><i class="icon-align-justify"></i></a>
+        <!-- Some wysihtml5 commands like 'createLink' require extra paramaters specified by the user (eg. href) -->
+        <a class="btn" data-wysihtml5-command="createLink"><i class="icon-share-alt"></i>Link</a> 
       </div>
     </div>
-    <%= f.input :body, :as => :text, :input_html => {:id => "wysihtml5"} %>
+    <%= f.input :body, :as => :text, :label => false, :input_html => {:id => "wysihtml5", :class => 'span10'} %>
   </div>
 
   <div class="form-actions">

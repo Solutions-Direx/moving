@@ -37,4 +37,7 @@ $(function() {
       $nav.removeClass('subnav-fixed')
     }
   }
+
+  $('a[rel=popover]').popover();
+
 });

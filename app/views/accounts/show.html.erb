@@ -2,22 +2,64 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :company_name %>
-    <%= f.input :email %>
-    <%= f.input :phone %>
-    <%= f.input :website %>
-    <%= f.input :tax1_label %>
-    <%= f.input :tax1 %>
-    <%= f.input :tax2_label %>
-    <%= f.input :tax2 %>
-    <%= f.input :compound %>
-    <%= f.input :logo %>
-    <%= f.hidden_field :logo_cache %>
-    <%= image_tag @account.logo_url(:thumb) if @account.logo? %>
-  </div>
-  
-  <%= f.fields_for :addresses %>
-  <p><%= f.link_to_add content_tag(:id, '', :class => "icon-plus") + " Add address", :addresses, :class => "btn" %></p>
+    <div class="tabbable tabs-left">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#1" data-toggle="tab">General</a></li>
+        <li><a href="#2" data-toggle="tab">Taxes</a></li>
+        <li><a href="#3" data-toggle="tab">Section 3</a></li>
+      </ul>
+    <div class="tab-content" style="width: auto;">
+      <div class="tab-pane active" id="1">
+        <div class="span6">
+          <%= f.input :company_name %>
+          <%= f.input :email %>
+          <%= f.input :phone %>
+          <%= f.input :website %>
+          <%= f.input :logo %>
+          <%= f.fields_for :addresses %>
+          <p><%= f.link_to_add content_tag(:id, '', :class => "icon-plus") + " Add address", :addresses, :class => "btn" %></p>
+        </div>
+        <div class="span4">
+          <span class='floatr' style='float:right;'><%= image_tag @account.logo_url(:thumb) if @account.logo? %></span>
+          <%= f.hidden_field :logo_cache %>
+        </div>
+      </div>
+          
+      <div class="tab-pane" id="2">
+        <%= f.input :tax1_label %>
+        <div class="control-group float optional">
+          <%= f.label :tax1 %>
+            <div class="controls">
+              <div class='input-append'>
+                <%= f.text_field :tax1, :class => 'span1 input-append' %><span class="add-on">%</span>
+              </div>
+            </div>
+          </div>
+          <%= f.input :tax2_label %>
+          <div class="control-group float optional">
+            <%= f.label :tax2 %>
+              <div class="controls">
+                <div class='input-append'>
+                  <%= f.text_field :tax2, :class => 'span1 input-append' %><span class="add-on">%</span>
+                </div>
+              </div>
+            </div>
+            <%= f.label :compound %>
+            <div class="controls">
+              <%= f.check_box :compound %>
+              <span class="help-inline">
+                <a href="#" rel="popover" data-content="Check if tax2 = (price + tax1) * tax2" data-original-title="Compound">
+                <i class="icon-info-sign"></i></a>
+              </span>
+            </div>
+          </div>
+          
+          <div class="tab-pane" id="3">
+            <p>Howdy, I'm in Section 3.</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
   <div class="form-actions">
     <%= submit_or_cancel(f) %>

@@ -1,5 +1,9 @@
 #wysihtml5-toolbar {
+	height: 30px;
+    margin-bottom: 12px;	
+  
   .wysihtml5-command-active {
     font-weight: bold;
+    background-color: #f5f5f5;
   }
 }

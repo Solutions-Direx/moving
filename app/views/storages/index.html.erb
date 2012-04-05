@@ -1,0 +1,23 @@
+<h1>Listing storages
+  <span class='submenu'><%= link_to 'New Storage', new_storage_path, :class => "btn btn-large btn-inverse" %></span>
+</h1>
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Default</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @storages.each do |storage| %>
+  <tr>
+    <td><%= link_to storage.name, storage %></td>
+    <td><%= storage.default %></td>
+    <td><%= storage.account_id %></td>
+    <td><%= link_to 'Edit', edit_storage_path(storage) %></td>
+    <td><%= link_to 'Destroy', storage, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>

@@ -1,6 +1,6 @@
-<h1>Listing documents</h1>
-
-<p><%= icon_button_link_to 'New document', new_document_path, :icon => "plus", :level => "primary", :white => true %></p>
+<h1>Listing documents
+  <span class="submenu"><%= icon_button_link_to 'New document', new_document_path, :icon => "plus", :class => "btn-large", :level => "primary", :white => true %></span>
+</h1>
 
 <%= paginate @documents %>
 
@@ -10,6 +10,7 @@
     <th>Updated At</th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
 
 <% @documents.each do |document| %>
@@ -17,6 +18,7 @@
     <td><%= link_to document.name, document %></td>
     <td><%= document.updated_at.strftime('%B %d, %Y %H:%M') %></td>
     <td><%= link_to 'Edit', edit_document_path(document) %></td>
+    <td><%= link_to 'Print', '#' %></td>
     <td><%= link_to 'Destroy', document, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>

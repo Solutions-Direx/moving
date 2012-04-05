@@ -1,6 +1,7 @@
-<h2><%= @document.name %></h2>
+<h2><%= @document.name %>
+  <span class='submenu'><%= link_to 'Edit', edit_document_path(@document), :class => 'btn btn-large btn-inverse' %></span>
+</h2>
 
-<%= simple_format(@document.body) %>
-
-<%= link_to 'Edit', edit_document_path(@document) %> |
-<%= link_to 'Back', documents_path %>
+<div class='read'>
+  <%= simple_format(@document.body) %>
+</div>

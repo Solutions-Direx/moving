@@ -1,0 +1,18 @@
+<%= simple_nested_form_for(@storage) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :default %>
+    <%= f.fields_for :addresses do |address| %>
+      <%= f.label :address %>
+      <div class='controls'>
+        <%= address.text_field :address %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form-actions">
+    <%= submit_or_cancel(f) %>
+  </div>
+<% end %>
