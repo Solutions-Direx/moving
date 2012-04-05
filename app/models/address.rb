@@ -7,7 +7,7 @@ class Address < ActiveRecord::Base
   attr_accessible :address, :addressable_id, :addressable_type, :city, :country, :postal_code, :province
   
   # VALIDATIONS
-  validates :address, :addressable_id, :addressable_type, :city, :postal_code, :province, :presence => true
+  validates :address, :city, :postal_code, :province, :country, :presence => true
   
   PROVINCE = ['Québec', 'Ontario', 'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia',
              'Nunavut', 'Prince Edward Island', 'Saskatchewan', 'Yukon', 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 

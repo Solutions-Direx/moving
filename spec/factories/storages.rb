@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :storage do
-    name "MyString"
+    sequence(:name) { |n| "user#{n}" }
     default false
-    account_id "MyString"
+    account
   end
 end

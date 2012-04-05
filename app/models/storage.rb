@@ -1,9 +1,9 @@
 class Storage < ActiveRecord::Base
   has_one :address, :as => :addressable, :dependent => :destroy
-  #accepts_nested_attributes_for :addresses, :allow_destroy => true
+  accepts_nested_attributes_for :address
   belongs_to :account
   
-  attr_accessible :account_id, :default, :name
+  attr_accessible :account_id, :default, :name, :address_attributes
   
-  validates_presence_of :name
+  validates :name, :presence => true, :uniqueness => true
 end

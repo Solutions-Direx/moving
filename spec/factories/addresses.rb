@@ -1,11 +1,12 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
+require 'faker'
 
 FactoryGirl.define do
   factory :address do
-    address "MyString"
-    city "MyString"
-    province "MyString"
-    postal_code "MyString"
-    country "MyString"
+    address Faker::Address.street_address
+    city Faker::Address.city
+    province Faker::Address.us_state
+    postal_code Faker::Address.zip_code
+    country "Canada"
   end
 end

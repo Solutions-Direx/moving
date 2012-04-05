@@ -8,9 +8,11 @@ class Ability
     elsif user.standard?
       can :read, :dashboard
       can :manage, Document
+      can :manage, Storage
     elsif user.removal_man?
       can :read, :dashboard
       can :read, Document
+      can :read, Storage
     end
   end
 end

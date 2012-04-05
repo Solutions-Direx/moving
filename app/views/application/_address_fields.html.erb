@@ -1,7 +1,6 @@
-<div class="well">
 <%= f.input :address %>
 <%= f.input :city %>
-<%= f.input :province %>
+<%= f.input :province, :collection => Address::PROVINCE %>
 <%= f.input :postal_code %>
 <%= f.link_to_remove 'Remove' %>
-</div>
+<%= f.input :country, :collection => Address::COUNTRY %>

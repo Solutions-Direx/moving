@@ -2,9 +2,11 @@
   <span class='submenu'><%= icon_button_link_to 'New Storage', new_storage_path, icon: "plus", level: "inverse", large: true, white: true %></span>
 </h1>
 
+<%= paginate @storages %>
+
 <table class="table table-striped">
   <tr>
-    <th>Name</th>
+    <th><%= sortable "name" %></th>
     <th>Address</th>
     <th>Default</th>
     <th></th>
@@ -14,10 +16,12 @@
 <% @storages.each do |storage| %>
   <tr>
     <td><%= link_to storage.name, storage %></td>
+    <td><%= address_for(storage.address) %></td>
     <td><%= storage.default %></td>
-    <td><%= storage.account_id %></td>
     <td><%= link_to 'Edit', edit_storage_path(storage) %></td>
     <td><%= link_to 'Destroy', storage, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
+
+<%= paginate @storages %>

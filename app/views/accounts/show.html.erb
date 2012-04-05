@@ -1,4 +1,4 @@
-<%= simple_nested_form_for(@account, :url => account_url, :method => :put, :html => {:multipart => true} ) do |f| %>
+<%= simple_form_for(@account, :url => account_url, :method => :put, :html => {:multipart => true} ) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -6,7 +6,7 @@
       <ul class="nav nav-tabs">
         <li class="active"><a href="#1" data-toggle="tab">General</a></li>
         <li><a href="#2" data-toggle="tab">Taxes</a></li>
-        <li><a href="#3" data-toggle="tab">Section 3</a></li>
+        <li><a href="#3" data-toggle="tab">Address</a></li>
       </ul>
     <div class="tab-content" style="width: auto;">
       <div class="tab-pane active" id="1">
@@ -16,8 +16,6 @@
           <%= f.input :phone %>
           <%= f.input :website %>
           <%= f.input :logo %>
-          <%= f.fields_for :addresses %>
-          <p><%= f.link_to_add content_tag(:id, '', :class => "icon-plus") + " Add address", :addresses, :class => "btn" %></p>
         </div>
         <div class="span4">
           <span class='floatr' style='float:right;'><%= image_tag @account.logo_url(:thumb) if @account.logo? %></span>
@@ -55,7 +53,13 @@
           </div>
           
           <div class="tab-pane" id="3">
-            <p>Howdy, I'm in Section 3.</p>
+            <%= f.fields_for :address do |fa| %>
+              <%= fa.input :address %>
+              <%= fa.input :city %>
+              <%= fa.input :province, :collection => Address::PROVINCE %>
+              <%= fa.input :postal_code %>
+              <%= fa.input :country, :collection => Address::COUNTRY %>
+            <% end %>
           </div>
         </div>
       </div>

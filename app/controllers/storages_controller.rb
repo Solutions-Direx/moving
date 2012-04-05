@@ -1,8 +1,11 @@
 class StoragesController < ApplicationController
+  load_and_authorize_resource
+  helper_method :sort_column
+  
   # GET /storages
   # GET /storages.json
   def index
-    @storages = Storage.all
+    @storages = current_account.storages.order(sort_column + " " + sort_direction).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,7 +28,7 @@ class StoragesController < ApplicationController
   # GET /storages/new.json
   def new
     @storage = current_account.storages.new
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @storage }
@@ -40,7 +43,7 @@ class StoragesController < ApplicationController
   # POST /storages
   # POST /storages.json
   def create
-    @storage = Storage.new(params[:storage])
+    @storage = current_account.storages.new(params[:storage])
 
     respond_to do |format|
       if @storage.save
@@ -79,5 +82,11 @@ class StoragesController < ApplicationController
       format.html { redirect_to storages_url }
       format.json { head :no_content }
     end
+  end
+  
+  private
+  
+  def sort_column
+    Document.column_names.include?(params[:sort]) ? params[:sort] : "name"
   end
 end

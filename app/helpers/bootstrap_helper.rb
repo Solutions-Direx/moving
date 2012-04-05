@@ -2,6 +2,15 @@
 
 module BootstrapHelper
   
+  def address_for(address)
+    content_tag(:address) do
+      safe_concat(address.address + tag(:br) + 
+                  address.city + ", " + address.province + tag(:br) + 
+                  address.postal_code + tag(:br) + 
+                  address.country)
+    end
+  end
+  
   def sortable(column, title = nil)
     title ||= column.titleize
     css_class = column == sort_column ? "current #{sort_direction}" : nil

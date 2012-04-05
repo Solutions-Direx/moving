@@ -58,7 +58,13 @@ module Moving
     config.assets.version = '1.0'
     
     config.generators do |g|
-      g.test_framework :rspec, :fixture => true
+      g.test_framework :rspec, 
+        :fixture => true,
+        :view_specs => false,
+        :helper_specs => true,
+        :routing_specs => false,
+        :controller_specs => true,
+        :request_specs => true
       g.fixture_replacement :factory_girl, :dir => 'spec/factories'
       # g.form_builder :simple_form
     end
