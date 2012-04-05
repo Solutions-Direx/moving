@@ -1,6 +1,6 @@
-<h1>Listing users</h1>
-
-<p><%= icon_button_link_to 'New User', new_user_path, :icon => "plus", :level => "primary", :white => true %></p>
+<h1>Listing users
+  <span class='submenu'><%= icon_button_link_to 'New User', new_user_path, icon: "plus", level: "inverse", large: true, white: true %></span>
+</h1>
 
 <%= paginate @users %>
 
