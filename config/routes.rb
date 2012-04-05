@@ -1,5 +1,7 @@
 Moving::Application.routes.draw do
 
+  resources :clients
+
   resources :storages
   resources :documents
   resource :account, :only => [:show, :update]

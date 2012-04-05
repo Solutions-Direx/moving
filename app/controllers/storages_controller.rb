@@ -79,12 +79,12 @@ class StoragesController < ApplicationController
     @storage.destroy
 
     respond_to do |format|
-      format.html { redirect_to storages_url }
+      format.html { redirect_to storages_url, notice: 'Storage was successfully deleted.' }
       format.json { head :no_content }
     end
   end
   
-  private
+private
   
   def sort_column
     Document.column_names.include?(params[:sort]) ? params[:sort] : "name"

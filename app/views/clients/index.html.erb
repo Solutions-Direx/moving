@@ -1,0 +1,31 @@
+<h1>Listing clients
+  <span class="submenu"><%= icon_button_link_to 'New client', new_client_path, icon: "plus", large: true, level: "primary", white: true %></span>
+</h1>
+
+<%= paginate @clients %>
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Phone1</th>
+    <th>Phone2</th>
+    <th>Address</th>
+    <th>Email</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @clients.each do |client| %>
+  <tr>
+    <td><%= link_to client.name, client %></td>
+    <td><%= client.phone1 %></td>
+    <td><%= client.phone2 %></td>
+    <td><%= address_for(client.address) %></td>
+    <td><%= mail_to client.email, client.email %></td>
+    <td><%= link_to 'Edit', edit_client_path(client) %></td>
+    <td><%= link_to 'Destroy', client, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate @clients %>

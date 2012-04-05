@@ -1,0 +1,23 @@
+<%= simple_form_for(@client) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :phone1 %>
+    <%= f.input :phone2 %>
+    <%= f.input :email %>
+    
+    <% @client.build_address unless @client.address %>
+      <%= f.fields_for :address do |fa| %>
+        <%= fa.input :address %>
+        <%= fa.input :city %>
+        <%= fa.input :province, :collection => Address::PROVINCE %>
+        <%= fa.input :postal_code %>
+        <%= fa.input :country, :collection => Address::COUNTRY %>
+      <% end %>
+  </div>
+  
+  <div class="form-actions">
+    <%= submit_or_cancel(f) %>
+  </div>
+<% end %>

@@ -1,9 +1,6 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @storage.name %>
-</p>
+<h2><%= @storage.name %>
+  <span class='submenu'><%= button_link_to 'Edit', edit_storage_path(@storage), level: "inverse", large: true %></span>
+</h2>
 
 <p>
   <b>Default:</b>
@@ -14,7 +11,3 @@
   <b>Address:</b>
   <%= address_for(@storage.address) %>
 </p>
-
-
-<%= link_to 'Edit', edit_storage_path(@storage) %> |
-<%= link_to 'Back', storages_path %>

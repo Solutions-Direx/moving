@@ -7,6 +7,7 @@ class Account < ActiveRecord::Base
   accepts_nested_attributes_for :address, :reject_if => :all_blank
   has_many :documents, :dependent => :destroy
   has_many :storages, :dependent => :destroy
+  has_many :clients, :dependent => :destroy
   
   # ATTRIBUTES
   attr_accessible :company_name, :logo, :logo_cache, :email, :phone, :website, :tax1_label, :tax1, :tax2_label, :tax2, :compound, :address_attributes
