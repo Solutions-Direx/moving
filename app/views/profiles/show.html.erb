@@ -1,0 +1,15 @@
+<h2>Edit profile</h2>
+
+<%= simple_form_for(@user, :url => profile_path, :html => { :method => :put }) do |f| %>
+  <%= f.error_notification %>
+  
+  <%= f.input :first_name %>
+  <%= f.input :last_name %>
+  <%= f.input :email %>
+  <%= f.input :password, hint: "(leave blank if you don't want to change it)" %>
+  <%= f.input :password_confirmation %>
+  
+  <div class="form-actions">
+    <%= submit_or_cancel(f, "Update profile") %>
+  </div>
+<% end %>
