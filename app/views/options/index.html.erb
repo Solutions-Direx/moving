@@ -1,0 +1,25 @@
+<h1>Listing options
+  <span class='submenu'><%= icon_button_link_to 'New option', new_option_path, icon: "plus", large: true, level: "primary", white: true %></span>
+</h1>
+
+<%= paginate @options %>
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Active</th>
+    <th>Price</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @options.each do |option| %>
+  <tr>
+    <td><%= link_to option.name, option %></td>
+    <td><%= option.active? ? 'Yes' : 'No' %></td>
+    <td><%= number_to_currency(option.price) %></td>
+    <td><%= link_to 'Edit', edit_option_path(option) %></td>
+    <td><%= link_to 'Destroy', option, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>

@@ -8,6 +8,7 @@ class Account < ActiveRecord::Base
   has_many :documents, :dependent => :destroy
   has_many :storages, :dependent => :destroy
   has_many :clients, :dependent => :destroy
+  has_many :options, :dependent => :destroy
   
   # ATTRIBUTES
   attr_accessible :company_name, :logo, :logo_cache, :email, :phone, :website, :tax1_label, :tax1, :tax2_label, :tax2, :compound, :address_attributes
