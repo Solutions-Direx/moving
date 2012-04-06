@@ -17,12 +17,12 @@
 
 <% @clients.each do |client| %>
   <tr>
-    <td><%= link_to client.name, client %></td>
+    <td><%= link_to client.name, client, remote: true %></td>
     <td><%= client.phone1 %></td>
     <td><%= client.phone2 %></td>
     <td><%= address_for(client.address) %></td>
     <td><%= mail_to client.email, client.email %></td>
-    <td><%= link_to 'Edit', edit_client_path(client) %></td>
+    <td><%= link_to 'Edit', edit_client_path(client), remote: true %></td>
     <td><%= link_to 'Destroy', client, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
