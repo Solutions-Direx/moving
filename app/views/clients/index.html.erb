@@ -1,5 +1,5 @@
 <h1>Listing clients
-  <span class="submenu"><%= icon_button_link_to 'New client', new_client_path, icon: "plus", large: true, level: "primary", white: true %></span>
+  <span class="submenu"><%= icon_button_link_to 'New client', new_client_path, icon: "plus", large: true, level: "primary", white: true, remote: true %></span>
 </h1>
 
 <%= paginate @clients %>
@@ -29,3 +29,14 @@
 </table>
 
 <%= paginate @clients %>
+
+<%= modal :id => "modal-form" do |builder| %>
+  <%= builder.header do %>New Client<% end %>
+  <%= builder.body do %>
+    <%= image_tag('loading.gif') %>
+  <% end %>
+  <%= builder.footer do %>
+    <a href="#" class="btn" id="close">Close</a>
+    <a href="#" class="btn btn-primary" id="submit-form">Save</a>
+  <% end %>
+<% end %>
