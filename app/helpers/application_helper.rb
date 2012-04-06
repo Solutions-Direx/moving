@@ -8,4 +8,18 @@ module ApplicationHelper
     end
   end
   
+  def time_options
+    minutes = ["00", "15", "30", "45"]
+    ampm = ["AM", "PM"]
+    options = []
+    ampm.each do |ap|
+      ([12] << (1..11).to_a).flatten.each do |hour|
+        minutes.each do |min|
+          options << "#{hour}:#{min} #{ap}"
+        end
+      end
+    end
+    options
+  end
+  
 end

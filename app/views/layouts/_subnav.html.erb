@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
   <div class="subnav">
     <ul class="nav nav-pills">
-      <li class="active"><%= link_to "Quotes" %></li>
+      <li class="active"><%= link_to "Quotes", quotes_path %></li>
       <li><%= link_to "Contracts" %></li>
       <li><%= link_to "Clients", clients_path %></li>
       <li><%= link_to "Invoices" %></li>

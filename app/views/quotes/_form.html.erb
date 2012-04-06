@@ -1,0 +1,43 @@
+<%= simple_form_for(@quote) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <div class="tabbable tabs-left">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#lA" data-toggle="tab">General</a></li>
+        <li class=""><a href="#lB" data-toggle="tab">Section 2</a></li>
+        <li class=""><a href="#lC" data-toggle="tab">Section 3</a></li>
+      </ul>
+      <div class="tab-content" style="width: auto;">
+        <div class="tab-pane active" id="lA">
+          <%= f.association :client, :input_html => {:class => "chzn", "data-placeholder" => "Select"} %>
+          <%= f.input :removal_at, :as => :datetime_picker %>
+          <%= f.input :is_house %>
+          <%= f.input :nb_appliance %>
+          <%= f.input :num_of_removal_man %>
+          <%= f.input :price %>
+          <%= f.input :gas %>
+          <%= f.input :transport_at, :as => :datetime_picker %>
+          <%= f.input :insurance %>
+          <%= f.input :rating %>
+        </div>
+        <div class="tab-pane" id="lB">
+          <p>Howdy, I'm in Section B.</p>
+        </div>
+        <div class="tab-pane" id="lC">
+          <p>What up girl, this is Section C.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= submit_or_cancel(f) %>
+  </div>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $(".chzn").chosen();
+  });
+</script>

@@ -1,0 +1,33 @@
+<h1>Listing quotes
+  <span class="submenu"><%= icon_button_link_to 'New quote', new_quote_path, icon: "plus", large: true, level: "primary", white: true %></span>
+</h1>
+
+<%= paginate @quotes %>
+
+<table class="table table-striped">
+  <tr>
+    <th>Client</th>
+    <th>Removal at</th>
+    <th>Date</th>
+    <th>Transport at</th>
+    <th>Creator</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @quotes.each do |quote| %>
+  <tr>
+    <td><%= quote.client.name %></td>
+    <td><%= l quote.removal_at, :format => :long %></td>
+    <td><%= l quote.date, :format => :long %></td>
+    <td><%= l quote.transport_at, :format => :long %></td>
+    <td><%= quote.creator.full_name %></td>
+    <td><%= link_to 'Show', quote %></td>
+    <td><%= link_to 'Edit', edit_quote_path(quote) %></td>
+    <td><%= link_to 'Destroy', quote, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate @quotes %>

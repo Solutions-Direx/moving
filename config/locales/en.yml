@@ -6,3 +6,7 @@ en:
     attributes:
       user:  
         login: "Username or email"
+  date:
+    js_format: "mm-dd-yyyy"
+    formats:
+      default: ! "%m-%d-%Y"

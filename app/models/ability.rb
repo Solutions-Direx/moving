@@ -11,12 +11,14 @@ class Ability
       can :manage, Storage
       can :manage, Client
       can :manage, Option
+      can :manage, Quote
     elsif user.removal_man?
       can :read, :dashboard
       can :read, Document
       can :read, Storage
       can :read, Client
       can :read, Option
+      can :read, Quote
     end
   end
 end

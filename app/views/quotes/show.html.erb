@@ -1,0 +1,70 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Account:</b>
+  <%= @quote.account_id %>
+</p>
+
+<p>
+  <b>Client:</b>
+  <%= @quote.client_id %>
+</p>
+
+<p>
+  <b>Removal at:</b>
+  <%= @quote.removal_at %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @quote.date %>
+</p>
+
+<p>
+  <b>Is house:</b>
+  <%= @quote.is_house %>
+</p>
+
+<p>
+  <b>Nb appliance:</b>
+  <%= @quote.nb_appliance %>
+</p>
+
+<p>
+  <b>Num of removal man:</b>
+  <%= @quote.num_of_removal_man %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @quote.price %>
+</p>
+
+<p>
+  <b>Gas:</b>
+  <%= @quote.gas %>
+</p>
+
+<p>
+  <b>Transport at:</b>
+  <%= @quote.transport_at %>
+</p>
+
+<p>
+  <b>Insurance:</b>
+  <%= @quote.insurance %>
+</p>
+
+<p>
+  <b>Rating:</b>
+  <%= @quote.rating %>
+</p>
+
+<p>
+  <b>Creator:</b>
+  <%= @quote.creator_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_quote_path(@quote) %> |
+<%= link_to 'Back', quotes_path %>

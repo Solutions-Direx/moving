@@ -1,5 +1,7 @@
 Moving::Application.routes.draw do
   
+  resources :quotes
+
   devise_for :users
 
   resources :options
