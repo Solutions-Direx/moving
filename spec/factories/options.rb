@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :option do
-    name "MyString"
+    sequence(:name) { |n| "Option#{n}" }
     active false
     price 1.5
-    account_id 1
+    account
   end
 end

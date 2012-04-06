@@ -1,4 +1,5 @@
 class ClientsController < ApplicationController
+  load_and_authorize_resource
   helper_method :sort_column
   
   # GET /clients

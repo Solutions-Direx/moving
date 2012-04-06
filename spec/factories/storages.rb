@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :storage do
-    sequence(:name) { |n| "user#{n}" }
+    sequence(:name) { |n| "storage#{n}" }
     default false
     account
   end

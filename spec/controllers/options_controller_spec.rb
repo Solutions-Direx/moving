@@ -19,146 +19,142 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe OptionsController do
-
-  # This should return the minimal set of attributes required to create a valid
-  # Option. As you add validations to Option, be sure to
-  # update the return value of this method accordingly.
-  def valid_attributes
-    {}
-  end
+  context "with manager logged in" do
+    let(:account) { FactoryGirl.create(:account) }
+    let(:manager) { FactoryGirl.create(:manager, :account => account) }
+    let(:option) { FactoryGirl.create(:option, :account => account) }
+    before(:each) { login(manager) }
+    
+    # This should return the minimal set of attributes required to create a valid
+    # Option. As you add validations to Option, be sure to
+    # update the return value of this method accordingly.
+    def valid_attributes
+      FactoryGirl.build(:option, :account => account).attributes.slice("name", "active", "price")
+    end
   
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # OptionsController. Be sure to keep this updated too.
-  def valid_session
-    {}
-  end
-
-  describe "GET index" do
-    it "assigns all options as @options" do
-      option = Option.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:options).should eq([option])
+    # This should return the minimal set of values that should be in the session
+    # in order to pass any filters (e.g. authentication) defined in
+    # OptionsController. Be sure to keep this updated too.
+    def valid_session
+      {}
     end
-  end
 
-  describe "GET show" do
-    it "assigns the requested option as @option" do
-      option = Option.create! valid_attributes
-      get :show, {:id => option.to_param}, valid_session
-      assigns(:option).should eq(option)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new option as @option" do
-      get :new, {}, valid_session
-      assigns(:option).should be_a_new(Option)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested option as @option" do
-      option = Option.create! valid_attributes
-      get :edit, {:id => option.to_param}, valid_session
-      assigns(:option).should eq(option)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Option" do
-        expect {
-          post :create, {:option => valid_attributes}, valid_session
-        }.to change(Option, :count).by(1)
-      end
-
-      it "assigns a newly created option as @option" do
-        post :create, {:option => valid_attributes}, valid_session
-        assigns(:option).should be_a(Option)
-        assigns(:option).should be_persisted
-      end
-
-      it "redirects to the created option" do
-        post :create, {:option => valid_attributes}, valid_session
-        response.should redirect_to(Option.last)
+    describe "GET index" do
+      it "assigns all options as @options" do
+        get :index, {}
+        assigns(:options).should eq([option])
       end
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved option as @option" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Option.any_instance.stub(:save).and_return(false)
-        post :create, {:option => {}}, valid_session
+    describe "GET show" do
+      it "assigns the requested option as @option" do
+        get :show, {:id => option.to_param}
+        assigns(:option).should eq(option)
+      end
+    end
+
+    describe "GET new" do
+      it "assigns a new option as @option" do
+        get :new, {}
         assigns(:option).should be_a_new(Option)
       end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Option.any_instance.stub(:save).and_return(false)
-        post :create, {:option => {}}, valid_session
-        response.should render_template("new")
-      end
     end
-  end
 
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested option" do
-        option = Option.create! valid_attributes
-        # Assuming there are no other options in the database, this
-        # specifies that the Option created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Option.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => option.to_param, :option => {'these' => 'params'}}, valid_session
-      end
-
+    describe "GET edit" do
       it "assigns the requested option as @option" do
-        option = Option.create! valid_attributes
-        put :update, {:id => option.to_param, :option => valid_attributes}, valid_session
+        get :edit, {:id => option.to_param}
         assigns(:option).should eq(option)
-      end
-
-      it "redirects to the option" do
-        option = Option.create! valid_attributes
-        put :update, {:id => option.to_param, :option => valid_attributes}, valid_session
-        response.should redirect_to(option)
       end
     end
 
-    describe "with invalid params" do
-      it "assigns the option as @option" do
-        option = Option.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Option.any_instance.stub(:save).and_return(false)
-        put :update, {:id => option.to_param, :option => {}}, valid_session
-        assigns(:option).should eq(option)
+    describe "POST create" do
+      describe "with valid params" do
+        it "creates a new Option" do
+          expect {
+            post :create, {:option => valid_attributes}
+          }.to change(Option, :count).by(1)
+        end
+
+        it "assigns a newly created option as @option" do
+          post :create, {:option => valid_attributes}
+          assigns(:option).should be_a(Option)
+          assigns(:option).should be_persisted
+        end
+
+        it "redirects to the created option" do
+          post :create, {:option => valid_attributes}
+          response.should redirect_to(options_url)
+        end
       end
 
-      it "re-renders the 'edit' template" do
-        option = Option.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Option.any_instance.stub(:save).and_return(false)
-        put :update, {:id => option.to_param, :option => {}}, valid_session
-        response.should render_template("edit")
+      describe "with invalid params" do
+        it "assigns a newly created but unsaved option as @option" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          Option.any_instance.stub(:save).and_return(false)
+          post :create, {:option => {}}
+          assigns(:option).should be_a_new(Option)
+        end
+
+        it "re-renders the 'new' template" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          Option.any_instance.stub(:save).and_return(false)
+          post :create, {:option => {}}
+          response.should render_template("new")
+        end
+      end
+    end
+
+    describe "PUT update" do
+      describe "with valid params" do
+        it "updates the requested option" do
+          # Assuming there are no other options in the database, this
+          # specifies that the Option created on the previous line
+          # receives the :update_attributes message with whatever params are
+          # submitted in the request.
+          Option.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+          put :update, {:id => option.to_param, :option => {'these' => 'params'}}
+        end
+
+        it "assigns the requested option as @option" do
+          put :update, {:id => option.to_param, :option => valid_attributes}
+          assigns(:option).should eq(option)
+        end
+
+        it "redirects to the option" do
+          put :update, {:id => option.to_param, :option => valid_attributes}
+          response.should redirect_to(options_url)
+        end
+      end
+
+      describe "with invalid params" do
+        it "assigns the option as @option" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          Option.any_instance.stub(:save).and_return(false)
+          put :update, {:id => option.to_param, :option => {}}
+          assigns(:option).should eq(option)
+        end
+
+        it "re-renders the 'edit' template" do
+          # Trigger the behavior that occurs when invalid params are submitted
+          Option.any_instance.stub(:save).and_return(false)
+          put :update, {:id => option.to_param, :option => {}}
+          response.should render_template("edit")
+        end
+      end
+    end
+
+    describe "DELETE destroy" do
+      it "destroys the requested option" do
+        option = account.options.create! valid_attributes
+        expect {
+          delete :destroy, {:id => option.to_param}
+        }.to change(Option, :count).by(-1)
+      end
+
+      it "redirects to the options list" do
+        delete :destroy, {:id => option.to_param}
+        response.should redirect_to(options_url)
       end
     end
   end
-
-  describe "DELETE destroy" do
-    it "destroys the requested option" do
-      option = Option.create! valid_attributes
-      expect {
-        delete :destroy, {:id => option.to_param}, valid_session
-      }.to change(Option, :count).by(-1)
-    end
-
-    it "redirects to the options list" do
-      option = Option.create! valid_attributes
-      delete :destroy, {:id => option.to_param}, valid_session
-      response.should redirect_to(options_url)
-    end
-  end
-
 end

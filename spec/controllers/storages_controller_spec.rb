@@ -83,7 +83,7 @@ describe StoragesController do
 
         it "redirects to the created storage" do
           post :create, {:storage => valid_attributes}
-          response.should redirect_to(Storage.last)
+          response.should redirect_to(storages_url)
         end
       end
 
@@ -122,7 +122,7 @@ describe StoragesController do
 
         it "redirects to the storage" do
           put :update, {:id => storage.to_param, :storage => valid_attributes}
-          response.should redirect_to(storage)
+          response.should redirect_to(storages_url)
         end
       end
 
@@ -145,7 +145,7 @@ describe StoragesController do
 
     describe "DELETE destroy" do
       it "destroys the requested storage" do
-        storage = Storage.create! valid_attributes
+        storage = account.storages.create! valid_attributes
         expect {
           delete :destroy, {:id => storage.to_param}
         }.to change(Storage, :count).by(-1)

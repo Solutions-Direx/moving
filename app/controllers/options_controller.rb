@@ -1,4 +1,7 @@
 class OptionsController < ApplicationController
+  load_and_authorize_resource
+  helper_method :sort_column
+  
   # GET /options
   # GET /options.json
   def index

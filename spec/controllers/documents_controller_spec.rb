@@ -29,7 +29,7 @@ describe DocumentsController do
     # Document. As you add validations to Document, be sure to
     # update the return value of this method accordingly.
     def valid_attributes
-      attrs = FactoryGirl.build(:document, :account => account).attributes.slice("name", "body")
+      FactoryGirl.build(:document, :account => account).attributes.slice("name", "body")
     end
   
     # This should return the minimal set of values that should be in the session
