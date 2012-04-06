@@ -8,7 +8,7 @@ Moving::Application.routes.draw do
   resources :documents
   resource :account, :only => [:show, :update]
   
-  devise_for :users 
+  devise_for :users, :controllers => { :registrations => "registrations" }
   resources :users
   root :to => 'dashboard#show'
 end
