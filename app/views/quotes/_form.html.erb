@@ -4,28 +4,55 @@
   <div class="form-inputs">
     <div class="tabbable tabs-left">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#lA" data-toggle="tab">General</a></li>
-        <li class=""><a href="#lB" data-toggle="tab">Section 2</a></li>
-        <li class=""><a href="#lC" data-toggle="tab">Section 3</a></li>
+        <li class="active"><a href="#lA" data-toggle="tab">Client</a></li>
+        <li class=""><a href="#lB" data-toggle="tab">Details</a></li>
+        <li class=""><a href="#lC" data-toggle="tab">Price</a></li>
       </ul>
       <div class="tab-content" style="width: auto;">
         <div class="tab-pane active" id="lA">
           <%= f.association :client, :input_html => {:class => "chzn", "data-placeholder" => "Select"} %>
+          <span class='floatr'><%= f.input :rating %> //update rating through ajax. Default 'A', click for 'B', click again for 'C'</span>
           <%= f.input :removal_at, :as => :datetime_picker %>
-          <%= f.input :is_house %>
-          <%= f.input :nb_appliance %>
-          <%= f.input :num_of_removal_man %>
-          <%= f.input :price %>
-          <%= f.input :gas %>
-          <%= f.input :transport_at, :as => :datetime_picker %>
-          <%= f.input :insurance %>
-          <%= f.input :rating %>
+          <%= f.input :is_house, :as => :radio_buttons, :options => [[true, 'House'] ,[false, 'Appartment']] %>
+          <p>// Add phone number #1 and #2</p>
+          <div class="span4 well">
+            <p>// From Address</p>
+            <p>// Populate with client address if any</p>
+            <p>// Autocomplete city from all addresses.city</p>
+          </div>
+          <div class="span4 well">
+            <p>// To Address</p>
+            <p>// 1 or 2 different addresses</p>
+            <p>// Enter address or select storage</p>
+          </div>
         </div>
         <div class="tab-pane" id="lB">
-          <p>Howdy, I'm in Section B.</p>
+          <p>// add room</p>
+          <p>// Build 4 by default Small, Medium, Large as radio_buttons</p>
+          <%= f.input :nb_appliance %>
+          <%= f.input :num_of_removal_man %>
+          <p>// Add comment</p>
         </div>
         <div class="tab-pane" id="lC">
-          <p>What up girl, this is Section C.</p>
+          <div class="control-group float optional">
+            <%= f.label :price %>
+            <div class="controls">
+              <div class='input-append'>
+                <%= f.text_field :price, :class => 'span2 input-append' %><span class="add-on">$</span>
+              </div>
+            </div>
+          </div>
+          <div class="control-group float optional">
+              <%= f.label :gas %>
+              <div class="controls">
+                <div class='input-append'>
+                  <%= f.text_field :gas, :class => 'span2 input-append' %><span class="add-on">$</span>
+                </div>
+              </div>
+            </div>
+          <%= f.input :transport_at, :as => :datetime_picker %>
+          <%= f.input :insurance %>
+          <p>// Add truck, token field from Harvest Chosen</p>
         </div>
       </div>
     </div>

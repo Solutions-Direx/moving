@@ -27,43 +27,43 @@
         <%= f.input :tax1_label %>
         <div class="control-group float optional">
           <%= f.label :tax1 %>
-            <div class="controls">
-              <div class='input-append'>
-                <%= f.text_field :tax1, :class => 'span1 input-append' %><span class="add-on">%</span>
-              </div>
+          <div class="controls">
+            <div class='input-append'>
+              <%= f.text_field :tax1, :class => 'span1 input-append' %><span class="add-on">%</span>
             </div>
           </div>
-          <%= f.input :tax2_label %>
-          <div class="control-group float optional">
-            <%= f.label :tax2 %>
-              <div class="controls">
-                <div class='input-append'>
-                  <%= f.text_field :tax2, :class => 'span1 input-append' %><span class="add-on">%</span>
-                </div>
-              </div>
-            </div>
-            <%= f.label :compound %>
-            <div class="controls">
-              <%= f.check_box :compound %>
-              <span class="help-inline">
-                <a href="#" rel="popover" data-content="Check if tax2 = (price + tax1) * tax2" data-original-title="Compound">
-                <i class="icon-info-sign"></i></a>
-              </span>
+        </div>
+        <%= f.input :tax2_label %>
+        <div class="control-group float optional">
+          <%= f.label :tax2 %>
+          <div class="controls">
+            <div class='input-append'>
+              <%= f.text_field :tax2, :class => 'span1 input-append' %><span class="add-on">%</span>
             </div>
           </div>
+        </div>
+        <%= f.label :compound %>
+        <div class="controls">
+          <%= f.check_box :compound %>
+          <span class="help-inline">
+            <a href="#" rel="popover" data-content="Check if tax2 = (price + tax1) * tax2" data-original-title="Compound">
+            <i class="icon-info-sign"></i></a>
+          </span>
+        </div>
+      </div>
           
-          <div class="tab-pane" id="3">
-            <%= f.fields_for :address do |fa| %>
-              <%= fa.input :address %>
-              <%= fa.input :city %>
-              <%= fa.input :province, :collection => Address::PROVINCE %>
-              <%= fa.input :postal_code %>
-              <%= fa.input :country, :collection => Address::COUNTRY %>
-            <% end %>
-          </div>
+        <div class="tab-pane" id="3">
+          <%= f.fields_for :address do |fa| %>
+            <%= fa.input :address %>
+            <%= fa.input :city %>
+            <%= fa.input :province, :collection => Address::PROVINCE %>
+            <%= fa.input :postal_code %>
+            <%= fa.input :country, :collection => Address::COUNTRY %>
+          <% end %>
         </div>
       </div>
     </div>
+  </div>
 
   <div class="form-actions">
     <%= submit_or_cancel(f) %>
