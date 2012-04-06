@@ -10,7 +10,7 @@
       <div class="nav-collapse">
         <ul class="nav pull-right">
           <% if user_signed_in? %>
-            <li><%= link_to current_user.full_name, '#' %></li>
+            <li><%= link_to current_user.full_name, profile_path %></li>
             
             <% if current_user.manager? %>
                 <li class='dropdown'>

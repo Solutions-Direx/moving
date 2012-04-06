@@ -31,7 +31,7 @@
 <%= paginate @clients %>
 
 <%= modal :id => "modal-form" do |builder| %>
-  <%= builder.header do %>New Client<% end %>
+  <%= builder.header do %><span class="title">New Client</span><% end %>
   <%= builder.body do %>
     <%= image_tag('loading.gif') %>
   <% end %>
