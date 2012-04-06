@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(:version => 20120405234314) do
     t.integer  "account_id"
     t.string   "role"
     t.boolean  "account_owner",          :default => false
+    t.string   "locale",                 :default => "fr"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
