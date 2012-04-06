@@ -1,0 +1,5 @@
+<% if @client.errors.blank? %>
+  window.location.reload();
+<% else %>
+  $('.modal-body').html('<%= j(render 'form', ajax: true) %>');
+<% end %>
