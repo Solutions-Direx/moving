@@ -1,0 +1,31 @@
+<h1>Listing supplies
+  <span class='submenu'><%= icon_button_link_to 'New Supply', new_supply_path, icon: "plus", level: "inverse", large: true, white: true %></span>
+</h1>
+
+<%= paginate @supplies %>
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Active</th>
+    <th>Price</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @supplies.each do |supply| %>
+  <tr>
+    <td><%= link_to supply.name, supply %></td>
+    <td><% if supply.active? %>
+        <%= content_tag(:span, 'Active', :class => 'label label-success') %>
+      <% else %>
+        <%= content_tag(:span, 'Inactive', :class => 'label label-warning') %>
+      <% end %></td>
+    <td><%= number_to_currency(supply.price) %></td>
+    <td><%= link_to 'Edit', edit_supply_path(supply) %></td>
+    <td><%= link_to 'Destroy', supply, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate @supplies %>

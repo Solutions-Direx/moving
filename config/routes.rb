@@ -1,10 +1,8 @@
 Moving::Application.routes.draw do
   
+  resources :supplies
   resources :quotes
-
   devise_for :users
-
-  resources :options
   resources :clients
   resources :storages
   resources :documents

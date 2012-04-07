@@ -1,11 +1,11 @@
-<%= simple_form_for(@option) do |f| %>
+<%= simple_form_for(@supply) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :active %>
     <div class="control-group float optional">
-      <%= f.label :price %>
+        <%= f.label :price %>
         <div class="controls">
           <div class='input-append'>
             <%= f.text_field :price, :class => 'span1 input-append' %><span class="add-on">$</span>

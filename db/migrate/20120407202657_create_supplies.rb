@@ -1,6 +1,6 @@
-class CreateOptions < ActiveRecord::Migration
+class CreateSupplies < ActiveRecord::Migration
   def change
-    create_table :options do |t|
+    create_table :supplies do |t|
       t.string :name
       t.boolean :active, :default => true
       t.float :price

@@ -1,0 +1,13 @@
+<h2><%= @supply.name %>
+  <% if @supply.active? %>
+    <%= content_tag(:span, 'Active', :class => 'label label-success') %>
+  <% else %>
+    <%= content_tag(:span, 'Inactive', :class => 'label label-warning') %>
+  <% end %>
+  <span class='submenu'><%= button_link_to 'Edit', edit_supply_path(@supply), level: "inverse", large: true %></span><br/>
+</h2>
+
+<p>
+  <b>Price:</b>
+  <%= number_to_currency(@supply.price) %>
+</p>

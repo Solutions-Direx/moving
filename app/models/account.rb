@@ -8,7 +8,7 @@ class Account < ActiveRecord::Base
   has_many :documents, :dependent => :destroy
   has_many :storages, :dependent => :destroy
   has_many :clients, :dependent => :destroy
-  has_many :options, :dependent => :destroy
+  has_many :supplies, :dependent => :destroy
   has_many :quotes, :dependent => :destroy
   
   # ATTRIBUTES

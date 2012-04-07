@@ -10,7 +10,7 @@ class Ability
       can :manage, Document
       can :manage, Storage
       can :manage, Client
-      can :manage, Option
+      can :manage, Supply
       can :manage, Quote
     elsif user.removal_man?
       can :read, :dashboard
