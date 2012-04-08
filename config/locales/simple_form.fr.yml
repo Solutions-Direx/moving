@@ -1,4 +1,4 @@
-en:
+fr:
   simple_form:
     "oui": 'Oui'
     "non": 'Non'
@@ -21,4 +21,20 @@ en:
     # hints:
     #   username: 'User name to sign in.'
     #   password: 'No special characters, please.'
+    labels:
+      defaults:
+        username: "Nom d'utilisateur"
+        password: "Mot de passe"
+        password_confirmation: "Confirmer votre mot de passe"
+        first_name: "Prénom"
+        last_name: "Nom de famille"
+    hints:
+      defaults:
+      user:
+        password: "(Laisser vide si vous ne souhaitez pas le modifier)"
+    helpers:
+      submit:
+        profile:
+          create: "Créer %{model}"
+          update: "Mettre à jour"
 

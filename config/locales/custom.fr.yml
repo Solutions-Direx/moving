@@ -1,2 +1,4 @@
 fr:
-  hello_world: 'Bonjour'
+  profiles:
+    show:
+      title: 'Modifier votre profil'
