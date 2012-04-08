@@ -20,7 +20,7 @@ class ClientsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @client }
+      format.json { render json: @client.to_json(:include => :address) }
       format.js
     end
   end
@@ -86,6 +86,13 @@ class ClientsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to clients_url }
       format.json { head :no_content }
+    end
+  end
+  
+  def cities
+    @addresses = Address.order("city").where(addressable_type: "Client").where("lower(city) like ?", "%#{params[:term].downcase}%")
+    respond_to do |format|
+      format.json { render json: @addresses.map{|a| {label: a.city, value: a.city}}}
     end
   end
 

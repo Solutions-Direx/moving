@@ -6,4 +6,6 @@ class Storage < ActiveRecord::Base
   attr_accessible :account_id, :default, :name, :address_attributes
   
   validates :name, :presence => true, :uniqueness => true
+  
+  default_scope :order => "name"
 end

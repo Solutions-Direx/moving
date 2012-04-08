@@ -1,4 +1,4 @@
-<%= simple_form_for(@quote) do |f| %>
+<%= simple_nested_form_for(@quote, :html => {:id => "quote-form"}) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -11,27 +11,43 @@
       <div class="tab-content" style="width: auto;">
         <div class="tab-pane active" id="lA">
           <%= f.association :client, :input_html => {:class => "chzn", "data-placeholder" => "Select"} %>
-          <span class='floatr'><%= f.input :rating %> //update rating through ajax. Default 'A', click for 'B', click again for 'C'</span>
+          <div class="control-group">
+            <label class="control-label"> Rating</label>
+            <div class="controls">
+              <%= f.hidden_field :rating %>
+              <%= button_link_to f.object.rating, 'A', large: true, level: "primary" %>
+            </div>
+          </div>
           <%= f.input :removal_at, :as => :datetime_picker %>
-          <%= f.input :is_house, :as => :radio_buttons, :options => [[true, 'House'] ,[false, 'Appartment']] %>
-          <p>// Add phone number #1 and #2</p>
+          <%= f.input :is_house, :label => false, :as => :radio_buttons, :collection => [['House', true],['Apartment', false]], :item_wrapper_class => "inline" %>
+          <%= f.input :phone1 %>
+          <%= f.input :phone2 %>
           <div class="span4 well">
-            <p>// From Address</p>
-            <p>// Populate with client address if any</p>
-            <p>// Autocomplete city from all addresses.city</p>
+            <h4>From</h4>
+            <%= f.fields_for :from_address do |fa| %>
+              <%= fa.input :address %>
+              <%= fa.input :city, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
+              <%= fa.input :province, :collection => Address::PROVINCE %>
+              <%= fa.input :postal_code %>
+              <%= fa.input :country, :collection => Address::COUNTRY %>
+            <% end %>
           </div>
           <div class="span4 well">
+            <h4>To</h4>
+            <!-- add storage button -->
+            <h6>Storages</h6>
+            <h6>Addresses</h6>
             <p>// To Address</p>
             <p>// 1 or 2 different addresses</p>
             <p>// Enter address or select storage</p>
           </div>
         </div>
         <div class="tab-pane" id="lB">
-          <p>// add room</p>
-          <p>// Build 4 by default Small, Medium, Large as radio_buttons</p>
+          <%= f.fields_for :rooms %>
+          <p><%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + " Add Room", :rooms, :class => "btn btn-primary" %></p>
           <%= f.input :nb_appliance %>
           <%= f.input :num_of_removal_man %>
-          <p>// Add comment</p>
+          <%= f.input :comment, :input_html => { :rows => 10, :class => "span4" } %>
         </div>
         <div class="tab-pane" id="lC">
           <div class="control-group float optional">
@@ -50,9 +66,9 @@
                 </div>
               </div>
             </div>
-          <%= f.input :transport_at, :as => :datetime_picker %>
+          <%= f.input :transport_time %>
           <%= f.input :insurance %>
-          <p>// Add truck, token field from Harvest Chosen</p>
+          <%= f.association :trucks, :collection => Truck.all.map{|s| [s.name_with_plate, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to search or click here to select trucks", :multiple => true, :style => "width: 400px;"} %>
         </div>
       </div>
     </div>
@@ -65,6 +81,6 @@
 
 <script type="text/javascript" charset="utf-8">
   $(function() {
-    $(".chzn").chosen();
+    Quote.Form.init();
   });
 </script>

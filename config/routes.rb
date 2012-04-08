@@ -1,9 +1,12 @@
 Moving::Application.routes.draw do
   
   resources :supplies
+  resources :trucks
   resources :quotes
   devise_for :users
-  resources :clients
+  resources :clients do
+    get 'cities', :on => :collection
+  end
   resources :storages
   resources :documents
   resource :account, :only => [:show, :update]

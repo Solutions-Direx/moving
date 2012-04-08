@@ -64,18 +64,18 @@ ActiveRecord::Schema.define(:version => 20120407202657) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "options", :force => true do |t|
-    t.string   "name"
-    t.boolean  "active",     :default => true
-    t.float    "price"
-    t.integer  "account_id"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+  create_table "quote_trucks", :force => true do |t|
+    t.integer  "quote_id"
+    t.integer  "truck_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "quotes", :force => true do |t|
     t.integer  "account_id"
     t.integer  "client_id"
+    t.string   "phone1"
+    t.string   "phone2"
     t.datetime "removal_at"
     t.datetime "date"
     t.boolean  "is_house"
@@ -83,12 +83,22 @@ ActiveRecord::Schema.define(:version => 20120407202657) do
     t.integer  "num_of_removal_man"
     t.float    "price"
     t.float    "gas"
-    t.datetime "transport_at"
+    t.string   "transport_time"
     t.boolean  "insurance"
     t.integer  "rating"
     t.integer  "creator_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.string   "status",             :default => "Pending"
+    t.text     "comment"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
+
+  create_table "rooms", :force => true do |t|
+    t.integer  "quote_id"
+    t.string   "size"
+    t.text     "comment"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "storages", :force => true do |t|
@@ -106,6 +116,14 @@ ActiveRecord::Schema.define(:version => 20120407202657) do
     t.integer  "account_id"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+  end
+
+  create_table "trucks", :force => true do |t|
+    t.string   "name"
+    t.string   "plate"
+    t.integer  "account_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -128,7 +146,7 @@ ActiveRecord::Schema.define(:version => 20120407202657) do
     t.integer  "account_id"
     t.string   "role"
     t.boolean  "account_owner",          :default => false
-    t.string   "locale",                 :default => "fr"
+    t.string   "localization",           :default => "fr"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -28,6 +28,8 @@ class QuotesController < ApplicationController
   # GET /quotes/new.json
   def new
     @quote = Quote.new
+    4.times { @quote.rooms.build }
+    @quote.build_from_address
 
     respond_to do |format|
       format.html # new.html.erb

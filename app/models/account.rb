@@ -10,6 +10,7 @@ class Account < ActiveRecord::Base
   has_many :clients, :dependent => :destroy
   has_many :supplies, :dependent => :destroy
   has_many :quotes, :dependent => :destroy
+  has_many :trucks, :dependent => :destroy
   
   # ATTRIBUTES
   attr_accessible :company_name, :logo, :logo_cache, :email, :phone, :website, :tax1_label, :tax1, :tax2_label, :tax2, :compound, :address_attributes

@@ -9,8 +9,8 @@
     <th>Client</th>
     <th>Removal at</th>
     <th>Date</th>
-    <th>Transport at</th>
     <th>Creator</th>
+    <th>Status</th>
     <th></th>
     <th></th>
     <th></th>
@@ -21,8 +21,8 @@
     <td><%= quote.client.name %></td>
     <td><%= l quote.removal_at, :format => :long %></td>
     <td><%= l quote.date, :format => :long %></td>
-    <td><%= l quote.transport_at, :format => :long %></td>
     <td><%= quote.creator.full_name %></td>
+    <td><%= status_tag(quote.status) %></td>
     <td><%= link_to 'Show', quote %></td>
     <td><%= link_to 'Edit', edit_quote_path(quote) %></td>
     <td><%= link_to 'Destroy', quote, confirm: 'Are you sure?', method: :delete %></td>

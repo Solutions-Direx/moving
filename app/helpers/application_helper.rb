@@ -22,4 +22,9 @@ module ApplicationHelper
     options
   end
   
+  def current_child_index(f, zero_based = true)
+    index = f.object_name.gsub(/[^0-9]+/,'').to_i
+    index += 1 unless zero_based
+  end
+  
 end

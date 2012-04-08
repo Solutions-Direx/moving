@@ -2,6 +2,16 @@
 
 module BootstrapHelper
   
+  def status_tag(status, options = {})
+    klass = ["label"]
+    if options.has_key?(:level)
+      klass << "label-#{options.delete(:level).to_s}"
+    end
+    klass << options[:class].strip.split(/\+/) unless options[:class].blank?
+    options[:class] = klass.flatten.join(" ")
+    content_tag(:span, status, options)
+  end
+  
   def address_for(address)
     content_tag(:address) do
       safe_concat(address.address + tag(:br) + 
