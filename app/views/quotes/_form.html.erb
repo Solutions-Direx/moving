@@ -44,17 +44,54 @@
         </div>
         <div class="tab-pane" id="lB">
           <%= f.fields_for :rooms %>
-          <p><%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + " Add Room", :rooms, :class => "btn btn-primary" %></p>
-          <%= f.input :nb_appliance %>
-          <%= f.input :num_of_removal_man %>
-          <%= f.input :comment, :input_html => { :rows => 10, :class => "span4" } %>
+          <p><%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + " Add Room", :rooms, :class => "btn btn-primary" %></p><br/>
+          <!%= render 'furniture_fields' %>
+          <% @quote.build_furniture unless @quote.furniture %>
+            <%= f.fields_for :furniture do |ff| %>
+              <%= ff.input :num_appliances %>
+              <div class="control-group float optional">
+                <%= f.label "Kitchen", :style => 'font-weight: bold;' %>
+                <div class="controls">
+                  <p><%= 'Table ' %><%= ff.number_field :kitchen_table, :class => 'span1' %>
+                  <%= 'Chairs ' %><%= ff.number_field :kitchen_chair, :class => 'span1' %>
+                  <%= 'Buffets ' %><%= ff.number_field :kitchen_buffet, :class => 'span1' %></p><br/>
+                </div>
+                <%= f.label "Living room", :style => 'font-weight: bold;' %>
+                <div class="controls">
+                  <p><%= 'Divan 3pl ' %><%= ff.number_field :living_couch_3pl, :class => 'span1' %>
+                  <%= 'Divan 2pl ' %><%= ff.number_field :living_couch_2pl, :class => 'span1' %>
+                  <%= 'Fauteuil ' %><%= ff.number_field :living_armchair, :class => 'span1' %></p>
+                  <p><%= 'Table de salon ' %><%= ff.number_field :living_table, :class => 'span1' %>
+                  <%= 'Unité murale ' %><%= ff.number_field :living_wall_unit, :class => 'span1' %>
+                  <%= 'TV ' %><%= ff.number_field :living_tv, :class => 'span1' %></p>
+                  <p><%= 'Autres ' %><%= ff.text_field :living_other, :class => 'comment_one_liner', :style => 'width:350px;' %></p><br/>
+                </div>
+              
+                <%= f.label "Basement", :style => 'font-weight: bold;' %>
+                <div class="controls">
+                  <p><%= 'Salon ' %><%= ff.number_field :base_salon, :class => 'span1' %>
+                  <%= 'Étagères ' %><%= ff.number_field :base_shelf, :class => 'span1' %>
+                  <%= 'Bureau ' %><%= ff.number_field :base_desk, :class => 'span1' %></p>
+                  <p><%= 'Autres ' %><%= ff.text_field :base_other, :class => 'comment_one_liner', :style => 'width:350px;' %></p><br/>
+                </div>
+                <%= f.label "Extérieur", :style => 'font-weight: bold;' %>
+                <div class="controls">
+                  <p><%= 'Pneus ' %><%= ff.number_field :outside_tire, :class => 'span1' %>
+                  <%= 'Tondeuse ' %><%= ff.number_field :outside_lawn_mower, :class => 'span1' %>
+                  <%= 'Vélo ' %><%= ff.number_field :outside_bike, :class => 'span1' %></p>
+                  <p><%= 'Table ' %><%= ff.number_field :outside_table, :class => 'span1' %>
+                  <%= 'BBQ ' %><%= ff.number_field :outside_bbq, :class => 'span1' %></p>
+                  <p><%= 'Autres ' %><%= ff.text_field :outside_other, :class => 'comment_one_liner', :style => 'width:350px;' %></p>
+                </div>
+              </div>
+            <% end %>
         </div>
         <div class="tab-pane" id="lC">
           <div class="control-group float optional">
             <%= f.label :price %>
             <div class="controls">
               <div class='input-append'>
-                <%= f.text_field :price, :class => 'span2 input-append' %><span class="add-on">$</span>
+                <%= f.text_field :price, :class => 'span1 input-append' %><span class="add-on">$</span>
               </div>
             </div>
           </div>
@@ -62,13 +99,16 @@
               <%= f.label :gas %>
               <div class="controls">
                 <div class='input-append'>
-                  <%= f.text_field :gas, :class => 'span2 input-append' %><span class="add-on">$</span>
+                  <%= f.text_field :gas, :class => 'span1 input-append' %><span class="add-on">$</span>
                 </div>
               </div>
             </div>
+          <%= f.input :num_of_removal_man, :class => 'span1' %>
           <%= f.input :transport_time %>
           <%= f.input :insurance %>
+          <%= f.input :materiel, :class => 'span1' %>
           <%= f.association :trucks, :collection => Truck.all.map{|s| [s.name_with_plate, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to search or click here to select trucks", :multiple => true, :style => "width: 400px;"} %>
+          <%= f.input :comment, :input_html => { :rows => 10, :class => "span4" } %>
         </div>
       </div>
     </div>

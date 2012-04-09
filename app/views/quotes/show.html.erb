@@ -1,63 +1,29 @@
-<p>
-  <b>Client:</b>
-  <%= @quote.client_id %>
-</p>
+<h2><%= @quote.client.name %> <%= content_tag(:span, @quote.rating, :class => "badge badge-#{@quote.rating.downcase}") %>
+  <span class='submenu'>
+    <%= button_link_to 'Edit', edit_quote_path(@quote), level: "inverse", large: true %>
+    <%= button_link_to 'Confirm', edit_quote_path(@quote), level: "success", large: true %>
+  </span>
+</h2>
 
 <p>
   <b>Removal at:</b>
-  <%= @quote.removal_at %>
+  <%= l @quote.removal_at, :format => :long %> || <%= @quote.is_house? ? 'Maison' : 'Appartement' %>
 </p>
 
-<p>
-  <b>Date:</b>
-  <%= @quote.date %>
-</p>
-
-<p>
-  <b>Is house:</b>
-  <%= @quote.is_house %>
-</p>
-
-<p>
-  <b>Nb appliance:</b>
-  <%= @quote.nb_appliance %>
-</p>
-
-<p>
-  <b>Num of removal man:</b>
-  <%= @quote.num_of_removal_man %>
-</p>
-
-<p>
-  <b>Price:</b>
-  <%= @quote.price %>
-</p>
-
-<p>
-  <b>Gas:</b>
-  <%= @quote.gas %>
-</p>
-
-<p>
-  <b>Transport time:</b>
-  <%= @quote.transport_time %>
-</p>
-
-<p>
-  <b>Insurance:</b>
-  <%= @quote.insurance %>
-</p>
-
-<p>
-  <b>Rating:</b>
-  <%= @quote.rating %>
-</p>
-
-<p>
-  <b>Creator:</b>
-  <%= @quote.creator_id %>
-</p>
+<div class="span6 well col2" style="margin-left:0;">
+  <h3>From</h3>
+  <address><%= address_for(@quote.from_address) %></address>
+</div>
+<div class="span6 well col2" style="margin-left:30px;">
+  <h3>To</h3>
+  <% @quote.to_addresses.each do |to_address| %>
+    <address><%= address_for(to_address) %></address>
+  <% end %>
+</div>
 
 
-<%= link_to 'Edit', edit_quote_path(@quote) %> |
-<%= link_to 'Back', quotes_path %>
+<%= section %>
+<%= render 'rooms' %>
+
+<%= section %>
+<%= render 'price' %>

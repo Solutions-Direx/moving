@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120407202657) do
+ActiveRecord::Schema.define(:version => 20120409185740) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company_name"
@@ -64,6 +64,34 @@ ActiveRecord::Schema.define(:version => 20120407202657) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "furnitures", :force => true do |t|
+    t.integer  "num_appliances"
+    t.integer  "kitchen_table"
+    t.integer  "kitchen_chair"
+    t.integer  "kitchen_buffet"
+    t.integer  "living_couch_3pl"
+    t.integer  "living_couch_2pl"
+    t.integer  "living_armchair"
+    t.integer  "living_table"
+    t.integer  "living_wall_unit"
+    t.integer  "living_tv"
+    t.string   "living_other"
+    t.integer  "base_salon"
+    t.integer  "base_shelf"
+    t.integer  "base_desk"
+    t.integer  "base_training"
+    t.string   "base_other"
+    t.integer  "outside_tire"
+    t.integer  "outside_lawn_mower"
+    t.integer  "outside_bike"
+    t.integer  "outside_table"
+    t.integer  "outside_bbq"
+    t.string   "outside_other"
+    t.integer  "quote_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
   create_table "quote_trucks", :force => true do |t|
     t.integer  "quote_id"
     t.integer  "truck_id"
@@ -79,7 +107,7 @@ ActiveRecord::Schema.define(:version => 20120407202657) do
     t.datetime "removal_at"
     t.datetime "date"
     t.boolean  "is_house"
-    t.integer  "nb_appliance"
+    t.boolean  "materiel"
     t.integer  "num_of_removal_man"
     t.float    "price"
     t.float    "gas"

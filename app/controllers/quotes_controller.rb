@@ -88,7 +88,7 @@ class QuotesController < ApplicationController
     end
   end
   
-  private
+private
   
   def sort_column
     Quote.column_names.include?(params[:sort]) ? params[:sort] : "date"

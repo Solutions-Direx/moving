@@ -8,13 +8,13 @@ class CreateQuotes < ActiveRecord::Migration
       t.datetime :removal_at
       t.datetime :date
       t.boolean :is_house
-      t.integer :nb_appliance
+      t.boolean :materiel
       t.integer :num_of_removal_man
       t.float :price
       t.float :gas
       t.string :transport_time
       t.boolean :insurance
-      t.integer :rating
+      t.string :rating
       t.integer :creator_id
       t.string :status, :default => "Pending"
       t.text :comment

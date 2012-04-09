@@ -1,0 +1,50 @@
+<% @quote.rooms.each_with_index do |room| %>
+  <p><%= "Room ##{}:" %> <%= room.size %> <%= room.comment %></p>
+<% end %>
+
+
+<p>Nombre d'électroménager: <%= @quote.furniture.num_appliances %></p>
+<div class="span6 well col2">
+  <h3>Cuisine</h3>
+  <ul>
+    <%= content_tag(:li, pluralize(@quote.furniture.kitchen_table, 'buffet')) if @quote.furniture.kitchen_table.present? %>
+    <%= content_tag(:li, pluralize(@quote.furniture.kitchen_chair, 'buffet')) if @quote.furniture.kitchen_chair.present? %>
+    <%= content_tag(:li, pluralize(@quote.furniture.kitchen_buffet, 'buffet')) if @quote.furniture.kitchen_buffet.present? %>
+  </ul>
+</div>
+
+<div class="span6 well col2">
+  <h3>Salon</h3>
+  <ul>
+    <%= content_tag(:li, pluralize(@quote.furniture.living_couch_3pl, 'divan') + ' 3pl') if @quote.furniture.living_couch_3pl.present? %>
+    <%= content_tag(:li, pluralize(@quote.furniture.living_couch_2pl, 'divan') + ' 2pl') if @quote.furniture.living_couch_2pl.present? %>
+    <%= content_tag(:li, pluralize(@quote.furniture.living_table, 'table')) if @quote.furniture.living_table.present? %>
+    <%= content_tag(:li, pluralize(@quote.furniture.living_armchair, 'fauteuil')) if @quote.furniture.living_armchair.present? %>
+    <%= content_tag(:li, pluralize(@quote.furniture.living_wall_unit, 'unité murale')) if @quote.furniture.living_wall_unit.present? %>
+    <%= content_tag(:li, pluralize(@quote.furniture.living_tv, 'TV')) if @quote.furniture.living_tv.present? %>
+    <%= content_tag(:li, @quote.furniture.living_other) if @quote.furniture.living_other.present? %>
+  </ul>    
+</div>
+
+<div class="span6 well col2">
+  <h3>Sous-sol</h3>
+  <ul>
+    <%= content_tag(:li, pluralize(@quote.furniture.base_salon, 'set') + ' de salon') if @quote.furniture.base_salon.present? %>
+    <%= content_tag(:li, pluralize(@quote.furniture.base_shelf, 'étagère')) if @quote.furniture.base_shelf.present? %>
+    <%= content_tag(:li, pluralize(@quote.furniture.base_desk, 'bureau')) if @quote.furniture.base_desk.present? %>
+    <%= content_tag(:li, pluralize(@quote.furniture.base_training, 'set') + " d'entrainement") if @quote.furniture.base_training.present? %>
+    <%= content_tag(:li, @quote.furniture.base_other) if @quote.furniture.base_other.present? %>
+  </ul>
+</div>
+
+<div class="span6 well col2">
+  <h3>Extérieur</h3>
+  <ul>
+    <%= content_tag(:li, pluralize(@quote.furniture.outside_tire, 'tire')) if @quote.furniture.outside_tire.present? %>
+    <%= content_tag(:li, pluralize(@quote.furniture.outside_lawn_mower, 'tondeuse')) if @quote.furniture.outside_lawn_mower.present? %>
+    <%= content_tag(:li, pluralize(@quote.furniture.outside_bike, 'vélo')) if @quote.furniture.outside_bike.present? %>
+    <%= content_tag(:li, pluralize(@quote.furniture.outside_table, 'table') + ' patio') if @quote.furniture.outside_table.present? %>
+    <%= content_tag(:li, pluralize(@quote.furniture.outside_bbq, 'BBQ')) if @quote.furniture.outside_bbq.present? %>
+    <%= content_tag(:li, @quote.furniture.outside_other) if @quote.furniture.outside_other.present? %>
+  </ul>
+</div>

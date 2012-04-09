@@ -1,0 +1,34 @@
+<p>
+  <b>Nombre de déménageurs:</b>
+  <%= @quote.num_of_removal_man %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= number_to_currency(@quote.price) %>
+</p>
+
+<p>
+  <b>Gas:</b>
+  <%= number_to_currency(@quote.gas) %>
+</p>
+
+<p>
+  <b>Transport time:</b>
+  <%= @quote.transport_time %>
+</p>
+
+<p>
+  <b>Insurance:</b>
+  <%= @quote.insurance? ? 'Included' : 'Not included' %>
+</p>
+
+<p>
+  <b>Matériel:</b>
+  <%= @quote.materiel? ? 'Included' : 'Not included' %>
+</p>
+
+<p>
+  <b>Creé par:</b>
+  <%= @quote.creator.full_name %>
+</p>

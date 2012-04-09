@@ -27,4 +27,8 @@ module ApplicationHelper
     index += 1 unless zero_based
   end
   
+  def section
+    content_tag(:div, "", :class => 'section')
+  end
+  
 end

@@ -1,5 +1,6 @@
 fr:
   date:
+    js_format: "dd-mm-yyyy"
     abbr_day_names:
     - dim
     - lun

@@ -5,6 +5,8 @@ class Quote < ActiveRecord::Base
   belongs_to :creator, :class_name => "User", :foreign_key => "creator_id"
   has_many :rooms, :dependent => :destroy
   accepts_nested_attributes_for :rooms, :reject_if => proc {|room| room.size.blank?}
+  has_one :furniture, :dependent => :destroy
+  accepts_nested_attributes_for :furniture
   
   has_many :quote_trucks, :dependent => :destroy
   has_many :trucks, :through => :quote_trucks
@@ -16,8 +18,8 @@ class Quote < ActiveRecord::Base
   accepts_nested_attributes_for :to_addresses, :reject_if => :all_blank
   
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, 
-                  :nb_appliance, :num_of_removal_man, :price, :rating, :removal_at, 
-                  :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2
+                  :materiel, :num_of_removal_man, :price, :rating, :removal_at, 
+                  :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, :furniture_attributes
   
   validates_presence_of :account, :creator, :client
 end
