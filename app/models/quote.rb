@@ -1,4 +1,5 @@
 class Quote < ActiveRecord::Base
+  STATUSES = %w{ Pending Confirmed }
   
   belongs_to :account
   belongs_to :client
@@ -22,4 +23,20 @@ class Quote < ActiveRecord::Base
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, :furniture_attributes
   
   validates_presence_of :account, :creator, :client
+  before_create :generate_code
+  
+  STATUSES.each do |method|
+   define_method "#{method.downcase}?" do
+      self.status == method
+   end
+  end
+  
+  def confirm
+    
+  end
+  
+private
+  def generate_code
+    self.code = Devise.friendly_token.downcase
+  end
 end

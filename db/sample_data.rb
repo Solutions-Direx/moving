@@ -67,9 +67,22 @@ puts "Generated 5 sample storages."
   print '.'
   count = x + 1
   client = Client.find(count)
-  quote = account.quotes.build(client_id: client.id, creator_id: User.first.id, removal_at: Time.now + 10.days, date: Time.now)
+  quote = account.quotes.build(client_id: client.id, 
+                               creator_id: User.first.id, 
+                               removal_at: Time.now + [5,10,15,20].sample.days, 
+                               date: Time.now,
+                               phone1: client.phone1,
+                               phone2: client.phone2,
+                               nb_appliance: (1..10).to_a.sample,
+                               num_of_removal_man: (2..5).to_a.sample,
+                               price: (100..500).to_a.sample,
+                               gas: (30..100).to_a.sample)
+  # room
   quote.rooms.build(size: Room::SIZES.sample)
+  # from address
   quote.build_from_address(client.address.attributes.slice("address", "city", "province", "postal_code", "country"))
+  # truck
+  quote.trucks = [Truck.all.sample]
   quote.save!
 end
 print "\n"

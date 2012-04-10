@@ -58,7 +58,10 @@ module BootstrapHelper
   end
   
   def modal(options = {})
-    content_tag(:div, options.merge(:class => "modal")) do
+    klass = ["modal"]
+    klass << options[:class].strip.split(/\+/) unless options[:class].blank?
+    options[:class] = klass.flatten.join(" ")
+    content_tag(:div, options) do
       yield BootstrapModalBuilder.new(self)
     end
   end

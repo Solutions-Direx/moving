@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20120409185740) do
   end
 
   create_table "quotes", :force => true do |t|
+    t.string   "code"
     t.integer  "account_id"
     t.integer  "client_id"
     t.string   "phone1"
