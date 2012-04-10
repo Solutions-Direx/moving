@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :authenticate_user!
   before_filter :set_locale
+  before_filter :set_ajax
   helper_method :current_account, :sort_direction
   
   rescue_from CanCan::AccessDenied do |exception|
@@ -24,4 +25,7 @@ private
     end
   end
   
+  def set_ajax
+    @ajax = request.xhr?
+  end
 end

@@ -1,5 +1,4 @@
-<% ajax = true if local_assigns[:ajax] %>
-<%= simple_form_for(@client, remote: ajax) do |f| %>
+<%= simple_form_for(@client, html: {class: @ajax ? 'ajax' : ''}) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -18,9 +17,7 @@
       <% end %>
   </div>
   
-  <% unless ajax %>
-  <div class="form-actions">
+  <div class="form-actions actions">
     <%= submit_or_cancel(f) %>
   </div>
-  <% end %>
 <% end %>

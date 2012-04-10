@@ -1,2 +1,4 @@
-$('.modal-body').html('<%= j(render 'form', ajax: true) %>');
-$('#modal-form').modal();
+$('<%= j(render 'form', ajax: true) %>').dialog2({
+  title: "New Client", 
+  id: "new-client"
+});

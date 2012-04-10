@@ -29,14 +29,3 @@
 </table>
 
 <%= paginate @clients %>
-
-<%= modal :id => "modal-form" do |builder| %>
-  <%= builder.header do %><span class="title">New Client</span><% end %>
-  <%= builder.body do %>
-    <%= image_tag('loading.gif') %>
-  <% end %>
-  <%= builder.footer do %>
-    <a href="#" class="btn" id="close">Close</a>
-    <a href="#" class="btn btn-primary" id="submit-form">Save</a>
-  <% end %>
-<% end %>

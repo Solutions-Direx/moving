@@ -53,6 +53,7 @@ end
 
 group :development, :test do
   gem 'faker'
+  gem 'debugger'
 end
 
 group :test do

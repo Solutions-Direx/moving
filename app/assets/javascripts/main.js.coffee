@@ -1,5 +1,7 @@
 # common js runner
 $ ->
+  $(document).controls()
+  
   $('.modal #close').click ->
     $('#modal-form').modal('hide')
     return false

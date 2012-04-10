@@ -13,6 +13,10 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require ../../../vendor/assets/javascripts/jquery.controls
+//= require ../../../vendor/assets/javascripts/jquery.form
+//= require ../../../vendor/assets/javascripts/jquery.dialog2
+//= require ../../../vendor/assets/javascripts/jquery.dialog2.helpers
 //= require_tree ../../../vendor/assets/javascripts
 //= require_tree .
 $(function() {

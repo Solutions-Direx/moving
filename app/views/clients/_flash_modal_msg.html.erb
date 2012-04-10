@@ -1,0 +1,12 @@
+<%= message %>
+
+<script type="text/javascript">
+    $("#<%= close_dialog_id %>").dialog2({
+        buttons: {
+            "Close": function() {
+                $(this).dialog2("close");
+                window.location.reload();
+            } 
+        }
+    });
+</script>

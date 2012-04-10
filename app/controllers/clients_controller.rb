@@ -41,6 +41,12 @@ class ClientsController < ApplicationController
   # GET /clients/1/edit
   def edit
     @client = Client.find(params[:id])
+    
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @client }
+      format.js
+    end
   end
 
   # POST /clients
@@ -50,14 +56,17 @@ class ClientsController < ApplicationController
 
     respond_to do |format|
       if @client.save
-        flash[:notice] = "Client was successfully created."
-        format.html { redirect_to @client }
+        format.html {
+          if request.xhr?
+            render :partial => "flash_modal_msg", :locals => { :message => "Client was successfully created.", :close_dialog_id => "new-client" }
+          else
+            redirect_to @client, notice: 'Client was successfully created.' 
+          end
+        }
         format.json { render json: @client, status: :created, location: @client }
-        format.js
       else
-        format.html { render action: "new" }
+        format.html { render action: "new", layout: !request.xhr? }
         format.json { render json: @client.errors, status: :unprocessable_entity }
-        format.js
       end
     end
   end
@@ -69,10 +78,16 @@ class ClientsController < ApplicationController
 
     respond_to do |format|
       if @client.update_attributes(params[:client])
-        format.html { redirect_to @client, notice: 'Client was successfully updated.' }
+        format.html { 
+          if request.xhr?
+            render :partial => "flash_modal_msg", :locals => { :message => "Client was successfully updated.", :close_dialog_id => "edit-client" }
+          else
+            redirect_to @client, notice: 'Client was successfully updated.' 
+          end
+        }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "edit", layout: !request.xhr? }
         format.json { render json: @client.errors, status: :unprocessable_entity }
       end
     end
@@ -85,7 +100,7 @@ class ClientsController < ApplicationController
     @client.destroy
 
     respond_to do |format|
-      format.html { redirect_to clients_url }
+      format.html { redirect_to clients_url, :notice => "Client #{@client.name} was successfully destroy." }
       format.json { head :no_content }
     end
   end
