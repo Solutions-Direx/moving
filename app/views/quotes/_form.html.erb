@@ -10,7 +10,11 @@
       </ul>
       <div class="tab-content" style="width: auto;">
         <div class="tab-pane active" id="lA">
-          <%= f.association :client, :input_html => {:class => "chzn", "data-placeholder" => "Select"} %>
+          <%= f.input :client do %>
+            <%= f.input_field :client, :collection => Client.all.map{|c| [c.name, c.id]}, :class => "chzn", "data-placeholder" => "Select" %>
+            <%= icon_button_link_to "New Client", 'A', icon: 'plus', level: "inverse", white: true %>
+          <% end %>
+          
           <div class="control-group">
             <label class="control-label"> Rating</label>
             <div class="controls">
@@ -25,38 +29,50 @@
           <div class="span3 well address">
             <h4>From</h4>
             <%= f.fields_for :from_address do |fa| %>
-              <%= fa.input :address %>
-              <%= fa.input :city, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
-              <%= fa.input :province, :collection => Address::PROVINCE %>
-              <%= fa.input :postal_code %>
-              <%= fa.input :country, :collection => Address::COUNTRY %>
+              <%= fa.fields_for :address do |faa| %>
+                <%= faa.input :address %>
+                <%= faa.input :city, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
+                <%= faa.input :province, :collection => Address::PROVINCE %>
+                <%= faa.input :postal_code %>
+                <%= faa.input :country, :collection => Address::COUNTRY %>
+              <% end %>
             <% end %>
           </div>
+          
+          <!-- TO ADDRESS 1 -->
+          <% @quote.build_to_adddres1.build_address unless @quote.to_address1 %>
           <div class="span3 well address">
             <h4>To</h4>
             <%= f.fields_for :to_address1 do |fa| %>
-              <%= fa.input :address %>
-              <%= fa.input :city, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
-              <%= fa.input :province, :collection => Address::PROVINCE %>
-              <%= fa.input :postal_code %>
-              <%= fa.input :country, :collection => Address::COUNTRY %>
+              <%= fa.fields_for :address do |faa| %>
+                <%= faa.input :address %>
+                <%= faa.input :city, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
+                <%= faa.input :province, :collection => Address::PROVINCE %>
+                <%= faa.input :postal_code %>
+                <%= faa.input :country, :collection => Address::COUNTRY %>
+              <% end %>
             <% end %>
             <!-- add storage button -->
             <h6>Select Storage</h6>
             <%= f.association :storage, :label => false, :input_html => {:class => "chzn-deselectable", "data-placeholder" => "Select"} %>
           </div>
-          <div class="span3 address <%= @quote.to_address2.all_blank? ? 'holder' : 'well' %>" id="holder">
-            <div id="to-address2" style="display: <%= @quote.to_address2.all_blank? ? 'none' : 'block' %>">
+          
+          <!-- TO ADDRESS 2 -->
+          <% @quote.build_to_address2.build_address unless @quote.to_address2 %>
+          <div class="span3 address <%= @quote.to_address2.address.all_blank? ? 'holder' : 'well' %>" id="holder">
+            <div id="to-address2" style="display: <%= @quote.to_address2.address.all_blank? ? 'none' : 'block' %>">
             <%= f.fields_for :to_address2 do |fa| %>
-              <%= link_to "Remove", '#', :id => "remove-address2" %>
-              <%= fa.input :address %>
-              <%= fa.input :city, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
-              <%= fa.input :province, :collection => Address::PROVINCE %>
-              <%= fa.input :postal_code %>
-              <%= fa.input :country, :collection => Address::COUNTRY %>
+              <%= fa.fields_for :address do |faa| %>
+                <%= link_to "Remove", '#', :id => "remove-address2" %>
+                <%= faa.input :address %>
+                <%= faa.input :city, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
+                <%= faa.input :province, :collection => Address::PROVINCE %>
+                <%= faa.input :postal_code %>
+                <%= faa.input :country, :collection => Address::COUNTRY %>
+              <% end %>
             <% end %>
             </div>
-            <%= link_to 'Click to add address', "#", :id => "add-address2", :style => "display: #{@quote.to_address2.all_blank? ? 'block' : 'none'}" %>
+            <%= link_to 'Click to add address', "#", :id => "add-address2", :style => "display: #{@quote.to_address2.address.all_blank? ? 'block' : 'none'}" %>
           </div>
         </div>
         <div class="tab-pane" id="lB">

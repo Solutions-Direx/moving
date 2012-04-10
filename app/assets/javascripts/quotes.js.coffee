@@ -16,11 +16,11 @@
       $.getJSON "/clients/#{$(this).val()}.json", (client) ->
         $('#quote_phone1').val(client.phone1)
         $('#quote_phone2').val(client.phone2)
-        $('#quote_from_address_attributes_address').val(client.address.address)
-        $('#quote_from_address_attributes_city').val(client.address.city)
-        $('#quote_from_address_attributes_province').val(client.address.province)
-        $('#quote_from_address_attributes_postal_code').val(client.address.postal_code)
-        $('#quote_from_address_attributes_country').val(client.address.country)
+        $('#quote_from_address_attributes_address_attributes_address').val(client.address.address)
+        $('#quote_from_address_attributes_address_attributes_city').val(client.address.city)
+        $('#quote_from_address_attributes_address_attributes_province').val(client.address.province)
+        $('#quote_from_address_attributes_address_attributes_postal_code').val(client.address.postal_code)
+        $('#quote_from_address_attributes_address_attributes_country').val(client.address.country)
         
     $('#quote-form').bind "nested:fieldAdded:rooms", (e) =>
       this.update_room_number()

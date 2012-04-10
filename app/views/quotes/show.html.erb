@@ -11,16 +11,16 @@
 </p>
 <div class="span6 well col2" style="margin-left:0;">
   <h3>From</h3>
-  <address><%= address_for(@quote.from_address) %></address>
+  <address><%= address_for(@quote.from_address.address) %></address>
 </div>
 <div class="span6 well col2" style="margin-left:30px;">
   <h3>To</h3>
-  <% if @quote.to_address1 %>
-    <%= address_for(@quote.to_address1) %>
+  <% if @quote.to_address1 && @quote.to_address1.address %>
+    <%= address_for(@quote.to_address1.address) %>
   <% end %>
   
-  <% if @quote.to_address2 %>
-    <%= address_for(@quote.to_address2) %>
+  <% if @quote.to_address2 && @quote.to_address2.address %>
+    <%= address_for(@quote.to_address2.address) %>
   <% end %>
 </div>
 

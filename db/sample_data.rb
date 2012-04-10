@@ -73,6 +73,7 @@ puts "Generated 5 sample storages."
                                date: Time.now,
                                phone1: client.phone1,
                                phone2: client.phone2,
+                               is_house: [true, false].sample,
                                num_of_removal_man: (2..5).to_a.sample,
                                price: (100..500).to_a.sample,
                                gas: (30..100).to_a.sample,
@@ -80,7 +81,8 @@ puts "Generated 5 sample storages."
   # room
   quote.rooms.build(size: Room::SIZES.sample)
   # from address
-  quote.build_from_address(client.address.attributes.slice("address", "city", "province", "postal_code", "country"))
+  quote.build_from_address.build_address(client.address.attributes.slice("address", "city", "province", "postal_code", "country"))
+  quote.build_to_address1.build_address(address: Faker::Address.street_address(include_secondary = false), city: Faker::Address.city, postal_code: Faker::Address.zip_code, province: ['Québec', 'Ontario', 'New York'].sample, country: 'Canada')
   # truck
   quote.trucks = [Truck.all.sample]
   quote.save!

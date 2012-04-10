@@ -30,9 +30,7 @@ class QuotesController < ApplicationController
   def new
     @quote = Quote.new
     4.times { @quote.rooms.build }
-    @quote.build_from_address
-    @quote.build_to_address1
-    @quote.build_to_address2
+    @quote.build_from_address.build_address
 
     respond_to do |format|
       format.html # new.html.erb
@@ -68,9 +66,11 @@ class QuotesController < ApplicationController
   # PUT /quotes/1.json
   def update
     @quote = Quote.find(params[:id])
+    @quote.assign_attributes(params[:quote])
+    @quote.bypass_to_addresses_validation
 
     respond_to do |format|
-      if @quote.update_attributes(params[:quote])
+      if @quote.save
         format.html { redirect_to @quote, notice: 'Quote was successfully updated.' }
         format.json { head :no_content }
       else
