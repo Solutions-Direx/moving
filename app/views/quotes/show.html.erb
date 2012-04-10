@@ -9,7 +9,6 @@
   <b>Removal at:</b>
   <%= l @quote.removal_at, :format => :long %> || <%= @quote.is_house? ? 'Maison' : 'Appartement' %>
 </p>
-
 <div class="span6 well col2" style="margin-left:0;">
   <h3>From</h3>
   <address><%= address_for(@quote.from_address) %></address>
@@ -20,7 +19,6 @@
     <address><%= address_for(to_address) %></address>
   <% end %>
 </div>
-
 
 <%= section %>
 <%= render 'rooms' %>

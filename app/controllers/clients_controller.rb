@@ -1,11 +1,12 @@
 class ClientsController < ApplicationController
   load_and_authorize_resource
   helper_method :sort_column
+  set_tab :clients
   
   # GET /clients
   # GET /clients.json
   def index
-    @clients = current_account.clients.order(sort_column + " " + sort_direction).page(params[:page])
+    @clients = current_account.clients.includes(:address).order(sort_column + " " + sort_direction).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

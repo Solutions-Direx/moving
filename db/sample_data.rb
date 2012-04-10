@@ -73,10 +73,10 @@ puts "Generated 5 sample storages."
                                date: Time.now,
                                phone1: client.phone1,
                                phone2: client.phone2,
-                               nb_appliance: (1..10).to_a.sample,
                                num_of_removal_man: (2..5).to_a.sample,
                                price: (100..500).to_a.sample,
-                               gas: (30..100).to_a.sample)
+                               gas: (30..100).to_a.sample,
+                               rating: ['A', 'B', 'C'].sample)
   # room
   quote.rooms.build(size: Room::SIZES.sample)
   # from address

@@ -1,11 +1,11 @@
 <% if user_signed_in? %>
   <div class="subnav">
-    <ul class="nav nav-pills">
-      <li class="active"><%= link_to "Quotes", quotes_path %></li>
-      <li><%= link_to "Contracts" %></li>
-      <li><%= link_to "Clients", clients_path %></li>
-      <li><%= link_to "Invoices" %></li>
-      <li><%= link_to "Documents", documents_path %></li>
-    </ul>
+    <%= tabs_tag :builder => BootstrapSubnavBuilder, :open_tabs => { :class => "nav nav-pills" } do |tab| %>
+      <%= tab.quotes 'Quotes', quotes_path %>
+      <%= tab.contracts 'Contracts', '' %>
+      <%= tab.clients   'Clients', clients_path %>
+      <%= tab.invoices   'Invoices', '' %>
+      <%= tab.documents   'Documents', documents_path %>
+    <% end %>
   </div>
 <% end %>

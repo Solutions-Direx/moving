@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(:version => 20120409185740) do
     t.float    "gas"
     t.string   "transport_time"
     t.boolean  "insurance"
-    t.integer  "rating"
+    t.string   "rating"
     t.integer  "creator_id"
     t.string   "status",             :default => "Pending"
     t.text     "comment"

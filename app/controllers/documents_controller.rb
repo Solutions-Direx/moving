@@ -1,6 +1,7 @@
 class DocumentsController < ApplicationController
   load_and_authorize_resource
   helper_method :sort_column
+  set_tab :documents
   
   # GET /documents
   # GET /documents.json

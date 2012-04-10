@@ -5,7 +5,7 @@ class Quote < ActiveRecord::Base
   belongs_to :client
   belongs_to :creator, :class_name => "User", :foreign_key => "creator_id"
   has_many :rooms, :dependent => :destroy
-  accepts_nested_attributes_for :rooms, :reject_if => proc {|room| room.size.blank?}
+  accepts_nested_attributes_for :rooms, :reject_if => lambda {|room| room.size.blank?}
   has_one :furniture, :dependent => :destroy
   accepts_nested_attributes_for :furniture
   
