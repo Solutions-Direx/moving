@@ -22,7 +22,7 @@
           <%= f.input :is_house, :label => false, :as => :radio_buttons, :collection => [['House', true],['Apartment', false]], :item_wrapper_class => "inline" %>
           <%= f.input :phone1 %>
           <%= f.input :phone2 %>
-          <div class="span4 well">
+          <div class="span3 well address">
             <h4>From</h4>
             <%= f.fields_for :from_address do |fa| %>
               <%= fa.input :address %>
@@ -32,14 +32,31 @@
               <%= fa.input :country, :collection => Address::COUNTRY %>
             <% end %>
           </div>
-          <div class="span4 well">
+          <div class="span3 well address">
             <h4>To</h4>
+            <%= f.fields_for :to_address1 do |fa| %>
+              <%= fa.input :address %>
+              <%= fa.input :city, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
+              <%= fa.input :province, :collection => Address::PROVINCE %>
+              <%= fa.input :postal_code %>
+              <%= fa.input :country, :collection => Address::COUNTRY %>
+            <% end %>
             <!-- add storage button -->
-            <h6>Storages</h6>
-            <h6>Addresses</h6>
-            <p>// To Address</p>
-            <p>// 1 or 2 different addresses</p>
-            <p>// Enter address or select storage</p>
+            <h6>Select Storage</h6>
+            <%= f.association :storage, :label => false, :input_html => {:class => "chzn-deselectable", "data-placeholder" => "Select"} %>
+          </div>
+          <div class="span3 address <%= @quote.to_address2.all_blank? ? 'holder' : 'well' %>" id="holder">
+            <div id="to-address2" style="display: <%= @quote.to_address2.all_blank? ? 'none' : 'block' %>">
+            <%= f.fields_for :to_address2 do |fa| %>
+              <%= link_to "Remove", '#', :id => "remove-address2" %>
+              <%= fa.input :address %>
+              <%= fa.input :city, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
+              <%= fa.input :province, :collection => Address::PROVINCE %>
+              <%= fa.input :postal_code %>
+              <%= fa.input :country, :collection => Address::COUNTRY %>
+            <% end %>
+            </div>
+            <%= link_to 'Click to add address', "#", :id => "add-address2", :style => "display: #{@quote.to_address2.all_blank? ? 'block' : 'none'}" %>
           </div>
         </div>
         <div class="tab-pane" id="lB">

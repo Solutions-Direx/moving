@@ -52,9 +52,7 @@ jQuery(function($) {
     },
     removeFields: function(e) {
       var link = e.currentTarget;
-      console.log(link);
       var assoc = $(link).attr('data-association');
-      console.log(assoc);
       var hiddenField = $(link).prev('input[type=hidden]');
       hiddenField.val('1');
       // if (hiddenField) {

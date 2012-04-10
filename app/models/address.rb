@@ -4,10 +4,11 @@ class Address < ActiveRecord::Base
   belongs_to :addressable, :polymorphic => true
   
   # ATTRIBUTES
-  attr_accessible :address, :addressable_id, :addressable_type, :city, :country, :postal_code, :province
+  attr_accessor :bypass_validation
+  attr_accessible :address, :addressable_id, :addressable_type, :city, :country, :postal_code, :province, :bypass_validation
   
   # VALIDATIONS
-  validates :address, :city, :postal_code, :presence => true
+  validates :address, :city, :postal_code, :presence => true, :if => lambda {|a| a.bypass_validation.blank?}
   
   PROVINCE = ['Québec', 'Ontario', 'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia',
              'Nunavut', 'Prince Edward Island', 'Saskatchewan', 'Yukon', 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 
@@ -20,4 +21,7 @@ class Address < ActiveRecord::Base
   
   COUNTRY = ['Canada', 'USA']
   
+  def all_blank?
+    attributes.except("addressable_type").values.compact.reject{|s| s.blank?}.empty?
+  end
 end

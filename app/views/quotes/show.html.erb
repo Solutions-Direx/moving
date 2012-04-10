@@ -15,8 +15,12 @@
 </div>
 <div class="span6 well col2" style="margin-left:30px;">
   <h3>To</h3>
-  <% @quote.to_addresses.each do |to_address| %>
-    <address><%= address_for(to_address) %></address>
+  <% if @quote.to_address1 %>
+    <%= address_for(@quote.to_address1) %>
+  <% end %>
+  
+  <% if @quote.to_address2 %>
+    <%= address_for(@quote.to_address2) %>
   <% end %>
 </div>
 

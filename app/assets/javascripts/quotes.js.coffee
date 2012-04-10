@@ -5,6 +5,8 @@
 @Quote.Form = 
   init: ->
     $(".chzn").chosen()
+    $(".chzn-deselectable").chosen({allow_single_deselect: true})
+    
     $('#quote_from_address_attributes_city').autocomplete
       source: $('#quote_from_address_attributes_city').data('autocomplete-source')
     
@@ -24,7 +26,25 @@
       this.update_room_number()
       
     $('#quote-form').bind "nested:fieldRemoved", (e) =>
-      this.update_room_number()  
+      this.update_room_number()
+      
+    $('#holder').click ->
+      if $('#add-address2').is(":visible")
+        $('#add-address2').click()
+      
+    $('#add-address2').click ->
+      $('#holder').removeClass('holder').addClass('well')
+      $('#to-address2').show()
+      $(this).hide()
+      return false
+    
+    $('#remove-address2').click ->
+      $('#holder').removeClass('well').addClass('holder')
+      $('#to-address2').hide()
+      $('#add-address2').css('display', 'block')
+      $('#to-address2').find('input, select').val('')
+      return false
+      
       
   update_room_number: ->
     $('#quote-form .room:visible').each (index, room) ->
