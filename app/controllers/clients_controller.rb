@@ -58,7 +58,7 @@ class ClientsController < ApplicationController
       if @client.save
         format.html {
           if request.xhr?
-            render :partial => "flash_modal_msg", :locals => { :message => "Client was successfully created.", :close_dialog_id => "new-client" }
+            render :partial => "flash_modal_msg", :locals => { :message => "Client was successfully created.", :close_dialog_id => "new-client", :client => @client }
           else
             redirect_to @client, notice: 'Client was successfully created.' 
           end

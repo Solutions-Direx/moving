@@ -11,8 +11,8 @@
       <div class="tab-content" style="width: auto;">
         <div class="tab-pane active" id="lA">
           <%= f.input :client do %>
-            <%= f.input_field :client, :collection => Client.all.map{|c| [c.name, c.id]}, :class => "chzn", "data-placeholder" => "Select" %>
-            <%= icon_button_link_to "New Client", 'A', icon: 'plus', level: "inverse", white: true %>
+            <%= f.input_field :client, :collection => Client.all.map{|c| [c.name, c.id]}, :class => "chzn", "data-placeholder" => "Select", :id => "select-clients" %>
+            <%= icon_button_link_to "New Client", new_client_path, icon: 'plus', level: "inverse", white: true, remote: true %>
           <% end %>
           
           <div class="control-group">
@@ -40,7 +40,7 @@
           </div>
           
           <!-- TO ADDRESS 1 -->
-          <% @quote.build_to_adddres1.build_address unless @quote.to_address1 %>
+          <% @quote.build_to_address1.build_address unless @quote.to_address1 %>
           <div class="span3 well address">
             <h4>To</h4>
             <%= f.fields_for :to_address1 do |fa| %>

@@ -12,20 +12,18 @@
     
     # handle client select  
     clients = $('#clients').data('url')
-    $('#quote_client_id').chosen().change ->
+    $('#select-clients').chosen().change ->
       $.getJSON "/clients/#{$(this).val()}.json", (client) ->
-        $('#quote_phone1').val(client.phone1)
-        $('#quote_phone2').val(client.phone2)
-        $('#quote_from_address_attributes_address_attributes_address').val(client.address.address)
-        $('#quote_from_address_attributes_address_attributes_city').val(client.address.city)
-        $('#quote_from_address_attributes_address_attributes_province').val(client.address.province)
-        $('#quote_from_address_attributes_address_attributes_postal_code').val(client.address.postal_code)
-        $('#quote_from_address_attributes_address_attributes_country').val(client.address.country)
-        
-    $('#quote-form').bind "nested:fieldAdded:rooms", (e) =>
+        Quote.Form.fill_client_info(client)
+    
+    $('#select-clients').on "client:added", (e) ->
+      $("#select-clients").trigger("liszt:updated")
+      Quote.Form.fill_client_info(e.client)
+    
+    $('#quote-form').on "nested:fieldAdded:rooms", (e) =>
       this.update_room_number()
       
-    $('#quote-form').bind "nested:fieldRemoved", (e) =>
+    $('#quote-form').on "nested:fieldRemoved", (e) =>
       this.update_room_number()
       
     $('#holder').click ->
@@ -49,4 +47,13 @@
   update_room_number: ->
     $('#quote-form .room:visible').each (index, room) ->
       $(room).find('.room-number').text("Room #{index + 1}")
+  
+  fill_client_info: (client) ->
+    $('#quote_phone1').val(client.phone1)
+    $('#quote_phone2').val(client.phone2)
+    $('#quote_from_address_attributes_address_attributes_address').val(client.address.address)
+    $('#quote_from_address_attributes_address_attributes_city').val(client.address.city)
+    $('#quote_from_address_attributes_address_attributes_province').val(client.address.province)
+    $('#quote_from_address_attributes_address_attributes_postal_code').val(client.address.postal_code)
+    $('#quote_from_address_attributes_address_attributes_country').val(client.address.country)    
     
