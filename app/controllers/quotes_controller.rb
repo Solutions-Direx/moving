@@ -1,6 +1,7 @@
 class QuotesController < ApplicationController
   load_and_authorize_resource
   helper_method :sort_column
+  set_tab :quotes
   
   # GET /quotes
   # GET /quotes.json

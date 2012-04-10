@@ -11,6 +11,7 @@
     <%= f.input :first_name %>
     <%= f.input :last_name %>
     <%= f.input :role, :as => :select, :collection => User::Role.options %>
+    <%= f.input :localization, label: "Language", collection: [["English", "en"], ["Français", "fr"]], include_blank: false  %>
   </div>
 
   <div class="form-actions">

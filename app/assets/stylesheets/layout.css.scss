@@ -28,7 +28,7 @@ p { font-size: 15px;}
 .submenu {float:right; margin-top:-3px;}
 .navbar {font-size: 13px;}
 
-.pagination {float: right;}
+.pagination {float: right; font-size:13px;}
 .floatr {float:right;}
 .floatl {float:left;}
 .section {border-bottom: 1px solid #e5e5e5; margin-top:10px; margin-bottom: 10px; clear: both; height:20px;}
@@ -36,6 +36,8 @@ p { font-size: 15px;}
 address {margin-bottom: 0;}
 .col2 { width: 530px; }
 div.col2:nth-of-type(odd), .col2.odd { margin-left:0px;}
+
+.alert {font-size: 13px;}
 
 #main_search form #iemail {
 	@include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.2));

@@ -1,4 +1,7 @@
-<h2><%= @user.full_name %></h2>
+<h2><%= @user.full_name %>
+  <span class='submenu'><%= button_link_to 'Edit', edit_user_path(@user), level: "inverse", large: true %></span>
+</h2>
+
 <p>
   <b>Username:</b>
   <%= @user.username %>
@@ -10,20 +13,11 @@
 </p>
 
 <p>
-  <b>First name:</b>
-  <%= @user.first_name %>
-</p>
-
-<p>
-  <b>Last name:</b>
-  <%= @user.last_name %>
-</p>
-
-<p>
   <b>Role:</b>
   <%= @user.role %>
 </p>
 
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<p>
+  <b>Language:</b>
+  <%= @user.localization %>
+</p>
