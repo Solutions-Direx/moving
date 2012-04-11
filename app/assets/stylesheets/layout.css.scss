@@ -1,6 +1,7 @@
 body {
   padding-top: 60px;
   font-size: 15px;
+  margin-bottom: 40px;
 }
 
 // Landscape phone to portrait tablet
@@ -24,9 +25,9 @@ body {
 }
 
 h1, h2 {margin-bottom: 25px;}
-p { font-size: 15px;}
+p, label { font-size: 15px;}
 .submenu {float:right; margin-top:-3px;}
-.navbar {font-size: 13px;}
+.navbar, p.help-block {font-size: 13px;}
 
 .pagination {float: right; font-size:13px;}
 .floatr {float:right;}

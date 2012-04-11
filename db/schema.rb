@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(:version => 20120410154423) do
     t.string   "phone2"
     t.datetime "removal_at"
     t.datetime "date"
-    t.boolean  "is_house"
+    t.boolean  "is_house",           :default => true
     t.boolean  "materiel"
     t.integer  "num_of_removal_man"
     t.float    "price"

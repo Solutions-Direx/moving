@@ -9,6 +9,7 @@ class Address < ActiveRecord::Base
   
   # VALIDATIONS
   validates :address, :city, :postal_code, :presence => true, :if => lambda {|a| a.bypass_validation.blank?}
+  validates_presence_of :address, :if => lambda {|a| a.bypass_validation.blank?}
   
   PROVINCE = ['Québec', 'Ontario', 'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia',
              'Nunavut', 'Prince Edward Island', 'Saskatchewan', 'Yukon', 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 
