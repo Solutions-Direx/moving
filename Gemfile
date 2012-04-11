@@ -67,3 +67,7 @@ group :test do
   gem 'email_spec'
   gem 'simplecov', :require => false
 end
+
+group :production do
+  gem 'pg'
+end
