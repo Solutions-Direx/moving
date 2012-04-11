@@ -7,7 +7,8 @@ class Quote < ActiveRecord::Base
   belongs_to :storage
   
   has_many :rooms, :dependent => :destroy
-  accepts_nested_attributes_for :rooms, :reject_if => lambda {|room| room.size.blank?}
+  accepts_nested_attributes_for :rooms, :reject_if => lambda {|room| room.size.blank?}, :allow_destroy => true
+  
   has_one :furniture, :dependent => :destroy
   accepts_nested_attributes_for :furniture
   
