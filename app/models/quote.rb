@@ -57,7 +57,7 @@ private
   
   def ignore_blank_addresses
     self.to_address1 = nil if has_storage? || to_address1.address.bypass_validation
-    self.to_address2 = nil if has_storage? || to_address2.address.bypass_validation
+    self.to_address2 = nil if to_address2.address.bypass_validation
   end
   
   def validate_at_least_one_to_address

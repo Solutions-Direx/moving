@@ -32,9 +32,6 @@
       $('#storage-field').show()
       $(this).hide()
       $('#remove-storage').show()
-      # hide holder
-      $('#remove-address2').click()
-      $('#holder').hide()
       $('#to-address1').find('input, select').val('')
       return false
     
@@ -48,7 +45,6 @@
       $('#storage-field .chzn-single').addClass('chzn-default')
       $(this).hide()
       $('#select-storage').show()
-      $('#holder').show()
       return false  
     
     # TOGGLE ADDRESS 2    
