@@ -67,8 +67,12 @@ body.quotes {
 }
 
 #furnitures {
-	td {border:none;}
-	
-	tr:hover, td:hover {background:none;}
+  tbody tr:hover td,
+  tbody tr:hover th {
+    background:none;
+    border:none;
+  }
+	td {border:none; text-align: right;}
+	td input {margin-left: 8px;}
 }
 	
