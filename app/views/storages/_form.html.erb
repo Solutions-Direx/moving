@@ -7,10 +7,10 @@
     
     <% @storage.build_address unless @storage.address %>
     <%= f.fields_for :address do |fa| %>
-      <%= fa.input :address %>
-      <%= fa.input :city %>
+      <%= fa.input :address, :required => true %>
+      <%= fa.input :city, :required => true %>
       <%= fa.input :province, :collection => Address::PROVINCE %>
-      <%= fa.input :postal_code %>
+      <%= fa.input :postal_code, :required => true %>
       <%= fa.input :country, :collection => Address::COUNTRY %>
     <% end %>
   </div>
