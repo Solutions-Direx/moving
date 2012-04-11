@@ -28,7 +28,7 @@ class Quote < ActiveRecord::Base
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
                   :furniture_attributes, :to_address1_attributes, :to_address2_attributes, :storage_id
   
-  validates_presence_of :account, :creator, :client
+  validates_presence_of :removal_at, :account, :creator, :client
   validate :validate_at_least_one_to_address
   validate :validate_from_address
   

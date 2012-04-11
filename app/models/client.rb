@@ -5,7 +5,7 @@ class Client < ActiveRecord::Base
   
   attr_accessible :email, :name, :phone1, :phone2, :account_id, :address_attributes
   
-  validates_presence_of :name
+  validates_presence_of :name, :phone1
   validates_uniqueness_of :name
   
   default_scope :order => "name"

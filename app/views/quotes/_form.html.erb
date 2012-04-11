@@ -90,7 +90,7 @@
               <%= fa.fields_for :address do |faa| %>
                 <div class="title">
                   <h3>&nbsp;</h3>
-                  <h6><%= link_to "Enter Address", '#', :id => "remove-address2" %></h6>
+                  <h6><%= link_to "Remove", '#', :id => "remove-address2" %></h6>
                 </div>
                 <%= faa.input :address, :required => true %>
                 <%= faa.input :city, :required => true, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
