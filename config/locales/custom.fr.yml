@@ -2,3 +2,7 @@ fr:
   profiles:
     show:
       title: 'Modifier votre profil'
+  quotes:
+    form:
+      num_appliances: "Nombre d'électroménager"
+      num_of_removal_man: "Nombre de déménageurs"

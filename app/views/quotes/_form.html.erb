@@ -106,45 +106,62 @@
         <div class="tab-pane" id="lB">
           <%= f.fields_for :rooms %>
           <p><%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + " Add Room", :rooms, :class => "btn btn-primary" %></p><br/>
-          <!%= render 'furniture_fields' %>
           <% @quote.build_furniture unless @quote.furniture %>
             <%= f.fields_for :furniture do |ff| %>
-              <%= ff.input :num_appliances %>
-              <div class="control-group float optional">
-                <%= f.label "Kitchen", :style => 'font-weight: bold;' %>
-                <div class="controls">
-                  <p><%= 'Table ' %><%= ff.number_field :kitchen_table, :class => 'span1' %>
-                  <%= 'Chairs ' %><%= ff.number_field :kitchen_chair, :class => 'span1' %>
-                  <%= 'Buffets ' %><%= ff.number_field :kitchen_buffet, :class => 'span1' %></p><br/>
-                </div>
-                <%= f.label "Living room", :style => 'font-weight: bold;' %>
-                <div class="controls">
-                  <p><%= 'Divan 3pl ' %><%= ff.number_field :living_couch_3pl, :class => 'span1' %>
-                  <%= 'Divan 2pl ' %><%= ff.number_field :living_couch_2pl, :class => 'span1' %>
-                  <%= 'Fauteuil ' %><%= ff.number_field :living_armchair, :class => 'span1' %></p>
-                  <p><%= 'Table de salon ' %><%= ff.number_field :living_table, :class => 'span1' %>
-                  <%= 'Unité murale ' %><%= ff.number_field :living_wall_unit, :class => 'span1' %>
-                  <%= 'TV ' %><%= ff.number_field :living_tv, :class => 'span1' %></p>
-                  <p><%= 'Autres ' %><%= ff.text_field :living_other, :class => 'comment_one_liner', :style => 'width:350px;' %></p><br/>
-                </div>
-              
-                <%= f.label "Basement", :style => 'font-weight: bold;' %>
-                <div class="controls">
-                  <p><%= 'Salon ' %><%= ff.number_field :base_salon, :class => 'span1' %>
-                  <%= 'Étagères ' %><%= ff.number_field :base_shelf, :class => 'span1' %>
-                  <%= 'Bureau ' %><%= ff.number_field :base_desk, :class => 'span1' %></p>
-                  <p><%= 'Autres ' %><%= ff.text_field :base_other, :class => 'comment_one_liner', :style => 'width:350px;' %></p><br/>
-                </div>
-                <%= f.label "Extérieur", :style => 'font-weight: bold;' %>
-                <div class="controls">
-                  <p><%= 'Pneus ' %><%= ff.number_field :outside_tire, :class => 'span1' %>
-                  <%= 'Tondeuse ' %><%= ff.number_field :outside_lawn_mower, :class => 'span1' %>
-                  <%= 'Vélo ' %><%= ff.number_field :outside_bike, :class => 'span1' %></p>
-                  <p><%= 'Table ' %><%= ff.number_field :outside_table, :class => 'span1' %>
-                  <%= 'BBQ ' %><%= ff.number_field :outside_bbq, :class => 'span1' %></p>
-                  <p><%= 'Autres ' %><%= ff.text_field :outside_other, :class => 'comment_one_liner', :style => 'width:350px;' %></p>
+              <div class="control-group integer optional">
+                <%= ff.label :num_appliances, :default => 'Number of appliances' %>
+                <div class='controls'>
+                  <%= ff.number_field :num_appliances, :class => 'span1' %>
                 </div>
               </div>
+              <table id="furnitures" class="table">
+                <tbody>
+                  <tr>
+                    <td style="text-align:right;"><b>Kitchen</b></td>
+                    <td><%= 'Table ' %><%= ff.number_field :kitchen_table, :class => 'span1' %></td>
+                    <td><%= 'Chair ' %><%= ff.number_field :kitchen_chair, :class => 'span1' %></td>
+                    <td><%= 'Buffet ' %><%= ff.number_field :kitchen_buffet, :class => 'span1' %></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="3" style="text-align:right;"><b>Living Room</b></td>
+                    <td><%= 'Divan 3pl ' %><%= ff.number_field :living_couch_3pl, :class => 'span1' %></td>
+                    <td><%= 'Divan 2pl ' %><%= ff.number_field :living_couch_2pl, :class => 'span1' %></td>
+                    <td><%= 'Fauteuil ' %><%= ff.number_field :living_armchair, :class => 'span1' %></td>
+                  </tr>
+                  <tr>
+                    <td><%= 'Table de salon ' %><%= ff.number_field :living_table, :class => 'span1' %></td>
+                    <td><%= 'Unité murale ' %><%= ff.number_field :living_wall_unit, :class => 'span1' %></td>
+                    <td><%= 'TV ' %><%= ff.number_field :living_tv, :class => 'span1' %></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3"><%= 'Autres ' %><%= ff.text_field :living_other, :class => 'comment_one_liner' %></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="2" style="text-align:right;"><b>Basement</b></td>
+                    <td><%= 'Salon ' %><%= ff.number_field :base_salon, :class => 'span1' %></td>
+                    <td><%= 'Étagères ' %><%= ff.number_field :base_shelf, :class => 'span1' %></td>
+                    <td><%= 'Bureau ' %><%= ff.number_field :base_desk, :class => 'span1' %></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3"><%= 'Autres ' %><%= ff.text_field :base_other, :class => 'comment_one_liner' %></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td rowspan="3" style="text-align:right;"><b>Extérieur</b></td>
+                    <td><%= 'Pneus ' %><%= ff.number_field :outside_tire, :class => 'span1' %></td>
+                    <td><%= 'Tondeuse ' %><%= ff.number_field :outside_lawn_mower, :class => 'span1' %></td>
+                    <td><%= 'Vélo ' %><%= ff.number_field :outside_bike, :class => 'span1' %></td>
+                  </tr>
+                  <tr>
+                    <td><%= 'Table ' %><%= ff.number_field :outside_table, :class => 'span1' %></td>
+                    <td colspan="2"><%= 'BBQ ' %><%= ff.number_field :outside_bbq, :class => 'span1' %></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3"><%= 'Autres ' %><%= ff.text_field :outside_other, :class => 'comment_one_liner' %></td>
+                  </tr>
+                </tbody>
+              </table>
             <% end %>
         </div>
         <div class="tab-pane" id="lC">
@@ -157,17 +174,31 @@
             </div>
           </div>
           <div class="control-group float optional">
-              <%= f.label :gas %>
-              <div class="controls">
-                <div class='input-append'>
-                  <%= f.text_field :gas, :class => 'span1 input-append' %><span class="add-on">$</span>
-                </div>
+            <%= f.label :gas %>
+            <div class="controls">
+              <div class='input-append'>
+                <%= f.text_field :gas, :class => 'span1 input-append' %><span class="add-on">$</span>
               </div>
             </div>
-          <%= f.input :num_of_removal_man, :class => 'span1' %>
-          <%= f.input :transport_time %>
+          </div>
+          <div class="control-group float optional">
+            <%= f.label :num_of_removal_man %>
+            <div class="controls">
+              <div class='input-append'>
+                <%= f.text_field :num_of_removal_man, :class => 'span1 input-append' %><span class="add-on"><i class="icon-user"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="control-group float optional">
+            <%= f.label :transport_time %>
+            <div class="controls">
+              <div class='input-append'>
+                <%= f.text_field :transport_time, :class => 'span1 input-append' %><span class="add-on"><i class="icon-time"></i></span>
+              </div>
+            </div>
+          </div>
           <%= f.input :insurance %>
-          <%= f.input :materiel, :class => 'span1' %>
+          <%= f.input :materiel %>
           <%= f.association :trucks, :collection => Truck.all.map{|s| [s.name_with_plate, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to search or click here to select trucks", :multiple => true, :style => "width: 400px;"} %>
           <%= f.input :comment, :input_html => { :rows => 10, :class => "span4" } %>
         </div>
