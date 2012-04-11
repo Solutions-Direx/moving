@@ -31,6 +31,7 @@ gem 'kaminari'
 gem 'cancan'
 gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
 gem 'heroku'
+gem 'faker'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -53,7 +54,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'faker'
   gem 'debugger'
 end
 
