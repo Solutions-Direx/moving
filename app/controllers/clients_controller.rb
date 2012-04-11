@@ -80,7 +80,7 @@ class ClientsController < ApplicationController
       if @client.update_attributes(params[:client])
         format.html { 
           if request.xhr?
-            render :partial => "flash_modal_msg", :locals => { :message => "Client was successfully updated.", :close_dialog_id => "edit-client" }
+            render :partial => "flash_modal_msg", :locals => { :message => "Client was successfully updated.", :close_dialog_id => "edit-client", :client => @client }
           else
             redirect_to @client, notice: 'Client was successfully updated.' 
           end

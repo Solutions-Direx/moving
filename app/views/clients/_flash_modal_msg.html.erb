@@ -1,24 +1,16 @@
-<%= message %>
+<%#= message %>
 
 <script type="text/javascript">
-  $("#<%= close_dialog_id %>").dialog2({
-    buttons: {
-      "Close": function() {
-        $(this).dialog2("close");
-        // if there is client select box, on the page then we auto add the new client to that select
-        // otherwise, reload the current page
-        if ($('#select-clients').length > 0) {
-          $('#select-clients').append($("<option/>", {
-              value: <%= client.id %>,
-              text: '<%= client.name %>'
-          }));
-          $('#select-clients').val(<%= client.id %>);
-          // trigger client:added event so js on the page can handle the new client info
-          $('#select-clients').trigger({ type: 'client:added', client: $.parseJSON('<%= client.to_json(:include => :address).html_safe %>') })  
-        } else {
-          window.location.reload();
-        }
-      } 
-    }
-  });
+  $("#<%= close_dialog_id %>").dialog2('close');
+  if ($('#select-clients').length > 0) {
+    $('#select-clients').append($("<option/>", {
+        value: <%= client.id %>,
+        text: '<%= client.name %>'
+    }));
+    $('#select-clients').val(<%= client.id %>);
+    // trigger client:added event so js on the page can handle the new client info
+    $('#select-clients').trigger({ type: 'client:added', client: $.parseJSON('<%= client.to_json(:include => :address).html_safe %>') })  
+  } else {
+    window.location.reload();
+  }
 </script>

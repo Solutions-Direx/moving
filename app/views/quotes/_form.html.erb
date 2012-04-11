@@ -10,8 +10,8 @@
       </ul>
       <div class="tab-content" style="width: auto;">
         <div class="tab-pane active" id="lA">
-          <%= f.input :client do %>
-            <%= f.input_field :client, :collection => Client.all.map{|c| [c.name, c.id]}, :class => "chzn", "data-placeholder" => "Select", :id => "select-clients" %>
+          <%= f.input :client_id do %>
+            <%= f.input_field :client_id, :collection => Client.all.map{|c| [c.name, c.id]}, :class => "chzn", "data-placeholder" => "Select", :id => "select-clients" %>
             <%= icon_button_link_to "New Client", new_client_path, icon: 'plus', level: "inverse", white: true, remote: true %>
           <% end %>
           
@@ -21,6 +21,11 @@
               <%= f.hidden_field :rating %>
               <%= button_link_to f.object.rating, 'A', large: true, level: "primary" %>
             </div>
+            <!-- <div class="btn-group" data-toggle="buttons-radio">
+                          <button class="btn">Left</button>
+                          <button class="btn">Middle</button>
+                          <button class="btn">Right</button>
+                        </div> -->
           </div>
           <%= f.input :removal_at, :as => :datetime_picker %>
           <%= f.input :is_house, :label => false, :as => :radio_buttons, :collection => [['House', true],['Apartment', false]], :item_wrapper_class => "inline" %>
