@@ -84,7 +84,7 @@
           
           <!-- TO ADDRESS 2 -->
           <% @quote.build_to_address2.build_address unless @quote.to_address2 %>
-          <div class="span3 address <%= @quote.to_address2.address.all_blank? ? 'holder' : 'well' %>" id="holder" style="display:<%= @quote.has_storage? ? 'none' : '' %>">
+          <div class="span3 address <%= @quote.to_address2.address.all_blank? ? 'holder' : 'well' %>" id="holder">
             <div id="to-address2" style="display: <%= @quote.to_address2.address.all_blank? ? 'none' : 'block' %>">
             <%= f.fields_for :to_address2 do |fa| %>
               <%= fa.fields_for :address do |faa| %>
