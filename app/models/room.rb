@@ -3,7 +3,8 @@ class Room < ActiveRecord::Base
   
   SIZES = %w{Small Medium Large}
   
+  attr_accessor :bypass_validation
   attr_accessible :comment, :size, :quote_id
   
-  validates_presence_of :size
+  validates_presence_of :size, :if => lambda {|a| a.bypass_validation.blank?}
 end

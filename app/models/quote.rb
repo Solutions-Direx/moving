@@ -33,7 +33,7 @@ class Quote < ActiveRecord::Base
   validate :validate_from_address
   
   before_create :generate_code
-  before_save :ignore_blank_addresses
+  before_save :ignore_blank_addresses, :ignore_blank_rooms
   
   STATUSES.each do |method|
    define_method "#{method.downcase}?" do
@@ -44,6 +44,9 @@ class Quote < ActiveRecord::Base
   def bypass_to_addresses_validation
     to_address1.address.bypass_validation = "1" if to_address1 && to_address1.address.all_blank?
     to_address2.address.bypass_validation = "1" if to_address2 && to_address2.address.all_blank?
+    rooms.each do |room|
+      room.bypass_validation = "1" if room.size.blank?
+    end
   end
   
   def has_storage?
@@ -58,6 +61,13 @@ private
   def ignore_blank_addresses
     self.to_address1 = nil if has_storage? || (to_address1 && to_address1.address.bypass_validation)
     self.to_address2 = nil if (to_address2 && to_address2.address.bypass_validation)
+  end
+  
+  def ignore_blank_rooms
+    copy = rooms.clone
+    copy.each do |room|
+      rooms.delete(room) if room.size.blank?
+    end
   end
   
   def validate_at_least_one_to_address
