@@ -109,6 +109,11 @@ GEM
     guard-spork (0.5.2)
       guard (>= 0.10.0)
       spork (>= 0.8.4)
+    heroku (2.24.0)
+      launchy (>= 0.3.2)
+      netrc (~> 0.7.1)
+      rest-client (~> 1.6.1)
+      rubyzip
     hike (1.2.1)
     i18n (0.6.0)
     journey (1.0.3)
@@ -131,6 +136,7 @@ GEM
     mime-types (1.18)
     multi_json (1.2.0)
     mysql2 (0.3.11)
+    netrc (0.7.1)
     nokogiri (1.5.2)
     orm_adapter (0.0.7)
     pg (0.13.2)
@@ -160,6 +166,8 @@ GEM
     rake (0.9.2.2)
     rdoc (3.12)
       json (~> 1.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rmagick (2.13.1)
     rspec (2.9.0)
       rspec-core (~> 2.9.0)
@@ -230,6 +238,7 @@ DEPENDENCIES
   guard
   guard-rspec
   guard-spork
+  heroku
   jquery-rails
   kaminari
   letter_opener
