@@ -10,7 +10,7 @@
     $('#quote_from_address_attributes_city').autocomplete
       source: $('#quote_from_address_attributes_city').data('autocomplete-source')
     
-    # handle client select  
+    # HANDLE CLIENT SELECT  
     clients = $('#clients').data('url')
     $('#select-clients').chosen().change ->
       $.getJSON "/clients/#{$(this).val()}.json", (client) ->
@@ -25,11 +25,37 @@
       
     $('#quote-form').on "nested:fieldRemoved", (e) =>
       this.update_room_number()
-      
+    
+    # TOGGLE ADDRESS 1
+    $('#select-storage').click ->
+      $('#to-address1').hide()
+      $('#storage-field').show()
+      $(this).hide()
+      $('#remove-storage').show()
+      # hide holder
+      $('#remove-address2').click()
+      $('#holder').hide()
+      $('#to-address1').find('input, select').val('')
+      return false
+    
+    $('#remove-storage').click ->
+      $('#to-address1').show()
+      $('#storage-field').hide()
+      # console.log $('#storage-field .search-choice-close')
+      $('#storage-field select').val('')
+      $('#storage-field select').trigger("liszt:updated")
+      $('#storage-field .search-choice-close').remove()
+      $('#storage-field .chzn-single').addClass('chzn-default')
+      $(this).hide()
+      $('#select-storage').show()
+      $('#holder').show()
+      return false  
+    
+    # TOGGLE ADDRESS 2    
     $('#holder').click ->
       if $('#add-address2').is(":visible")
         $('#add-address2').click()
-      
+    
     $('#add-address2').click ->
       $('#holder').removeClass('holder').addClass('well')
       $('#to-address2').show()
@@ -42,12 +68,15 @@
       $('#add-address2').css('display', 'block')
       $('#to-address2').find('input, select').val('')
       return false
-      
+    
+    # RATING
+    $('.rating').click ->
+      $('#quote_rating').val($(this).text())
       
   update_room_number: ->
     $('#quote-form .room:visible').each (index, room) ->
       $(room).find('.room-number').text("Room #{index + 1}")
-  
+      
   fill_client_info: (client) ->
     $('#quote_phone1').val(client.phone1)
     $('#quote_phone2').val(client.phone2)

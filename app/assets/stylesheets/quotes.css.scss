@@ -1,41 +1,67 @@
-.badge-a {background-color: #38B44A;}
-.badge-b {background-color: #F3C768;}
-.badge-c {background-color: #942A25;}
-.address {
-  .control-group {
-    label {
-      text-align: left;
-      float: none;
+body.quotes {
+  .badge-a {background-color: #38B44A;}
+  .badge-b {background-color: #F3C768;}
+  .badge-c {background-color: #942A25;}
+  .address {
+    .control-group {
+      label {
+        text-align: left;
+        float: none;
+      }
+      .controls {
+        margin-left: 0;
+      }
     }
-    .controls {
-      margin-left: 0;
+    .remove-address {
+      display: none;
+    }
+    .title {
+      @include clearfix;
+    
+      h3 {
+        float: left;
+      }
+      h6 {
+        float: right;
+      }
+    }
+    input {
+      width: 260px;
+    }
+    select {
+      width: 270px;
+    }
+    #storage-field {
+      display: none;
+      height: 370px;
+    }
+    #remove-storage {
+      display: none;
     }
   }
-  .remove-address {
+  #to-address2 {
     display: none;
   }
-}
-#to-address2 {
-  display: none;
-}
-.holder {
-  border: 5px dashed #CCC !important;
-  text-align: center;
-  cursor: pointer;
+  .holder {
+    border: 5px dashed #CCC !important;
+    text-align: center;
+    cursor: pointer;
+    height:425px;
   
-  & > a {
-    font-size: 30px;
-    text-transform: uppercase;
-    font-weight: bold;
-    display: block;
-    width: 120px;
-    line-height: 1.4;
-    color: #CCC;
-    margin: 40px auto;
+    & > a {
+      font-size: 30px;
+      text-transform: uppercase;
+      font-weight: bold;
+      display: block;
+      width: 120px;
+      line-height: 1.4;
+      color: #CCC;
+      margin: 40px auto;
     
-    &:hover {
-      text-decoration: none;
+    
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 }
-#holder { height:418px; }

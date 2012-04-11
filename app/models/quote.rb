@@ -29,6 +29,9 @@ class Quote < ActiveRecord::Base
                   :furniture_attributes, :to_address1_attributes, :to_address2_attributes, :storage_id
   
   validates_presence_of :account, :creator, :client
+  validate :validate_at_least_one_to_address
+  validate :validate_from_address
+  
   before_create :generate_code
   before_save :ignore_blank_addresses
   
@@ -43,13 +46,25 @@ class Quote < ActiveRecord::Base
     to_address2.address.bypass_validation = "1" if to_address2.address.all_blank?
   end
   
+  def has_storage?
+    !storage_id.blank?
+  end
+  
 private
   def generate_code
     self.code = Devise.friendly_token.downcase
   end
   
   def ignore_blank_addresses
-    self.to_address1 = nil if to_address1.address.bypass_validation
-    self.to_address2 = nil if to_address2.address.bypass_validation
+    self.to_address1 = nil if has_storage? || to_address1.address.bypass_validation
+    self.to_address2 = nil if has_storage? || to_address2.address.bypass_validation
+  end
+  
+  def validate_at_least_one_to_address
+    errors.add(:to_address1, "To address or storage cannot be blank") if to_address1.address.all_blank? && to_address2.address.all_blank? && storage_id.blank?
+  end
+  
+  def validate_from_address
+    errors.add(:from_address, "From address cannot be blank") if from_address.address.all_blank?
   end
 end

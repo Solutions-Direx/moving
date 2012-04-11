@@ -22,6 +22,11 @@
   <% if @quote.to_address2 && @quote.to_address2.address %>
     <%= address_for(@quote.to_address2.address) %>
   <% end %>
+  
+  <% if @quote.storage_id %>
+    <h6>Storage</h6>
+    <%= address_for(@quote.storage.address) %>
+  <% end %>
 </div>
 
 <%= section %>

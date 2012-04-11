@@ -31,4 +31,8 @@ module ApplicationHelper
     content_tag(:div, "", :class => 'section')
   end
   
+  def body_class(klass)
+    content_for(:body_class) { klass }
+  end
+  
 end

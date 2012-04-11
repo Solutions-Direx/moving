@@ -15,7 +15,7 @@ class CreateQuotes < ActiveRecord::Migration
       t.float :gas
       t.string :transport_time
       t.boolean :insurance
-      t.string :rating
+      t.string :rating, :default => "A"
       t.integer :creator_id
       t.string :status, :default => "Pending"
       t.text :comment
