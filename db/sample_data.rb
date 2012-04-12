@@ -22,14 +22,14 @@ end
 print "\n"
 puts "Generated 10 sample standard users."
 
-# generate 30 removal men
-30.times do |x|
+# generate 20 removal men
+20.times do |x|
   print '.'
   count = x + 1
   account.users.create!(username: "removal_man#{count}", first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: "removal_man#{count}@gmail.com", password: "123123", password_confirmation: "123123", role: User::Role::REMOVAL_MAN)
 end
 print "\n"
-puts "Generated 30 sample removal men."
+puts "Generated 20 sample removal men."
 
 # generate 50 clients
 50.times do |x|
@@ -55,9 +55,12 @@ puts "Generated 10 sample trucks."
 5.times do |x|
   print '.'
   count = x + 1
-  storage = account.storages.create!(name: Faker::Lorem.words(2).join(' ').titleize)
+  storage = account.storages.create!(name: Faker::Lorem.words(2).join(' ').titleize, internal: [true, false].sample)
   storage.create_address(address: Faker::Address.street_address(include_secondary = false), city: Faker::Address.city, postal_code: Faker::Address.zip_code, province: ['Québec', 'Ontario', 'New York'].sample, country: 'Canada')
 end
+s_internal = Storage.find_by_internal(true)
+s_internal.update_attributes(price: '20')
+s_internal.annexes.create([{name: 'Conditions', body: 'Coming up...'}, {name: 'Assurances', body: 'Coming up...'}])
 print "\n"
 puts "Generated 5 sample storages."
 

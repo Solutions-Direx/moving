@@ -68,8 +68,9 @@ class Quote < ActiveRecord::Base
   
   
 private
+
   def generate_code
-    self.code = Devise.friendly_token.downcase
+    self.code = Array.new.tap {|a| 5.times { a << (0..9).to_a.sample } }.join
   end
   
   def ignore_blank_addresses

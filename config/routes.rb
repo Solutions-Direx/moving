@@ -1,5 +1,5 @@
 Moving::Application.routes.draw do
-  
+
   resources :supplies
   resources :trucks
   resources :quotes
@@ -7,7 +7,10 @@ Moving::Application.routes.draw do
   resources :clients do
     get 'cities', :on => :collection
   end
-  resources :storages
+  resources :storages do
+    resources :annexes
+  end
+    
   resources :documents
   resource :account, :only => [:show, :update]
   resource :profile, :only => [:show, :update], :path => "users/profile"

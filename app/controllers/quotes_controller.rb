@@ -29,7 +29,7 @@ class QuotesController < ApplicationController
   # GET /quotes/new.json
   def new
     @quote = Quote.new
-    4.times { @quote.rooms.build }
+    3.times { @quote.rooms.build }
     @quote.build_from_address.build_address
 
     respond_to do |format|

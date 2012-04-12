@@ -11,8 +11,8 @@
       <%= f.fields_for :address do |fa| %>
         <%= fa.input :address, :required => true %>
         <%= fa.input :city, :required => true %>
-        <%= fa.input :province, :collection => Address::PROVINCE %>
         <%= fa.input :postal_code, :required => true %>
+        <%= fa.input :province, :collection => Address::PROVINCE %>
         <%= fa.input :country, :collection => Address::COUNTRY %>
       <% end %>
   </div>

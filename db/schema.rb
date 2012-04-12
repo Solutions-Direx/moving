@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120410154423) do
+ActiveRecord::Schema.define(:version => 20120412222443) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company_name"
@@ -42,6 +42,14 @@ ActiveRecord::Schema.define(:version => 20120410154423) do
 
   add_index "addresses", ["addressable_id"], :name => "index_addresses_on_addressable_id"
   add_index "addresses", ["addressable_type"], :name => "index_addresses_on_addressable_type"
+
+  create_table "annexes", :force => true do |t|
+    t.string   "name"
+    t.text     "body"
+    t.integer  "storage_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "clients", :force => true do |t|
     t.string   "name"
@@ -107,7 +115,7 @@ ActiveRecord::Schema.define(:version => 20120410154423) do
   end
 
   create_table "quotes", :force => true do |t|
-    t.string   "code"
+    t.integer  "code"
     t.integer  "account_id"
     t.integer  "client_id"
     t.string   "phone1"
@@ -140,7 +148,8 @@ ActiveRecord::Schema.define(:version => 20120410154423) do
 
   create_table "storages", :force => true do |t|
     t.string   "name"
-    t.boolean  "default",    :default => false
+    t.boolean  "internal",   :default => false
+    t.float    "price"
     t.string   "account_id"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false

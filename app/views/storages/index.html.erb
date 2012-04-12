@@ -8,7 +8,8 @@
   <tr>
     <th><%= sortable "name" %></th>
     <th>Address</th>
-    <th>Default</th>
+    <th>Internal</th>
+    <th>Default Price</th>
     <th></th>
     <th></th>
   </tr>
@@ -17,7 +18,8 @@
   <tr>
     <td><%= link_to storage.name, storage %></td>
     <td><%= address_for(storage.address) %></td>
-    <td><%= storage.default %></td>
+    <td><%= storage.internal? ? "Interne" : "Externe" %></td>
+    <td><%= number_to_currency(storage.price) %></td>
     <td><%= link_to 'Edit', edit_storage_path(storage) %></td>
     <td><%= link_to 'Destroy', storage, confirm: 'Are you sure?', method: :delete %></td>
   </tr>

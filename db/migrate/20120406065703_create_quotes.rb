@@ -1,7 +1,7 @@
 class CreateQuotes < ActiveRecord::Migration
   def change
     create_table :quotes do |t|
-      t.string :code
+      t.integer :code
       t.integer :account_id
       t.integer :client_id
       t.string :phone1

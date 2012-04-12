@@ -1,13 +1,42 @@
-<h2><%= @storage.name %>
+<h2><%= @storage.name %> <%= content_tag(:span, (@storage.internal? ? "Interne" : "Externe"), :class => 'badge') %>
   <span class='submenu'><%= button_link_to 'Edit', edit_storage_path(@storage), level: "inverse", large: true %></span>
 </h2>
 
 <p>
-  <b>Default:</b>
-  <%= @storage.default %>
-</p>
-
+  <b>Default Price:</b>
+  <% if @storage.price.present? %>
+    <%= number_to_currency(@storage.price) %> par mois
+  <% end %>
+</p> 
+ 
 <p>
   <b>Address:</b>
   <%= address_for(@storage.address) %>
 </p>
+<br />
+
+<% if @storage.internal? %>
+<h3>Annexes
+  <span class='submenu'><%= icon_button_link_to 'New Annex', new_storage_annex_path(@storage), icon: "plus", level: "inverse", medium: true, white: true %></span>
+</h3>
+
+<% if @storage.annexes.any?  %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @storage.annexes.each do |annex| %>
+    <tr>
+      <td><%= link_to annex.name, storage_annex_path(@storage) %> 
+          <span class='submenu'><%= link_to 'Edit', edit_storage_annex_path(@storage, annex) %> | 
+          <%= link_to 'Destroy', storage_annex_path(@storage, annex), confirm: 'Are you sure?', method: :delete %></td>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+<% end %>

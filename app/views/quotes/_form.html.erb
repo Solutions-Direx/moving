@@ -4,7 +4,7 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <div class="tabbable tabs-left">
+    <div class="tabbable tabs">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#lA" data-toggle="tab">Client</a></li>
         <li class=""><a href="#lB" data-toggle="tab">Details</a></li>
@@ -14,7 +14,7 @@
         <div class="tab-pane active" id="lA">
           <!-- CLIENT -->
           <%= f.input :client_id do %>
-            <%= f.input_field :client_id, :collection => Client.all.map{|c| [c.name, c.id]}, :class => "chzn", "data-placeholder" => "Select", :id => "select-clients" %>
+            <%= f.input_field :client_id, :collection => Client.all.map{|c| [c.name, c.id]}, :class => "chzn", "data-placeholder" => "Select", :id => "select-clients" %> ou 
             <%= icon_button_link_to "New Client", new_client_path, icon: 'plus', level: "inverse", white: true, remote: true %>
           <% end %>
           
@@ -48,8 +48,8 @@
               <%= fa.fields_for :address do |faa| %>
                 <%= faa.input :address, :required => true %>
                 <%= faa.input :city, :required => true, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
-                <%= faa.input :province, :collection => Address::PROVINCE %>
                 <%= faa.input :postal_code, :required => true %>
+                <%= faa.input :province, :collection => Address::PROVINCE %>
                 <%= faa.input :country, :collection => Address::COUNTRY %>
               <% end %>
             <% end %>
@@ -70,8 +70,8 @@
                 <%= fa.fields_for :address do |faa| %>
                   <%= faa.input :address, :required => true %>
                   <%= faa.input :city, :required => true, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
-                  <%= faa.input :province, :collection => Address::PROVINCE %>
                   <%= faa.input :postal_code, :required => true %>
+                  <%= faa.input :province, :collection => Address::PROVINCE %>
                   <%= faa.input :country, :collection => Address::COUNTRY %>
                 <% end %>
               <% end %>
@@ -94,8 +94,8 @@
                 </div>
                 <%= faa.input :address, :required => true %>
                 <%= faa.input :city, :required => true, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
-                <%= faa.input :province, :collection => Address::PROVINCE %>
                 <%= faa.input :postal_code, :required => true %>
+                <%= faa.input :province, :collection => Address::PROVINCE %>
                 <%= faa.input :country, :collection => Address::COUNTRY %>
               <% end %>
             <% end %>
@@ -170,7 +170,7 @@
             <%= f.label :price %>
             <div class="controls">
               <div class='input-append'>
-                <%= f.text_field :price, :class => 'span1 input-append' %><span class="add-on">$</span>
+                <%= f.text_field :price, :class => 'span1 input-append' %><span class="add-on">$</span> par heure
               </div>
             </div>
           </div>
