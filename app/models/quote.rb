@@ -1,6 +1,7 @@
 class Quote < ActiveRecord::Base
   STATUSES = %w{ Pending Confirmed }
   
+  # ASSOCIATIONS
   belongs_to :account
   belongs_to :client
   belongs_to :creator, :class_name => "User", :foreign_key => "creator_id"
@@ -24,15 +25,18 @@ class Quote < ActiveRecord::Base
   has_one :to_address2, :class_name => "QuoteToAddress2", :foreign_key => "quote_id", :dependent => :destroy, :dependent => :destroy
   accepts_nested_attributes_for :to_address2
   
+  # ATTRIBUTES
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, 
                   :materiel, :num_of_removal_man, :price, :rating, :removal_at, 
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
-                  :furniture_attributes, :to_address1_attributes, :to_address2_attributes, :storage_id
+                  :furniture_attributes, :to_address1_attributes, :to_address2_attributes, :storage_id, :removal_at_picker
   
-  validates_presence_of :removal_at, :account, :creator, :client
+  # VALIDATIONS
+  validates_presence_of :removal_at_picker, :removal_at, :account, :creator, :client
   validate :validate_at_least_one_to_address
   validate :validate_from_address
   
+  # CALLBACKS
   before_create :generate_code
   before_save :ignore_blank_addresses, :ignore_blank_rooms
   
@@ -53,6 +57,15 @@ class Quote < ActiveRecord::Base
   def has_storage?
     !storage_id.blank?
   end
+  
+  def removal_at_picker
+    removal_at
+  end
+  
+  def removal_at_picker=(datetime)
+    self.removal_at = datetime[:date].blank? ? '' : Time.zone.parse("#{datetime[:date]} #{datetime[:hour]}:#{datetime[:minute]}")
+  end
+  
   
 private
   def generate_code

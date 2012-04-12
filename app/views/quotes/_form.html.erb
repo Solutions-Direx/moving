@@ -30,7 +30,7 @@
               </div>
             </div>
           </div>
-          <%= f.input :removal_at, :as => :datetime_picker %>
+          <%= f.input :removal_at_picker, :label => "Removal at", :as => :datetime_picker %>
           <%= f.input :is_house, :label => false, :as => :radio_buttons, :collection => [['House', true],['Apartment', false]], :item_wrapper_class => "inline" %>
           <%= f.input :phone1 %>
           <%= f.input :phone2 %>
