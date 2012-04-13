@@ -1,4 +1,11 @@
 class QuoteAddress < ActiveRecord::Base
   belongs_to :quote
-  attr_accessible :quote_id, :type, :address_attributes
+  belongs_to :storage
+    
+  attr_accessible :quote_id, :type, :address_attributes, :storage_id
+  
+  def has_storage?
+    !storage_id.blank?
+  end
+  
 end

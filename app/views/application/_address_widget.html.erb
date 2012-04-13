@@ -1,0 +1,30 @@
+<% 
+  removable = true if local_assigns.has_key? :removable 
+  title = "" unless local_assigns.has_key? :title 
+  show_holder = true if removable && local_assigns.has_key?(:show_holder )
+  has_storage = quote_address_form.object.has_storage?
+%>
+
+<div class="span3 address-widget">
+  <div class="<%= show_holder ? 'holder' : 'well' %>">
+    <div class="title">
+      <h3><% if title.blank? %>&nbsp;<% else %><%= title %><% end %></h3>
+      <h6>
+        <% if removable %><%= quote_address_form.link_to_remove 'Remove' %> |<% end %>
+        <%= link_to 'Select Storage', '#', :class => "select-storage #{has_storage ? 'hide' : 'show'}" %>
+        <%= link_to 'Enter Address', '#', :class => "enter-address #{has_storage ? 'show' : 'hide'}" %>
+      </h6>
+    </div>
+    <div class="to-address <%= has_storage ? 'hide' : 'show' %>">
+      <%= address_form.input :address, :required => true %>
+      <%= address_form.input :city, :required => true, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
+      <%= address_form.input :postal_code, :required => true %>
+      <%= address_form.input :province, :collection => Address::PROVINCE %>
+      <%= address_form.input :country, :collection => Address::COUNTRY %>
+    </div>
+    <!-- add storage button -->
+    <div class="storage-field <%= has_storage ? 'show' : 'hide' %>">
+      <%= quote_address_form.association :storage, :input_html => {:class => "chzn-deselectable storages-list", "data-placeholder" => "Select"} %>
+    </div>
+  </div>
+</div>

@@ -19,7 +19,6 @@ class CreateQuotes < ActiveRecord::Migration
       t.integer :creator_id
       t.string :status, :default => "Pending"
       t.text :comment
-      t.integer :storage_id
 
       t.timestamps
     end

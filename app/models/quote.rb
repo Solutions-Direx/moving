@@ -5,7 +5,6 @@ class Quote < ActiveRecord::Base
   belongs_to :account
   belongs_to :client
   belongs_to :creator, :class_name => "User", :foreign_key => "creator_id"
-  belongs_to :storage
   
   has_many :rooms, :dependent => :destroy
   accepts_nested_attributes_for :rooms, :reject_if => lambda {|room| room.size.blank?}, :allow_destroy => true
@@ -19,22 +18,19 @@ class Quote < ActiveRecord::Base
   has_one :from_address, :class_name => "QuoteFromAddress", :foreign_key => "quote_id", :dependent => :destroy, :dependent => :destroy
   accepts_nested_attributes_for :from_address
   
-  has_one :to_address1, :class_name => "QuoteToAddress1", :foreign_key => "quote_id", :dependent => :destroy, :dependent => :destroy
-  accepts_nested_attributes_for :to_address1
-  
-  has_one :to_address2, :class_name => "QuoteToAddress2", :foreign_key => "quote_id", :dependent => :destroy, :dependent => :destroy
-  accepts_nested_attributes_for :to_address2
+  has_many :to_addresses, :class_name => "QuoteToAddress", :foreign_key => "quote_id", :dependent => :destroy, :dependent => :destroy
+  accepts_nested_attributes_for :to_addresses, :allow_destroy => true
   
   # ATTRIBUTES
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, 
                   :materiel, :num_of_removal_man, :price, :rating, :removal_at, 
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
-                  :furniture_attributes, :to_address1_attributes, :to_address2_attributes, :storage_id, :removal_at_picker
+                  :furniture_attributes, :to_addresses_attributes, :removal_at_picker
   
   # VALIDATIONS
   validates_presence_of :removal_at_picker, :removal_at, :account, :creator, :client
-  validate :validate_at_least_one_to_address
-  validate :validate_from_address
+  validate :validate_addresses
+  # validate :validate_from_address
   
   # CALLBACKS
   before_create :generate_code
@@ -46,16 +42,14 @@ class Quote < ActiveRecord::Base
    end
   end
   
-  def bypass_to_addresses_validation
-    to_address1.address.bypass_validation = "1" if to_address1 && to_address1.address.all_blank?
-    to_address2.address.bypass_validation = "1" if to_address2 && to_address2.address.all_blank?
+  def bypass_validations
+    to_addresses.each do |to_address|
+      to_address.address.bypass_validation = "1" if to_address.has_storage? || to_address.address.all_blank?
+    end
+    from_address.address.bypass_validation = "1" if from_address.has_storage?
     rooms.each do |room|
       room.bypass_validation = "1" if room.size.blank?
     end
-  end
-  
-  def has_storage?
-    !storage_id.blank?
   end
   
   def removal_at_picker
@@ -74,8 +68,11 @@ private
   end
   
   def ignore_blank_addresses
-    self.to_address1 = nil if has_storage? || (to_address1 && to_address1.address.bypass_validation)
-    self.to_address2 = nil if (to_address2 && to_address2.address.bypass_validation)
+    tmp = to_addresses.clone
+    tmp.each do |to_address|
+      to_addresses.delete(to_address) if !to_address.has_storage? && to_address.address.all_blank?
+    end
+    
   end
   
   def ignore_blank_rooms
@@ -85,11 +82,12 @@ private
     end
   end
   
-  def validate_at_least_one_to_address
-    errors.add(:to_address1, "To address or storage cannot be blank") if (to_address1 && to_address1.address.all_blank?) && (to_address2 && to_address2.address.all_blank?) && storage_id.blank?
+  def validate_addresses
+    if from_address && from_address.address.all_blank?
+      errors.add(:base, "From address cannot be blank")
+    else
+      errors.add(:base, "To address cannot be blank") if to_addresses.blank?
+    end
   end
   
-  def validate_from_address
-    errors.add(:from_address, "From address cannot be blank") if from_address && from_address.address.all_blank?
-  end
 end

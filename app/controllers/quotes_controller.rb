@@ -31,6 +31,7 @@ class QuotesController < ApplicationController
     @quote = Quote.new
     3.times { @quote.rooms.build }
     @quote.build_from_address.build_address
+    @quote.to_addresses.build.build_address
 
     respond_to do |format|
       format.html # new.html.erb
@@ -47,7 +48,7 @@ class QuotesController < ApplicationController
   # POST /quotes.json
   def create
     @quote = current_account.quotes.new(params[:quote])
-    @quote.bypass_to_addresses_validation
+    @quote.bypass_validations
     @quote.creator = current_user
     @quote.date = Time.now
 
@@ -67,7 +68,7 @@ class QuotesController < ApplicationController
   def update
     @quote = Quote.find(params[:id])
     @quote.assign_attributes(params[:quote])
-    @quote.bypass_to_addresses_validation
+    @quote.bypass_validations
 
     respond_to do |format|
       if @quote.save

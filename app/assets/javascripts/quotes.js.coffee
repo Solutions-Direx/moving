@@ -5,7 +5,7 @@
 @Quote.Form = 
   init: ->
     $(".chzn").chosen()
-    $(".chzn-deselectable").chosen({allow_single_deselect: true})
+    # $(".chzn-deselectable").chosen({allow_single_deselect: true})
     
     $('#quote_from_address_attributes_city').autocomplete
       source: $('#quote_from_address_attributes_city').data('autocomplete-source')
@@ -22,48 +22,55 @@
     
     $('#quote-form').on "nested:fieldAdded:rooms", (e) =>
       this.update_room_number()
+    
+    # $('#quote-form').on "nested:fieldAdded:to_addresses", (e) =>  
+    #   $(e.field).find('.chzn-deselectable').chosen({allow_single_deselect: true})
       
     $('#quote-form').on "nested:fieldRemoved", (e) =>
       this.update_room_number()
     
-    # TOGGLE ADDRESS 1
-    $('#select-storage').click ->
-      $('#to-address1').hide()
-      $('#storage-field').show()
-      $(this).hide()
-      $('#remove-storage').show()
-      $('#to-address1').find('input, select').val('')
-      return false
+    AddressWidget.init()
     
-    $('#remove-storage').click ->
-      $('#to-address1').show()
-      $('#storage-field').hide()
-      # console.log $('#storage-field .search-choice-close')
-      $('#storage-field select').val('')
-      $('#storage-field select').trigger("liszt:updated")
-      $('#storage-field .search-choice-close').remove()
-      $('#storage-field .chzn-single').addClass('chzn-default')
-      $(this).hide()
-      $('#select-storage').show()
-      return false  
-    
-    # TOGGLE ADDRESS 2    
-    $('#holder').click ->
-      if $('#add-address2').is(":visible")
-        $('#add-address2').click()
-    
-    $('#add-address2').click ->
-      $('#holder').removeClass('holder').addClass('well')
-      $('#to-address2').show()
-      $(this).hide()
-      return false
-    
-    $('#remove-address2').click ->
-      $('#holder').removeClass('well').addClass('holder')
-      $('#to-address2').hide()
-      $('#add-address2').css('display', 'block')
-      $('#to-address2').find('input, select').val('')
-      return false
+    #   
+    # 
+    # # TOGGLE ADDRESS 1
+    # $('#select-storage').click ->
+    #   $('#to-address1').hide()
+    #   $('#storage-field').show()
+    #   $(this).hide()
+    #   $('#remove-storage').show()
+    #   $('#to-address1').find('input, select').val('')
+    #   return false
+    # 
+    # $('#remove-storage').click ->
+    #   $('#to-address1').show()
+    #   $('#storage-field').hide()
+    #   # console.log $('#storage-field .search-choice-close')
+    #   $('#storage-field select').val('')
+    #   $('#storage-field select').trigger("liszt:updated")
+    #   $('#storage-field .search-choice-close').remove()
+    #   $('#storage-field .chzn-single').addClass('chzn-default')
+    #   $(this).hide()
+    #   $('#select-storage').show()
+    #   return false  
+    # 
+    # # TOGGLE ADDRESS 2    
+    # $('#holder').click ->
+    #   if $('#add-address2').is(":visible")
+    #     $('#add-address2').click()
+    # 
+    # $('#add-address2').click ->
+    #   $('#holder').removeClass('holder').addClass('well')
+    #   $('#to-address2').show()
+    #   $(this).hide()
+    #   return false
+    # 
+    # $('#remove-address2').click ->
+    #   $('#holder').removeClass('well').addClass('holder')
+    #   $('#to-address2').hide()
+    #   $('#add-address2').css('display', 'block')
+    #   $('#to-address2').find('input, select').val('')
+    #   return false
     
     # RATING
     $('.rating').click ->

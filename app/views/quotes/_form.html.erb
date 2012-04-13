@@ -4,20 +4,20 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <div class="tabbable tabs">
-      <ul class="nav nav-tabs">
+    <div class="tabbable tabs row">
+      <ul class="nav nav-tabs span12">
         <li class="active"><a href="#lA" data-toggle="tab">Client</a></li>
         <li class=""><a href="#lB" data-toggle="tab">Details</a></li>
         <li class=""><a href="#lC" data-toggle="tab">Price</a></li>
       </ul>
-      <div class="tab-content" style="width: auto;">
+      <div class="tab-content span12">
         <div class="tab-pane active" id="lA">
           <!-- CLIENT -->
           <%= f.input :client_id do %>
             <%= f.input_field :client_id, :collection => Client.all.map{|c| [c.name, c.id]}, :class => "chzn", "data-placeholder" => "Select", :id => "select-clients" %> ou 
             <%= icon_button_link_to "New Client", new_client_path, icon: 'plus', level: "inverse", white: true, remote: true %>
           <% end %>
-          
+        
           <!-- RATING -->
           <div class="control-group">
             <label class="control-label">Rating</label>
@@ -34,73 +34,21 @@
           <%= f.input :is_house, :label => false, :as => :radio_buttons, :collection => [['House', true],['Apartment', false]], :item_wrapper_class => "inline" %>
           <%= f.input :phone1 %>
           <%= f.input :phone2 %>
-          
+        
           <!-- ADRESS ERRORS -->
-          <% unless @quote.errors[:to_address1].blank? %>
-          <div class="alert alert-error"><a class="close">×</a><%= f.error :to_address1 %></div>
+          <% unless @quote.errors[:base].blank? %>
+            <div class="alert alert-error"><a class="close">×</a><%= @quote.errors[:base].first %></div>
           <% end %>
-          <% unless @quote.errors[:from_address].blank? %>
-          <div class="alert alert-error"><a class="close">×</a><%= f.error :from_address %></div>
+          
+          <div class="row" id="addresses">
+          <%= f.fields_for :from_address do |fa| %>
+            <%= fa.fields_for :address do |faa| %>
+              <%= render 'address_widget', title: 'From', quote_address_form: fa, address_form: faa %>
+            <% end %>
           <% end %>
-          <div class="span3 well address">
-            <h3>From</h3>
-            <%= f.fields_for :from_address do |fa| %>
-              <%= fa.fields_for :address do |faa| %>
-                <%= faa.input :address, :required => true %>
-                <%= faa.input :city, :required => true, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
-                <%= faa.input :postal_code, :required => true %>
-                <%= faa.input :province, :collection => Address::PROVINCE %>
-                <%= faa.input :country, :collection => Address::COUNTRY %>
-              <% end %>
-            <% end %>
-          </div>
           
-          <!-- TO ADDRESS 1 -->
-          <% @quote.build_to_address1.build_address unless @quote.to_address1 %>
-          <div class="span3 well address">
-            <div class="title">
-              <h3>To</h3>
-              <h6>
-                <%= link_to 'Select Storage', '#', :id => "select-storage", :style => "display:#{@quote.has_storage? ? 'none' : 'block'}" %>
-                <%= link_to 'Enter Address', '#', :id => "remove-storage", :style => "display:#{@quote.has_storage? ? 'block' : 'none'}" %>
-              </h6>
-            </div>
-            <div id="to-address1" style="display:<%= @quote.has_storage? ? 'none' : 'block' %>">
-              <%= f.fields_for :to_address1 do |fa| %>
-                <%= fa.fields_for :address do |faa| %>
-                  <%= faa.input :address, :required => true %>
-                  <%= faa.input :city, :required => true, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
-                  <%= faa.input :postal_code, :required => true %>
-                  <%= faa.input :province, :collection => Address::PROVINCE %>
-                  <%= faa.input :country, :collection => Address::COUNTRY %>
-                <% end %>
-              <% end %>
-            </div>
-            <!-- add storage button -->
-            <div id="storage-field" style="display:<%= @quote.has_storage? ? 'block' : 'none' %>">
-              <%= f.association :storage, :input_html => {:class => "chzn-deselectable", "data-placeholder" => "Select", :id => "storages"} %>
-            </div>
-          </div>
-          
-          <!-- TO ADDRESS 2 -->
-          <% @quote.build_to_address2.build_address unless @quote.to_address2 %>
-          <div class="span3 address <%= @quote.to_address2.address.all_blank? ? 'holder' : 'well' %>" id="holder">
-            <div id="to-address2" style="display: <%= @quote.to_address2.address.all_blank? ? 'none' : 'block' %>">
-            <%= f.fields_for :to_address2 do |fa| %>
-              <%= fa.fields_for :address do |faa| %>
-                <div class="title">
-                  <h3>&nbsp;</h3>
-                  <h6><%= link_to "Remove", '#', :id => "remove-address2" %></h6>
-                </div>
-                <%= faa.input :address, :required => true %>
-                <%= faa.input :city, :required => true, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
-                <%= faa.input :postal_code, :required => true %>
-                <%= faa.input :province, :collection => Address::PROVINCE %>
-                <%= faa.input :country, :collection => Address::COUNTRY %>
-              <% end %>
-            <% end %>
-            </div>
-            <%= link_to 'Click to add address', "#", :id => "add-address2", :style => "display: #{@quote.to_address2.address.all_blank? ? 'block' : 'none'}" %>
+          <%= f.fields_for :to_addresses %>
+          <%= f.link_to_add content_tag(:span, "Click to add address"), :to_addresses, :id => "add-address", :class => "span3" %>
           </div>
         </div>
         <div class="tab-pane" id="lB">
