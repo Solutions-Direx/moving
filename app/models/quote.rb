@@ -15,6 +15,9 @@ class Quote < ActiveRecord::Base
   has_many :quote_trucks, :dependent => :destroy
   has_many :trucks, :through => :quote_trucks
   
+  has_many :quote_documents, :dependent => :destroy
+  has_many :documents, :through => :quote_documents
+  
   has_one :from_address, :class_name => "QuoteFromAddress", :foreign_key => "quote_id", :dependent => :destroy, :dependent => :destroy
   accepts_nested_attributes_for :from_address
   
@@ -25,7 +28,7 @@ class Quote < ActiveRecord::Base
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, 
                   :materiel, :num_of_removal_man, :price, :rating, :removal_at, 
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
-                  :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment
+                  :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment, :document_ids
   
   # VALIDATIONS
   validates_presence_of :removal_at_picker, :removal_at, :account, :creator, :client

@@ -9,6 +9,7 @@
         <li class="active"><a href="#lA" data-toggle="tab">Client</a></li>
         <li class=""><a href="#lB" data-toggle="tab">Details</a></li>
         <li class=""><a href="#lC" data-toggle="tab">Price</a></li>
+        <li class=""><a href="#lD" data-toggle="tab">Documents</a></li>
       </ul>
       <div class="tab-content span12">
         <div class="tab-pane active" id="lA">
@@ -157,8 +158,11 @@
           </div>
           <%= f.input :insurance %>
           <%= f.input :materiel %>
-          <%= f.association :trucks, :collection => Truck.all.map{|s| [s.name_with_plate, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to search or click here to select trucks", :multiple => true, :style => "width: 400px;"} %>
+          <%= f.association :trucks, :collection => current_account.trucks.all.map{|s| [s.name_with_plate, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to search or click here to select trucks", :multiple => true, :style => "width: 400px;"} %>
           <%= f.input :comment, :input_html => { :rows => 10, :class => "span4" } %>
+        </div>
+        <div class="tab-pane" id="lD">
+          <%= f.association :documents, :as => :check_boxes, :label => false, :collection => current_account.documents.all.map{|s| [s.name, s.id]} %>
         </div>
       </div>
     </div>

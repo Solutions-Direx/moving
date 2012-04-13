@@ -50,6 +50,14 @@ end
 print "\n"
 puts "Generated 10 sample trucks."
 
+# generate 10 documents
+10.times do |x|
+  print '.'
+  count = x + 1
+  account.documents.create!(name: Faker::Lorem.words(2).join(' ').titleize, body: "Coming soon..")
+end
+print "\n"
+puts "Generated 10 sample documents."
 
 # generate 5 storages
 5.times do |x|
