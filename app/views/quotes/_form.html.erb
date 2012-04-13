@@ -158,7 +158,8 @@
           </div>
           <%= f.input :insurance %>
           <%= f.input :materiel %>
-          <%= f.association :trucks, :collection => current_account.trucks.all.map{|s| [s.name_with_plate, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to search or click here to select trucks", :multiple => true, :style => "width: 400px;"} %>
+          <%= f.association :forfaits, :collection => current_account.forfaits.all.map{|s| [s.name_with_price, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to select forfaits", :multiple => true, :style => "width: 360px;"} %>
+          <%= f.association :trucks, :collection => current_account.trucks.all.map{|s| [s.name_with_plate, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to select trucks", :multiple => true, :style => "width: 360px;"} %>
           <%= f.input :comment, :input_html => { :rows => 10, :class => "span4" } %>
         </div>
         <div class="tab-pane" id="lD">

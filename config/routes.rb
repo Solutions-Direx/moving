@@ -1,5 +1,7 @@
 Moving::Application.routes.draw do
 
+  resources :forfaits
+
   resources :supplies
   resources :trucks
   resources :quotes

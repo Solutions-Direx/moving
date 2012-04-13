@@ -1,0 +1,23 @@
+<%= simple_form_for(@forfait) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name, :input_html => {:class => 'span10'} %>
+    <%= render 'layouts/text_formatting' %>
+    <%= f.input :description, :as => :text, :input_html => {:id => "wysihtml5", :class => 'span10'} %>
+    <div class="control-group float optional">
+      <%= f.label :price %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :price, :class => 'span1 input-append' %><span class="add-on">$</span>
+        </div>
+      </div>
+    </div> 
+  </div>
+
+  <div class="form-actions">
+    <%= submit_or_cancel(f) %>
+  </div>
+<% end %>
+
+<%= render 'layouts/text_formatting_script' %>

@@ -10,7 +10,7 @@
     <div class="title">
       <h3><% if title.blank? %>&nbsp;<% else %><%= title %><% end %></h3>
       <h6>
-        <% if removable %><%= quote_address_form.link_to_remove 'Remove' %> |<% end %>
+        <% if removable %><%= quote_address_form.link_to_remove "remove" %> |<% end %>
         <%= link_to 'Select Storage', '#', :class => "select-storage #{has_storage ? 'hide' : 'show'}" %>
         <%= link_to 'Enter Address', '#', :class => "enter-address #{has_storage ? 'show' : 'hide'}" %>
       </h6>

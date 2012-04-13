@@ -4,7 +4,7 @@
 
 <% if @quote.furniture %>
 <p>Nombre d'électroménager: <%= @quote.furniture.num_appliances %></p>
-<div class="span6 well col2">
+<div class="span6 well col2 odd">
   <h3>Cuisine</h3>
   <ul>
     <%= content_tag(:li, pluralize(@quote.furniture.kitchen_table, 'buffet')) if @quote.furniture.kitchen_table.present? %>
@@ -13,7 +13,7 @@
   </ul>
 </div>
 
-<div class="span6 well col2">
+<div class="span6 well col2 even">
   <h3>Salon</h3>
   <ul>
     <%= content_tag(:li, pluralize(@quote.furniture.living_couch_3pl, 'divan') + ' 3pl') if @quote.furniture.living_couch_3pl.present? %>
@@ -26,7 +26,7 @@
   </ul>    
 </div>
 
-<div class="span6 well col2">
+<div class="span6 well col2 odd">
   <h3>Sous-sol</h3>
   <ul>
     <%= content_tag(:li, pluralize(@quote.furniture.base_salon, 'set') + ' de salon') if @quote.furniture.base_salon.present? %>
@@ -37,7 +37,7 @@
   </ul>
 </div>
 
-<div class="span6 well col2">
+<div class="span6 well col2 even">
   <h3>Extérieur</h3>
   <ul>
     <%= content_tag(:li, pluralize(@quote.furniture.outside_tire, 'tire')) if @quote.furniture.outside_tire.present? %>

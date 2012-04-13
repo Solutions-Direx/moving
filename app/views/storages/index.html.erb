@@ -10,6 +10,7 @@
     <th>Address</th>
     <th>Internal</th>
     <th>Default Price</th>
+    <th>Annexes</th>
     <th></th>
     <th></th>
   </tr>
@@ -20,6 +21,7 @@
     <td><%= address_for(storage.address) %></td>
     <td><%= storage.internal? ? "Interne" : "Externe" %></td>
     <td><%= number_to_currency(storage.price) %></td>
+    <td><%= storage.internal? ? pluralize(storage.annexes.size, 'annexe') : '' %></td>
     <td><%= link_to 'Edit', edit_storage_path(storage) %></td>
     <td><%= link_to 'Destroy', storage, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
