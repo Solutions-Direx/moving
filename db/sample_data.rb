@@ -72,6 +72,14 @@ s_internal.annexes.create([{name: 'Conditions', body: 'Coming up...'}, {name: 'A
 print "\n"
 puts "Generated 5 sample storages."
 
+# generate 3 forfaits
+3.times do |x|
+  print '.'
+  count = x + 1
+  account.forfaits.create!(name: Faker::Lorem.words(2).join(' ').titleize, description: "Coming soon..", price: ['240', '50', '149.99'].sample)
+end
+print "\n"
+puts "Generated 3 sample forfaits."
 
 # generate 5 quotes
 5.times do |x|

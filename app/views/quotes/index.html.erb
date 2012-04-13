@@ -17,7 +17,7 @@
 <% @quotes.each do |quote| %>
   <tr>
     <td><%= link_to quote.code, quote %> <%= status_tag(quote.status) %></td>
-    <td><%= quote.client.name %></td>
+    <td><%= link_to quote.client.name, client_path(quote.client) %></td>
     <td><%= l quote.removal_at, :format => :long %></td>
     <td><%= quote.creator.full_name %></td>
     <td><%= link_to 'Edit', edit_quote_path(quote) %></td>

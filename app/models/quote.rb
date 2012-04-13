@@ -36,7 +36,7 @@ class Quote < ActiveRecord::Base
   # VALIDATIONS
   validates_presence_of :removal_at_picker, :removal_at, :account, :creator, :client
   validate :validate_addresses
-  # validate :validate_from_address
+  validates_uniqueness_of :code
   
   # CALLBACKS
   before_create :generate_code

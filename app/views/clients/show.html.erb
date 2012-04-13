@@ -17,6 +17,35 @@
   <%= mail_to @client.email, @client.email %>
 </p>
 
+<br />
+
 <p>
+  <h6>BILLING ADDRESS</h6>
   <%= address_for(@client.address) %>
 </p>
+
+<br />
+
+<% if @client.quotes.any? %>
+  <h3>Quotes</h3><br />
+  
+  <table class="table table-striped">
+    <tr>
+      <th>ID</th>
+      <th>Removal at</th>
+      <th>Creator</th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @client.quotes.each do |quote| %>
+    <tr>
+      <td><%= link_to quote.code, quote %> <%= status_tag(quote.status) %></td>
+      <td><%= l quote.removal_at, :format => :long %></td>
+      <td><%= quote.creator.full_name %></td>
+      <td><%= link_to 'Edit', edit_quote_path(quote) %></td>
+      <td><%= link_to 'Destroy', quote, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>

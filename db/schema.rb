@@ -70,7 +70,6 @@ ActiveRecord::Schema.define(:version => 20120413161859) do
     t.text     "body"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.boolean  "required"
   end
 
   create_table "forfaits", :force => true do |t|
