@@ -25,7 +25,7 @@ class Quote < ActiveRecord::Base
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, 
                   :materiel, :num_of_removal_man, :price, :rating, :removal_at, 
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
-                  :furniture_attributes, :to_addresses_attributes, :removal_at_picker
+                  :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment
   
   # VALIDATIONS
   validates_presence_of :removal_at_picker, :removal_at, :account, :creator, :client
@@ -57,7 +57,8 @@ class Quote < ActiveRecord::Base
   end
   
   def removal_at_picker=(datetime)
-    self.removal_at = datetime[:date].blank? ? '' : Time.zone.parse("#{datetime[:date]} #{datetime[:hour]}:#{datetime[:minute]}")
+    value = "#{datetime[:date]} #{datetime[:hour]}:#{datetime[:minute]} #{datetime[:ampm]}"
+    self.removal_at = datetime[:date].blank? ? '' : Time.zone.parse(value)
   end
   
   
@@ -72,7 +73,6 @@ private
     tmp.each do |to_address|
       to_addresses.delete(to_address) if !to_address.has_storage? && to_address.address.all_blank?
     end
-    
   end
   
   def ignore_blank_rooms

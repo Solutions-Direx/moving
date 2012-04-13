@@ -31,47 +31,6 @@
     
     AddressWidget.init()
     
-    #   
-    # 
-    # # TOGGLE ADDRESS 1
-    # $('#select-storage').click ->
-    #   $('#to-address1').hide()
-    #   $('#storage-field').show()
-    #   $(this).hide()
-    #   $('#remove-storage').show()
-    #   $('#to-address1').find('input, select').val('')
-    #   return false
-    # 
-    # $('#remove-storage').click ->
-    #   $('#to-address1').show()
-    #   $('#storage-field').hide()
-    #   # console.log $('#storage-field .search-choice-close')
-    #   $('#storage-field select').val('')
-    #   $('#storage-field select').trigger("liszt:updated")
-    #   $('#storage-field .search-choice-close').remove()
-    #   $('#storage-field .chzn-single').addClass('chzn-default')
-    #   $(this).hide()
-    #   $('#select-storage').show()
-    #   return false  
-    # 
-    # # TOGGLE ADDRESS 2    
-    # $('#holder').click ->
-    #   if $('#add-address2').is(":visible")
-    #     $('#add-address2').click()
-    # 
-    # $('#add-address2').click ->
-    #   $('#holder').removeClass('holder').addClass('well')
-    #   $('#to-address2').show()
-    #   $(this).hide()
-    #   return false
-    # 
-    # $('#remove-address2').click ->
-    #   $('#holder').removeClass('well').addClass('holder')
-    #   $('#to-address2').hide()
-    #   $('#add-address2').css('display', 'block')
-    #   $('#to-address2').find('input, select').val('')
-    #   return false
-    
     # RATING
     $('.rating').click ->
       $('#quote_rating').val($(this).text())

@@ -30,7 +30,16 @@
               </div>
             </div>
           </div>
-          <%= f.input :removal_at_picker, :label => "Removal at", :as => :datetime_picker %>
+          
+          <!-- REMOVAL PICKER -->
+          <div class="control-group datetime_picker">
+            <label class="control-label">Removal At</label>
+            <div class="controls">
+              <%= f.input_field :removal_at_picker, :label => "Removal at", :as => :datetime_picker %>
+              <%= f.input_field :removal_at_comment, :label => false, :placeholder => "Comment", :class => "comment_one_liner" %>
+            </div>
+          </div>
+          
           <%= f.input :is_house, :label => false, :as => :radio_buttons, :collection => [['House', true],['Apartment', false]], :item_wrapper_class => "inline" %>
           <%= f.input :phone1 %>
           <%= f.input :phone2 %>

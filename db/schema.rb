@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(:version => 20120412222443) do
     t.string   "phone1"
     t.string   "phone2"
     t.datetime "removal_at"
+    t.string   "removal_at_comment"
     t.datetime "date"
     t.boolean  "is_house",           :default => true
     t.boolean  "materiel"
