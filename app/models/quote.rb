@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Quote < ActiveRecord::Base
   STATUSES = %w{ Pending Confirmed }
   
@@ -26,6 +27,8 @@ class Quote < ActiveRecord::Base
   
   has_many :to_addresses, :class_name => "QuoteToAddress", :foreign_key => "quote_id", :dependent => :destroy, :dependent => :destroy
   accepts_nested_attributes_for :to_addresses, :allow_destroy => true
+  
+  has_one :quote_confirmation, :dependent => :destroy
   
   # ATTRIBUTES
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, 
@@ -67,6 +70,13 @@ class Quote < ActiveRecord::Base
     self.removal_at = datetime[:date].blank? ? '' : Time.zone.parse(value)
   end
   
+  def is_confirmed?
+    !quote_confirmation.nil?
+  end
+  
+  def conf_details
+    "Approuvée le #{quote_confirmation.approved_at} par #{quote_confirmation.user.full_name}"
+  end
   
 private
 

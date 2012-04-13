@@ -16,7 +16,9 @@
 
 <% @quotes.each do |quote| %>
   <tr>
-    <td><%= link_to quote.code, quote %> <%= status_tag(quote.status) %></td>
+    <td>
+      <%= link_to quote.code, quote %> <%= quote.is_confirmed? ? content_tag(:span, 'Confirmed', :class => 'label label-success') : content_tag(:span, 'Pending', :class => 'label') %>
+    </td>
     <td><%= link_to quote.client.name, client_path(quote.client) %></td>
     <td><%= l quote.removal_at, :format => :long %></td>
     <td><%= quote.creator.full_name %></td>

@@ -102,7 +102,7 @@ module BootstrapHelper
       concat("</div>")
     end
     
-    private
+private
     
     def options_from_hash(args)
       args.last.is_a?(Hash) ? args.pop : {}

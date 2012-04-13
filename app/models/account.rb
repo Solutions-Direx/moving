@@ -14,7 +14,8 @@ class Account < ActiveRecord::Base
   has_many :forfaits, :dependent => :destroy
   
   # ATTRIBUTES
-  attr_accessible :company_name, :logo, :logo_cache, :email, :phone, :website, :tax1_label, :tax1, :tax2_label, :tax2, :compound, :address_attributes
+  attr_accessible :company_name, :logo, :logo_cache, :email, :phone, :website, :tax1_label, :tax1, :tax2_label, :tax2, :compound, 
+                  :address_attributes, :franchise_cancellation_amount, :insurance_coverage_short_distance, :insurance_coverage_long_distance
   
   # VALIDATIONS
   validates :company_name, :presence => true, :uniqueness => true

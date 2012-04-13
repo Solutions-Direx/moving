@@ -7,6 +7,7 @@
         <li class="active"><a href="#1" data-toggle="tab">General</a></li>
         <li><a href="#2" data-toggle="tab">Taxes</a></li>
         <li><a href="#3" data-toggle="tab">Address</a></li>
+        <li><a href="#4" data-toggle="tab">Insurance</a></li>
       </ul>
     <div class="tab-content" style="width: auto;">
       <div class="tab-pane active" id="1">
@@ -52,14 +53,40 @@
         </div>
       </div>
           
-        <div class="tab-pane" id="3">
-          <%= f.fields_for :address do |fa| %>
-            <%= fa.input :address %>
-            <%= fa.input :city %>
-            <%= fa.input :province, :collection => Address::PROVINCE %>
-            <%= fa.input :postal_code %>
-            <%= fa.input :country, :collection => Address::COUNTRY %>
-          <% end %>
+      <div class="tab-pane" id="3">
+        <%= f.fields_for :address do |fa| %>
+          <%= fa.input :address, :required => true %>
+          <%= fa.input :city, :required => true %>
+          <%= fa.input :postal_code, :required => true %>
+          <%= fa.input :province, :collection => Address::PROVINCE %>
+          <%= fa.input :country, :collection => Address::COUNTRY %>
+        <% end %>
+      </div>
+      
+      <div class="tab-pane" id="4">
+        <div class="control-group float optional">
+          <%= f.label :franchise_cancellation_amount %>
+          <div class="controls">
+            <div class='input-append'> 
+              <%= f.text_field :franchise_cancellation_amount, :class => 'span1 input-append' %><span class="add-on">$</span>
+            </div>
+          </div>
+        </div>
+        <div class="control-group float optional">
+          <%= f.label :insurance_coverage_short_distance %>
+          <div class="controls">
+            <div class='input-append'> 
+              <%= f.text_field :insurance_coverage_short_distance, :class => 'span1 input-append' %><span class="add-on">$</span>
+            </div>
+          </div>
+        </div>
+        <div class="control-group float optional">
+          <%= f.label :insurance_coverage_long_distance %>
+          <div class="controls">
+            <div class='input-append'> 
+              <%= f.text_field :insurance_coverage_long_distance, :class => 'span1 input-append' %><span class="add-on">$</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

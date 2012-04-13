@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Quote:</b>
+  <%= @quote_confirmation.quote_id %>
+</p>
+
+<p>
+  <b>User is:</b>
+  <%= @quote_confirmation.user_is %>
+</p>
+
+<p>
+  <b>Approved at:</b>
+  <%= @quote_confirmation.approved_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_quote_confirmation_path(@quote_confirmation) %> |
+<%= link_to 'Back', quote_confirmations_path %>

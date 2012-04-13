@@ -11,6 +11,9 @@ class CreateAccounts < ActiveRecord::Migration
       t.string :phone
       t.string :website
       t.string :email
+      t.float :franchise_cancellation_amount
+      t.float :insurance_coverage_short_distance
+      t.float :insurance_coverage_long_distance
 
       t.timestamps
     end

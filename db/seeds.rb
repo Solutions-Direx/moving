@@ -1,7 +1,18 @@
 # encoding: utf-8
 require 'faker'
 
-account = Account.create!(company_name: "Déménagement Maximum")
-owner = account.users.build(username: "super", first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: "super@gmail.com", password: "123123", password_confirmation: "123123", role: User::Role::MANAGER)
+account = Account.create!(company_name: "Déménagement Maximum",
+                          franchise_cancellation_amount: "20",
+                          insurance_coverage_short_distance: "25000",
+                          insurance_coverage_long_distance: "50000"
+                         )
+owner = account.users.build(username: "super", 
+                            first_name: Faker::Name.first_name, 
+                            last_name: Faker::Name.last_name, 
+                            email: "super@gmail.com", 
+                            password: "123123", 
+                            password_confirmation: "123123", 
+                            role: User::Role::MANAGER
+                            )
 owner.account_owner = true
 owner.save

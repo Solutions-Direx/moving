@@ -1,0 +1,35 @@
+<%= simple_form_for([@quote, @quote_confirmation]) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :insurance_limit_enough, :label => false, :as => :radio_buttons, :collection => [['Oui', true],['Non', false]], :item_wrapper_class => "inline" %>
+    
+    <div id="insurance_increase" class="control-group float optional" style="display: <%= @quote_confirmation.insurance_limit_enough? ? 'block' : 'none' %>">
+      <%= f.label :insurance_increase %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :insurance_increase, :class => 'span1 input-append' %><span class="add-on">$</span>
+        </div>
+      </div>
+    </div>
+    
+    <%= f.input :franchise_cancellation, :as => :radio_buttons, :collection => [["Oui (#{current_account.franchise_cancellation_amount}$)", true],['Non', false]], :item_wrapper_class => "inline" %>
+    <%= f.input :payment_method, :as => :radio_buttons, :collection => [['Comptant', 'Comptant'],['Débit', 'Débit'], ['Crédit', 'Crédit']], :item_wrapper_class => "inline" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $('#quote_confirmation_insurance_limit_enough_true').click(function() {
+      $('#insurance_increase').show();
+    });
+    $('#quote_confirmation_insurance_limit_enough_false').click(function() {
+      $('#insurance_increase').hide();
+    });
+  });
+</script>
