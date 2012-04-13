@@ -4,7 +4,7 @@
   <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :internal, :label => false, :as => :radio_buttons, :collection => [['Interne', true],['Externe', false]], :item_wrapper_class => "inline" %>
-    <div id="storage_price" class="control-group float optional">
+    <div id="storage_price" class="control-group float optional" style="display: <%= @storage.internal? ? 'block' : 'none' %>">
       <%= f.label :price %>
       <div class="controls">
         <div class='input-append'>
@@ -27,3 +27,14 @@
     <%= submit_or_cancel(f) %>
   </div>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $('#storage_internal_true').click(function() {
+      $('#storage_price').show();
+    });
+    $('#storage_internal_false').click(function() {
+      $('#storage_price').hide();
+    });
+  });
+</script>
