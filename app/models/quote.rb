@@ -75,7 +75,7 @@ class Quote < ActiveRecord::Base
   end
   
   def conf_details
-    "Approuvée le #{quote_confirmation.approved_at} par #{quote_confirmation.user.full_name}"
+    "Approuvée le #{I18n.l(quote_confirmation.approved_at, :format => :long)} par #{quote_confirmation.user.full_name}"
   end
   
 private
