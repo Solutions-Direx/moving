@@ -1,3 +1,4 @@
-$('<%= j(render 'form', ajax: true) %>').dialog2({
-  title: "Confirmation"
+$('<%= j(render :template => 'quote_confirmations/new', :formats => [:html]) %>').dialog2({
+  title: "Confirmation",
+  id: "new-quote-confirmation"
 });

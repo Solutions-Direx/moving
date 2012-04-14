@@ -1,4 +1,4 @@
-<%= simple_form_for([@quote, @quote_confirmation]) do |f| %>
+<%= simple_form_for([@quote, @quote_confirmation], html: {class: @ajax ? 'ajax' : ''}) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -17,7 +17,7 @@
     <%= f.input :payment_method, :as => :radio_buttons, :collection => [['Comptant', 'Comptant'],['Débit', 'Débit'], ['Crédit', 'Crédit']], :item_wrapper_class => "inline" %>
   </div>
 
-  <div class="form-actions">
+  <div class="form-actions actions">
     <%= f.button :submit %>
   </div>
 <% end %>
