@@ -8,6 +8,10 @@ Moving::Application.routes.draw do
     member do
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'
     end
+    
+    collection do
+      get '/pending'
+    end
   end
   devise_for :users
   resources :clients do

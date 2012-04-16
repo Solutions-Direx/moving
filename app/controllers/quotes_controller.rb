@@ -93,6 +93,15 @@ class QuotesController < ApplicationController
     end
   end
   
+  def pending
+    @quotes = current_account.quotes.pending.order('removal_at ASC').order(sort_column + " " + sort_direction).page(params[:page])
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @quotes }
+    end
+  end
+  
 private
   
   def sort_column

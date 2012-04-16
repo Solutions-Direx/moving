@@ -1,5 +1,8 @@
 <h1>Listing quotes
-  <span class="submenu"><%= icon_button_link_to 'New quote', new_quote_path, icon: "plus", large: true, level: "primary", white: true %></span>
+  <span class="submenu">
+    <%= icon_button_link_to 'New quote', new_quote_path, icon: "plus", large: true, level: "primary", white: true %>
+    <%= Quote.pending.any? ? (button_link_to 'Pending Quotes', pending_quotes_path, large: true, level: "default") : '' %>
+  </span>
 </h1>
 
 <%= paginate @quotes %>
@@ -20,7 +23,8 @@
       <%= link_to quote.code, quote %> <%= status_tag(quote.status, level: quote.confirmed? ? 'success' : '') %>
     </td>
     <td><%= link_to quote.client.name, client_path(quote.client) %></td>
-    <td><%= l quote.removal_at, :format => :long %></td>
+    <td><%= l quote.removal_at, :format => :long %> 
+        <%= quote.removal_at.future? ? "(in #{distance_of_time_in_words_to_now(quote.removal_at)})" : '' %></td>
     <td><%= quote.creator.full_name %></td>
     <td><%= link_to 'Edit', edit_quote_path(quote) %></td>
     <td><%= link_to 'Destroy', quote, confirm: 'Are you sure?', method: :delete %></td>

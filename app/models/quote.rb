@@ -49,6 +49,9 @@ class Quote < ActiveRecord::Base
   before_create :generate_code
   before_save :ignore_blank_addresses, :ignore_blank_rooms
   
+  # SCOPES
+  scope :pending, where(:status => 'Pending')
+  
   # define pending? and confirmed?
   STATUSES.each do |method|
    define_method "#{method.downcase}?" do
