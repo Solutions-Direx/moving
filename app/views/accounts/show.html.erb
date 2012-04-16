@@ -5,8 +5,8 @@
     <div class="tabbable tabs-left">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#1" data-toggle="tab">General</a></li>
-        <li><a href="#2" data-toggle="tab">Taxes</a></li>
-        <li><a href="#3" data-toggle="tab">Address</a></li>
+        <li><a href="#2" data-toggle="tab">Address</a></li>
+        <li><a href="#3" data-toggle="tab">Taxes</a></li>
         <li><a href="#4" data-toggle="tab">Insurance</a></li>
       </ul>
     <div class="tab-content" style="width: auto;">
@@ -23,8 +23,18 @@
           <%= f.hidden_field :logo_cache %>
         </div>
       </div>
-          
+      
       <div class="tab-pane" id="2">
+        <%= f.fields_for :address do |fa| %>
+          <%= fa.input :address, :required => true %>
+          <%= fa.input :city, :required => true %>
+          <%= fa.input :postal_code, :required => true %>
+          <%= fa.input :province, :collection => Address::PROVINCE %>
+          <%= fa.input :country, :collection => Address::COUNTRY %>
+        <% end %>
+      </div>
+          
+      <div class="tab-pane" id="3">
         <%= f.input :tax1_label %>
         <div class="control-group float optional">
           <%= f.label :tax1 %>
@@ -51,16 +61,6 @@
             <i class="icon-info-sign"></i></a>
           </span>
         </div>
-      </div>
-          
-      <div class="tab-pane" id="3">
-        <%= f.fields_for :address do |fa| %>
-          <%= fa.input :address, :required => true %>
-          <%= fa.input :city, :required => true %>
-          <%= fa.input :postal_code, :required => true %>
-          <%= fa.input :province, :collection => Address::PROVINCE %>
-          <%= fa.input :country, :collection => Address::COUNTRY %>
-        <% end %>
       </div>
       
       <div class="tab-pane" id="4">
