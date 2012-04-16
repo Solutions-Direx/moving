@@ -1,6 +1,6 @@
 <h2><%= @quote.client.name %> <%= content_tag(:span, @quote.rating, :class => "badge badge-#{@quote.rating.downcase}") %>
   <span class='submenu'>
-    <% if @quote.is_confirmed? %>
+    <% if @quote.confirmed? %>
       <%= link_to 'Confirmed', '#', :class => 'btn btn-success btn-large disabled', "rel"=>"popover", "data-original-title"=>"Confirmation",
       "data-content"=>"#{@quote.conf_details}", "data-placement" => "left" %>
     <% else %>

@@ -75,10 +75,6 @@ class Quote < ActiveRecord::Base
     self.removal_at = datetime[:date].blank? ? '' : Time.zone.parse(value)
   end
   
-  def is_confirmed?
-    !quote_confirmation.nil?
-  end
-  
   def conf_details
     "Approuvée le #{I18n.l(quote_confirmation.approved_at, :format => :long)} par #{quote_confirmation.user.full_name}"
   end
