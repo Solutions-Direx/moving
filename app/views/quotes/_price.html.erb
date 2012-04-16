@@ -27,17 +27,3 @@
   <b>Matériel:</b>
   <%= @quote.materiel? ? 'Included' : 'Not included' %>
 </p>
-
-<% if @quote.forfaits.any? %>
-  <p><b>Forfaits</b></p>
-  <% @quote.forfaits.each do |forfait| %>
-  <ul>
-    <li><%= forfait.name_with_price %></li>
-  </ul>
-  <% end %>
-<% end %>
-
-<p>
-  <b>Créée par:</b>
-  <%= @quote.creator.full_name %>
-</p>

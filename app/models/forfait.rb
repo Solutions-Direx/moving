@@ -12,4 +12,5 @@ class Forfait < ActiveRecord::Base
   def name_with_price
     "#{name} (#{number_to_currency(price)})"
   end
+
 end

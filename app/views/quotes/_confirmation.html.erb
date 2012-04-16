@@ -1,5 +1,6 @@
 <% if @quote.confirmed? %>
   <%= section %>
+  <h3 class='with_margin'>Confirmation Details</h3>
   
   <p>Augmentation de l'assurance: 
   <%= @quote.quote_confirmation.insurance_limit_enough? ? 'Non' : number_to_currency(@quote.quote_confirmation.insurance_increase) %>

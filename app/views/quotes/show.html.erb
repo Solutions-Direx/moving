@@ -13,6 +13,7 @@
 <p>
   <b>Removal at:</b>
   <%= l @quote.removal_at, :format => :long %> || <%= @quote.is_house? ? 'Maison' : 'Appartement' %>
+  <span class='submenu'><b>Créée par: </b><%= @quote.creator.full_name %></span>
 </p>
 <div class="span6 well col2 odd">
   <h3>From</h3>
@@ -48,5 +49,7 @@
 
 <%= section %>
 <%= render 'price' %>
+
+<%= render 'optional' %>
 
 <%= render 'confirmation' %>

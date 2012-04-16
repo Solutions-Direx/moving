@@ -1,0 +1,30 @@
+<% if @quote.quote_supplies.any? %>
+  <%= section %>
+  <h3 class='with_margin'>Supplies</h3>
+  <% @quote.quote_supplies.each do |q_supply| %>
+  <ul>
+    <li><%= q_supply.quantity %> * <%=q_supply.supply.name_with_price %></li>
+  </ul>
+  <% end %>
+<% end %>
+
+<% if @quote.forfaits.any? %>
+  <%= section %>
+  <h3 class='with_margin'>Forfaits</h3>
+  <% @quote.forfaits.each do |forfait| %>
+  <ul>
+    <li><%= link_to forfait.name_with_price, '', "rel"=>"popover", "data-original-title"=>"#{forfait.name}",
+      "data-content"=>"#{simple_format(forfait.description)}" %></li>
+  </ul>
+  <% end %>
+<% end %>
+  
+<% if @quote.documents.any? %>
+  <%= section %>
+  <h3 class='with_margin'>Documents attached</h3>
+  <% @quote.documents.each do |document| %>
+  <ul>
+    <li><%= document.name %></li>
+  </ul>
+  <% end %>
+<% end %>
