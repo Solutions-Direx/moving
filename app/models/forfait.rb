@@ -7,6 +7,8 @@ class Forfait < ActiveRecord::Base
   validates_presence_of :name, :description, :price
   validates_uniqueness_of :name
   
+  default_scope :order => "name"
+  
   def name_with_price
     "#{name} (#{number_to_currency(price)})"
   end

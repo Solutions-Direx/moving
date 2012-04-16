@@ -4,7 +4,7 @@
 @Quote = {}
 @Quote.Form = 
   init: ->
-    $(".chzn").chosen()
+    $("#quote-form .chzn").chosen()
     # $(".chzn-deselectable").chosen({allow_single_deselect: true})
     
     $('#quote_from_address_attributes_city').autocomplete
@@ -23,11 +23,11 @@
     $('#quote-form').on "nested:fieldAdded:rooms", (e) =>
       this.update_room_number()
     
-    # $('#quote-form').on "nested:fieldAdded:to_addresses", (e) =>  
-    #   $(e.field).find('.chzn-deselectable').chosen({allow_single_deselect: true})
-      
     $('#quote-form').on "nested:fieldRemoved", (e) =>
       this.update_room_number()
+    
+    $('#quote-form').on "nested:fieldAdded:quote_supplies", (e) ->
+      $(e.field).find(".chzn").chosen()
     
     AddressWidget.init()
     

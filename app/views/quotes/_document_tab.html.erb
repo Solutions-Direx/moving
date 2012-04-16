@@ -1,0 +1,3 @@
+<div class="tab-pane" id="lD">
+  <%= f.association :documents, :as => :check_boxes, :label => false, :collection => current_account.documents.all.map{|s| [s.name, s.id]} %>
+</div>

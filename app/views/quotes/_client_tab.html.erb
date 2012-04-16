@@ -1,0 +1,49 @@
+<div class="tab-pane active" id="lA">
+  <!-- CLIENT -->
+  <%= f.input :client_id do %>
+    <%= f.input_field :client_id, :collection => Client.all.map{|c| [c.name, c.id]}, :class => "chzn", "data-placeholder" => "Select", :id => "select-clients" %> ou 
+    <%= icon_button_link_to "New Client", new_client_path, icon: 'plus', level: "inverse", white: true, remote: true %>
+  <% end %>
+
+  <!-- RATING -->
+  <div class="control-group">
+    <label class="control-label">Rating</label>
+    <div class="controls">
+      <%= f.hidden_field :rating %>
+      <div class="btn-group" data-toggle="buttons-radio">
+        <button class="btn btn-large btn-primary rating <%= @quote.rating == 'A' ? 'active' : '' %>" type="button">A</button>
+        <button class="btn btn-large btn-primary rating <%= @quote.rating == 'B' ? 'active' : '' %>" type="button">B</button>
+        <button class="btn btn-large btn-primary rating <%= @quote.rating == 'C' ? 'active' : '' %>" type="button">C</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- REMOVAL PICKER -->
+  <div class="control-group datetime_picker">
+    <label class="control-label">Removal At</label>
+    <div class="controls">
+      <%= f.input_field :removal_at_picker, :label => "Removal at", :as => :datetime_picker %>
+      <%= f.input_field :removal_at_comment, :label => false, :placeholder => "Comment", :class => "comment_one_liner" %>
+    </div>
+  </div>
+  
+  <%= f.input :is_house, :label => false, :as => :radio_buttons, :collection => [['House', true],['Apartment', false]], :item_wrapper_class => "inline" %>
+  <%= f.input :phone1 %>
+  <%= f.input :phone2 %>
+
+  <!-- ADRESS ERRORS -->
+  <% unless @quote.errors[:base].blank? %>
+    <div class="alert alert-error"><a class="close">×</a><%= @quote.errors[:base].first %></div>
+  <% end %>
+  
+  <div class="row" id="addresses">
+  <%= f.fields_for :from_address do |fa| %>
+    <%= fa.fields_for :address do |faa| %>
+      <%= render 'address_widget', title: 'From', quote_address_form: fa, address_form: faa %>
+    <% end %>
+  <% end %>
+  
+  <%= f.fields_for :to_addresses %>
+  <%= f.link_to_add content_tag(:span, "Click to add address"), :to_addresses, :id => "add-address", :class => "span3" %>
+  </div>
+</div>

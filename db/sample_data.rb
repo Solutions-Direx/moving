@@ -81,6 +81,14 @@ end
 print "\n"
 puts "Generated 3 sample forfaits."
 
+3.times do |x|
+  print '.'
+  count = x + 1
+  account.supplies.create!(name: Faker::Lorem.words(2).join(' ').titleize, price: ['240', '50', '149.99'].sample)
+end
+print "\n"
+puts "Generated 3 sample supplies."
+
 # generate 5 quotes
 5.times do |x|
   print '.'

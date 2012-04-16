@@ -8,7 +8,7 @@ class Quote < ActiveRecord::Base
   belongs_to :creator, :class_name => "User", :foreign_key => "creator_id"
   
   has_many :rooms, :dependent => :destroy
-  accepts_nested_attributes_for :rooms, :reject_if => lambda {|room| room.size.blank?}, :allow_destroy => true
+  accepts_nested_attributes_for :rooms, :reject_if => lambda {|room| room[:size].blank?}, :allow_destroy => true
   
   has_one :furniture, :dependent => :destroy
   accepts_nested_attributes_for :furniture
@@ -22,11 +22,14 @@ class Quote < ActiveRecord::Base
   has_many :quote_forfaits, :dependent => :destroy
   has_many :forfaits, :through => :quote_forfaits
   
-  has_one :from_address, :class_name => "QuoteFromAddress", :foreign_key => "quote_id", :dependent => :destroy, :dependent => :destroy
+  has_one :from_address, :class_name => "QuoteFromAddress", :foreign_key => "quote_id", :dependent => :destroy
   accepts_nested_attributes_for :from_address
   
-  has_many :to_addresses, :class_name => "QuoteToAddress", :foreign_key => "quote_id", :dependent => :destroy, :dependent => :destroy
+  has_many :to_addresses, :class_name => "QuoteToAddress", :foreign_key => "quote_id", :dependent => :destroy
   accepts_nested_attributes_for :to_addresses, :allow_destroy => true
+  
+  has_many :quote_supplies, :dependent => :destroy
+  accepts_nested_attributes_for :quote_supplies, :allow_destroy => true, :reject_if => lambda {|qs| qs[:quantity].blank?}
   
   has_one :quote_confirmation, :dependent => :destroy
   
@@ -34,7 +37,8 @@ class Quote < ActiveRecord::Base
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, 
                   :materiel, :num_of_removal_man, :price, :rating, :removal_at, 
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
-                  :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment, :document_ids, :forfait_ids
+                  :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment, 
+                  :document_ids, :forfait_ids, :quote_supplies_attributes
   
   # VALIDATIONS
   validates_presence_of :removal_at_picker, :removal_at, :account, :creator, :client
@@ -45,6 +49,7 @@ class Quote < ActiveRecord::Base
   before_create :generate_code
   before_save :ignore_blank_addresses, :ignore_blank_rooms
   
+  # define pending? and confirmed?
   STATUSES.each do |method|
    define_method "#{method.downcase}?" do
       self.status == method
@@ -88,6 +93,9 @@ private
     tmp = to_addresses.clone
     tmp.each do |to_address|
       to_addresses.delete(to_address) if !to_address.has_storage? && to_address.address.all_blank?
+    end
+    to_addresses.each do |to_address|
+      to_address.address = nil if to_address.has_storage?
     end
   end
   

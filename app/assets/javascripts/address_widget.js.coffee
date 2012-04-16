@@ -11,7 +11,7 @@
       widget.find('.enter-address').removeClass('hide').addClass('show')
       
       # toggle fields
-      widget.find('.to-address').removeClass('show').addClass('hide').find('input, select').val('')
+      widget.find('.to-address').removeClass('show').addClass('hide')#.find('input, select').val('')
       widget.find('.storage-field').removeClass('hide').addClass('show')
       return false
     

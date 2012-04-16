@@ -1,0 +1,62 @@
+<div class="tab-pane" id="lB">
+  <%= f.fields_for :rooms %>
+  <p><%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + " Add Room", :rooms, :class => "btn btn-primary" %></p><br/>
+  <% @quote.build_furniture unless @quote.furniture %>
+    <%= f.fields_for :furniture do |ff| %>
+      <div class="control-group integer optional">
+        <%= ff.label :num_appliances, :default => 'Number of appliances' %>
+        <div class='controls'>
+          <%= ff.number_field :num_appliances, :class => 'span1' %>
+        </div>
+      </div>
+      <table id="furnitures" class="table">
+        <tbody>
+          <tr>
+            <td style="text-align:right;"><b>Kitchen</b></td>
+            <td><%= content_tag :span, 'Table' %><%= ff.number_field :kitchen_table, :class => 'span1' %></td>
+            <td><%= content_tag :span, 'Chair' %><%= ff.number_field :kitchen_chair, :class => 'span1' %></td>
+            <td><%= content_tag :span, 'Buffet' %><%= ff.number_field :kitchen_buffet, :class => 'span1' %></td>
+          </tr>
+          <tr>
+            <td rowspan="3" style="text-align:right;"><b>Living Room</b></td>
+            <td><%= content_tag :span, 'Divan 3pl' %><%= ff.number_field :living_couch_3pl, :class => 'span1' %></td>
+            <td><%= content_tag :span, 'Divan 2pl' %><%= ff.number_field :living_couch_2pl, :class => 'span1' %></td>
+            <td><%= content_tag :span, 'Fauteuil' %><%= ff.number_field :living_armchair, :class => 'span1' %></td>
+          </tr>
+          <tr>
+            <td><%= content_tag :span, 'Table de salon' %><%= ff.number_field :living_table, :class => 'span1' %></td>
+            <td><%= content_tag :span, 'Unité murale' %><%= ff.number_field :living_wall_unit, :class => 'span1' %></td>
+            <td><%= content_tag :span, 'TV' %><%= ff.number_field :living_tv, :class => 'span1' %></td>
+          </tr>
+          <tr>
+            <td colspan="3"><%= content_tag :span, 'Autres' %><%= ff.text_field :living_other, :class => 'comment_one_liner' %></td>
+          </tr>
+          <tr>
+            <td rowspan="2" style="text-align:right;"><b>Basement</b></td>
+            <td><%= content_tag :span, 'Salon' %><%= ff.number_field :base_salon, :class => 'span1' %></td>
+            <td><%= content_tag :span, 'Étagères' %><%= ff.number_field :base_shelf, :class => 'span1' %></td>
+            <td><%= content_tag :span, 'Bureau' %><%= ff.number_field :base_desk, :class => 'span1' %></td>
+          </tr>
+          <tr>
+            <td colspan="3"><%= content_tag :span, 'Autres' %><%= ff.text_field :base_other, :class => 'comment_one_liner' %></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td rowspan="3" style="text-align:right;"><b>Extérieur</b></td>
+            <td><%= content_tag :span, 'Pneus' %><%= ff.number_field :outside_tire, :class => 'span1' %></td>
+            <td><%= content_tag :span, 'Tondeuse' %><%= ff.number_field :outside_lawn_mower, :class => 'span1' %></td>
+            <td><%= content_tag :span, 'Vélo' %><%= ff.number_field :outside_bike, :class => 'span1' %></td>
+          </tr>
+          <tr>
+            <td><%= 'Table ' %><%= ff.number_field :outside_table, :class => 'span1' %></td>
+            <td><%= content_tag :span, 'BBQ' %><%= ff.number_field :outside_bbq, :class => 'span1' %></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="3"><%= content_tag :span, 'Autres' %><%= ff.text_field :outside_other, :class => 'comment_one_liner' %></td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+</div>
