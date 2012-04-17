@@ -1,9 +1,9 @@
 <% if user_signed_in? %>
   <div class="subnav">
     <%= tabs_tag :builder => BootstrapSubnavBuilder, :open_tabs => { :class => "nav nav-pills" } do |tab| %>
-      <%= tab.quotes 'Quotes', quotes_path %>
+      <%= tab.quotes Quote.model_name.human, quotes_path %>
       <%= tab.contracts 'Contracts', '' %>
-      <%= tab.contracts 'Calendar', '' %>
+      <%= tab.calendar Calendar.model_name.human, calendar_path %>
       <%= tab.clients   'Clients', clients_path %>
       <%= tab.invoices   'Invoices', '' %>
       <%= tab.documents   'Documents', documents_path %>
