@@ -1,13 +1,3 @@
-//#calendar {
-//  .today {
-//    background-color: #D44413;
-//    color: #fff;
-//    font-size: bold;
-//  }
-//  
-//  #month {text-align:center;}
-//}
-
 #calendar table {
   border-collapse: collapse;
   width: 100%;
@@ -45,6 +35,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   text-align: center;
+  clear: both;
 }
 
 #calendar #month a, #calendar #month a:hover {
@@ -53,12 +44,17 @@
   color: #999;
 }
 
+#calendar #month a:hover {
+	background: #eee;
+	@include border-radius(5px);
+}
+
 #calendar .today {
-//  background-color: #D7F2FF;
   background-color: #D44413;
   color: #fff;
   font-size: bold;
   
+  a {color: #fff;}
 }
 
 #calendar ul {

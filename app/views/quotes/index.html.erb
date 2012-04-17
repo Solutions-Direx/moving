@@ -20,7 +20,8 @@
 <% @quotes.each do |quote| %>
   <tr>
     <td>
-      <%= link_to_if params[:action] == 'pending' || quote.confirmed?, quote.code, quote %> <%= status_tag(quote.status, level: quote.confirmed? ? 'success' : '') %>
+      <!%= link_to_if params[:action] == 'pending' || quote.confirmed?, quote.code, quote %>
+      <%= link_to quote.code, quote %> <%= status_tag(quote.status, level: quote.confirmed? ? 'success' : '') %>
     </td>
     <td><%= link_to quote.client.name, client_path(quote.client) %></td>
     <td><%= l quote.removal_at, :format => :long %> 

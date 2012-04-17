@@ -84,7 +84,7 @@ class Quote < ActiveRecord::Base
 private
 
   def generate_code
-    self.code = Array.new.tap {|a| 5.times { a << Random.rand(9) } }.join
+    self.code = Array.new.tap {|a| 5.times { a << Random.rand(9) } }.join("")
   end
   
   def ignore_blank_addresses

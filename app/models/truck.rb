@@ -4,6 +4,6 @@ class Truck < ActiveRecord::Base
   default_scope :order => "name"
   
   def name_with_plate
-    "#{name} - #{plate}"
+    "#{name} (#{plate})"
   end
 end

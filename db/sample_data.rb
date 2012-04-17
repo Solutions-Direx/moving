@@ -45,7 +45,7 @@ puts "Generated 50 sample clients."
 10.times do |x|
   print '.'
   count = x + 1
-  account.trucks.create!(name: Faker::Lorem.words(2).join(' ').titleize, plate: Faker::PhoneNumber.phone_number)
+  account.trucks.create!(name: Faker::Lorem.words(2).join(' ').titleize, plate: ['22367 SLV', '11145 RTY', '45093 CVB', '84556 CVB'].sample)
 end
 print "\n"
 puts "Generated 10 sample trucks."

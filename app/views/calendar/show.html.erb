@@ -1,13 +1,14 @@
-<p>
+<span class='floatr'>
+  <%= link_to "Current Month", :month => (Date.today.beginning_of_month).strftime("%Y-%m") %> | 
   <%= link_to "Weekly" %> |
   <%= link_to "Monthly" %>
-</p>
+</span>
+
 <div id="calendar">
   <%= calendar_for(@quotes, :year => @date.year, :month => @date.month, :html => {:class => 'monthly'}) do |t| %>
     <h2 id="month">
-      <%= @date.strftime("%B %Y") %>
       <%= link_to '&#x2190;'.html_safe, :month => (@date.beginning_of_month-1).strftime("%Y-%m") %>
-      <%= link_to "This Month", :month => (Date.today.beginning_of_month).strftime("%Y-%m") %>
+      <%= @date.strftime("%B %Y") %>
       <%= link_to "&#x2192;".html_safe, :month => (@date.end_of_month+1).strftime("%Y-%m") %>
     </h2>
     <%= t.head('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun') %>
@@ -15,7 +16,7 @@
       <%= day.day %>
       <ul>
       <% quotes.each do |quote| %>
-        <li><%= link_to quote.client.name, '', :class => "client", "data-content" => "#{render('popover')}", "data-original-title" => "Client", :style => "position: relative;" %></li>
+        <li><%= quote.removal_at.strftime("%H:%M") %> <%= link_to quote.client.name, '', :class => "client", "data-content" => "#{render('popover', quote: quote)}", "data-original-title" => "#{quote.removal_at.strftime('%H:%M')} #{quote.client.name}", :style => "position: relative;" %></li>
       <% end %>
       </ul>
     <% end %>
