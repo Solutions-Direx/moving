@@ -15,9 +15,27 @@
       <%= day.day %>
       <ul>
       <% quotes.each do |quote| %>
-        <li><%= link_to quote.client.name, '', :rel => "popover", :class => "client", "data-content" => "#{render('popover')}", "data-original-title" => "Client", "data-placement" => "in top", :style => "position: relative;" %></li>
+        <li><%= link_to quote.client.name, '', :class => "client", "data-content" => "#{render('popover')}", "data-original-title" => "Client", :style => "position: relative;" %></li>
       <% end %>
       </ul>
     <% end %>
   <% end %>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $(".client")
+      .popover({
+          // offset: 10,
+          trigger: 'manual',
+          animate: false,
+          html: true,
+          placement: 'top',
+          template: '<div class="popover" onmouseover="$(this).mouseleave(function() {$(this).hide(); });"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+      }).click(function(e) {
+          e.preventDefault() ;
+      }).mouseenter(function(e) {
+          $(this).popover('show');
+      });
+  });
+</script>
