@@ -35,6 +35,12 @@
     $('.rating').click ->
       $('#quote_rating').val($(this).text())
       
+    $('#quote_pm').click ->
+      if $(this).is(":checked")
+        $('#removal_at_comment').slideDown()
+      else
+        $('#removal_at_comment').slideUp()
+      
   update_room_number: ->
     $('#quote-form .room:visible').each (index, room) ->
       $(room).find('.room-number').text("Room #{index + 1}")

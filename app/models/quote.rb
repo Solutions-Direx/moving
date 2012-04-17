@@ -38,7 +38,7 @@ class Quote < ActiveRecord::Base
                   :materiel, :num_of_removal_man, :price, :rating, :removal_at, 
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
                   :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment, 
-                  :document_ids, :forfait_ids, :quote_supplies_attributes
+                  :document_ids, :forfait_ids, :quote_supplies_attributes, :pm
   
   # VALIDATIONS
   validates_presence_of :removal_at_picker, :removal_at, :account, :creator, :client
@@ -74,8 +74,7 @@ class Quote < ActiveRecord::Base
   end
   
   def removal_at_picker=(datetime)
-    value = "#{datetime[:date]} #{datetime[:hour]}:#{datetime[:minute]} #{datetime[:ampm]}"
-    self.removal_at = datetime[:date].blank? ? '' : Time.zone.parse(value)
+    self.removal_at = datetime[:date].blank? ? '' : Time.zone.parse("#{datetime[:date]} #{datetime[:hour]}:#{datetime[:minute]}")
   end
   
   def conf_details

@@ -23,7 +23,10 @@
     <label class="control-label">Removal At</label>
     <div class="controls">
       <%= f.input_field :removal_at_picker, :label => "Removal at", :as => :datetime_picker %>
-      <%= f.input_field :removal_at_comment, :label => false, :placeholder => "Comment", :class => "comment_one_liner" %>
+      <label class="checkbox inline">
+        <%= f.check_box :pm %> PM
+      </label>
+      <p id="removal_at_comment" style="display: <%= @quote.pm ? 'block' : 'none' %>"><%= f.input_field :removal_at_comment, :label => false, :placeholder => "Comment", :class => "comment_one_liner" %></p>
     </div>
   </div>
   

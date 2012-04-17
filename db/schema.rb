@@ -181,6 +181,7 @@ ActiveRecord::Schema.define(:version => 20120416030436) do
     t.integer  "creator_id"
     t.string   "status",             :default => "Pending"
     t.text     "comment"
+    t.boolean  "pm",                 :default => false
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
   end

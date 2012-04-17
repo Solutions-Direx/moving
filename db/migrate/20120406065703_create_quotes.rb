@@ -20,6 +20,7 @@ class CreateQuotes < ActiveRecord::Migration
       t.integer :creator_id
       t.string :status, :default => "Pending"
       t.text :comment
+      t.boolean :pm, :default => false
 
       t.timestamps
     end
