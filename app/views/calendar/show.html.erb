@@ -1,0 +1,16 @@
+<div id="calendar">
+  <%= calendar_for(@quotes, :year => @date.year, :month => @date.month, :html => {:class => 'table'}) do |t| %>
+    <h2 id="month">
+      <%= link_to '⬅', :month => (@date.beginning_of_month-1).strftime("%Y-%m") %></i>
+      <%=h @date.strftime("%B %Y") %>
+      <%= link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m") %>
+    </h2>
+    <%= t.head('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun') %>
+    <%= t.day(:day_method => :removal_at) do |day, quotes| %>
+      <%= day.day %>
+      <% quotes.each do |quote| %>
+        <li><%= h(quote.client.name) %></li>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

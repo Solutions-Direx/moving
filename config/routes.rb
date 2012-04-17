@@ -1,5 +1,7 @@
 Moving::Application.routes.draw do
-
+  
+  match 'calendar' => 'calendar#show', :as => 'calendar'
+  match 'schedule' => 'schedule#show', :as => 'schedule'
   resources :forfaits
   resources :supplies
   resources :trucks

@@ -1,4 +1,8 @@
 fr:
+  activerecord:
+    models:
+      quote: Ententes
+      calendar: Calendrier
   profiles:
     show:
       title: 'Modifier votre profil'
