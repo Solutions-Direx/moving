@@ -4,6 +4,6 @@ class CalendarController < ApplicationController
   
   def show
     @quotes = Quote.all
-    @date = params[:month] ? Date.parse(params[:month]) : Date.today
+    @date = params[:month] ? Date.strptime(params[:month], "%Y-%m") : Date.today
   end
 end
