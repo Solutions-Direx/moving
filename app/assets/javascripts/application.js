@@ -22,6 +22,9 @@
 
 
 $(function() {
+  // Popover
+     $('a[rel=popover]').popover();
+
   // fix sub nav on scroll
       var $win = $(window)
         , $nav = $('.subnav')

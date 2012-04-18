@@ -1,3 +1,13 @@
+<% if @quote.trucks.any? %>
+  <%= section %>
+  <h3 class='with_margin'>Trucks</h3>
+  <% @quote.trucks.each do |truck| %>
+  <ul>
+    <li><%= truck.name_with_plate %></li>
+  </ul>
+  <% end %>
+<% end %>
+
 <% if @quote.quote_supplies.any? %>
   <%= section %>
   <h3 class='with_margin'>Supplies</h3>
@@ -13,7 +23,7 @@
   <h3 class='with_margin'>Forfaits</h3>
   <% @quote.forfaits.each do |forfait| %>
   <ul>
-    <li><%= link_to forfait.name_with_price, '', "rel"=>"popover", "data-original-title"=>"#{forfait.name}",
+    <li><%= link_to forfait.name_with_price, '#', "rel"=>"popover", "data-original-title"=>"#{forfait.name_with_price}",
       "data-content"=>"#{simple_format(forfait.description)}" %></li>
   </ul>
   <% end %>
