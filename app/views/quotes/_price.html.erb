@@ -15,7 +15,7 @@
 
 <p>
   <b>Transport time:</b>
-  <%= @quote.transport_time %><% if @quote.long_distance %> (Long distance)<% end %>
+  <%= @quote.transport_time %><% if @quote.long_distance %> <%= content_tag(:span, '(Long distance)', :class => 'label label-warning label_override') %><% end %>
 </p>
 
 <p>

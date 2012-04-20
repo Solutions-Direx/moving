@@ -15,6 +15,14 @@
   <%= l @quote.removal_at, :format => :long %> || <%= @quote.is_house? ? 'Maison' : 'Appartement' %>
   <span class='submenu'><b>Créée par: </b><%= @quote.creator.full_name %></span>
 </p>
+
+<% if @quote.pm? %>
+  <p>
+    <span class='label label-warning label_override'>L'heure exacte sera confirmée le jour même</span>
+    <% if @quote.removal_at_comment.present? %><%= @quote.removal_at_comment %><% end %>
+  </p>
+<% end %>
+
 <div class="span6 well col2 odd">
   <h3>From</h3>
   <div class="storage">

@@ -165,3 +165,9 @@ address {margin-bottom: 0;}
     width: 1168px; /* 2px less to account for left/right borders being removed when in fixed mode */
   }
 }
+
+.label_override {
+	font-size: 13px;
+	text-shadow: none;
+	vertical-align: top;
+}
