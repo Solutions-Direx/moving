@@ -68,5 +68,24 @@
   margin: 0;
   padding: 0;
   font-size: 11px;
-  text-align: center;
+  text-align: left;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+#calendar li span {
+  float: left;
+}
+#calendar li .time {
+  margin-right: 3px;
+}
+#calendar table.monthly {
+  td {
+    cursor: pointer;
+  }
+  td:hover {
+    background: #f0f5fa;
+  }
+  td.today:hover {
+    background: #D44413;
+  }
 }

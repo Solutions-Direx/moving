@@ -1,0 +1,7 @@
+<span class='floatr'>
+  <%= link_to "Monthly", monthly_quotes_path %>
+</span>
+
+<% @quotes.each do |quote| %>
+  <%= quote.code %>
+<% end %>

@@ -102,6 +102,18 @@ class QuotesController < ApplicationController
     end
   end
   
+  def monthly
+    set_tab :calendar
+    @date = params[:month] ? Date.strptime(params[:month], "%Y-%m") : Date.today
+    @quotes = Quote.where(removal_at: (@date - 1.month).beginning_of_month..(@date + 1.month).end_of_month)
+  end
+  
+  def daily
+    set_tab :calendar
+    @day = params[:day] ? Date.strptime(params[:day], "%Y-%m-%d") : Date.today
+    @quotes = Quote.where(removal_at: @day.beginning_of_day..@day.end_of_day)
+  end
+  
 private
   
   def sort_column

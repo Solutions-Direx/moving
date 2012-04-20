@@ -1,6 +1,6 @@
 Moving::Application.routes.draw do
   
-  match 'calendar' => 'calendar#show', :as => 'calendar'
+  # match 'calendar' => 'calendar#show', :as => 'calendar'
   match 'schedule' => 'schedule#show', :as => 'schedule'
   resources :forfaits
   resources :supplies
@@ -13,6 +13,8 @@ Moving::Application.routes.draw do
     
     collection do
       get '/pending'
+      get 'monthly'
+      get 'daily'
     end
   end
   devise_for :users
