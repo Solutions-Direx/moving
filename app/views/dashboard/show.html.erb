@@ -1,5 +1,26 @@
 <%= render 'layouts/search' %>
 
+<% if @quotes.any? %>
+  <h3><%= t "today", default: 'Today' %></h3>
+  
+  <table class="table table-striped">
+    <tr>
+      <th>ID</th>
+      <th>Client</th>
+      <th>Removal at</th>
+    </tr>
+    
+    <% @quotes.each do |quote| %>
+    <tr>
+      <td><%= link_to quote.code, quote_path(quote) %></td>
+      <td><%= quote.client.name %></td>
+      <td><%= quote.removal_at.strftime("%H:%M") %></td>
+    </tr>
+  <% end %>
+<% else %>
+  <p class='alert alert-info'><%= t "dashboard.nothing_found_for_today", default: 'No removal sheduled for today.' %></p>
+<% end %>
+
 <% modal :id => "test-modal" do |builder| %>
   <%= builder.header :closeable => false do %>foo<% end %>
   <%= builder.body do %>

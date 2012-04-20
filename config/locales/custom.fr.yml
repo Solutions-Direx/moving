@@ -1,4 +1,5 @@
 fr:
+  today: "Aujourd'hui"
   activerecord:
     models:
       quote: Ententes
@@ -14,6 +15,8 @@ fr:
   profiles:
     show:
       title: 'Modifier votre profil'
+  dashboard:
+    nothing_found_for_today: "Pas de déménagement prévu aujourd'hui."
   quotes:
     form:
       num_appliances: "Nombre d'électroménager"

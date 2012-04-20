@@ -52,6 +52,7 @@ class Quote < ActiveRecord::Base
   # SCOPES
   scope :pending, where(:status => 'Pending')
   scope :confirmed, where(:status => 'Confirmed')
+  scope :today, lambda { where("removal_at BETWEEN '#{DateTime.now.beginning_of_day}' AND '#{DateTime.now.end_of_day}'") }
   
   # define pending? and confirmed?
   STATUSES.each do |method|

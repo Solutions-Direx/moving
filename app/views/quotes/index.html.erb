@@ -1,7 +1,9 @@
 <h1>Listing quotes
   <span class="submenu">
     <%= icon_button_link_to 'New quote', new_quote_path, icon: "plus", large: true, level: "primary", white: true %>
-    <%= Quote.pending.any? ? (button_link_to 'Pending Quotes', pending_quotes_path, large: true, level: "default") : '' %>
+    <% if params[:action] == 'index' %>
+      <%= Quote.pending.any? ? (button_link_to 'Pending Quotes', pending_quotes_path, large: true, level: "default") : '' %>
+    <% end %>
   </span>
 </h1>
 

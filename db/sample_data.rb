@@ -22,14 +22,14 @@ end
 print "\n"
 puts "Generated 10 sample standard users."
 
-# generate 20 removal men
-20.times do |x|
+# generate 10 removal men
+10.times do |x|
   print '.'
   count = x + 1
   account.users.create!(username: "removal_man#{count}", first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: "removal_man#{count}@gmail.com", password: "123123", password_confirmation: "123123", role: User::Role::REMOVAL_MAN)
 end
 print "\n"
-puts "Generated 20 sample removal men."
+puts "Generated 10 sample removal men."
 
 # generate 50 clients
 50.times do |x|
@@ -89,14 +89,14 @@ end
 print "\n"
 puts "Generated 3 sample supplies."
 
-# generate 5 quotes
-5.times do |x|
+# generate 10 quotes
+10.times do |x|
   print '.'
   count = x + 1
   client = Client.find(count)
   quote = account.quotes.build(client_id: client.id, 
                                creator_id: User.first.id, 
-                               removal_at: Time.now + [5,10,15,20].sample.days, 
+                               removal_at: Time.now + [0,5,10,15,20].sample.days, 
                                date: Time.now,
                                phone1: client.phone1,
                                phone2: client.phone2,
@@ -104,7 +104,9 @@ puts "Generated 3 sample supplies."
                                num_of_removal_man: (2..5).to_a.sample,
                                price: (100..500).to_a.sample,
                                gas: (30..100).to_a.sample,
-                               rating: ['A', 'B', 'C'].sample)
+                               rating: ['A', 'B', 'C'].sample,
+                               pm: [true, false].sample,
+                               )
   # room
   quote.rooms.build(size: Room::SIZES.sample)
   # from address
@@ -117,5 +119,5 @@ puts "Generated 3 sample supplies."
   quote.save!
 end
 print "\n"
-puts "Generated 5 sample quotes."
-puts "DONE."
+puts "Generated 10 sample quotes."
+puts "DONE"

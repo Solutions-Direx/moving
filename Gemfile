@@ -8,7 +8,7 @@ gem 'rails', '3.2.3'
 gem 'mysql2'
 gem 'rmagick'
 gem 'carrierwave'
-gem 'tabs_on_rails'
+gem 'tabs_on_rails', "~> 2.1.1"
 
 # Gems used only for assets and not required
 # in production environments by default.
