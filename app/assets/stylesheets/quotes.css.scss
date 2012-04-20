@@ -89,6 +89,30 @@ body.quotes {
     margin-left: 160px;
     margin-bottom: 20px;
   }
+  
+  #timeline {
+    margin-top: 20px;
+    h3 {
+      @include clearfix;
+      
+      .time {
+        float: left;
+      }
+    }
+    .line {
+      height: 2px;
+      background: #333;
+      margin-top: 12px;
+      margin-left: 60px;
+    }
+    .quote {
+      margin-left: 60px;
+    }
+    .last-line {
+      background: #CCC;
+      margin-left: 0;
+    }
+  }
 }
 
 #furnitures {

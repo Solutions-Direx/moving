@@ -74,6 +74,7 @@
 }
 #calendar li span {
   float: left;
+  display: block;
 }
 #calendar li .time {
   margin-right: 3px;
@@ -88,4 +89,9 @@
   td.today:hover {
     background: #D44413;
   }
+}
+#calendar .label {
+  max-width: 110px;
+  word-wrap: break-word;
+  white-space: normal;
 }

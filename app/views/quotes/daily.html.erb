@@ -1,7 +1,28 @@
-<span class='floatr'>
-  <%= link_to "Monthly", monthly_quotes_path %>
-</span>
+<% body_class('quotes') %>
+<div class="clearfix">
+  <%= content_tag :span, l(@day, :format => :long), :class => "floatl" %>
+  <%= link_to "Monthly", monthly_quotes_path, :class => "floatr" %>
+</div>
+<div id="timeline">
+  <% @quotes.group_by{|q| "#{q.removal_at.strftime('%H')}:00"}.each do |time, quotes| %>
+    <h3><%= content_tag :div, time, :class => "time" %><div class="line">&nbsp;</div></h3>
+    <% quotes.each do |quote| %>
+      <div class="well quote">
+        <div class="clearfix">
+          <h6 class="floatl"><%= quote.client.name %></h6>
+          <h6 class="floatr"><%= link_to "Removal ##{quote.code}", quote %></h6>
+        </div>
+        <p>Phone 1: <%= quote.phone1 %></p>
+        <p>Phone 2: <%= quote.phone2 %></p>
+        <%= content_tag(:p, "Comment: " + quote.comment) unless quote.comment.blank? %>
+      </div>
+    <% end %>
+  <% end %>
+  <div class="line last-line">&nbsp;</div>
+</div>
 
-<% @quotes.each do |quote| %>
-  <%= quote.code %>
-<% end %>
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $(".chzn").chosen();
+  });
+</script>
