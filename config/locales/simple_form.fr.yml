@@ -30,6 +30,10 @@ fr:
         last_name: "Nom de famille"
         num_appliances: "Nb d'électroménagers"
         num_of_removal_man: "Nb de déménageurs"
+        phone1: "Téléphone1"
+        phone2: "Téléphone2"
+        price: "Prix"
+        payment_method: "Méthode de paiement"
     hints:
       defaults:
       user:

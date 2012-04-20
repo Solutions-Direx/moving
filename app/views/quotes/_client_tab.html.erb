@@ -7,7 +7,7 @@
 
   <!-- RATING -->
   <div class="control-group">
-    <label class="control-label">Rating</label>
+    <label class="control-label"><%= Quote.human_attribute_name(:rating) %></label>
     <div class="controls">
       <%= f.hidden_field :rating %>
       <div class="btn-group" data-toggle="buttons-radio">
@@ -20,7 +20,7 @@
   
   <!-- REMOVAL PICKER -->
   <div class="control-group datetime_picker">
-    <label class="control-label">Removal At</label>
+    <label class="control-label"><%= Quote.human_attribute_name(:removal_at) %></label>
     <div class="controls">
       <%= f.input_field :removal_at_picker, :label => "Removal at", :as => :datetime_picker %>
       <label class="checkbox inline">

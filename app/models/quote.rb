@@ -51,6 +51,7 @@ class Quote < ActiveRecord::Base
   
   # SCOPES
   scope :pending, where(:status => 'Pending')
+  scope :confirmed, where(:status => 'Confirmed')
   
   # define pending? and confirmed?
   STATUSES.each do |method|

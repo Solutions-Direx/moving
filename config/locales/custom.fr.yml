@@ -3,6 +3,14 @@ fr:
     models:
       quote: Ententes
       calendar: Calendrier
+    attributes:
+      quote:
+        rating: "Note"
+        removal_at: "Date du déménagement"
+        phone1: "Téléphone1"
+        phone2: "Téléphone2"
+        price: "Prix"
+        payment_method: "Méthode de paiement"
   profiles:
     show:
       title: 'Modifier votre profil'
@@ -10,3 +18,8 @@ fr:
     form:
       num_appliances: "Nombre d'électroménager"
       num_of_removal_man: "Nombre de déménageurs"
+    nothing_found_for_this_period: "Pas de déménagement trouvé pour cette période."
+    long_distance: "Longue distance"
+    internal: "Déménagement interne"
+    daily:
+      title: "Déménagements prévus le"
