@@ -90,11 +90,14 @@
     background: #D44413;
   }
 }
+<<<<<<< HEAD
+
+#cal_comment {clear:both;}
+.cal_address {margin-bottom:20px;}
+=======
 #calendar .label {
   max-width: 110px;
   word-wrap: break-word;
   white-space: normal;
-}}
-
-#cal_comment {clear:both;}
-.cal_address {margin-bottom:20px;}
+}
+>>>>>>> 23acd322a9a0dc8bdc5b5345b6fbae2af1f08588
