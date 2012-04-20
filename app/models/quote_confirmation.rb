@@ -7,7 +7,7 @@ class QuoteConfirmation < ActiveRecord::Base
   attr_accessible :approved_at, :quote_id, :user_id, :payment_method, :franchise_cancellation, :insurance_limit_enough, :insurance_increase
   
   validates_presence_of :payment_method
-  validates_presence_of :insurance_increase, :if => lambda {|q| q.insurance_limit_enough }
+  validates_presence_of :insurance_increase, :if => lambda {|q| !q.insurance_limit_enough }
   validates_inclusion_of :franchise_cancellation, :insurance_limit_enough, :in => [true,false]
   
   after_create :mark_quote_confirmed

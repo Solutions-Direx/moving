@@ -34,6 +34,8 @@ fr:
         phone2: "Téléphone2"
         price: "Prix"
         payment_method: "Méthode de paiement"
+        franchise_cancellation: 'Annulation de la franchise'
+        insurance_increase: "Augmentation de l'assurance"
     hints:
       defaults:
       user:
