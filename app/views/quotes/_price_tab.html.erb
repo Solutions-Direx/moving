@@ -29,6 +29,9 @@
       <div class='input-append'>
         <%= f.text_field :transport_time, :class => 'span1 input-append' %><span class="add-on"><i class="icon-time"></i></span>
       </div>
+      <label class="checkbox inline">
+        <%= f.check_box :long_distance %> Long distance
+      </label>
     </div>
   </div>
   <%= f.input :insurance %>

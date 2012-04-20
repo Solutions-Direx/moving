@@ -182,6 +182,7 @@ ActiveRecord::Schema.define(:version => 20120416030436) do
     t.string   "status",             :default => "Pending"
     t.text     "comment"
     t.boolean  "pm",                 :default => false
+    t.boolean  "long_distance",      :default => false
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
   end

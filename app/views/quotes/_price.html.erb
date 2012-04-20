@@ -15,7 +15,7 @@
 
 <p>
   <b>Transport time:</b>
-  <%= @quote.transport_time %>
+  <%= @quote.transport_time %><% if @quote.long_distance %> (Long distance)<% end %>
 </p>
 
 <p>

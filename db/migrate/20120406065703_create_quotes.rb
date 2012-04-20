@@ -21,6 +21,7 @@ class CreateQuotes < ActiveRecord::Migration
       t.string :status, :default => "Pending"
       t.text :comment
       t.boolean :pm, :default => false
+      t.boolean :long_distance, :default => false
 
       t.timestamps
     end
