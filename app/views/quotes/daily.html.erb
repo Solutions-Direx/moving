@@ -1,4 +1,78 @@
-<h2 style='clear:both;'><%= t '.title', :default => 'Removal scheduled for' %> <%= l params[:day].to_date %></h2>
+<% body_class('quotes') %>
+<div class="clearfix">
+  <h2><%= t '.title', :default => 'Removal scheduled for' %> <%= l(@day, :format => :long) %>
+    <%= link_to "Monthly", monthly_quotes_path, :class => "floatr", :style=> 'font-size: 15px;' %></span>
+  </h2>
+</div>
+
+
+<% if @quotes.any? %>
+<div id="timeline">
+  <% @quotes.group_by{|q| "#{q.removal_at.strftime('%H')}:00"}.each do |time, quotes| %>
+    <h3><%= content_tag :div, time, :class => "time" %><div class="line">&nbsp;</div></h3>
+    <% quotes.each do |quote| %>
+      <div class="well quote">
+        <div class="clearfix">
+          <p>
+            <b><%= quote.client.name %></b>
+            <% if quote.long_distance %> <%= content_tag(:span, "(#{t 'quotes.long_distance', default: 'Long distance'})", :class => 'label label-warning label_override') %><% end %>
+            <!% if quote.internal %><%= content_tag(:span, "(#{t 'quotes.internal', default: 'Internal'})", :class => 'label label-info label_override') %><!% end %>
+            <span class='floatr'><%= link_to quote.code, quote_path(quote) %></span>
+          </p>
+          <p><b><%= quote.phone1 %></b>
+             <span class='floatr'><%= quote.creator.full_name %></span>
+          </p>
+
+          <div class="span4 cal_address">
+            <h3>From</h3>
+            <div class="storage" >
+              <% if quote.from_address.has_storage? %>
+                <h6>Storage: <%= quote.from_address.storage.name %></h6>
+                <%= address_for(quote.from_address.storage.address) %>
+              <% else %>
+                <h6>Address</h6>
+                <%= address_for(quote.from_address.address) %>        
+              <% end %>
+            </div>
+          </div>
+          <div class="span6 cal_address">
+            <h3>To</h3>
+            <% if !quote.to_addresses.blank? %>
+              <% for to_address in quote.to_addresses %>
+                <div class="storage">
+                  <% if to_address.has_storage? %>
+                    <h6>Storage: <%= to_address.storage.name %></h6>
+                    <%= address_for(to_address.storage.address) %>
+                  <% else %>
+                    <h6>Address</h6>
+                    <%= address_for(to_address.address) %>        
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <div class='cal_additional'>
+            <% if quote.comment.present? %><p id='cal_comment'><%= quote.comment %></p><% end %>
+            <p>
+              <%= Quote.human_attribute_name(:price) %>: <b><%= number_to_currency(quote.price) %></b> - 
+              <%= Quote.human_attribute_name(:payment_method) %>: <b><%= quote.quote_confirmation.payment_method %></b>
+            </p>
+            <p>
+              Augmentation de l'assurance: 
+              <b><%= quote.quote_confirmation.insurance_limit_enough? ? 'Non' : number_to_currency(quote.quote_confirmation.insurance_increase) %></b> |
+              Annulation de franchise: 
+              <b><%= quote.quote_confirmation.franchise_cancellation? ? "Oui (frais de #{quote.account.franchise_cancellation_amount}$)" : 'Non' %></b>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <div class="line last-line">&nbsp;</div>
+</div>
+<% else %>
+  <p class='alert alert-info' style='clear:both;'><%= t "quotes.nothing_found_for_this_period", default: 'No removal sheduled for this period.' %></p>
+<% end %>
 
 <script type="text/javascript" charset="utf-8">
   $(function() {
