@@ -96,6 +96,15 @@
   white-space: normal;
 }
 
-#cal_comment {clear:both;}
-.cal_address {margin-bottom:20px;}
-.cal_additional {clear: both;}
+#cal_comment, .cal_additional {
+	clear:both;
+}
+.cal_address {
+	margin-bottom:20px;
+}
+#cal_price, .from.cal_address {
+	margin-left:0;
+}
+.simple_form.form-horizontal.edit_quote {
+	margin-bottom: 0;
+}

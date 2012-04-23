@@ -26,3 +26,5 @@ fr:
     internal: "Déménagement interne"
     daily:
       title: "Déménagements prévus le"
+      success_update: "Mis à jour avec succès."
+      error_update: "Une erreur est survenue. Veuillez réessayer ou contacter l'administrateur du système."

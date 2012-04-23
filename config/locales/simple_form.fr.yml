@@ -36,6 +36,9 @@ fr:
         payment_method: "Méthode de paiement"
         franchise_cancellation: 'Annulation de la franchise'
         insurance_increase: "Augmentation de l'assurance"
+        removal_men: "Déménageurs"
+        trucks: "Camion"
+        removal_leader_id: "Chef d'équipe"
     hints:
       defaults:
       user:

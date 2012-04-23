@@ -16,14 +16,14 @@
           <p>
             <b><%= quote.client.name %></b>
             <% if quote.long_distance %> <%= content_tag(:span, "(#{t 'quotes.long_distance', default: 'Long distance'})", :class => 'label label-warning label_override') %><% end %>
-            <!% if quote.internal %><%= content_tag(:span, "(#{t 'quotes.internal', default: 'Internal'})", :class => 'label label-info label_override') %><!% end %>
-            <span class='floatr'><%= link_to quote.code, quote_path(quote) %></span>
+            <% if quote.internal_address %><%= content_tag(:span, "(#{t 'quotes.internal', default: 'Internal'})", :class => 'label label-info label_override') %><% end %>
+            <span class='floatr'><b><%= link_to quote.code, quote_path(quote) %></b></span>
           </p>
           <p><b><%= quote.phone1 %></b>
              <span class='floatr'><%= quote.creator.full_name %></span>
           </p>
 
-          <div class="span4 cal_address">
+          <div class="span4 from cal_address">
             <h3>From</h3>
             <div class="storage" >
               <% if quote.from_address.has_storage? %>
@@ -51,32 +51,28 @@
               <% end %>
             <% end %>
           </div>
-          <div class='cal_additional'>
+          <div class='span4 from cal_additional' id='cal_price'>
             <% if quote.comment.present? %><p id='cal_comment'><%= quote.comment %></p><% end %>
-            <p>
-              <%= Quote.human_attribute_name(:price) %>: <b><%= number_to_currency(quote.price) %></b> - 
-              <%= Quote.human_attribute_name(:payment_method) %>: <b><%= quote.quote_confirmation.payment_method %></b>
-            </p>
-            <p>
-              Augmentation de l'assurance: 
-              <b><%= quote.quote_confirmation.insurance_limit_enough? ? 'Non' : number_to_currency(quote.quote_confirmation.insurance_increase) %></b> |
-              Annulation de franchise: 
-              <b><%= quote.quote_confirmation.franchise_cancellation? ? "Oui (frais de #{quote.account.franchise_cancellation_amount}$)" : 'Non' %></b>
-            </p>
+            <p><%= Quote.human_attribute_name(:price) %>: <b><%= number_to_currency(quote.price) %></b></p>
+            <p><%= Quote.human_attribute_name(:payment_method) %>: <b><%= quote.quote_confirmation.payment_method %></b></p>
+            <p>Augmentation de l'assurance: 
+              <b><%= quote.quote_confirmation.insurance_limit_enough? ? 'Non' : number_to_currency(quote.quote_confirmation.insurance_increase) %></b></p>
+              <p>Annulation de franchise: 
+              <b><%= quote.quote_confirmation.franchise_cancellation? ? "Oui (frais de #{quote.account.franchise_cancellation_amount}$)" : 'Non' %></b></p>
           </div>
-        </div>
-        <%= simple_form_for(quote, :url => daily_update_quote_path(quote), :method => :put, :remote => true) do |f| %>
-          <%= f.association :removal_leader, :label => "Team Lead", :collection => current_account.users.removal_men.all.map{|s| [s.full_name, s.id]}, :input_html => {:class => "chzn-deselectable", "data-placeholder" => "Select team lead", :id => "team-lead-#{quote.id}"} %>
-          <%= f.association :removal_men, :label => "Removal Men", :collection => current_account.users.removal_men.all.map{|s| [s.full_name, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to select removal man", :id => "removal-men-#{quote.id}", :multiple => true, :style => "width: 360px;"} %>
-          <%= f.association :trucks, :collection => current_account.trucks.all.map{|s| [s.name_with_plate, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to select trucks", :multiple => true, :style => "width: 360px;", :id => "trucks-#{quote.id}"} %>
-          <div class="form-actions">
-            <%= submit_tag 'Update', :class => "btn btn-primary" %>
+          <div class='span6'>
+            <%= simple_form_for(quote, :url => daily_update_quote_path(quote), :method => :put, :remote => true) do |f| %>
+              <%= f.association :removal_leader, :label => "Chef d'équipe", :collection => current_account.users.removal_men.all.map{|s| [s.full_name, s.id]}, :input_html => {:class => "chzn-deselectable", "data-placeholder" => "Select team lead", :id => "team-lead-#{quote.id}"} %>
+              <%= f.association :removal_men, :label => "Déménageurs", :collection => current_account.users.removal_men.all.map{|s| [s.full_name, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to select removal man", :id => "removal-men-#{quote.id}", :multiple => true, :style => "width: 360px;"} %>
+              <%= f.association :trucks, :label => "Camion(s)", :collection => current_account.trucks.all.map{|s| [s.name_with_plate, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to select trucks", :multiple => true, :style => "width: 360px;", :id => "trucks-#{quote.id}"} %>
+              <%= submit_tag 'Update', :class => "btn btn-primary" %>
+            <% end %>
           </div>
-        <% end %>
+        </div>   
       </div>
     <% end %>
   <% end %>
-  <div class="line last-line">&nbsp;</div>
+  
 </div>
 <% else %>
   <p class='alert alert-info' style='clear:both;'><%= t "quotes.nothing_found_for_this_period", default: 'No removal sheduled for this period.' %></p>

@@ -1,10 +1,9 @@
 <% if @quote.errors.blank? %>
-var html = '<p style="color: #38B44A;">Quote successfully update.</p>';
+var html = "<p class='alert alert-success'><%= ("#{t 'quotes.daily.success_update', default: 'Successfully saved.'}") %></p>";
 <% else %>
-var html = '<p style="color: #DF382C;">Quote failed to update. Please contact system admininistrator.</p>';
+var html = "<p class='alert alert-error'><%= ("#{t 'quotes.daily.error_update', default: 'An error occured. Please try again and contact system admininistrator.'}") %></p>";
 <% end %>  
-$(html).dialog2({
-    title: "Alert", 
+$(html).dialog2({ 
     id: "alert2",
     autoOpen: true,
     buttons: {
