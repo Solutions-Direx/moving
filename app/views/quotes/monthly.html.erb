@@ -21,11 +21,12 @@
     <% end %>
   <% end %>
 </div>
+
 <h6>Legend</h6>
-<ul>
+<ul id="monthly_legend">
   <li><%= status_tag '&nbsp;&nbsp;&nbsp;'.html_safe, level: 'success' %> : Confirmed Quote</li>
   <li><%= status_tag '&nbsp;&nbsp;&nbsp;'.html_safe %> : Pending Quote</li>
-  <li>** : Long distance</li>
+  <li>**&nbsp; &nbsp;: Long distance</li>
 </ul>
 
 <script type="text/javascript" charset="utf-8">

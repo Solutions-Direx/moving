@@ -2,6 +2,8 @@
 require 'faker'
 
 account = Account.create!(company_name: "Déménagement Maximum",
+                          website: "http://demenagementmaximum.com/"
+                          phone: '(819) 777-6683'
                           franchise_cancellation_amount: "20",
                           insurance_coverage_short_distance: "25000",
                           insurance_coverage_long_distance: "50000"
