@@ -9,6 +9,7 @@ Moving::Application.routes.draw do
     resources :quote_confirmations, :only => [:new, :create, :edit, :update]
     member do
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'
+      put 'daily_update'
     end
     
     collection do

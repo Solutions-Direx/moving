@@ -65,6 +65,14 @@
             </p>
           </div>
         </div>
+        <%= simple_form_for(quote, :url => daily_update_quote_path(quote), :method => :put, :remote => true) do |f| %>
+          <%= f.association :removal_leader, :label => "Team Lead", :collection => current_account.users.removal_men.all.map{|s| [s.full_name, s.id]}, :input_html => {:class => "chzn-deselectable", "data-placeholder" => "Type to select team lead", :id => "team-lead-#{quote.id}"} %>
+          <%= f.association :removal_men, :label => "Removal Men", :collection => current_account.users.removal_men.all.map{|s| [s.full_name, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to select removal man", :id => "removal-men-#{quote.id}", :multiple => true, :style => "width: 360px;"} %>
+          <%= f.association :trucks, :collection => current_account.trucks.all.map{|s| [s.name_with_plate, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to select trucks", :multiple => true, :style => "width: 360px;", :id => "trucks-#{quote.id}"} %>
+          <div class="form-actions">
+            <%= submit_tag 'Update', :class => "btn btn-primary" %>
+          </div>
+        <% end %>
       </div>
     <% end %>
   <% end %>
@@ -76,6 +84,7 @@
 
 <script type="text/javascript" charset="utf-8">
   $(function() {
+    $(".chzn-deselectable").chosen({allow_single_deselect: true});
     $(".chzn").chosen();
   });
 </script>

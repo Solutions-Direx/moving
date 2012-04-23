@@ -1,0 +1,19 @@
+<% if @quote.errors.blank? %>
+var html = '<p style="color: #38B44A;">Quote successfully update.</p>';
+<% else %>
+var html = '<p style="color: #DF382C;">Quote failed to update. Please contact system admininistrator.</p>';
+<% end %>  
+$(html).dialog2({
+    title: "Alert", 
+    id: "alert2",
+    autoOpen: true,
+    buttons: {
+        Close: { 
+            primary: true, 
+            click: function() {
+                $(this).dialog2("close");
+            }
+        }
+    }, 
+    removeOnClose: true
+});

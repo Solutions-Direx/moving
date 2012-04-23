@@ -22,6 +22,7 @@ class CreateQuotes < ActiveRecord::Migration
       t.text :comment
       t.boolean :pm, :default => false
       t.boolean :long_distance, :default => false
+      t.integer :removal_leader_id
 
       t.timestamps
     end

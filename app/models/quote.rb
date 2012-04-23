@@ -31,6 +31,11 @@ class Quote < ActiveRecord::Base
   has_many :quote_supplies, :dependent => :destroy
   accepts_nested_attributes_for :quote_supplies, :allow_destroy => true, :reject_if => lambda {|qs| qs[:quantity].blank?}
   
+  belongs_to :removal_leader, :class_name => "User", :foreign_key => "removal_leader_id"
+  
+  has_many :quote_removal_men, :dependent => :destroy
+  has_many :removal_men, :through => :quote_removal_men
+  
   has_one :quote_confirmation, :dependent => :destroy
   
   # ATTRIBUTES
@@ -38,7 +43,8 @@ class Quote < ActiveRecord::Base
                   :materiel, :num_of_removal_man, :price, :rating, :removal_at, 
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
                   :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment, 
-                  :document_ids, :forfait_ids, :quote_supplies_attributes, :pm, :long_distance
+                  :document_ids, :forfait_ids, :quote_supplies_attributes, :pm, :long_distance, 
+                  :removal_leader_id, :removal_man_ids
   
   # VALIDATIONS
   validates_presence_of :removal_at_picker, :removal_at, :account, :creator, :client

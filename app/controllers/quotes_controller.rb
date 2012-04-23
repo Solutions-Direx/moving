@@ -111,7 +111,24 @@ class QuotesController < ApplicationController
   def daily
     set_tab :calendar
     @day = params[:day] ? Date.strptime(params[:day], "%Y-%m-%d") : Date.today
-    @quotes = Quote.confirmed.where(removal_at: @day.beginning_of_day..@day.end_of_day)
+    @quotes = Quote.includes(:from_address => [:address], :to_addresses => [:address]).confirmed.where(removal_at: @day.beginning_of_day..@day.end_of_day)
+  end
+  
+  def daily_update
+    @quote = Quote.find(params[:id])
+    @quote.assign_attributes(params[:quote])
+
+    respond_to do |format|
+      if @quote.save
+        format.html { redirect_to @quote, notice: 'Quote was successfully updated.' }
+        format.json { head :no_content }
+        format.js
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @quote.errors, status: :unprocessable_entity }
+        format.js
+      end
+    end
   end
   
 private
