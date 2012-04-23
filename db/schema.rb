@@ -191,6 +191,7 @@ ActiveRecord::Schema.define(:version => 20120423025641) do
     t.boolean  "pm",                 :default => false
     t.boolean  "long_distance",      :default => false
     t.integer  "removal_leader_id"
+    t.boolean  "internal_address",   :default => false
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
   end

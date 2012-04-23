@@ -40,6 +40,18 @@
         $('#removal_at_comment').slideDown()
       else
         $('#removal_at_comment').slideUp()
+        
+    $('.internal_link').click ->
+      # is internal
+      if $('#quote_internal_address').val() == '0'
+        $('#quote_internal_address').val('1')
+        $('.to').hide()
+        $(this).text('not internal')
+      else
+        $('#quote_internal_address').val('0')
+        $('.to').show()
+        $(this).text('internal')
+      return false  
       
   update_room_number: ->
     $('#quote-form .room:visible').each (index, room) ->

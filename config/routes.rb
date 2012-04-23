@@ -6,7 +6,7 @@ Moving::Application.routes.draw do
   resources :supplies
   resources :trucks
   resources :quotes do
-    resources :quote_confirmations, :only => [:new, :create, :edit, :update]
+    resources :quote_confirmations, :only => [:show, :new, :create, :edit, :update]
     member do
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'
       put 'daily_update'

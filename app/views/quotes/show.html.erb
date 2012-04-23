@@ -1,10 +1,11 @@
 <h2><%= @quote.client.name %> <%= content_tag(:span, @quote.rating, :class => "badge badge-#{@quote.rating.downcase}") %>
   <span class='submenu'>
+    <%= button_link_to 'Edit', edit_quote_path(@quote), level: "inverse", large: true %>
     <% if @quote.confirmed? %>
-      <%= link_to 'Confirmed', '#', :class => 'btn btn-success btn-large disabled', "rel"=>"popover", "data-original-title"=>"Confirmation",
-      "data-content"=>"#{@quote.conf_details}", "data-placement" => "left" %>
+      <%= link_to 'Confirmed', '#', :class => 'btn btn-success btn-large disabled', "data-original-title"=>"Confirmation",
+      "data-content"=> "#{render(template: 'quote_confirmations/show', locals: {quote_confirmation: @quote.quote_confirmation}, formats: [:html])}", "data-placement" => "left", :id => "confirm" %>
     <% else %>
-      <%= button_link_to 'Edit', edit_quote_path(@quote), level: "inverse", large: true %>
+      
       <%= button_link_to 'Confirm', confirmation_quote_path(@quote), level: "success", large: true, remote: true %>
     <% end %>
   </span>
@@ -24,7 +25,7 @@
 <% end %>
 
 <div class="span6 well col2 odd">
-  <h3>From</h3>
+  <h3>From <%= '(Internal)' if @quote.internal_address %></h3>
   <div class="storage">
   <% if @quote.from_address.has_storage? %>
     <h6>Storage: <%= @quote.from_address.storage.name %></h6>
@@ -35,6 +36,8 @@
   <% end %>
   </div>
 </div>
+
+<% unless @quote.internal_address? %>
 <div class="span6 well col2 even">
   <h3>To</h3>
   <% if !@quote.to_addresses.blank? %>
@@ -51,6 +54,7 @@
     <% end %>
   <% end %>
 </div>
+<% end %>
 
 <%= section %>
 <%= render 'rooms' %>
@@ -61,3 +65,21 @@
 <%= render 'optional' %>
 
 <%= render 'confirmation' %>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $("#confirm")
+      .popover({
+          // offset: 10,
+          trigger: 'manual',
+          animate: false,
+          html: true,
+          placement: 'top',
+          template: '<div class="popover" onmouseover="$(this).mouseleave(function() {$(this).hide(); });"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+      }).click(function(e) {
+          e.preventDefault() ;
+      }).mouseenter(function(e) {
+          $(this).popover('show');
+      });
+  });
+</script>

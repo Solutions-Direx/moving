@@ -1,4 +1,9 @@
 class QuoteConfirmationsController < ApplicationController
+  
+  def show
+    @quote_confirmation = QuoteConfirmation.find(params[:id])
+    render :layout => false
+  end
 
   def new
     @quote = Quote.find(params[:id])
@@ -12,7 +17,14 @@ class QuoteConfirmationsController < ApplicationController
   end
 
   def edit
+    @quote = Quote.find(params[:quote_id])
     @quote_confirmation = QuoteConfirmation.find(params[:id])
+    
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @quote_confirmation }
+      format.js
+    end
   end
 
   def create
@@ -43,10 +55,16 @@ class QuoteConfirmationsController < ApplicationController
 
     respond_to do |format|
       if @quote_confirmation.update_attributes(params[:quote_confirmation])
-        format.html { redirect_to @quote_confirmation, notice: 'Quote confirmation was successfully updated.' }
-        format.json { head :no_content }
+        format.html { 
+          if request.xhr?
+            render :partial => "flash_modal_msg", :locals => { :message => "Confirmation was successfully updated.", :close_dialog_id => "new-quote-confirmation" }
+          else
+            redirect_to @quote, notice: 'Confirmation was successfully updated.' 
+          end
+        }
+        format.json { render json: @quote_confirmation, status: :created, location: @quote_confirmation }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "edit", layout: !request.xhr? }
         format.json { render json: @quote_confirmation.errors, status: :unprocessable_entity }
       end
     end

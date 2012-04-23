@@ -44,7 +44,7 @@ class Quote < ActiveRecord::Base
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
                   :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment, 
                   :document_ids, :forfait_ids, :quote_supplies_attributes, :pm, :long_distance, 
-                  :removal_leader_id, :removal_man_ids
+                  :removal_leader_id, :removal_man_ids, :internal_address
   
   # VALIDATIONS
   validates_presence_of :removal_at_picker, :removal_at, :account, :creator, :client
@@ -96,12 +96,18 @@ private
   end
   
   def ignore_blank_addresses
-    tmp = to_addresses.clone
-    tmp.each do |to_address|
-      to_addresses.delete(to_address) if !to_address.has_storage? && to_address.address.all_blank?
-    end
-    to_addresses.each do |to_address|
-      to_address.address = nil if to_address.has_storage?
+    if internal_address?
+      to_addresses.each do |to_address|
+        to_address.mark_for_destruction
+      end
+    else
+      tmp = to_addresses.clone
+      tmp.each do |to_address|
+        to_addresses.delete(to_address) if !to_address.has_storage? && to_address.address.all_blank?
+      end
+      to_addresses.each do |to_address|
+        to_address.address = nil if to_address.has_storage?
+      end
     end
   end
   
@@ -115,8 +121,6 @@ private
   def validate_addresses
     if from_address && from_address.address.all_blank?
       errors.add(:base, "From address cannot be blank")
-    else
-      errors.add(:base, "To address cannot be blank") if to_addresses.blank?
     end
   end
   

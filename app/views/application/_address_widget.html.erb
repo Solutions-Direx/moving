@@ -3,16 +3,19 @@
   title = "" unless local_assigns.has_key? :title 
   show_holder = true if removable && local_assigns.has_key?(:show_holder )
   has_storage = quote_address_form.object.has_storage?
+  internal = nil
+  internal = local_assigns[:internal] if local_assigns.has_key? :internal 
 %>
 
 <div class="span3 address-widget">
-  <div class="<%= show_holder ? 'holder' : 'well' %>">
+  <div class="<%= show_holder ? 'holder' : 'well' %> <%= title.parameterize %>">
     <div class="title">
       <h3><% if title.blank? %>&nbsp;<% else %><%= title %><% end %></h3>
       <h6>
         <% if removable %><%= quote_address_form.link_to_remove "remove" %> |<% end %>
-        <%= link_to 'Select Storage', '#', :class => "select-storage #{has_storage ? 'hide' : 'show'}" %>
-        <%= link_to 'Enter Address', '#', :class => "enter-address #{has_storage ? 'show' : 'hide'}" %>
+        <% if internal %><%= link_to internal, '#', :class => "internal_link" %> |<% end %>
+        <%= link_to 'Storage', '#', :class => "select-storage #{has_storage ? 'hide' : 'show'}" %>
+        <%= link_to 'Address', '#', :class => "enter-address #{has_storage ? 'show' : 'hide'}" %>
       </h6>
     </div>
     <div class="to-address <%= has_storage ? 'hide' : 'show' %>">

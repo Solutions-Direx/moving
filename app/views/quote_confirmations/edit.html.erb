@@ -1,6 +1,7 @@
-<h1>Editing quote_confirmation</h1>
+<h1>Quote Confirmation</h1>
+
+<p>En cas d'accident, le contenu du camion est assuré pour <%= number_to_currency(current_account.insurance_coverage_short_distance, :precision => 0) %>
+(<%= number_to_currency(current_account.insurance_coverage_long_distance, :precision => 0) %> longue distance).</p>
+</p>Est-ce suffisant pour vous ou désirez-vous l'augmenter moyennant des frais de $7 par tranche de $2500?</p>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @quote_confirmation %> |
-<%= link_to 'Back', quote_confirmations_path %>

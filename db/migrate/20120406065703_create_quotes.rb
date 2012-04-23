@@ -23,6 +23,7 @@ class CreateQuotes < ActiveRecord::Migration
       t.boolean :pm, :default => false
       t.boolean :long_distance, :default => false
       t.integer :removal_leader_id
+      t.boolean :internal_address, :default => false
 
       t.timestamps
     end
