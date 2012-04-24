@@ -1,0 +1,31 @@
+// vendor
+@import "bootstrap";
+@import "bootstrap-responsive";
+@import "jquery.dialog2";
+@import "compass";
+@import "jquery-ui-custom";
+@import "datepicker";
+@import "chosen";
+
+//app
+@import "utils";
+@import "main_search";
+@import "form";
+@import "layout";
+
+#root {
+  padding-bottom: 36px;
+}
+#footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  
+  .container {
+    margin-bottom: 0;
+  }
+  .subnav {
+    margin-bottom: 0;
+  }
+}

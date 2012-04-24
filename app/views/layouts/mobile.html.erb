@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= user_signed_in? ? current_user.account.company_name : "Moving" %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag    "mobile", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body data-spy="scroll" data-target=".subnav" data-offset="50" class="<%= yield(:body_class) || '' %>">
+  
+  <div id="root">
+    <%= render 'layouts/navbar' %>
+    <div class="container">
+      <%= render 'layouts/flash' %>
+      <%= yield %>
+    </div>
+  </div>
+  <div id="footer">
+    <div class="subnav">
+      <div class="container">
+      <ul class="nav nav-pills">
+        <li class="active"><a href="#javascript">All plugins</a></li>
+        <li class=""><a href="#modals">Modal</a></li>
+        <li class=""><a href="#dropdowns">Dropdown</a></li>
+        <li class=""><a href="#scrollspy">Scrollspy</a></li>
+      </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

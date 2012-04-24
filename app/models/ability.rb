@@ -13,13 +13,18 @@ class Ability
       can :manage, Supply
       can :manage, Quote
       can :manage, Truck
+      can :manage, Forfait
+      can :manage, Furniture
     elsif user.removal_man?
       can :read, :dashboard
       can :read, Document
       can :read, Storage
       can :read, Client
-      can :read, Option
+      can :read, Supply
+      can :read, Quote
       can :read, Truck
+      can :read, Forfait
+      can :read, Furniture
     end
   end
 end

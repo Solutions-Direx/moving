@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :set_ajax
   helper_method :current_account, :sort_direction
+  layout :set_layout
   
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
@@ -15,6 +16,10 @@ class ApplicationController < ActionController::Base
   
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+  
+  def set_layout
+    (current_user && current_user.removal_man?) ? 'mobile' : 'application' 
   end
   
 private

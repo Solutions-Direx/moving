@@ -17,18 +17,7 @@
       <td><%= quote.removal_at.strftime("%H:%M") %></td>
     </tr>
   <% end %>
+  </table>
 <% else %>
   <p class='alert alert-info'><%= t "dashboard.nothing_found_for_today", default: 'No removal sheduled for today.' %></p>
 <% end %>
-
-<% modal :id => "test-modal" do |builder| %>
-  <%= builder.header :closeable => false do %>foo<% end %>
-  <%= builder.body do %>
-    <p>lsdfka</p>
-  <% end %>
-  <%= builder.footer do %>
-    <a href="#" class="btn">Close</a>
-    <a href="#" class="btn btn-primary">Save changes</a>
-  <% end %>
-<% end %>
-
