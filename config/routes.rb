@@ -7,9 +7,11 @@ Moving::Application.routes.draw do
   resources :trucks
   resources :quotes do
     resources :quote_confirmations, :except => [:index]
+    resources :removals, :only => [:update]
     member do
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'
       put 'daily_update'
+      get 'quick_view'
     end
     
     collection do

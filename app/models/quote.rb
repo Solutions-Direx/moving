@@ -37,6 +37,7 @@ class Quote < ActiveRecord::Base
   has_many :removal_men, :through => :quote_removal_men
   
   has_one :quote_confirmation, :dependent => :destroy
+  has_one :removal, :dependent => :destroy
   
   # ATTRIBUTES
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, 
@@ -58,7 +59,7 @@ class Quote < ActiveRecord::Base
   # SCOPES
   scope :pending, where(:status => 'Pending')
   scope :confirmed, where(:status => 'Confirmed')
-  scope :today, lambda { where("removal_at BETWEEN '#{DateTime.now.beginning_of_day}' AND '#{DateTime.now.end_of_day}'") }
+  scope :today, lambda { where("removal_at BETWEEN '#{Date.today.beginning_of_day}' AND '#{Date.today.end_of_day}'") }
   
   # define pending? and confirmed?
   STATUSES.each do |method|
@@ -87,6 +88,10 @@ class Quote < ActiveRecord::Base
   
   def conf_details
     "Approuvée le #{I18n.l(quote_confirmation.approved_at, :format => :long)} par #{quote_confirmation.user.full_name}"
+  end
+  
+  def signed?
+    !removal.blank?
   end
   
 private

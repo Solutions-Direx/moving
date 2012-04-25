@@ -1,6 +1,8 @@
 class DashboardController < ApplicationController
+  
   def show
     authorize! :read, :dashboard
-    @quotes = Quote.today.order('removal_at DESC')
+    set_tab :today
+    @quotes = current_account.quotes.confirmed.today.order('removal_at DESC')
   end
 end

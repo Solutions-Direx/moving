@@ -111,7 +111,7 @@ class QuotesController < ApplicationController
   def daily
     set_tab :calendar
     @day = params[:day] ? Date.strptime(params[:day], "%Y-%m-%d") : Date.today
-    @quotes = Quote.includes(:from_address => [:address], :to_addresses => [:address]).confirmed.where(removal_at: @day.beginning_of_day..@day.end_of_day)
+    @quotes = Quote.includes(:from_address => [:address], :to_addresses => [:address]).confirmed.where(removal_at: @day.beginning_of_day..@day.end_of_day).order('removal_at')
   end
   
   def daily_update
@@ -128,6 +128,16 @@ class QuotesController < ApplicationController
         format.json { render json: @quote.errors, status: :unprocessable_entity }
         format.js
       end
+    end
+  end
+  
+  def quick_view
+    set_tab :terms
+    @quote = Quote.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @quote }
     end
   end
   
