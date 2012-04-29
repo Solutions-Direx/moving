@@ -91,7 +91,7 @@ class Quote < ActiveRecord::Base
   end
   
   def signed?
-    !removal.blank?
+    !removal.blank? && !removal.signer_name.blank?
   end
   
 private

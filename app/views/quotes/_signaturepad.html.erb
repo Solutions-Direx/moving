@@ -1,0 +1,23 @@
+<div class="modal" id="signature">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Approval</h3>
+  </div>
+  <div class="modal-body">
+    <%= simple_form_for([@quote, @quote.removal], :html => {:class => "sigPad"}) do |f| %>
+      <label for="name">Print your name</label>
+      <%= f.text_field :signer_name %>
+      <p class="drawItDesc">Draw your signature</p>
+      <ul class="sigNav">
+        <li class="drawIt"><a href="#draw-it">Draw It</a></li>
+        <li class="clearButton"><a href="#clear">Clear</a></li>
+      </ul>
+      <div class="sig sigWrapper">
+        <div class="typed"></div>
+        <canvas class="pad" width="198" height="55"></canvas>
+        <%= f.hidden_field :signature, :class => "output" %>
+      </div>
+      <button type="submit">I accept the terms of this agreement.</button>
+    <% end %>
+  </div>
+</div>

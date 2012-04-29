@@ -5,7 +5,6 @@
       <%= link_to 'Confirmed', '#', :class => 'btn btn-success btn-large disabled', "data-original-title"=>"Confirmation",
       "data-content"=> "#{render(template: 'quote_confirmations/show', locals: {quote_confirmation: @quote.quote_confirmation}, formats: [:html])}", "data-placement" => "left", :id => "confirm" %>
     <% else %>
-      
       <%= button_link_to 'Confirm', confirmation_quote_path(@quote), level: "success", large: true, remote: true %>
     <% end %>
   </span>

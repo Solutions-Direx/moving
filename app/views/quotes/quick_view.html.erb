@@ -1,6 +1,10 @@
 <h2><%= @quote.client.name %>
   <span class='submenu'>
-    <%= button_link_to 'Approve', '', level: "success", large: true %>
+    <% if @quote.signed? %>
+      <%= link_to 'Approved', '#', :class => 'btn btn-success btn-large disabled' %>
+    <% else %>
+      <%= button_link_to 'Approve', '#signature', "data-toggle" => "modal", level: "success", large: true %>
+    <% end %>
   </span>
 </h2>
 
@@ -26,23 +30,17 @@
 <% end %>
 </div>
 
-<form method="post" action="" class="sigPad">
-  <label for="name">Print your name</label>
-  <input type="text" name="name" id="name" class="name">
-  <p class="typeItDesc">Review your signature</p>
-  <p class="drawItDesc">Draw your signature</p>
-  <ul class="sigNav">
-    <li class="typeIt"><a href="#type-it" class="current">Type It</a></li>
-    <li class="drawIt"><a href="#draw-it">Draw It</a></li>
-    <li class="clearButton"><a href="#clear">Clear</a></li>
-  </ul>
-  <div class="sig sigWrapper">
-    <div class="typed"></div>
-    <canvas class="pad" width="198" height="55"></canvas>
-    <input type="hidden" name="output" class="output">
+<% if @quote.signed? %>
+<div id="signature" style="width: 200px;" class='signed'>
+  <div class="sigWrapper"> 
+    <canvas class="pad" width="198" height="55"></canvas> 
+    <p><%= @quote.removal.signer_name.titleize %><br><%= l @quote.removal.signed_at, :format => :short %></p> 
   </div>
-  <button type="submit">I accept the terms of this agreement.</button>
-</form>
+</div>
+<% end %>
+
+<%= render 'signaturepad' %>
+
 
 <script type="text/javascript" charset="utf-8">
   $(function() {
@@ -52,6 +50,12 @@
     $('#removal_insurance_limit_enough_true').click(function() {
       $('#insurance_increase').hide();
     });
-    $('.sigPad').signaturePad();
+    $('.sigPad').signaturePad({drawOnly:true});
+    
+    <% if @quote.signed? %>
+    var sig = '<%= @quote.removal.signature.html_safe %>';
+    var api = $('#signature').signaturePad({displayOnly:true});
+    api.regenerate(sig);
+    <% end %>
   });
 </script>

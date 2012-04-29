@@ -202,7 +202,9 @@ ActiveRecord::Schema.define(:version => 20120425045533) do
     t.boolean  "franchise_cancellation"
     t.boolean  "insurance_limit_enough"
     t.float    "insurance_increase"
+    t.string   "signer_name"
     t.text     "signature"
+    t.datetime "signed_at"
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
   end

@@ -17,6 +17,7 @@ class Ability
       can :manage, Truck
       can :manage, Forfait
       can :manage, Furniture
+      can :manage, Removal
     elsif user.removal_man?
       can :read, :dashboard
       can :read, Document
@@ -27,6 +28,7 @@ class Ability
       can :read, Truck
       can :read, Forfait
       can :read, Furniture
+      can :manage, Removal
     end
   end
 end
