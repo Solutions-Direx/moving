@@ -71,5 +71,7 @@ module Moving
       g.fixture_replacement :factory_girl, :dir => 'spec/factories'
       # g.form_builder :simple_form
     end
+    
+    config.assets.paths << Rails.root.join("vendor", "assets", "signaturepad")
   end
 end
