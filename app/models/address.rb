@@ -25,4 +25,10 @@ class Address < ActiveRecord::Base
   def all_blank?
     attributes.except("addressable_type").values.compact.reject{|s| s.blank?}.empty?
   end
+  
+  def get_directions
+    location = "#{address}, #{city}, #{province}"
+    link = "http://maps.google.com/maps?q=#{location}"
+  end
+  
 end

@@ -5,7 +5,6 @@
   </h2>
 </div>
 
-
 <% if @quotes.any? %>
 <div id="timeline">
   <% @quotes.group_by{|q| "#{q.removal_at.strftime('%H')}:00"}.each do |time, quotes| %>

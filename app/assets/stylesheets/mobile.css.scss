@@ -13,6 +13,7 @@
 @import "main_search";
 @import "form";
 @import "layout";
+@import "quotes";
 
 #root {
   padding-bottom: 36px;
@@ -30,3 +31,4 @@
     margin-bottom: 0;
   }
 }
+#main_search {display:none;}

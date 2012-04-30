@@ -1,23 +1,31 @@
 <%= render 'layouts/search' %>
 
 <% if @quotes.any? %>
+  <% body_class('quotes') %>
   <h3><%= t "today", default: 'Today' %></h3>
+  <div id="timeline">
+    <% @quotes.group_by{|q| "#{q.removal_at.strftime('%H')}:00"}.each do |time, quotes| %>
+      <h3><%= content_tag :div, time, :class => "time" %><div class="line">&nbsp;</div></h3>
   
-  <table class="table table-striped">
-    <tr>
-      <th>ID</th>
-      <th>Client</th>
-      <th>Removal at</th>
-    </tr>
-    
-    <% @quotes.each do |quote| %>
-    <tr>
-      <td><%= link_to quote.code, terms_quote_path(quote) %></td>
-      <td><%= quote.client.name %></td>
-      <td><%= quote.removal_at.strftime("%H:%M") %></td>
-    </tr>
-  <% end %>
-  </table>
+      <table class="table table-striped">
+        <% quotes.each do |quote| %>
+          <tr>
+            <td><%= link_to quote.client.name, terms_quote_path(quote) %></td>
+            <td><%= quote.client.phone1 %><%= content_tag(:br) + quote.client.phone2 if quote.client.phone2.present? %></td>
+            <td><% if quote.from_address.has_storage? %>
+                  <h6>Storage: <%= quote.from_address.storage.name %></h6>
+                  <%= address_for(quote.from_address.storage.address) %>
+                <% else %>
+                  <h6>Address</h6>
+                  <%= link_to(address_for(quote.from_address.address), quote.from_address.address.get_directions) %>        
+                <% end %>
+            </td>
+            <td><%= quote.removal_leader.full_name if quote.removal_leader.present? %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
 <% else %>
   <p class='alert alert-info'><%= t "dashboard.nothing_found_for_today", default: 'No removal sheduled for today.' %></p>
 <% end %>
