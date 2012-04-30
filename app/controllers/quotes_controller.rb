@@ -141,6 +141,16 @@ class QuotesController < ApplicationController
     end
   end
   
+  def terms
+    set_tab :terms
+    @quote = Quote.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @quote }
+    end
+  end
+  
 private
   
   def sort_column

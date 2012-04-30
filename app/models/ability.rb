@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    alias_action :quick_view, :to => :read
+    alias_action :quick_view, :terms, :to => :read
     
     user ||= User.new # guest user (not logged in)
     if user.manager?

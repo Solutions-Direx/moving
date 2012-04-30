@@ -2,6 +2,7 @@ Moving::Application.routes.draw do
   
   # match 'calendar' => 'calendar#show', :as => 'calendar'
   match 'schedule' => 'schedule#show', :as => 'schedule'
+  get 'new_invoice' => "invoices#new", :as => "new_invoice"
   resources :forfaits
   resources :supplies
   resources :trucks
@@ -12,6 +13,7 @@ Moving::Application.routes.draw do
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'
       put 'daily_update'
       get 'quick_view'
+      get 'terms'
     end
     
     collection do

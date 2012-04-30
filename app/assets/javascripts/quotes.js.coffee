@@ -66,3 +66,44 @@
     $('#quote_from_address_attributes_address_attributes_postal_code').val(client.address.postal_code)
     $('#quote_from_address_attributes_address_attributes_country').val(client.address.country)    
     
+@Quote.Terms = 
+  init: ->
+    $('#removal_insurance_limit_enough_false').click ->
+      $('#insurance_increase').show()
+      
+    $('#removal_insurance_limit_enough_true').click ->
+      $('#insurance_increase').hide()
+      
+    $('.sigPad').signaturePad({drawOnly:true})
+    
+    $('#edit-removal').click ->
+      $('#franchise-options').toggle()
+      return false
+      
+    $('#submit-removal').click ->
+      $('#frm-removal').submit()
+      return false
+    
+    $('.mark-read').click ->
+      $document = $(this).closest('.document')
+      if $(this).is(":checked")
+        if $document.hasClass('last')
+          $('#approve').show()
+        else
+          $document.find('.next').removeClass("disabled")
+      else
+        $document.find('.next').addClass("disabled")
+        
+    $('.next').click ->
+      $document = $(this).closest('.document')    
+      $check_box = $document.find('.mark-read')
+      if $check_box.is(":checked")
+        $next_document = $document.next()
+        $next_document.show()
+        $document.hide()
+        if $next_document.hasClass("last")
+          $next_document.find('.next').hide()
+        return false
+      else
+        return false
+    

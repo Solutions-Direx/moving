@@ -7,7 +7,7 @@ class RemovalsController < ApplicationController
     removal.assign_attributes(params[:removal])
     removal.signed_at = Time.now unless removal.signature.blank?
     removal.save!
-    redirect_to quick_view_quote_url(quote), :notice => "Quote successfully approved."
+    redirect_to new_invoice_url, :notice => "Quote successfully approved."
   end
   
 end

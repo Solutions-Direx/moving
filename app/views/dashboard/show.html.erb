@@ -12,7 +12,7 @@
     
     <% @quotes.each do |quote| %>
     <tr>
-      <td><%= link_to quote.code, quick_view_quote_path(quote) %></td>
+      <td><%= link_to quote.code, terms_quote_path(quote) %></td>
       <td><%= quote.client.name %></td>
       <td><%= quote.removal_at.strftime("%H:%M") %></td>
     </tr>

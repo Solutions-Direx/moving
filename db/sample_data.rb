@@ -54,7 +54,7 @@ puts "Generated 10 sample trucks."
 10.times do |x|
   print '.'
   count = x + 1
-  account.documents.create!(name: Faker::Lorem.words(2).join(' ').titleize, body: "Coming soon..")
+  account.documents.create!(name: Faker::Lorem.words(5).join(' ').titleize, body: Faker::Lorem.paragraphs(3).join("<br/>"))
 end
 print "\n"
 puts "Generated 10 sample documents."
@@ -116,6 +116,10 @@ puts "Generated 3 sample supplies."
   end
   # truck
   quote.trucks = [Truck.all.sample]
+  
+  # documents
+  quote.documents = [Document.all.sample]
+  
   quote.save!
 end
 print "\n"
