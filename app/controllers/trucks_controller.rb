@@ -44,7 +44,7 @@ class TrucksController < ApplicationController
 
     respond_to do |format|
       if @truck.save
-        format.html { redirect_to @truck, notice: 'Truck was successfully created.' }
+        format.html { redirect_to trucks_url, notice: 'Truck was successfully created.' }
         format.json { render json: @truck, status: :created, location: @truck }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class TrucksController < ApplicationController
 
     respond_to do |format|
       if @truck.update_attributes(params[:truck])
-        format.html { redirect_to @truck, notice: 'Truck was successfully updated.' }
+        format.html { redirect_to trucks_url, notice: 'Truck was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -76,7 +76,7 @@ class TrucksController < ApplicationController
     @truck.destroy
 
     respond_to do |format|
-      format.html { redirect_to trucks_url }
+      format.html { redirect_to trucks_url, notice: 'Truck was successfully deleted.' }
       format.json { head :no_content }
     end
   end

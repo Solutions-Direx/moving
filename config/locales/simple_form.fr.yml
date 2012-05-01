@@ -1,7 +1,7 @@
 fr:
   simple_form:
-    "oui": 'Oui'
-    "non": 'Non'
+    "yes": 'Oui'
+    "no": 'Non'
     required:
       text: 'requis'
       mark: '*'
@@ -39,6 +39,9 @@ fr:
         removal_men: "Déménageurs"
         trucks: "Camion"
         removal_leader_id: "Chef d'équipe"
+        available: "Disponibilité"
+        name: "Nom"
+        plate: "Plaque"
     hints:
       defaults:
       user:

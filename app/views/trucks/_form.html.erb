@@ -4,9 +4,10 @@
   <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :plate %>
+    <%= f.input :available, :as => :radio_buttons %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= submit_or_cancel(f) %>
   </div>
 <% end %>

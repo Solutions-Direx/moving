@@ -1,4 +1,4 @@
-<h1>Listing quotes
+<h1><%= Quote.model_name.human %>
   <span class="submenu">
     <%= icon_button_link_to 'New quote', new_quote_path, icon: "plus", large: true, level: "primary", white: true %>
     <% if params[:action] == 'index' %>
@@ -21,10 +21,7 @@
 
 <% @quotes.each do |quote| %>
   <tr>
-    <td>
-      <!%= link_to_if params[:action] == 'pending' || quote.confirmed?, quote.code, quote %>
-      <%= link_to quote.code, quote %> <%= status_tag(quote.status, level: quote.confirmed? ? 'success' : '') %>
-    </td>
+    <td><%= link_to quote.code, quote %> <%= status_tag(quote.status, level: quote.confirmed? ? 'success' : '') %></td>
     <td><%= link_to quote.client.name, client_path(quote.client) %></td>
     <td><%= l quote.removal_at, :format => :long %> 
         <%= quote.removal_at.future? ? "(in #{distance_of_time_in_words_to_now(quote.removal_at)})" : '' %></td>

@@ -2,8 +2,13 @@ fr:
   today: "Aujourd'hui"
   activerecord:
     models:
-      quote: Ententes
+      quote: Entente
       calendar: Calendrier
+      truck: Camion
+      storage: Entrepôt
+      supply: Matériel
+      user: Utilisateur
+      profile: Profil
     attributes:
       quote:
         rating: "Note"

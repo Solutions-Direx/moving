@@ -3,6 +3,7 @@ class CreateTrucks < ActiveRecord::Migration
     create_table :trucks do |t|
       t.string :name
       t.string :plate
+      t.boolean :available, :default => true
       t.integer :account_id
 
       t.timestamps
