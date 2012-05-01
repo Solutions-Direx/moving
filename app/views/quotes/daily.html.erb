@@ -52,7 +52,7 @@
           </div>
           <div class='span4 from cal_additional' id='cal_price'>
             <% if quote.comment.present? %><p id='cal_comment'><%= quote.comment %></p><% end %>
-            <p><%= Quote.human_attribute_name(:price) %>: <b><%= number_to_currency(quote.price) %></b></p>
+            <p><%= Quote.human_attribute_name(:price) %>: <b><%= number_to_currency(quote.price) %></b> par heure</p>
             <p><%= Quote.human_attribute_name(:payment_method) %>: <b><%= quote.quote_confirmation.payment_method %></b></p>
             <p>Augmentation de l'assurance: 
               <b><%= quote.quote_confirmation.insurance_limit_enough? ? 'Non' : number_to_currency(quote.quote_confirmation.insurance_increase) %></b></p>

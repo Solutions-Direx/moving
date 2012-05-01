@@ -31,7 +31,6 @@
           <% end %>
 
           <%= f.input :franchise_cancellation, :as => :radio_buttons, :collection => [["Oui (#{current_account.franchise_cancellation_amount}$)", true],['Non', false]], :item_wrapper_class => "inline" %>
-          <%= f.input :payment_method, :as => :radio_buttons, :collection => [['Comptant', 'Comptant'],['Débit', 'Débit'], ['Crédit', 'Crédit']], :item_wrapper_class => "inline" %>
         </div>
       </div>
       <!-- <button type="submit">I accept the terms of this agreement.</button> -->
