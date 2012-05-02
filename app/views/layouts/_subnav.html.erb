@@ -1,11 +1,10 @@
 <% if user_signed_in? %>
   <div class="subnav">
     <%= tabs_tag :builder => BootstrapSubnavBuilder, :open_tabs => { :class => "nav nav-pills" } do |tab| %>
-      <%= tab.quotes Quote.model_name.human, quotes_path %>
+      <%= tab.quotes Quote.model_name.human + 's', quotes_path %>
       <%= tab.calendar Calendar.model_name.human, monthly_quotes_path %>
-      <%= tab.contracts 'Contracts', '' %>
       <%= tab.clients   'Clients', clients_path %>
-      <%= tab.invoices   'Invoices', '' %>
+      <%= tab.invoices   Invoice.model_name.human + 's', '' %>
       <%= tab.documents   'Documents', documents_path %>
     <% end %>
   </div>

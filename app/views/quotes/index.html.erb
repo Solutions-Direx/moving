@@ -1,4 +1,4 @@
-<h1><%= Quote.model_name.human %>
+<h1><%= Quote.model_name.human + 's' %>
   <span class="submenu">
     <%= icon_button_link_to 'New quote', new_quote_path, icon: "plus", large: true, level: "primary", white: true %>
     <% if params[:action] == 'index' %>

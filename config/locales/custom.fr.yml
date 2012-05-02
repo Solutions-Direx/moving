@@ -1,7 +1,11 @@
 fr:
   today: "Aujourd'hui"
+  monthly: "Mois"
+  settings: "Réglages"
+  account: "Paramètres"
   activerecord:
     models:
+      account: Compte
       quote: Entente
       calendar: Calendrier
       truck: Camion
@@ -9,6 +13,7 @@ fr:
       supply: Matériel
       user: Utilisateur
       profile: Profil
+      invoice: Facture
     attributes:
       quote:
         rating: "Note"
@@ -17,6 +22,12 @@ fr:
         phone2: "Téléphone2"
         price: "Prix"
         payment_method: "Méthode de paiement"
+  accounts:
+    show:
+      general: 'Général'
+      address: 'Adresse'
+      insurance: 'Assurance'
+      taxes: 'Taxes'
   profiles:
     show:
       title: 'Modifier votre profil'

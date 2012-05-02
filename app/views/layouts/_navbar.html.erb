@@ -14,15 +14,15 @@
             
             <% if current_user.manager? %>
                 <li class='dropdown'>
-        		  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account <b class="caret"></b></a>
+        		  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= t 'account', default: 'Account' %><b class="caret"></b></a>
         		  <ul class="dropdown-menu">
-        			<li><%= link_to 'Settings', account_path %></li>
-        		    <li><%= link_to 'Users', users_path %></li>
+        			<li><%= link_to((t 'settings', :default => 'Settings'), account_path) %></li>
+        		    <li><%= link_to User.model_name.human + 's', users_path %></li>
         		    <li class="divider"></li>
-        		    <li><%= link_to 'Removal Supplies', supplies_path %></li>
-        		    <li><%= link_to 'Storages', storages_path %></li>
+        		    <li><%= link_to Supply.model_name.human + 's', supplies_path %></li>
+        		    <li><%= link_to Storage.model_name.human + 's', storages_path %></li>
         		    <li><%= link_to 'Forfaits', forfaits_path %></li>
-        		    <li><%= link_to 'Trucks', trucks_path %></li>
+        		    <li><%= link_to Truck.model_name.human + 's', trucks_path %></li>
         		  </ul>
         		</li>
               <% end %>

@@ -1,7 +1,7 @@
 <% body_class('quotes') %>
 <div class="clearfix">
   <h2><%= t '.title', :default => 'Removal scheduled for' %> <%= l(@day, :format => :long) %>
-    <%= link_to "Monthly", monthly_quotes_path, :class => "floatr", :style=> 'font-size: 15px;' %></span>
+    <%= link_to((t 'monthly', :default => 'Monthly'), monthly_quotes_path, :class => "floatr", :style => 'font-size: 15px;') %></span>
   </h2>
 </div>
 
