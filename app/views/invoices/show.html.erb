@@ -1,0 +1,24 @@
+<h2>Invoice
+  <span class='submenu'>
+    <%= icon_button_link_to 'Approved', '#', icon: 'ok', level: 'success', large: true, class: 'disabled', white: true %>
+  </span>
+</h2>
+
+<p>Time spent: <%= @invoice.time_spent  %></p>
+<p>Comment</p>
+<p><%= simple_format(@invoice.comment) %></p>
+
+<div id="signature" style="width: 200px;" class='signed'>
+  <div class="sigWrapper"> 
+    <canvas class="pad" width="500"></canvas>
+    <p><%= @invoice.signer_name.titleize %><br><%= l @invoice.signed_at, :format => :short %></p> 
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    var sig = '<%= @invoice.signature.html_safe %>';
+    var api = $('#signature').signaturePad({displayOnly:true});
+    api.regenerate(sig);
+  });
+</script>

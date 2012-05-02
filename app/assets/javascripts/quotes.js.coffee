@@ -74,7 +74,7 @@
     $('#removal_insurance_limit_enough_true').click ->
       $('#insurance_increase').hide()
       
-    $('.sigPad').signaturePad({drawOnly:true})
+    $('.sigPad').signaturePad({drawOnly:true, lineTop: 120})
     
     $('#edit-removal').click ->
       $('#franchise-options').toggle()
@@ -88,11 +88,12 @@
       $document = $(this).closest('.document')
       if $(this).is(":checked")
         if $document.hasClass('last')
-          $('#approve').show()
+          $document.find('.approve').show()
         else
           $document.find('.next').removeClass("disabled")
       else
         $document.find('.next').addClass("disabled")
+        $document.find('.approve').hide()
         
     $('.next').click ->
       $document = $(this).closest('.document')    

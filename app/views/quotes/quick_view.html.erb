@@ -8,50 +8,17 @@
   </span>
 </h2>
 
-<div class="well">
-<%= simple_form_for([@quote, @quote.removal], :remote => true) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :insurance_limit_enough, :label => "Est-ce suffisant?", :as => :radio_buttons, :collection => [['Oui', true],['Non', false]], :item_wrapper_class => "inline" %>
-    <%= f.input :insurance_increase, :wrapper_html => {:id => "insurance_increase", :style => "display: #{@quote.removal.insurance_limit_enough.nil? || @quote.removal.insurance_limit_enough? ? 'none' : 'block'}"} do %>
-      <div class='input-append'>
-        <%= f.text_field :insurance_increase, :class => 'span1 input-append' %><span class="add-on">$</span>
-      </div>
-    <% end %>
-    
-    <%= f.input :franchise_cancellation, :as => :radio_buttons, :collection => [["Oui (#{current_account.franchise_cancellation_amount}$)", true],['Non', false]], :item_wrapper_class => "inline" %>
-    <%= f.input :payment_method, :as => :radio_buttons, :collection => [['Comptant', 'Comptant'],['Débit', 'Débit'], ['Crédit', 'Crédit']], :item_wrapper_class => "inline" %>
-  </div>
-
-  <div class="form-actions actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
-</div>
-
 <% if @quote.signed? %>
 <div id="signature" style="width: 200px;" class='signed'>
   <div class="sigWrapper"> 
-    <canvas class="pad" width="198" height="55"></canvas> 
+    <canvas class="pad" width="500"></canvas>
     <p><%= @quote.removal.signer_name.titleize %><br><%= l @quote.removal.signed_at, :format => :short %></p> 
   </div>
 </div>
 <% end %>
 
-<%= render 'signaturepad' %>
-
-
 <script type="text/javascript" charset="utf-8">
   $(function() {
-    $('#removal_insurance_limit_enough_false').click(function() {
-      $('#insurance_increase').show();
-    });
-    $('#removal_insurance_limit_enough_true').click(function() {
-      $('#insurance_increase').hide();
-    });
-    $('.sigPad').signaturePad({drawOnly:true});
-    
     <% if @quote.signed? %>
     var sig = '<%= @quote.removal.signature.html_safe %>';
     var api = $('#signature').signaturePad({displayOnly:true});

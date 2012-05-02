@@ -2,8 +2,6 @@
   <span class='submenu'>
     <% if @quote.signed? %>
       <%= link_to 'Approved', '#', :class => 'btn btn-success btn-large disabled' %>
-    <% else %>
-      <%= button_link_to 'Approve', '#signature', "data-toggle" => "modal", level: "success", large: true, style: 'display: none;', id: "approve" %>
     <% end %>
   </span>
 </h2>
@@ -15,7 +13,10 @@
     <p class='well approve_doc'>
       <%= check_box_tag "approve_document_#{document.id}", document.id, false, :class => "mark-read" %>
       <%= label_tag "approve_document_#{document.id}", "I approve", :style => "display: inline-block;" %>
+      <% if @quote.documents.size > 1 %>
       <%= button_link_to 'Next', '#', large: true, level: "success", white: true, class: "next disabled" %>
+      <% end %>
+      <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, style: 'display: none;', class: "approve" %>
     </p>
   <% end %>
 <% end %>

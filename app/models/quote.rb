@@ -38,6 +38,7 @@ class Quote < ActiveRecord::Base
   
   has_one :quote_confirmation, :dependent => :destroy
   has_one :removal, :dependent => :destroy
+  has_one :invoice, :dependent => :destroy
   
   # ATTRIBUTES
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, 
@@ -91,7 +92,7 @@ class Quote < ActiveRecord::Base
   end
   
   def signed?
-    !removal.blank? && !removal.signer_name.blank?
+    !removal.blank? && !removal.signer_name.blank? && !removal.signature.blank?
   end
   
 private

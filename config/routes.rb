@@ -8,7 +8,10 @@ Moving::Application.routes.draw do
   resources :trucks
   resources :quotes do
     resources :quote_confirmations, :except => [:index]
-    resources :removals, :only => [:update]
+    resources :removals, :only => [:update] do
+      post "sign", :on => :member
+    end
+    resources :invoices, :only => [:show, :edit, :update]
     member do
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'
       put 'daily_update'

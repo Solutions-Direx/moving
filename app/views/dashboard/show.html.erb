@@ -10,7 +10,13 @@
       <table class="table table-striped">
         <% quotes.each do |quote| %>
           <tr>
-            <td><%= link_to quote.client.name, terms_quote_path(quote) %></td>
+            <td>
+              <% if quote.signed? %>
+                <%= link_to quote.client.name, quick_view_quote_path(quote) %>
+              <% else %>
+                <%= link_to quote.client.name, terms_quote_path(quote) %>
+              <% end %>  
+            </td>
             <td><%= quote.client.phone1 %><%= content_tag(:br) + quote.client.phone2 if quote.client.phone2.present? %></td>
             <td><% if quote.from_address.has_storage? %>
                   <h6>Storage: <%= quote.from_address.storage.name %></h6>

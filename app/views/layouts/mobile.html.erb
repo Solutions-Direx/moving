@@ -23,7 +23,13 @@
         <%= tab.today 'Today', root_path %>
         <% if @quote %>
           <%= tab.terms 'Terms', quick_view_quote_path(@quote) %>
-          <%= tab.invoice 'Invoice', '' %>
+          <% unless @quote.invoice.blank? %>
+            <% if @quote.invoice.signed? %>
+              <%= tab.invoice 'Invoice', quote_invoice_path(@quote, @quote.invoice) %>
+            <% else %>
+              <%= tab.invoice 'Invoice', edit_quote_invoice_path(@quote, @quote.invoice) %>
+            <% end %>
+          <% end %>
           <%= tab.report 'Report', '' %>
         <% end %>
       <% end %>

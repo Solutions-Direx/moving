@@ -1,0 +1,20 @@
+@Invoices = {}
+@Invoices.Form =
+  init: ->
+    $("#edit-invoice").bind 'ajax:complete', ->
+      $('.loader').fadeOut()
+    
+    $("#edit-invoice input[type='text']").keypress (e) ->
+      if e.which == 13
+        $(this).blur()
+        return false  
+        
+    $("#edit-invoice input[type='text'], #edit-invoice textarea").blur (e) ->
+      $('<img src="<%= asset_path('loader.gif') %>" class="loader">').insertAfter($(this))
+      $('#edit-invoice').submit()    
+    
+    $('.sigPad').signaturePad({drawOnly:true, lineTop: 120})
+    
+    $('#submit-invoice').click ->
+      $('#frm-invoice').submit()
+      return false
