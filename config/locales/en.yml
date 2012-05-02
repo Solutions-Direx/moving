@@ -2,6 +2,14 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  cancel: 'Cancel'
+  or: 'or'
+  edit: 'Edit'
+  destroy: 'Destroy'
+  in: 'in'
+  address: 'Address'
+  storage: 'Storage'
+  search: 'Search'
   activerecord:
     attributes:
       user:  

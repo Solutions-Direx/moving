@@ -3,6 +3,17 @@ fr:
   monthly: "Mois"
   settings: "Réglages"
   account: "Paramètres"
+  cancel: "Annuler"
+  or: "ou"
+  in: 'dans'
+  edit: 'Éditer'
+  destroy: 'Supprimer'
+  pending: 'En attente'
+  confirmed: 'Confirmé'
+  address: 'Adresse'
+  storage: 'Entrepôt'
+  search: 'Chercher'
+  srch_inpt_plcholder: "Client, Téléphone, Numéro d'entente..."
   activerecord:
     models:
       account: Compte
@@ -28,6 +39,8 @@ fr:
       address: 'Adresse'
       insurance: 'Assurance'
       taxes: 'Taxes'
+      compound_tax: 'Taxe composée'
+      compound_helper: 'Mode de calcul: taxe 2 = (prix + taxe 1) * taxe 2'
   profiles:
     show:
       title: 'Modifier votre profil'
@@ -40,7 +53,11 @@ fr:
     nothing_found_for_this_period: "Pas de déménagement trouvé pour cette période."
     long_distance: "Longue distance"
     internal: "Déménagement interne"
+    new: "Nouvelle entente"
+    pending: "Ententes non confirmées"
     daily:
       title: "Déménagements prévus le"
       success_update: "Mis à jour avec succès."
       error_update: "Une erreur est survenue. Veuillez réessayer ou contacter l'administrateur du système."
+  removal_at: "Date du déménagement"
+  creator: "Auteur"

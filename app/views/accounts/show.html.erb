@@ -57,7 +57,7 @@
         <div class="controls">
           <%= f.check_box :compound %>
           <span class="help-inline">
-            <a href="#" rel="popover" data-content="Check if tax2 = (price + tax1) * tax2" data-original-title="Compound">
+            <a href="#" rel="popover" data-content="<%= t '.compound_helper', default: 'Check if tax2 = (price + tax1) * tax2' %>" data-original-title="<%= t '.compound_tax', default: 'Compound Tax' %>">
             <i class="icon-info-sign"></i></a>
           </span>
         </div>

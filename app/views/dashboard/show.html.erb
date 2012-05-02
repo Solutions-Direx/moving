@@ -19,10 +19,10 @@
             </td>
             <td><%= quote.client.phone1 %><%= content_tag(:br) + quote.client.phone2 if quote.client.phone2.present? %></td>
             <td><% if quote.from_address.has_storage? %>
-                  <h6>Storage: <%= quote.from_address.storage.name %></h6>
+                  <h6><%= t 'storage', default: 'Storage' %>: <%= quote.from_address.storage.name %></h6>
                   <%= address_for(quote.from_address.storage.address) %>
                 <% else %>
-                  <h6>Address</h6>
+                  <h6><%= t 'address' %></h6>
                   <%= link_to(address_for(quote.from_address.address), quote.from_address.address.get_directions) %>        
                 <% end %>
             </td>
