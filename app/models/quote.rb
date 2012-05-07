@@ -38,7 +38,9 @@ class Quote < ActiveRecord::Base
   
   has_one :quote_confirmation, :dependent => :destroy
   has_one :removal, :dependent => :destroy
+  
   has_one :invoice, :dependent => :destroy
+  accepts_nested_attributes_for :invoice
   
   # ATTRIBUTES
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, 
@@ -46,7 +48,7 @@ class Quote < ActiveRecord::Base
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
                   :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment, 
                   :document_ids, :forfait_ids, :quote_supplies_attributes, :pm, :long_distance, 
-                  :removal_leader_id, :removal_man_ids, :internal_address
+                  :removal_leader_id, :removal_man_ids, :internal_address, :invoice_attributes
   
   # VALIDATIONS
   validates_presence_of :removal_at_picker, :removal_at, :account, :creator, :client

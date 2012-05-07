@@ -1,17 +1,13 @@
+<% body_class('quotes') %>
 <h2>Invoice
   <span class='submenu'>
     <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>  
   </span>
 </h2>
-
-<%= simple_form_for([@quote, @invoice], :remote => true, :html => {:id => "edit-invoice"}) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :time_spent %>
-    <%= f.input :comment, :input_html => {:style => "width: 500px; height:150px;"} %>
-  </div>
-<% end %>
+<div id="msg" style="display: none;">Form saved</div>
+<div id="invoice-form-container">
+  <%= render 'form' %>
+</div>
 
 <%= render 'signaturepad' %>
 

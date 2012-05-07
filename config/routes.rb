@@ -11,7 +11,9 @@ Moving::Application.routes.draw do
     resources :removals, :only => [:update] do
       post "sign", :on => :member
     end
-    resources :invoices, :only => [:show, :edit, :update]
+    resources :invoices, :only => [:show, :edit, :update] do
+      post "sign", :on => :member
+    end
     member do
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'
       put 'daily_update'

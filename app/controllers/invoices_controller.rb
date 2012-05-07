@@ -10,7 +10,7 @@ class InvoicesController < ApplicationController
     redirect_to quote_invoice_url(@quote, @invoice) if @invoice.signed?
   end
   
-  def update
+  def sign
     @invoice.assign_attributes(params[:invoice])
     @invoice.signed_at = Time.now unless @invoice.signature.blank?
     @invoice.save!
@@ -18,7 +18,11 @@ class InvoicesController < ApplicationController
       render :nothing => true
     else
       redirect_to quote_invoice_url(@quote, @invoice), notice: "Invoice signed"
-    end  
+    end
+  end
+  
+  def update
+    @quote.update_attributes(params[:quote])
   end
   
   protected

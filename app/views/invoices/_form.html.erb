@@ -1,0 +1,17 @@
+<%= simple_nested_form_for(@quote, :url => quote_invoice_path(@quote, @invoice), :method => :put, :remote => true, :html => {:id => "edit-invoice"}) do |f| %>
+  <%= f.error_notification %>
+  
+  <p>Supplies</p>
+  <%= f.fields_for :quote_supplies %>
+  <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + " Add Supply", :quote_supplies, :class => "btn btn-primary", :id => "add-supply" %>
+  
+  <div class="form-inputs">
+    <%= f.fields_for :invoice do |fi| %>
+      <%= fi.input :time_spent, :input_html => {:class => "live-input"} %>
+      <%= fi.input :comment, :input_html => {:class => "live-input", :style => "width: 500px; height:150px;"} %>
+    <% end %>
+  </div>
+  <div class="form-actions">
+    <%= submit_or_cancel(f) %>
+  </div>
+<% end %>
