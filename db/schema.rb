@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120502111302) do
+ActiveRecord::Schema.define(:version => 20120508141848) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company_name"
@@ -112,16 +112,35 @@ ActiveRecord::Schema.define(:version => 20120502111302) do
     t.datetime "updated_at",         :null => false
   end
 
+  create_table "invoice_forfaits", :force => true do |t|
+    t.integer  "invoice_id"
+    t.integer  "forfait_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "invoice_supplies", :force => true do |t|
+    t.integer  "invoice_id"
+    t.integer  "supply_id"
+    t.integer  "quantity"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "invoices", :force => true do |t|
     t.integer  "removal_id"
     t.integer  "quote_id"
-    t.string   "time_spent"
+    t.float    "time_spent"
     t.text     "comment"
     t.string   "signer_name"
     t.text     "signature"
     t.datetime "signed_at"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.float    "rate"
+    t.float    "overtime_rate"
+    t.integer  "num_of_overtime_men"
+    t.float    "gas"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "quote_addresses", :force => true do |t|

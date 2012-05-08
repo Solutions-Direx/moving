@@ -29,6 +29,7 @@ class Quote < ActiveRecord::Base
   accepts_nested_attributes_for :to_addresses, :allow_destroy => true
   
   has_many :quote_supplies, :dependent => :destroy
+  has_many :supplies, :through => :quote_supplies
   accepts_nested_attributes_for :quote_supplies, :allow_destroy => true, :reject_if => lambda {|qs| qs[:quantity].blank?}
   
   belongs_to :removal_leader, :class_name => "User", :foreign_key => "removal_leader_id"

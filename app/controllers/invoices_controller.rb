@@ -22,7 +22,8 @@ class InvoicesController < ApplicationController
   end
   
   def update
-    @quote.update_attributes(params[:quote])
+    @invoice.update_attributes(params[:invoice])
+    @is_preview = params[:commit] == "Preview"
   end
   
   protected

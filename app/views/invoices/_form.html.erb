@@ -1,17 +1,57 @@
-<%= simple_nested_form_for(@quote, :url => quote_invoice_path(@quote, @invoice), :method => :put, :remote => true, :html => {:id => "edit-invoice"}) do |f| %>
+<%= simple_nested_form_for(@invoice, :url => quote_invoice_path(@quote, @invoice), :method => :put, :remote => true, :html => {:id => "edit-invoice"}) do |f| %>
   <%= f.error_notification %>
   
-  <p>Supplies</p>
-  <%= f.fields_for :quote_supplies %>
-  <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + " Add Supply", :quote_supplies, :class => "btn btn-primary", :id => "add-supply" %>
-  
   <div class="form-inputs">
-    <%= f.fields_for :invoice do |fi| %>
-      <%= fi.input :time_spent, :input_html => {:class => "live-input"} %>
-      <%= fi.input :comment, :input_html => {:class => "live-input", :style => "width: 500px; height:150px;"} %>
-    <% end %>
+    <div class="control-group float optional">
+      <%= f.label :time_spent %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :time_spent, :class => 'span2 input-append' %><span class="add-on"><i class="icon-time"></i></span> heure
+        </div>
+      </div>
+    </div>
+    <div class="control-group float optional" id="change-rate-field">
+      <%= f.label :rate %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :rate, :class => 'span1 input-append' %><span class="add-on">$</span> par heure
+        </div>
+      </div>
+    </div>
+    <div class="control-group float optional">
+      <%= f.label :gas %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :gas, :class => 'span1 input-append' %><span class="add-on">$</span>
+        </div>
+      </div>
+    </div>
+    <div class="control-group float optional">
+      <%= f.label "Overtime" %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :num_of_overtime_men, :class => 'span1 input-append' %><span class="add-on"><i class="icon-user"></i></span>
+        </div>
+        *
+        <div class='input-append'>
+          <%= f.text_field :overtime_rate, :class => 'span1 input-append' %><span class="add-on">$</span>
+        </div>
+      </div>
+    </div>
+    
   </div>
+  
+  <h3>Supplies</h3>
+  <%= f.fields_for :invoice_supplies %>
+  <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + " Add Supply", :invoice_supplies, :class => "btn btn-primary add-link", :id => "add-supply" %>
+  
+  <h3>Forfait</h3>
+  <%= f.association :forfaits, :collection => current_account.forfaits.all.map{|s| [s.name_with_price, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to select forfaits", :multiple => true, :style => "width: 360px;"} %>
+  
+  <%= f.input :comment, :input_html => {:class => "live-input", :style => "width: 500px; height:150px;"} %>
+  
   <div class="form-actions">
     <%= submit_or_cancel(f) %>
+    <%= submit_tag 'Preview', style: "display: none;", :id => "submit-to-preview" %>
   </div>
 <% end %>

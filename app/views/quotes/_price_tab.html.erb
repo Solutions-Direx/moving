@@ -37,7 +37,7 @@
   <%= f.input :insurance %>
   <%= f.input :materiel %>
   <%= f.fields_for :quote_supplies %>
-  <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + " Add Supply", :quote_supplies, :class => "btn btn-primary", :id => "add-supply" %>
+  <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + " Add Supply", :quote_supplies, :class => "btn btn-primary add-link", :id => "add-supply" %>
   <%= f.association :forfaits, :collection => current_account.forfaits.all.map{|s| [s.name_with_price, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to select forfaits", :multiple => true, :style => "width: 360px;"} %>
   <%= f.association :trucks, :collection => current_account.trucks.all.map{|s| [s.name_with_plate, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to select trucks", :multiple => true, :style => "width: 360px;"} %>
   <%= f.input :comment, :input_html => { :rows => 10, :class => "span4" } %>

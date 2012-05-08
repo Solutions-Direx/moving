@@ -1,24 +1,106 @@
 <h2>Invoice
   <span class='submenu'>
-    <%= icon_button_link_to 'Approved', '#', icon: 'ok', level: 'success', large: true, class: 'disabled', white: true %>
+    <% if @invoice.signed? %>
+      <%= icon_button_link_to 'Approved', '#', icon: 'ok', level: 'success', large: true, class: 'disabled', white: true %>
+    <% else %>
+      <%= button_link_to 'Edit', edit_quote_invoice_path(@quote, @invoice), level: 'success', large: true %>
+      <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>  
+    <% end %>
   </span>
 </h2>
 
-<p>Time spent: <%= @invoice.time_spent  %></p>
-<p>Comment</p>
-<p><%= simple_format(@invoice.comment) %></p>
-
-<div id="signature" style="width: 200px;" class='signed'>
-  <div class="sigWrapper"> 
-    <canvas class="pad" width="500"></canvas>
-    <p><%= @invoice.signer_name.titleize %><br><%= l @invoice.signed_at, :format => :short %></p> 
+<% if @invoice.total_time_spent > 0 %>
+  <div class="row">
+    <div class="span4">Time spent (<%= @invoice.time_spent  %> * <%= number_to_currency(@invoice.rate) %>)</div>
+    <div class="span2"><%= number_to_currency(@invoice.total_time_spent) %></div>
   </div>
+<% end %>  
+
+<% if @invoice.gas > 0 %>
+  <div class="row">
+    <div class="span4">Gas</div>
+    <div class="span2"><%= number_to_currency(@invoice.gas) %></div>
+  </div>
+<% end %>
+
+<% if @invoice.total_overtime > 0 %>
+  <div class="row">
+    <div class="span4">Overtime (<%= @invoice.num_of_overtime_men %> * <%= number_to_currency(@invoice.overtime_rate) %>)</div>
+    <div class="span2"><%= number_to_currency(@invoice.total_overtime) %></div>
+  </div>
+<% end %>
+
+<!-- SUPPLIES -->
+<% if @invoice.invoice_supplies.any? %>
+  <h3>Supplies</h3>
+  <% @invoice.invoice_supplies.each do |inv_supply| %>
+    <div class="row">
+      <div class="span4"><%= inv_supply.supply.name %> (<%= inv_supply.quantity %> * <%= number_to_currency(inv_supply.supply.price) %>)</div>
+      <div class="span2"><%= number_to_currency(inv_supply.quantity * inv_supply.supply.price) %></div>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- FORFAIT -->
+<% if @invoice.forfaits.any? %>
+  <h3>Forfaits</h3>
+  <% @invoice.forfaits.each do |forfait| %>
+    <div class="row">
+      <div class="span4"><%= forfait.name %></div>
+      <div class="span2"><%= number_to_currency(forfait.price) %></div>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="row">
+  <div class="span4">&nbsp;</div>
+  <div class="span2"><div style="height: 1px; background: #CCC; margin-top: 10px;"></div></div>
+</div>
+<div class="row">
+  <div class="span4"><h3>Grand Total</h3></div>
+  <div class="span2"><h3><%= number_to_currency(@invoice.grand_total) %></h3></div>
+</div>
+<div class="row">
+  <div class="span4"><h3>Tax</h3></div>
+  <div class="span2"><h3><%= number_to_currency(@invoice.total_taxes) %></h3></div>
+</div>
+<div class="row">
+  <div class="span4">&nbsp;</div>
+  <div class="span2"><div style="height: 1px; background: #CCC; margin-top: 10px;"></div></div>
+</div>
+<div class="row">
+  <div class="span4"><h3>Total</h3></div>
+  <div class="span2"><h3><%= number_to_currency(@invoice.total) %></h3></div>
 </div>
 
-<script type="text/javascript" charset="utf-8">
-  $(function() {
-    var sig = '<%= @invoice.signature.html_safe %>';
-    var api = $('#signature').signaturePad({displayOnly:true});
-    api.regenerate(sig);
-  });
-</script>
+<% unless @invoice.comment.blank? %>
+<p><i><%= simple_format(@invoice.comment) %></i></p>
+<% end %>
+
+<% if @invoice.signed? %>
+  <div id="signature" style="width: 200px;" class='signed'>
+    <div class="sigWrapper"> 
+      <canvas class="pad" width="500"></canvas>
+      <p><%= @invoice.signer_name.titleize %><br><%= l @invoice.signed_at, :format => :short %></p> 
+    </div>
+  </div>
+
+  <script type="text/javascript" charset="utf-8">
+    $(function() {
+      var sig = '<%= @invoice.signature.html_safe %>';
+      var api = $('#signature').signaturePad({displayOnly:true});
+      api.regenerate(sig);
+    });
+  </script>
+<% else %>
+  <%= render 'signaturepad' %>
+  <script type="text/javascript" charset="utf-8">
+    $(function() {
+      $('#submit-invoice').click(function() {
+        $('#frm-invoice').submit();
+        return false;
+      });
+      $('.sigPad').signaturePad({drawOnly:true, lineTop: 120});
+    });
+  </script>
+<% end %>

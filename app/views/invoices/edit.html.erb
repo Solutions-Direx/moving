@@ -1,15 +1,13 @@
 <% body_class('quotes') %>
-<h2>Invoice
+<h2>Invoice for <%= @quote.client.name %>
   <span class='submenu'>
-    <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>  
+    <%= button_link_to 'Preview', '#', level: "success", large: true, id: "preview" %>  
   </span>
 </h2>
 <div id="msg" style="display: none;">Form saved</div>
 <div id="invoice-form-container">
   <%= render 'form' %>
 </div>
-
-<%= render 'signaturepad' %>
 
 <script type="text/javascript" charset="utf-8">
   $(function() {
