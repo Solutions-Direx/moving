@@ -10,8 +10,13 @@ class CreateInvoices < ActiveRecord::Migration
       t.datetime :signed_at
       t.float :rate
       t.float :overtime_rate
-      t.integer :num_of_overtime_men
+      t.float :overtime
       t.float :gas
+      t.string :tax1_label
+      t.float :tax1
+      t.string :tax2_label
+      t.float :tax2
+      t.boolean :compound
 
       t.timestamps
     end

@@ -137,10 +137,15 @@ ActiveRecord::Schema.define(:version => 20120508141848) do
     t.datetime "signed_at"
     t.float    "rate"
     t.float    "overtime_rate"
-    t.integer  "num_of_overtime_men"
+    t.float    "overtime"
     t.float    "gas"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.string   "tax1_label"
+    t.float    "tax1"
+    t.string   "tax2_label"
+    t.float    "tax2"
+    t.boolean  "compound"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "quote_addresses", :force => true do |t|

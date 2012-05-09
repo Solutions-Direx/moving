@@ -1,5 +1,5 @@
-<%= f.input :supply, :label => false, :required => false do %>
+<%= f.input :supply, :label => false, :required => false, :wrapper_class => "inline supply-item" do %>
   <%= f.input_field :supply_id, :as => :select, :collection => current_account.supplies.all.map{|s| [s.name_with_price, s.id]}, :item_wrapper_class => 'inline', :class => "chzn supply", "data-placeholder" => "Select" %> * 
-  <%= f.number_field :quantity, :placeholder => "Quantity", :style => 'width:70px;', :class => 'qty' %>
+  <%= f.number_field :quantity, :placeholder => "Quantity", :style => 'width:70px;', :class => 'supply-qty' %>
   <%= f.link_to_remove "Remove" %>
 <% end %>

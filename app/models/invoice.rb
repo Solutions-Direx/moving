@@ -1,4 +1,6 @@
 class Invoice < ActiveRecord::Base
+  include Taxable
+  
   belongs_to :removal
   belongs_to :quote, :touch => true
   
@@ -7,9 +9,9 @@ class Invoice < ActiveRecord::Base
   
   has_many :invoice_supplies, :dependent => :destroy
   has_many :supplies, :through => :invoice_supplies
-  accepts_nested_attributes_for :invoice_supplies, :allow_destroy => true, :reject_if => lambda {|qs| qs[:quantity].blank?}
+  accepts_nested_attributes_for :invoice_supplies, :allow_destroy => true, :reject_if => lambda {|qs| qs[:quantity].blank? || qs[:supply_id].blank?}
   
-  attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :removal_id, :gas, :rate, :num_of_overtime_men, :overtime_rate,
+  attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :removal_id, :gas, :rate, :overtime, :overtime_rate,
                   :invoice_supplies_attributes, :forfait_ids
   
   before_create :copy_quote_info
@@ -18,16 +20,24 @@ class Invoice < ActiveRecord::Base
     !signer_name.blank? && !signature.blank?
   end
   
-  def grand_total
-    total_time_spent + total_overtime + total_supplies + total_forfaits
+  # cache grand_total calculation since it's expensive
+  # pass recalculate = true to recalculate
+  def grand_total(recalculate = false)
+    if @grand_total.nil? || recalculate
+      @grand_total = total_time_spent + gas + total_overtime + total_supplies + total_forfaits 
+    end
+    @grand_total
   end
   
+  # alias subtotal for Taxable module
+  alias :subtotal :grand_total
+  
   def total_overtime
-    number_or_zero(:overtime_rate) * number_or_zero(:num_of_overtime_men)
+    (number_or_zero(:overtime_rate) * number_or_zero(:overtime)).round(2)
   end
   
   def total_time_spent
-    number_or_zero(:time_spent) * number_or_zero(:rate)
+    (number_or_zero(:time_spent) * number_or_zero(:rate)).round(2)
   end
   
   def total_supplies
@@ -37,7 +47,7 @@ class Invoice < ActiveRecord::Base
         sum += inv_supply.quantity * inv_supply.supply.price
       end
     end
-    sum
+    sum.round(2)
   end
   
   def total_forfaits
@@ -47,15 +57,11 @@ class Invoice < ActiveRecord::Base
         sum += forfait.price
       end
     end
-    sum
-  end
-  
-  def total_taxes
-    0
+    sum.round(2)
   end
   
   def total
-    grand_total + total_taxes
+    total_with_taxes
   end
   
   private
@@ -69,6 +75,9 @@ class Invoice < ActiveRecord::Base
     quote.quote_forfaits.each do |qf|
       self.invoice_forfaits.build(forfait_id: qf.forfait_id)
     end
+    
+    # copy tax settings
+    copy_tax_setting_from(quote.account)
   end
   
   def number_or_zero(field)
