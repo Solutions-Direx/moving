@@ -1,20 +1,26 @@
 <h2><%= @quote.client.name %>
   <span class='submenu'>
     <% if @quote.signed? %>
-      <%= link_to 'Approved', '#', :class => 'btn btn-success btn-large disabled' %>
+      <%= link_to "#{t 'approved', default: 'Approved'}", '#', :class => 'btn btn-success btn-large disabled' %>
     <% else %>
-      <%= button_link_to 'Approve', '#signature', "data-toggle" => "modal", level: "success", large: true %>
+      <%= button_link_to "#{t 'approve', default: 'Approve'}", '#signature', "data-toggle" => "modal", level: "success", large: true %>
     <% end %>
   </span>
 </h2>
 
 <% if @quote.signed? %>
-<div id="signature" style="width: 200px;" class='signed'>
+<ul>
+  <% @quote.documents.each do |document| %>
+    <li><%= document.name %></li>
+  <% end %>
+</ul>
+<div id="signature" style="width: 200px; clear:both;" class='signed'>
   <div class="sigWrapper"> 
     <canvas class="pad" width="500"></canvas>
-    <p><%= @quote.removal.signer_name.titleize %><br><%= l @quote.removal.signed_at, :format => :short %></p> 
+    <p><%= @quote.removal.signer_name.titleize %><br><%= l @quote.removal.signed_at, :format => :short %></p>
   </div>
 </div>
+
 <% end %>
 
 <script type="text/javascript" charset="utf-8">

@@ -20,9 +20,9 @@
     <div class="subnav">
       <div class="container">
       <%= tabs_tag :builder => BootstrapSubnavBuilder, :open_tabs => { :class => "nav nav-pills" } do |tab| %>
-        <%= tab.today 'Today', root_path %>
+        <%= tab.today "#{t 'today', default: 'Today'}", root_path %>
         <% if @quote %>
-          <%= tab.terms 'Terms', quick_view_quote_path(@quote) %>
+          <%= tab.terms "#{t 'terms', default: 'Terms'}", quick_view_quote_path(@quote) %>
           <% unless @quote.invoice.blank? %>
             <% if @quote.invoice.signed? %>
               <%= tab.invoice Invoice.model_name.human, quote_invoice_path(@quote, @quote.invoice) %>

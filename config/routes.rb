@@ -34,7 +34,10 @@ Moving::Application.routes.draw do
   resources :storages do
     resources :annexes
   end
-    
+  
+  resources :invoices, :only => :index do
+    get 'export', :on => :collection, :as => 'export'
+  end
   resources :documents
   resource :account, :only => [:show, :update]
   resource :profile, :only => [:show, :update], :path => "users/profile"

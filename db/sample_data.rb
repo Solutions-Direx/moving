@@ -8,7 +8,9 @@ account = Account.first
 3.times do |x|
   print '.'
   count = x + 1
-  account.users.create!(username: "manager#{count}", first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: "manager#{count}@gmail.com", password: "123123", password_confirmation: "123123", role: User::Role::MANAGER)
+  account.users.create!(username: "manager#{count}", first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, 
+                        email: "manager#{count}@gmail.com", password: "123123", password_confirmation: "123123", role: User::Role::MANAGER,
+                        tax1_label: "TPS", tax1: "5", tax1_label: "TVQ", tax1: "9.5")
 end
 print "\n"
 puts "Generated 3 sample managers."

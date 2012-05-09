@@ -4,7 +4,7 @@
       <%= tab.quotes Quote.model_name.human + 's', quotes_path %>
       <%= tab.calendar Calendar.model_name.human, monthly_quotes_path %>
       <%= tab.clients   'Clients', clients_path %>
-      <%= tab.invoices   Invoice.model_name.human + 's', '' %>
+      <%= tab.invoices   Invoice.model_name.human + 's', invoices_path %>
       <%= tab.documents   'Documents', documents_path %>
     <% end %>
   </div>

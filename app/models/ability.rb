@@ -9,26 +9,27 @@ class Ability
       can :manage, :all
     elsif user.standard?
       can :read, :dashboard
-      can :manage, Document
-      can :manage, Storage
       can :manage, Client
-      can :manage, Supply
-      can :manage, Quote
-      can :manage, Truck
+      can :manage, Document
       can :manage, Forfait
       can :manage, Furniture
+      can :manage, Quote
       can :manage, Removal
+      can :manage, Storage
+      can :manage, Supply
+      can :manage, Truck
+      
     elsif user.removal_man?
       can :read, :dashboard
-      can :read, Document
-      can :read, Storage
       can :read, Client
-      can :read, Supply
-      can :read, Quote
-      can :read, Truck
+      can :read, Document
       can :read, Forfait
       can :read, Furniture
+      can :read, Quote
       can :manage, Removal
+      can :read, Storage
+      can :read, Supply
+      can :read, Truck
     end
   end
 end

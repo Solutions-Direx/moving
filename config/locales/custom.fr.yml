@@ -14,6 +14,15 @@ fr:
   storage: 'Entrepôt'
   search: 'Chercher'
   srch_inpt_plcholder: "Client, Téléphone, Numéro d'entente..."
+  signed: 'signée'
+  logout: 'Déconnexion'
+  login: 'Connexion'
+  edit: 'Editer'
+  confirmed: 'Confirmée'
+  confirm: 'Confirmer'
+  approved: 'Approuvée'
+  approve: 'Approve'
+  terms: 'Termes'
   activerecord:
     models:
       account: Compte
