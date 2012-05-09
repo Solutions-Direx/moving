@@ -1,9 +1,9 @@
-<h2>Invoice
+<h2><%= Invoice.model_name.human %>
   <span class='submenu'>
     <% if @invoice.signed? %>
       <%= icon_button_link_to 'Approved', '#', icon: 'ok', level: 'success', large: true, class: 'disabled', white: true %>
     <% else %>
-      <%= button_link_to 'Edit', edit_quote_invoice_path(@quote, @invoice), level: 'normal', large: true %>
+      <%= button_link_to 'Edit', edit_quote_invoice_path(@quote, @invoice), level: 'inverse', large: true %>
       <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>  
     <% end %>
   </span>
@@ -37,7 +37,7 @@
 
 <!-- SUPPLIES -->
 <% if @invoice.invoice_supplies.any? %>
-  <h3>Supplies</h3>
+  <h3 class="inv_section">Supplies</h3>
   <% @invoice.invoice_supplies.each do |inv_supply| %>
     <div class="row">
       <div class="span4"><%= inv_supply.supply.name %> (<%= inv_supply.quantity %> * <%= number_to_currency(inv_supply.supply.price) %>)</div>
@@ -48,7 +48,7 @@
 
 <!-- FORFAIT -->
 <% if @invoice.forfaits.any? %>
-  <h3>Forfaits</h3>
+  <h3 class="inv_section">Forfaits</h3>
   <% @invoice.forfaits.each do |forfait| %>
     <div class="row">
       <div class="span4"><%= forfait.name %></div>

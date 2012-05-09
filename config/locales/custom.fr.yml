@@ -17,14 +17,15 @@ fr:
   activerecord:
     models:
       account: Compte
-      quote: Entente
       calendar: Calendrier
-      truck: Camion
+      invoice: Facture
+      quote: Entente
+      profile: Profil
+      report: Rapport
       storage: Entrepôt
       supply: Matériel
+      truck: Camion
       user: Utilisateur
-      profile: Profil
-      invoice: Facture
     attributes:
       quote:
         rating: "Note"
