@@ -3,11 +3,16 @@
     <% if @invoice.signed? %>
       <%= icon_button_link_to 'Approved', '#', icon: 'ok', level: 'success', large: true, class: 'disabled', white: true %>
     <% else %>
-      <%= button_link_to 'Edit', edit_quote_invoice_path(@quote, @invoice), level: 'success', large: true %>
+      <%= button_link_to 'Edit', edit_quote_invoice_path(@quote, @invoice), level: 'normal', large: true %>
       <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>  
     <% end %>
   </span>
 </h2>
+
+<p><b>Client:</b> <%= @invoice.quote.client.name %></p>
+<p><b><%= t "removal_at" %>:</b> <%= l @invoice.quote.removal_at.to_date %></p>
+<%= section %>
+<br />
 
 <% if @invoice.total_time_spent > 0 %>
   <div class="row">
