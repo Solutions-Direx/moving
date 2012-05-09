@@ -1,5 +1,5 @@
 <% if @user.new_record? %>
-  <div class="alert alert-info">An email with default password will be sent to the user once you create it.</div>
+  <div class="alert alert-info"><%= t '.intro', default: "An email with default password will be sent to the user once you create it." %></div>
 <% end %>
 
 <%= simple_form_for(@user) do |f| %>
@@ -11,7 +11,7 @@
     <%= f.input :first_name %>
     <%= f.input :last_name %>
     <%= f.input :role, :as => :select, :collection => User::Role.options %>
-    <%= f.input :localization, label: "Language", collection: [["English", "en"], ["Français", "fr"]], include_blank: false  %>
+    <%= f.input :localization, collection: [["English", "en"], ["Français", "fr"]], include_blank: false  %>
   </div>
 
   <div class="form-actions">

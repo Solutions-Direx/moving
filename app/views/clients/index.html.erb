@@ -1,5 +1,5 @@
-<h1>Listing clients
-  <span class="submenu"><%= icon_button_link_to 'New client', new_client_path, icon: "plus", large: true, level: "primary", white: true, remote: true %></span>
+<h1>Clients
+  <span class="submenu"><%= icon_button_link_to 'New client', new_client_path, icon: 'plus', large: true, level: 'primary', white: true, remote: true %></span>
 </h1>
 
 <%= paginate @clients %>
@@ -17,7 +17,7 @@
 
 <% @clients.each do |client| %>
   <tr>
-    <td><%= link_to client.name, client, remote: true %></td>
+    <td><%= link_to client.name, client %></td>
     <td><%= client.phone1 %></td>
     <td><%= client.phone2 %></td>
     <td><%= address_for(client.address) %></td>

@@ -16,7 +16,7 @@
             <b><%= quote.client.name %></b>
             <% if quote.long_distance %> <%= content_tag(:span, "(#{t 'quotes.long_distance', default: 'Long distance'})", :class => 'label label-warning label_override') %><% end %>
             <% if quote.internal_address %><%= content_tag(:span, "(#{t 'quotes.internal', default: 'Internal'})", :class => 'label label-info label_override') %><% end %>
-            <span class='floatr'><b><%= link_to quote.code, quote_path(quote) %></b></span>
+            <span class='floatr'><b><%= link_to "##{quote.code}", quote_path(quote) %></b></span>
           </p>
           <p><b><%= quote.phone1 %></b>
              <span class='floatr'><%= quote.creator.full_name %></span>

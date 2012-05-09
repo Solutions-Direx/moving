@@ -6,6 +6,8 @@ fr:
   cancel: "Annuler"
   or: "ou"
   in: 'dans'
+  yessai: "Oui"
+  nope: "No"
   edit: 'Éditer'
   destroy: 'Supprimer'
   pending: 'En attente'
@@ -22,10 +24,45 @@ fr:
   confirm: 'Confirmer'
   approved: 'Approuvée'
   approve: 'Approve'
+  print: 'Imprimer'
   terms: 'Termes'
+  creator: 'Créateur'
+  billing_address: 'Adresse de facturation'
+  phone: 'Téléphone'
+  price: 'Prix'
+  details: 'Détails'
+  editing_annex: "Édition de l'annexe"
+  editing_document: "Édition du document"
+  editing_forfait: "Édition du forfait"
+  editing_quote: "Édition de l'entente"
+  editing_storage: "Édition de l'entrepôt"
+  editing_supply: "Édition du matériel"
+  editing_truck: "Édition du camion"
+  editing_truck: "Édition de l'utilisateur"
+  new: 'Nouveau'
+  new_quote: 'Nouvelle entente'
+  new_storage: 'Nouvel entrepôt'
+  new_user: 'Nouvel utilisateur'
+  new_annex: 'Nouvelle annexe'
+  internal: 'Interne'
+  external: 'Externe'
+  name: 'Nom'
+  role: "Rôle"
+  username: "Nom d'utilisateur"
+  title: 'Titre'
+  created_at: 'Créé le'
+  updated_at: 'Mis à jour le'
+  active: 'Actif'
+  inactive: 'Inactif'
+  status: 'État'
+  per_month: 'par mois'
+  plate: 'Plaque'
+  in_service: 'En service'
+  removal_at: "Date du déménagement"
   activerecord:
     models:
       account: Compte
+      annex: Annexe
       calendar: Calendrier
       invoice: Facture
       quote: Entente
@@ -43,6 +80,8 @@ fr:
         phone2: "Téléphone2"
         price: "Prix"
         payment_method: "Méthode de paiement"
+      supply:
+        active: "Actif"
   accounts:
     show:
       general: 'Général'
@@ -63,11 +102,11 @@ fr:
     nothing_found_for_this_period: "Pas de déménagement trouvé pour cette période."
     long_distance: "Longue distance"
     internal: "Déménagement interne"
-    new: "Nouvelle entente"
     pending: "Ententes non confirmées"
     daily:
       title: "Déménagements prévus le"
       success_update: "Mis à jour avec succès."
       error_update: "Une erreur est survenue. Veuillez réessayer ou contacter l'administrateur du système."
-  removal_at: "Date du déménagement"
-  creator: "Auteur"
+  users:
+    form:
+      intro: "Un email avec un mot de passe par défaut sera envoyé à chauqe nouvel utilisateur inscrit."

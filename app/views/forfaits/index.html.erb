@@ -1,14 +1,14 @@
 <h1><%= Forfait.model_name.human + 's' %>
-  <span class='submenu'><%= icon_button_link_to 'New Forfait', new_forfait_path, icon: "plus", level: "inverse", large: true, white: true %></span>
+  <span class='submenu'><%= icon_button_link_to "#{t 'new'} Forfait", new_forfait_path, icon: "plus", level: "inverse", large: true, white: true %></span>
 </h1>
 
 <%= paginate @forfaits %>
 
 <table class="table table-striped">
   <tr>
-    <th>Name</th>
+    <th><%= t 'name' %></th>
     <th>Description</th>
-    <th>Price</th>
+    <th><%= t 'price' %></th>
     <th></th>
     <th></th>
   </tr>
@@ -18,8 +18,8 @@
     <td><%= link_to forfait.name, forfait %></td>
     <td><%= simple_format(truncate(forfait.description, :length => 130)) %></td>
     <td><%= number_to_currency(forfait.price) %></td>
-    <td><%= link_to 'Edit', edit_forfait_path(forfait) %></td>
-    <td><%= link_to 'Destroy', forfait, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to "#{t 'edit'}", edit_forfait_path(forfait) %></td>
+    <td><%= link_to "#{t 'destroy'}", forfait, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

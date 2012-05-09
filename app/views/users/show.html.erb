@@ -1,9 +1,9 @@
 <h2><%= @user.full_name %>
-  <span class='submenu'><%= button_link_to 'Edit', edit_user_path(@user), level: "inverse", large: true %></span>
+  <span class='submenu'><%= button_link_to "#{t 'edit'}", edit_user_path(@user), level: "inverse", large: true %></span>
 </h2>
 
 <p>
-  <b>Username:</b>
+  <b><%= t 'username' %>:</b>
   <%= @user.username %>
 </p>
 
@@ -13,11 +13,11 @@
 </p>
 
 <p>
-  <b>Role:</b>
+  <b><%= t 'role' %>:</b>
   <%= @user.role %>
 </p>
 
 <p>
-  <b>Language:</b>
-  <%= @user.localization %>
+  <b><%= t 'language' %>:</b>
+  <%= @user.localization.upcase %>
 </p>

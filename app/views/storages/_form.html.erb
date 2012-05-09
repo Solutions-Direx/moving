@@ -3,7 +3,7 @@
   
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.input :internal, :label => false, :as => :radio_buttons, :collection => [['Interne', true],['Externe', false]], :item_wrapper_class => "inline" %>
+    <%= f.input :internal, :label => false, :as => :radio_buttons, :collection => [["#{t 'internal'}", true],["#{t 'external'}", false]], :item_wrapper_class => "inline" %>
     <div id="storage_price" class="control-group float optional" style="display: <%= @storage.internal? ? 'block' : 'none' %>">
       <%= f.label :price %>
       <div class="controls">

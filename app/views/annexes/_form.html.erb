@@ -2,7 +2,7 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :name, :label => false, :placeholder => "Title", :input_html => {:class => 'span10'} %>
+    <%= f.input :name, :label => false, :placeholder => "#{t 'title'}", :input_html => {:class => 'span10'} %>
     <%= render 'layouts/text_formatting' %>
     <%= f.input :body, :as => :text, :label => false, :input_html => {:id => "wysihtml5", :class => 'span10'} %>
   </div>

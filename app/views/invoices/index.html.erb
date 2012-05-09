@@ -1,6 +1,5 @@
 <h1><%= t Invoice.model_name.human + 's' %>
   <span class="submenu"><%= icon_button_link_to "#{t 'download_invoices', default: 'Download invoices'}", export_invoices_path, :format => :csv, icon: "download-alt", large: true, level: "primary", white: true %></span>
-  <%= link_to 'Down', export_invoices_path, :format => :csv %>
 </h1>
 
 <%= paginate @invoices %>
@@ -16,11 +15,11 @@
 
 <% @invoices.each do |invoice| %>
   <tr>
-    <td><%= link_to (l invoice.quote.removal_at.to_date), quote_invoice_path(invoice.quote, invoice) %> <%= status_tag("#{ t 'signed', default: 'signed'}", level: 'success') if invoice.signed? %></td>
+    <td><%= l invoice.quote.removal_at.to_date %> <%= status_tag("#{ t 'signed'}", level: 'success') if invoice.signed? %></td>
     <td><%= link_to invoice.quote.client.name, client_path(invoice.quote.client) %></td>
     <td><%= link_to "##{invoice.quote.code}", quote_path(invoice.quote) %></td>
     <td><%= number_to_currency(invoice.grand_total) %></td>
-    <td><%= number_to_currency(invoice.total) %></td>
+    <td><%= link_to number_to_currency(invoice.total), quote_invoice_path(invoice.quote, invoice) %></td>
   </tr>
 <% end %>
 </table>

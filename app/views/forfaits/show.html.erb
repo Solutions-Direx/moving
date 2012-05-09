@@ -1,5 +1,5 @@
 <h2><%= @forfait.name %>
-  <span class='submenu'><%= button_link_to 'Edit', edit_forfait_path(@forfait), level: "inverse", large: true %></span>
+  <span class='submenu'><%= button_link_to "#{t 'edit'}", edit_forfait_path(@forfait), level: "inverse", large: true %></span>
 </h2>
 
 <p>
@@ -8,10 +8,6 @@
 </p>
 
 <p>
-  <b>Price:</b>
+  <b><%= t 'price' %>:</b>
   <%= number_to_currency(@forfait.price) %>
 </p>
-
-
-<%= link_to 'Edit', edit_forfait_path(@forfait) %> |
-<%= link_to 'Back', forfaits_path %>

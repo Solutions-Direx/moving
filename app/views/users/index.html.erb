@@ -1,15 +1,15 @@
-<h1>Listing users
-  <span class='submenu'><%= icon_button_link_to 'New User', new_user_path, icon: "plus", level: "inverse", large: true, white: true %></span>
+<h1><%= User.model_name.human + 's' %>
+  <span class='submenu'><%= icon_button_link_to "#{t 'new_user'}", new_user_path, icon: "plus", level: "inverse", large: true, white: true %></span>
 </h1>
 
 <%= paginate @users %>
 
 <table class="table table-striped">
   <tr>
-    <th><%= sortable "first_name", "Name" %></th>
-    <th><%= sortable "username" %></th>
+    <th><%= sortable "first_name", "#{t 'name'}" %></th>
+    <th><%= sortable "#{t 'username'}" %></th>
     <th><%= sortable "email" %></th>
-    <th><%= sortable "role" %></th>
+    <th><%= sortable "#{t 'role'}" %></th>
     <th></th>
     <th></th>
   </tr>
@@ -20,8 +20,8 @@
     <td><%= user.username %></td>
     <td><%= user.email %></td>
     <td><%= user.role %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to "#{t 'edit'}", edit_user_path(user) %></td>
+    <td><%= link_to "#{t 'destroy'}", user, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

@@ -1,14 +1,14 @@
 <h2><%= @client.name %>
-  <span class='submenu'><%= button_link_to 'Edit', edit_client_path(@client), level: "inverse", large: true  %></span>
+  <span class='submenu'><%= button_link_to "#{t 'edit'}", edit_client_path(@client), level: "inverse", large: true  %></span>
 </h2>
 
 <p>
-  <b>Phone1:</b>
+  <b><%= t 'phone' %>1:</b>
   <%= @client.phone1 %>
 </p>
 
 <p>
-  <b>Phone2:</b>
+  <b><%= t 'phone' %>2:</b>
   <%= @client.phone2 %>
 </p>
 
@@ -20,20 +20,21 @@
 <br />
 
 <p>
-  <h6>BILLING ADDRESS</h6>
+  <h6><%= t 'billing_address' %></h6>
   <%= address_for(@client.address) %>
 </p>
 
 <br />
 
 <% if @client.quotes.any? %>
-  <h3>Quotes</h3><br />
+  <h3><%= Quote.model_name.human + 's' %></h3><br />
   
   <table class="table table-striped">
     <tr>
       <th>ID</th>
-      <th>Removal at</th>
-      <th>Creator</th>
+      <th><%= t 'removal_at', default: 'Removal at' %></th>
+      <th><%= t 'creator', default: 'Creator' %></th>
+      <th><%= Invoice.model_name.human %></th>
       <th></th>
       <th></th>
     </tr>
@@ -43,8 +44,9 @@
       <td><%= link_to quote.code, quote %> <%= status_tag(quote.status) %></td>
       <td><%= l quote.removal_at, :format => :long %></td>
       <td><%= quote.creator.full_name %></td>
-      <td><%= link_to 'Edit', edit_quote_path(quote) %></td>
-      <td><%= link_to 'Destroy', quote, confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to Invoice.model_name.human, quote_invoice_path(quote) %></td>
+      <td><%= link_to "#{t 'edit'}", edit_quote_path(quote) %></td>
+      <td><%= link_to "#{t 'destroy'}", quote, confirm: 'Are you sure?', method: :delete %></td>
     </tr>
   <% end %>
   </table>

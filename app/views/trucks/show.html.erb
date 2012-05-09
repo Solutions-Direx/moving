@@ -1,14 +1,14 @@
 <p>
-  <b>Name:</b>
+  <b><%= t 'name' %>:</b>
   <%= @truck.name %>
 </p>
 
 <p>
-  <b>Plate:</b>
+  <b><%= t 'plate' %>:</b>
   <%= @truck.plate %>
 </p>
 
 <p>
   <b>Disponible:</b>
-  <%= @truck.available? ? 'Oui' : 'Non' %>
+  <%= @truck.available? ? "#{t 'yessai'}" : "#{t 'nope'}" %>
 </p>

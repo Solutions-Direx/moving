@@ -1,9 +1,9 @@
 <h2><%= Invoice.model_name.human %>
   <span class='submenu'>
     <% if @invoice.signed? %>
-      <%= icon_button_link_to "#{t 'approved', default: 'Approved'}", '#', icon: 'ok', level: 'success', large: true, class: 'disabled', white: true %>
+      <%= icon_button_link_to "#{t 'approved'}", '#', icon: 'ok', level: 'success', large: true, class: 'disabled', white: true %>
     <% else %>
-      <%= button_link_to "#{t 'edit', default: 'edit'}", edit_quote_invoice_path(@quote, @invoice), level: 'inverse', large: true %>
+      <%= button_link_to "#{t 'edit'}", edit_quote_invoice_path(@quote, @invoice), level: 'inverse', large: true %>
       <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>  
     <% end %>
   </span>

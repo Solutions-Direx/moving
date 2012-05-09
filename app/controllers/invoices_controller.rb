@@ -1,7 +1,7 @@
 class InvoicesController < ApplicationController
   # load_and_authorize_resource
   before_filter :load_quote_and_invoice, :except => ['index', :export]
-  set_tab :invoice
+  set_tab :invoices
   
   def index
     @invoices = current_account.invoices.order(sort_column + " " + sort_direction).page(params[:page])
@@ -26,7 +26,7 @@ class InvoicesController < ApplicationController
     if request.xhr?
       render :nothing => true
     else
-      redirect_to quote_invoice_url(@quote, @invoice), notice: "#{Invoice.model_name.human} #{t 'signed', default: 'signed'}"
+      redirect_to quote_invoice_url(@quote, @invoice), notice: "#{Invoice.model_name.human} #{t 'signed'}"
     end
   end
   

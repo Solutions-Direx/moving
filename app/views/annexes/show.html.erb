@@ -1,5 +1,5 @@
 <h2><%= @annex.name %>
-  <span class='submenu'><%= link_to 'Edit', edit_storage_annex_path(@annex.storage, @annex), :class => 'btn btn-large btn-inverse' %></span>
+  <span class='submenu'><%= link_to "#{t 'edit'}", edit_storage_annex_path(@annex.storage, @annex), :class => 'btn btn-large btn-inverse' %></span>
 </h2>
 
 <div class='read'>

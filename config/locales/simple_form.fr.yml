@@ -28,6 +28,8 @@ fr:
         password_confirmation: "Confirmer votre mot de passe"
         first_name: "Prénom"
         last_name: "Nom de famille"
+        role: "Rôle"
+        localization: "Langue"
         num_appliances: "Nb d'électroménagers"
         num_of_removal_man: "Nb de déménageurs"
         company_name: "Nom de société"
@@ -67,4 +69,3 @@ fr:
         profile:
           create: "Créer %{model}"
           update: "Mettre à jour"
-

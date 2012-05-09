@@ -10,6 +10,10 @@ en:
   address: 'Address'
   storage: 'Storage'
   search: 'Search'
+  approved: 'Approved'
+  approve: 'Approve'
+  signed: 'Signed'
+  localization: "Language"
   activerecord:
     attributes:
       user:  

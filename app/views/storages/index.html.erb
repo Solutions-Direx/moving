@@ -1,15 +1,15 @@
 <h1><%= Storage.model_name.human + 's' %>
-  <span class='submenu'><%= icon_button_link_to 'New Storage', new_storage_path, icon: "plus", level: "inverse", large: true, white: true %></span>
+  <span class='submenu'><%= icon_button_link_to "#{t 'new_storage'}", new_storage_path, icon: "plus", level: "inverse", large: true, white: true %></span>
 </h1>
 
 <%= paginate @storages %>
 
 <table class="table table-striped">
   <tr>
-    <th><%= sortable "name" %></th>
-    <th>Address</th>
-    <th>Internal</th>
-    <th>Default Price</th>
+    <th><%= sortable "#{t 'name'}" %></th>
+    <th><%= t 'address' %></th>
+    <th><%= t 'internal' %></th>
+    <th><%= t 'price' %></th>
     <th>Annexes</th>
     <th></th>
     <th></th>
@@ -19,11 +19,11 @@
   <tr>
     <td><%= link_to storage.name, storage %></td>
     <td><%= address_for(storage.address) %></td>
-    <td><%= storage.internal? ? "Interne" : "Externe" %></td>
+    <td><%= storage.internal? ? "#{t 'internal'}" : "#{t 'external'}" %></td>
     <td><%= number_to_currency(storage.price) %></td>
-    <td><%= storage.internal? ? pluralize(storage.annexes.size, 'annexe') : '' %></td>
-    <td><%= link_to 'Edit', edit_storage_path(storage) %></td>
-    <td><%= link_to 'Destroy', storage, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= storage.internal? ? pluralize(storage.annexes.size, "#{Annex.model_name.human}") : '' %></td>
+    <td><%= link_to "#{t 'edit'}", edit_storage_path(storage) %></td>
+    <td><%= link_to "#{t 'destroy'}", storage, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

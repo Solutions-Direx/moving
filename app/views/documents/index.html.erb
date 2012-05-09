@@ -1,13 +1,13 @@
 <h1>Documents
-  <span class="submenu"><%= icon_button_link_to 'New document', new_document_path, icon: "plus", large: true, level: "primary", white: true %></span>
+  <span class="submenu"><%= icon_button_link_to "#{t 'new'} document", new_document_path, icon: "plus", large: true, level: "inverse", white: true %></span>
 </h1>
 
 <%= paginate @documents %>
 
 <table class="table table-striped">
   <tr>
-    <th><%= sortable "name" %></th>
-    <th>Updated At</th>
+    <th><%= sortable "#{t 'name'}" %></th>
+    <th><%= t 'updated_at' %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -16,10 +16,10 @@
 <% @documents.each do |document| %>
   <tr>
     <td><%= link_to document.name, document %></td>
-    <td><%= document.updated_at.strftime('%B %d, %Y %H:%M') %></td>
-    <td><%= link_to 'Edit', edit_document_path(document) %></td>
-    <td><%= link_to 'Print', '#' %></td>
-    <td><%= link_to 'Destroy', document, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= l document.updated_at.to_date %></td>
+    <td><%= link_to "#{t 'edit'}", edit_document_path(document) %></td>
+    <td><%= link_to "#{t 'print'}", '#' %></td>
+    <td><%= link_to "#{t 'destroy'}", document, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

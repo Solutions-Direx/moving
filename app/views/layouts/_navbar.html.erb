@@ -19,6 +19,7 @@
         			<li><%= link_to((t 'settings', :default => 'Settings'), account_path) %></li>
         		    <li><%= link_to User.model_name.human + 's', users_path %></li>
         		    <li class="divider"></li>
+        		    <li><%= link_to 'Documents', documents_path %></li>
         		    <li><%= link_to Supply.model_name.human + 's', supplies_path %></li>
         		    <li><%= link_to Storage.model_name.human + 's', storages_path %></li>
         		    <li><%= link_to 'Forfaits', forfaits_path %></li>
@@ -29,7 +30,7 @@
             
             <li><%= link_to "#{t 'logout', default: 'Logout'}", destroy_user_session_path, :method => :delete %></li>
           <% else %>
-            <li><%= link_to 'Login', new_user_session_path %></li>
+            <li><%= link_to "#{t 'login', default: 'Login'}", new_user_session_path %></li>
           <% end %>
         </ul>
       </div><!--/.nav-collapse -->
