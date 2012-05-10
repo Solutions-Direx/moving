@@ -12,7 +12,7 @@
           <tr>
             <td>
               <% if quote.signed? %>
-                <%= link_to quote.client.name, quick_view_quote_path(quote) %>
+                <%= link_to quote.client.name, quote_invoice_path(quote, quote.invoice) %>
               <% else %>
                 <%= link_to quote.client.name, terms_quote_path(quote) %>
               <% end %>  
