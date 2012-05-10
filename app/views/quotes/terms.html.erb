@@ -1,3 +1,56 @@
+<p>
+  <b>Removal at:</b>
+  <%= l @quote.removal_at, :format => :long %> || <%= @quote.is_house? ? 'Maison' : 'Appartement' %>
+  <span class='submenu'><b>Créée par: </b><%= @quote.creator.full_name %></span>
+</p>
+
+<% if @quote.pm? %>
+  <p>
+    <span class='label label-warning label_override'>L'heure exacte sera confirmée le jour même</span>
+    <% if @quote.removal_at_comment.present? %><%= @quote.removal_at_comment %><% end %>
+  </p>
+<% end %>
+
+<div class="span6 well col2 odd">
+  <h3>From <%= '(Internal)' if @quote.internal_address %></h3>
+  <div class="storage">
+  <% if @quote.from_address.has_storage? %>
+    <h6>Storage: <%= @quote.from_address.storage.name %></h6>
+    <%= address_for(@quote.from_address.storage.address) %>
+  <% else %>
+    <h6>Address</h6>
+    <%= address_for(@quote.from_address.address) %>        
+  <% end %>
+  </div>
+</div>
+
+<% unless @quote.internal_address? %>
+<div class="span6 well col2 even">
+  <h3>To</h3>
+  <% if !@quote.to_addresses.blank? %>
+    <% for to_address in @quote.to_addresses %>
+      <div class="storage">
+      <% if to_address.has_storage? %>
+        <h6>Storage: <%= to_address.storage.name %></h6>
+        <%= address_for(to_address.storage.address) %>
+      <% else %>
+        <h6>Address</h6>
+        <%= address_for(to_address.address) %>        
+      <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<% end %>
+
+<%= section %>
+<%= render 'price' %>
+
+<%= render 'quotes/optional' %>
+
+<%= render 'quotes/confirmation' %>
+
+<div class="well">
 <h2>Terms & Conditions
   <span class='submenu'>
     <% if @quote.signed? %>
@@ -10,7 +63,7 @@
   <%= div_for(document, :style => "display: #{index == 0 ? 'block' : 'none' };", :class => index == @quote.documents.size - 1 ? "last" : "") do %>
     <h3 class='with_margin'><%= document.name %></h3>
     <%= simple_format(document.body) %>
-    <p class='well approve_doc'>
+    <p class='approve_doc'>
       <%= check_box_tag "approve_document_#{document.id}", document.id, false, :class => "mark-read" %>
       <%= label_tag "approve_document_#{document.id}", "I approve", :style => "display: inline-block;" %>
       <% if @quote.documents.size > 1 %>
@@ -20,7 +73,7 @@
     </p>
   <% end %>
 <% end %>
-
+</div>
 <%= render 'signaturepad' %>
 
 <script type="text/javascript" charset="utf-8">
