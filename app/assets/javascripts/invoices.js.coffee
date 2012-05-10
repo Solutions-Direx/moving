@@ -31,15 +31,15 @@
       
   calculate_grand_total: ->
     # time spent
-    time_spent = parseFloat($('#invoice_time_spent').val())
-    rate = parseFloat($('#invoice_rate').val())
+    time_spent = Invoices.Form.to_f($('#invoice_time_spent').val())
+    rate = Invoices.Form.to_f($('#invoice_rate').val())
     total_time_spent = Invoices.Form.roundup(time_spent * rate)
     
-    gas = parseFloat($('#invoice_gas').val())
+    gas = Invoices.Form.to_f($('#invoice_gas').val())
     
     # overtime
-    overtime = parseFloat($('#invoice_overtime').val())
-    overtime_rate = parseFloat($('#invoice_overtime_rate').val())
+    overtime = Invoices.Form.to_f($('#invoice_overtime').val())
+    overtime_rate = Invoices.Form.to_f($('#invoice_overtime_rate').val())
     total_overtime = Invoices.Form.roundup(overtime * overtime_rate)
     
     # supplies
@@ -68,4 +68,9 @@
     
   roundup: (value) ->  
     Math.round(value * 100) / 100
+  
+  to_f: (value) ->
+    val = parseFloat(value)
+    val = 0 if isNaN(val) || val < 0 
+    return val
     

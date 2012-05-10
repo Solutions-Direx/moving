@@ -12,9 +12,9 @@ class Invoice < ActiveRecord::Base
   accepts_nested_attributes_for :invoice_supplies, :allow_destroy => true, :reject_if => lambda {|qs| qs[:quantity].blank? || qs[:supply_id].blank?}
   
   attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :removal_id, :gas, :rate, :overtime, :overtime_rate,
-                  :invoice_supplies_attributes, :forfait_ids
+                  :invoice_supplies_attributes, :forfait_ids, :client_satisfaction
   
-  before_create :copy_quote_info
+  before_create :copy_quote_info, :generate_code
   
   def signed?
     !signer_name.blank? && !signature.blank?
@@ -24,7 +24,7 @@ class Invoice < ActiveRecord::Base
   # pass recalculate = true to recalculate
   def grand_total(recalculate = false)
     if @grand_total.nil? || recalculate
-      @grand_total = total_time_spent + gas + total_overtime + total_supplies + total_forfaits 
+      @grand_total = total_time_spent + gas + total_overtime + total_supplies + total_forfaits
     end
     @grand_total
   end
@@ -60,8 +60,16 @@ class Invoice < ActiveRecord::Base
     sum.round(2)
   end
   
+  def total_franchise_cancellation
+    removal.franchise_cancellation ? quote.account.franchise_cancellation_amount : 0
+  end
+  
+  def total_insurance_increase
+    removal.insurance_limit_enough ? 0 : (removal.try(:insurance_increase).round(2) || 0)
+  end
+  
   def total
-    total_with_taxes
+    (total_with_taxes + total_franchise_cancellation + total_insurance_increase).round(2)
   end
   
   private
@@ -78,6 +86,12 @@ class Invoice < ActiveRecord::Base
     
     # copy tax settings
     copy_tax_setting_from(quote.account)
+  end
+  
+  def generate_code
+    last_invoice = Invoice.last
+    last_code = last_invoice ? last_invoice.code : Settings.defaults['invoices.start_number']
+    self.code = last_code + 1
   end
   
   def number_or_zero(field)

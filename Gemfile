@@ -9,6 +9,17 @@ gem 'mysql2'
 gem 'rmagick'
 gem 'carrierwave'
 gem 'tabs_on_rails', "~> 2.1.1"
+gem 'jquery-rails'
+gem 'devise'
+gem 'simple_form'
+gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
+gem 'kaminari'
+gem 'cancan'
+gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
+gem 'heroku'
+gem 'faker'
+gem "watu_table_builder", :require => "table_builder", :git => "git://github.com/watu/table_builder.git"
+gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -22,32 +33,6 @@ group :assets do
   # gem 'therubyracer', :platform => :ruby
 end
 
-gem 'jquery-rails'
-gem 'devise'
-gem 'simple_form'
-gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
-gem 'kaminari'
-gem 'cancan'
-gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
-gem 'heroku'
-gem 'faker'
-gem "watu_table_builder", :require => "table_builder", :git => "git://github.com/watu/table_builder.git"
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
-
 group :development do
   gem 'letter_opener'
   gem 'guard'
@@ -56,9 +41,6 @@ end
 
 group :development, :test do
   gem 'debugger'
-end
-
-group :test do
   gem 'spork'
   gem 'factory_girl_rails'
   gem 'rspec-rails'

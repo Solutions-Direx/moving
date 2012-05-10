@@ -1,0 +1,1 @@
+Settings.defaults['invoices.start_number'] = 10000

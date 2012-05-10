@@ -6,7 +6,11 @@ account = Account.create!(company_name: "Déménagement Maximum",
                           phone: '(819) 777-6683',
                           franchise_cancellation_amount: "20",
                           insurance_coverage_short_distance: "25000",
-                          insurance_coverage_long_distance: "50000"
+                          insurance_coverage_long_distance: "50000",
+                          tax1_label: "TPS", 
+                          tax1: 5, 
+                          tax2_label: "TVQ", 
+                          tax2: 9.5
                          )
 owner = account.users.build(username: "super", 
                             first_name: Faker::Name.first_name, 

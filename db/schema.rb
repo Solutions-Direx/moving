@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120508141848) do
+ActiveRecord::Schema.define(:version => 20120510114247) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company_name"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(:version => 20120508141848) do
   end
 
   create_table "invoices", :force => true do |t|
+    t.integer  "code"
     t.integer  "removal_id"
     t.integer  "quote_id"
     t.float    "time_spent"
@@ -144,8 +145,9 @@ ActiveRecord::Schema.define(:version => 20120508141848) do
     t.string   "tax2_label"
     t.float    "tax2"
     t.boolean  "compound"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.text     "client_satisfaction"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "quote_addresses", :force => true do |t|
@@ -252,6 +254,17 @@ ActiveRecord::Schema.define(:version => 20120508141848) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "settings", :force => true do |t|
+    t.string   "var",                      :null => false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", :limit => 30
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], :name => "index_settings_on_thing_type_and_thing_id_and_var", :unique => true
 
   create_table "storages", :force => true do |t|
     t.string   "name"

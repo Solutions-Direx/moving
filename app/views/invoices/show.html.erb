@@ -80,6 +80,22 @@
   <div class="span2"><h3><%= number_to_currency(@invoice.tax2_amount) %></h3></div>
 </div>
 <% end %>
+<!-- FRANCHISE CANCELLATION -->
+<% if @invoice.removal.franchise_cancellation %>
+<div class="row">
+  <div class="span4"><h3>Annulation de la franchise</h3></div>
+  <div class="span2"><h3><%= number_to_currency(current_account.franchise_cancellation_amount) %></h3></div>
+</div>
+<% end %>
+
+<!-- INSURANCE -->
+<% if @invoice.total_insurance_increase > 0 %>
+<div class="row">
+  <div class="span4"><h3>Augmentation de l'assurance</h3></div>
+  <div class="span2"><h3><%= number_to_currency(@invoice.total_insurance_increase) %></h3></div>
+</div>
+<% end %>
+
 <div class="row">
   <div class="span4">&nbsp;</div>
   <div class="span2"><div style="height: 1px; background: #CCC; margin-top: 10px;"></div></div>
@@ -93,7 +109,11 @@
 <p><i><%= simple_format(@invoice.comment) %></i></p>
 <% end %>
 
+<!-- INVOICE SIGNED -->
 <% if @invoice.signed? %>
+  <h3>Client Satisfaction</h3>
+  <p><i><%= simple_format(@invoice.client_satisfaction) %></i></p>
+  
   <div id="signature" style="width: 200px;" class='signed'>
     <div class="sigWrapper"> 
       <canvas class="pad" width="500"></canvas>
@@ -108,7 +128,11 @@
       api.regenerate(sig);
     });
   </script>
+<!-- INVOICE NOT SIGNED -->  
 <% else %>
+  <h3>Client Satisfaction</h3>
+  <%= text_area_tag :client_satisfaction, @invoice.client_satisfaction, :class => "span6", :rows => 5 %>
+
   <%= render 'signaturepad' %>
   <script type="text/javascript" charset="utf-8">
     $(function() {
@@ -117,6 +141,9 @@
         return false;
       });
       $('.sigPad').signaturePad({drawOnly:true, lineTop: 120});
+      $('#client_satisfaction').keyup(function() {
+        $('#invoice_client_satisfaction').val($(this).val());
+      });
     });
   </script>
 <% end %>
