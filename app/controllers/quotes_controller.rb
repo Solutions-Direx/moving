@@ -131,16 +131,6 @@ class QuotesController < ApplicationController
     end
   end
   
-  def quick_view
-    set_tab :terms
-    @quote = Quote.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @quote }
-    end
-  end
-  
   def terms
     set_tab :terms
     @quote = Quote.find(params[:id])

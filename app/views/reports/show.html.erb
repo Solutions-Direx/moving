@@ -1,0 +1,73 @@
+<h2><%= Report.model_name.human %>
+  <span class='submenu'>
+    <% if @report.signed? %>
+      <%= icon_button_link_to "#{t 'approved'}", '#', icon: 'ok', level: 'success', large: true, class: 'disabled', white: true %>
+    <% else %>
+      <%= button_link_to "#{t 'edit'}", edit_quote_report_path(@quote), level: 'inverse', large: true %>
+      <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>  
+    <% end %>
+  </span>
+</h2>
+
+<p><b>Client:</b> <%= @report.quote.client.name %></p>
+<p><b><%= t "removal_at" %>:</b> <%= l @report.quote.removal_at.to_date %></p>
+<%= render 'quotes/trucks' %>
+<%= section %>
+
+<p><b>Km start:</b> <%= @report.km_start %></p>
+<p><b>Km end:</b> <%= @report.km_end %></p>
+<p><b>Km total:</b> <%= @report.total_km %></p>
+<p><b>Gas:</b> <%= @report.gas %></p>
+<p><b>Start time:</b> <%= @report.start_time %></p>
+<p><b>End time:</b> <%= @report.end_time %></p>
+
+<% if !@quote.invoice.blank? && !@quote.invoice.client_satisfaction.blank? %>
+  <%= section %>
+  <h3>Client Satisfaction</h3>
+  <p><i><%= simple_format(@quote.invoice.client_satisfaction) %></i></p>
+<% end %>
+
+<% unless @report.comment.blank? %>
+  <%= section %>
+  <h3>Comment</h3>
+  <p><i><%= simple_format(@report.comment) %></i></p>
+<% end %>
+
+<%= section %>
+<p><b>Distance in qc:</b> <%= @report.distance_in_qc %></p>
+<p><b>Distance in on:</b> <%= @report.distance_in_on %></p>
+<p><b>Distance in nb:</b> <%= @report.distance_in_nb %></p>
+<p><b>Distance other:</b> <%= @report.distance_other %></p>
+
+<!-- REPORT SIGNED -->
+<% if @report.signed? %>
+  <div id="signature" style="width: 200px;" class='signed'>
+    <div class="sigWrapper"> 
+      <canvas class="pad" width="500"></canvas>
+      <p><%= @report.signer_name.titleize %><br><%= l @report.signed_at, :format => :short %></p> 
+    </div>
+  </div>
+
+  <script type="text/javascript" charset="utf-8">
+    $(function() {
+      var sig = '<%= @report.signature.html_safe %>';
+      var api = $('#signature').signaturePad({displayOnly:true});
+      api.regenerate(sig);
+    });
+  </script>
+<!-- REPORT NOT SIGNED -->  
+<% else %>
+  <%= render 'signaturepad' %>
+  <script type="text/javascript" charset="utf-8">
+    $(function() {
+      $('#submit-report').click(function() {
+        $('#frm-report').submit();
+        return false;
+      });
+      $('.sigPad').signaturePad({drawOnly:true, lineTop: 120});
+      $('#client_satisfaction').keyup(function() {
+        $('#invoice_client_satisfaction').val($(this).val());
+      });
+    });
+  </script>
+<% end %>

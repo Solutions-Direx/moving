@@ -4,5 +4,5 @@ $('#msg').show().effect('highlight', {}, 3000, function() {
   $(this).hide();
 });
 <% else %>
-  window.location = "<%= quote_invoice_url(@quote, @invoice) %>";
+  window.location = "<%= quote_invoice_url(@quote) %>";
 <% end %>  

@@ -1,0 +1,8 @@
+<% if !@is_preview %>
+$('#report-form-container').html("<%= j render('form') %>");
+$('#msg').show().effect('highlight', {}, 3000, function() {
+  $(this).hide();
+});
+<% else %>
+  window.location = "<%= quote_report_url(@quote) %>";
+<% end %>

@@ -1,0 +1,16 @@
+<% body_class('quotes') %>
+<h2>Report for <%= @quote.client.name %>
+  <span class='submenu'>
+    <%= button_link_to 'Preview', '#', level: "success", large: true, id: "preview" %>  
+  </span>
+</h2>
+<div id="msg" style="display: none;">Form saved</div>
+<div id="report-form-container">
+  <%= render 'form' %>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    Reports.Form.init();
+  });
+</script>

@@ -50,40 +50,50 @@
 
 <%= render 'quotes/confirmation' %>
 
-<div class="well">
-<h2>Terms & Conditions
-  <span class='submenu'>
-    <% if @quote.signed? %>
-      <%= link_to 'Approved', '#', :class => 'btn btn-success btn-large disabled' %>
-    <% end %>
-  </span>
-</h2>
-
-<% @quote.documents.each_with_index do |document, index| %>
-  <%= div_for(document, :style => "display: #{index == 0 ? 'block' : 'none' };", :class => index == @quote.documents.size - 1 ? "last" : "") do %>
-    <h3 class='with_margin'><%= document.name %></h3>
-    <%= simple_format(document.body) %>
-    <p class='approve_doc'>
-      <%= check_box_tag "approve_document_#{document.id}", document.id, false, :class => "mark-read" %>
-      <%= label_tag "approve_document_#{document.id}", "I approve", :style => "display: inline-block;" %>
-      <% if @quote.documents.size > 1 %>
-      <%= button_link_to 'Next', '#', large: true, level: "success", white: true, class: "next disabled" %>
+<% if @quote.signed? %>
+  <div id="signature" style="width: 200px; clear:both;" class='signed'>
+    <div class="sigWrapper"> 
+      <canvas class="pad" width="500"></canvas>
+      <p><%= @quote.removal.signer_name.titleize %><br><%= l @quote.removal.signed_at, :format => :short %></p>
+    </div>
+  </div>
+<% else %>
+  <div class="well">
+    <h2>Terms & Conditions
+      <span class='submenu'>
+        <% if @quote.signed? %>
+          <%= link_to 'Approved', '#', :class => 'btn btn-success btn-large disabled' %>
+        <% end %>
+      </span>
+    </h2>
+    <% @quote.documents.each_with_index do |document, index| %>
+      <%= div_for(document, :style => "display: #{index == 0 ? 'block' : 'none' };", :class => index == @quote.documents.size - 1 ? "last" : "") do %>
+        <h3 class='with_margin'><%= document.name %></h3>
+        <%= simple_format(document.body) %>
+        <p class='approve_doc'>
+          <%= check_box_tag "approve_document_#{document.id}", document.id, false, :class => "mark-read" %>
+          <%= label_tag "approve_document_#{document.id}", "I approve", :style => "display: inline-block;" %>
+          <% if @quote.documents.size > 1 %>
+          <%= button_link_to 'Next', '#', large: true, level: "success", white: true, class: "next disabled" %>
+          <% end %>
+          <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, style: 'display: none;', class: "approve" %>
+        </p>
       <% end %>
-      <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, style: 'display: none;', class: "approve" %>
-    </p>
-  <% end %>
+    <% end %>
+  </div>
 <% end %>
-</div>
+
+
 <%= render 'signaturepad' %>
 
 <script type="text/javascript" charset="utf-8">
   $(function() {
-    Quote.Terms.init();
-    
     <% if @quote.signed? %>
-    var sig = '<%= @quote.removal.signature.html_safe %>';
-    var api = $('#signature').signaturePad({displayOnly:true});
-    api.regenerate(sig);
+      var sig = '<%= @quote.removal.signature.html_safe %>';
+      var api = $('#signature').signaturePad({displayOnly:true});
+      api.regenerate(sig);
+    <% else %>
+      Quote.Terms.init();  
     <% end %>
   });
 </script>

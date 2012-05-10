@@ -1,0 +1,87 @@
+<%= simple_nested_form_for(@report, :url => quote_report_path(@quote), :method => :put, :remote => true, :html => {:id => "edit-report"}) do |f| %>
+  <%= f.error_notification %>
+  
+  <div class="form-inputs">
+    <div class="control-group float optional">
+      <%= f.label :km_start %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :km_start, :class => 'span1 input-append' %><span class="add-on">km</i></span>
+        </div>
+      </div>
+    </div>
+    <div class="control-group float optional">
+      <%= f.label :km_end %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :km_end, :class => 'span1 input-append' %><span class="add-on">km</span>
+        </div>
+      </div>
+    </div>
+    <div class="control-group float optional">
+      <%= f.label :gas %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :gas, :class => 'span1 input-append' %><span class="add-on">$</span>
+        </div>
+      </div>
+    </div>
+    <div class="control-group float optional">
+      <%= f.label :start_time %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :start_time, :class => 'span1 input-append' %><span class="add-on"><i class="icon-time"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="control-group float optional">
+      <%= f.label :end_time %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :end_time, :class => 'span1 input-append' %><span class="add-on"><i class="icon-time"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="control-group float optional">
+      <%= f.label :distance_in_qc %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :distance_in_qc, :class => 'span1 input-append' %><span class="add-on">km</span>
+        </div>
+      </div>
+    </div>
+    <div class="control-group float optional">
+      <%= f.label :distance_in_on %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :distance_in_on, :class => 'span1 input-append' %><span class="add-on">km</span>
+        </div>
+      </div>
+    </div>
+    <div class="control-group float optional">
+      <%= f.label :distance_in_nb %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :distance_in_nb, :class => 'span1 input-append' %><span class="add-on">km</span>
+        </div>
+      </div>
+    </div>
+    <div class="control-group float optional">
+      <%= f.label :distance_other %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :distance_other, :class => 'span1 input-append' %><span class="add-on">km</span>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+  <%= section %>
+  <%= f.input :comment, :input_html => {:class => "live-input", :style => "width: 500px; height:150px;"} %>
+  
+  <div class="form-actions" style="display: none;">
+    <%= submit_or_cancel(f) %>
+    <%= submit_tag 'Preview', style: "display: none;", :id => "submit-to-preview" %>
+  </div>
+<% end %>

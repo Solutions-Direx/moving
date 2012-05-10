@@ -43,6 +43,9 @@ class Quote < ActiveRecord::Base
   has_one :invoice, :dependent => :destroy
   accepts_nested_attributes_for :invoice
   
+  has_one :report, :dependent => :destroy
+  accepts_nested_attributes_for :report
+  
   # ATTRIBUTES
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, 
                   :materiel, :num_of_removal_man, :price, :rating, :removal_at, 

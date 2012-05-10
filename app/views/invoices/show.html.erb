@@ -3,7 +3,7 @@
     <% if @invoice.signed? %>
       <%= icon_button_link_to "#{t 'approved'}", '#', icon: 'ok', level: 'success', large: true, class: 'disabled', white: true %>
     <% else %>
-      <%= button_link_to "#{t 'edit'}", edit_quote_invoice_path(@quote, @invoice), level: 'inverse', large: true %>
+      <%= button_link_to "#{t 'edit'}", edit_quote_invoice_path(@quote), level: 'inverse', large: true %>
       <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>  
     <% end %>
   </span>
@@ -141,9 +141,6 @@
         return false;
       });
       $('.sigPad').signaturePad({drawOnly:true, lineTop: 120});
-      $('#client_satisfaction').keyup(function() {
-        $('#invoice_client_satisfaction').val($(this).val());
-      });
     });
   </script>
 <% end %>
