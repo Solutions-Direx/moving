@@ -1,5 +1,5 @@
 <h1><%= t Invoice.model_name.human + 's' %>
-  <span class="submenu"><%= icon_button_link_to "#{t 'download_invoices', default: 'Download invoices'}", export_invoices_path, :format => :csv, icon: "download-alt", large: true, level: "primary", white: true %></span>
+  <span class="submenu"><%= icon_button_link_to "#{t 'download_invoices', default: 'Download invoices'}", export_invoices_path(:format => :csv), icon: "download-alt", large: true, level: "primary", white: true %></span>
 </h1>
 
 <%= paginate @invoices %>
