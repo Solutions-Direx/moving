@@ -65,11 +65,11 @@ fr:
       defaults:
       user:
         password: "(Laisser vide si vous ne souhaitez pas le modifier)"
-    helpers:
-      submit:
-        profile:
-          create: "Créer %{model}"
-          update: "Mettre à jour"
-        quote:
-          create: "Créer cette entente"
-          update: "Modifier cette entente"
+  helpers:
+    submit:
+      profile:
+        create: "Créer %{model}"
+        update: "Mettre à jour"
+      quote:
+        create: "Créer cette entente"
+        update: "Modifier cette entente"
