@@ -65,9 +65,6 @@
         return false;
       });
       $('.sigPad').signaturePad({drawOnly:true, lineTop: 120});
-      $('#client_satisfaction').keyup(function() {
-        $('#invoice_client_satisfaction').val($(this).val());
-      });
     });
   </script>
 <% end %>

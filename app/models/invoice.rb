@@ -90,7 +90,16 @@ class Invoice < ActiveRecord::Base
   
   def generate_code
     last_invoice = Invoice.last
-    last_code = last_invoice ? last_invoice.code : Settings.defaults['invoices.start_number']
+    account = quote.account
+    # force new invoice code
+    if account.rebase_invoice_number
+      last_code = account.invoice_start_number
+      account.rebase_invoice_number = false
+      account.save!(validation: false)
+    else
+      last_code = last_invoice ? last_invoice.code : account.invoice_start_number
+    end
+    
     self.code = last_code + 1
   end
   

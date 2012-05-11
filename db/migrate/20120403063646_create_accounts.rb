@@ -14,6 +14,8 @@ class CreateAccounts < ActiveRecord::Migration
       t.float :franchise_cancellation_amount
       t.float :insurance_coverage_short_distance
       t.float :insurance_coverage_long_distance
+      t.integer :invoice_start_number
+      t.boolean :rebase_invoice_number, :default => false
 
       t.timestamps
     end

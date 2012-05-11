@@ -1,6 +1,5 @@
 <%= simple_form_for(@account, :url => account_url, :method => :put, :html => {:multipart => true} ) do |f| %>
   <%= f.error_notification %>
-
   <div class="form-inputs">
     <div class="tabbable tabs-left">
       <ul class="nav nav-tabs">
@@ -8,6 +7,7 @@
         <li><a href="#2" data-toggle="tab"><%= t '.address', default: 'Address' %></a></li>
         <li><a href="#3" data-toggle="tab"><%= t '.taxes', default: 'Taxes' %></a></li>
         <li><a href="#4" data-toggle="tab"><%= t '.insurance', default: 'Insurance' %></a></li>
+        <li><a href="#5" data-toggle="tab"><%= t 'settings', default: 'Settings' %></a></li>
       </ul>
     <div class="tab-content" style="width: auto;">
       <div class="tab-pane active" id="1">
@@ -85,6 +85,18 @@
           <div class="controls">
             <div class='input-append'> 
               <%= f.text_field :insurance_coverage_long_distance, :class => 'span1 input-append' %><span class="add-on">$</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="tab-pane" id="5">
+        <div class="control-group float optional <%= 'error' unless @account.errors.messages[:invoice_start_number].blank? %>">
+          <%= f.label :invoice_start_number %>
+          <div class="controls">
+            <div class='input-append'> 
+              <%= f.input_field :invoice_start_number, :class => 'span2' %>
+              <%= f.full_error :invoice_start_number %>
             </div>
           </div>
         </div>

@@ -27,8 +27,10 @@ ActiveRecord::Schema.define(:version => 20120510132215) do
     t.float    "franchise_cancellation_amount"
     t.float    "insurance_coverage_short_distance"
     t.float    "insurance_coverage_long_distance"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.integer  "invoice_start_number"
+    t.boolean  "rebase_invoice_number",             :default => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
   end
 
   create_table "addresses", :force => true do |t|
@@ -273,17 +275,6 @@ ActiveRecord::Schema.define(:version => 20120510132215) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "settings", :force => true do |t|
-    t.string   "var",                      :null => false
-    t.text     "value"
-    t.integer  "thing_id"
-    t.string   "thing_type", :limit => 30
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
-  end
-
-  add_index "settings", ["thing_type", "thing_id", "var"], :name => "index_settings_on_thing_type_and_thing_id_and_var", :unique => true
 
   create_table "storages", :force => true do |t|
     t.string   "name"

@@ -11,7 +11,8 @@ account = Account.create!(company_name: "Déménagement Maximum",
                           tax1: 5, 
                           tax2_label: "TVQ", 
                           tax2: 9.5,
-                          compound: true
+                          compound: true,
+                          invoice_start_number: 10000
                          )
 owner = account.users.build(username: "super", 
                             first_name: Faker::Name.first_name, 
