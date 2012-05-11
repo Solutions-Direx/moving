@@ -1,8 +1,6 @@
 <h2><%= Report.model_name.human %>
   <span class='submenu'>
-    <% if @report.signed? %>
-      <%= icon_button_link_to "#{t 'approved'}", '#', icon: 'ok', level: 'success', large: true, class: 'disabled', white: true %>
-    <% else %>
+    <% unless @report.signed? %>
       <%= button_link_to "#{t 'edit'}", edit_quote_report_path(@quote), level: 'inverse', large: true %>
       <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>  
     <% end %>
@@ -14,30 +12,30 @@
 <%= render 'quotes/trucks' %>
 <%= section %>
 
-<p><b>Km start:</b> <%= @report.km_start %></p>
-<p><b>Km end:</b> <%= @report.km_end %></p>
-<p><b>Km total:</b> <%= @report.total_km %></p>
-<p><b>Gas:</b> <%= @report.gas %></p>
-<p><b>Start time:</b> <%= @report.start_time %></p>
-<p><b>End time:</b> <%= @report.end_time %></p>
+<p><b><%= t 'km_start', default: 'KM start' %>:</b> <%= @report.km_start %></p>
+<p><b><%= t 'km_end', default: 'KM end' %>:</b> <%= @report.km_end %></p>
+<p><b><%= t 'km_total', default: 'KM total' %>:</b> <%= @report.total_km %></p>
+<p><b><%= t 'gas', default: 'Gas (liters)' %>:</b> <%= @report.gas %></p>
+<p><b><%= t 'start_time', default: 'Start time' %>:</b> <%= @report.start_time %></p>
+<p><b><%= t 'end_time', default: 'End time' %>:</b> <%= @report.end_time %></p>
 
 <% if !@quote.invoice.blank? && !@quote.invoice.client_satisfaction.blank? %>
   <%= section %>
-  <h3>Client Satisfaction</h3>
+  <h3><%= t 'client_satisfaction' %></h3>
   <p><i><%= simple_format(@quote.invoice.client_satisfaction) %></i></p>
 <% end %>
 
 <% unless @report.comment.blank? %>
   <%= section %>
-  <h3>Comment</h3>
+  <h3><%= t 'comment_from_team_lead', default: 'Comment' %></h3>
   <p><i><%= simple_format(@report.comment) %></i></p>
 <% end %>
 
 <%= section %>
-<p><b>Distance in qc:</b> <%= @report.distance_in_qc %></p>
-<p><b>Distance in on:</b> <%= @report.distance_in_on %></p>
-<p><b>Distance in nb:</b> <%= @report.distance_in_nb %></p>
-<p><b>Distance other:</b> <%= @report.distance_other %></p>
+<p><b><%= t 'distance_in_qc', default: 'Distance in Québec' %>:</b> <%= @report.distance_in_qc %></p>
+<p><b><%= t 'distance_in_on', default: 'Distance in Ontario' %>:</b> <%= @report.distance_in_on %></p>
+<p><b><%= t 'distance_in_nb', default: 'Distance in New Brunswick' %>:</b> <%= @report.distance_in_nb %></p>
+<p><b><%= t 'distance_other', default: 'Distance other' %>:</b> <%= @report.distance_other %></p>
 
 <!-- REPORT SIGNED -->
 <% if @report.signed? %>

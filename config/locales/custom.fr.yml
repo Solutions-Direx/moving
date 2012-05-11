@@ -59,9 +59,30 @@ fr:
   plate: 'Plaque'
   in_service: 'En service'
   removal_at: "Date du déménagement"
+  removal_team_lead: "Déménageur en chef"
   reject: "Rejeter"
-  confirm_reject: "Etes-vous sûr de rejeter cette citation?"
-  rejected: "Rejeté"
+  confirm_reject: "Etes-vous sûr de vouloir rejeter cette entente?"
+  rejected: "Rejetée"
+  house: 'Maison'
+  apartment: 'Apartement'
+  client_satisfaction: 'Évaluation du client'
+  franchise_cancelation: 'Annulation de la franchise'
+  insurance_increase: "Augmentation de l'assurance"
+  payment_method: Méthode de paiement
+  km_start: "KM au départ"
+  km_end: "KM à l'arrivée"
+  km_total: "KM au total"
+  start_time: "Horaire de départ"
+  end_time: "Horaire à l'arrivée"
+  gas: 'Fuel (litres)'
+  distance_in_qc: 'KM parcourus au Québec'
+  distance_in_on: 'KM parcourus en Ontario'
+  distance_in_nb: 'KM parcourus au Nouveau Brunswick'
+  distance_other: 'Autres KM parcourus'
+  comment_from_team_lead: Commentaire du déménageur en chef
+  reports: Rapports
+  amount: Montant
+  removal_control: Contrôle des contrats de déménagements
   activerecord:
     models:
       account: Compte

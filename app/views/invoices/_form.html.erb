@@ -55,7 +55,7 @@
   <%= f.input :comment, :input_html => {:class => "live-input", :style => "width: 500px; height:150px;"} %>
   
   <%= section %>
-  <h3>Grand Total: <span id="grand-total"><%= @invoice.grand_total %></span></h3>
+  <h3>Grand Total: <span id="grand-total"><%= number_to_currency(@invoice.grand_total) %></span></h3>
   
   <div class="form-actions" style="display: none;">
     <%= submit_or_cancel(f) %>

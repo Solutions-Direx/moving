@@ -3,8 +3,9 @@
     <%= tabs_tag :builder => BootstrapSubnavBuilder, :open_tabs => { :class => "nav nav-pills" } do |tab| %>
       <%= tab.quotes Quote.model_name.human + 's', quotes_path %>
       <%= tab.calendar Calendar.model_name.human, monthly_quotes_path %>
-      <%= tab.clients   'Clients', clients_path %>
-      <%= tab.invoices   Invoice.model_name.human + 's', invoices_path %>
+      <%= tab.clients  'Clients', clients_path %>
+      <%= tab.invoices  Invoice.model_name.human + 's', invoices_path %>
+      <%= tab.reports  "#{t 'reports', default: 'Reports'}", reports_invoices_path %>
     <% end %>
   </div>
 <% end %>

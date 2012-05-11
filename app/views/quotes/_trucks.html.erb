@@ -1,6 +1,6 @@
 <% if @quote.trucks.any? %>
   <%= section %>
-  <h3 class='with_margin'>Trucks</h3>
+  <h3 class='with_margin'><%= Truck.model_name.human + 's' %></h3>
   <% @quote.trucks.each do |truck| %>
   <ul>
     <li><%= truck.name_with_plate %></li>

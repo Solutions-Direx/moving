@@ -13,7 +13,12 @@ en:
   approved: 'Approved'
   approve: 'Approve'
   signed: 'Signed'
+  confirm_reject: "Are you sure you want to reject this quote?"
   localization: "Language"
+  client_satisfaction: Client satisfaction
+  franchise_cancelation: 'Franchise cancelation'
+  insurance_increase: "Insurance increase"
+  payment_method: Payment method
   activerecord:
     attributes:
       user:  

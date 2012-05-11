@@ -30,7 +30,7 @@
     </div>
   </div>
   
-  <%= f.input :is_house, :label => false, :as => :radio_buttons, :collection => [['House', true],['Apartment', false]], :item_wrapper_class => "inline" %>
+  <%= f.input :is_house, :label => false, :as => :radio_buttons, :collection => [["#{t 'house', default: 'House'}", true],["#{t 'apartment', default: 'Apartment'}", false]], :item_wrapper_class => "inline" %>
   <%= f.input :phone1 %>
   <%= f.input :phone2 %>
   <%= f.input :internal_address, :as => :hidden %>

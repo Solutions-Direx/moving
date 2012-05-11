@@ -1,0 +1,29 @@
+<h1><%= t 'removal_control', default: 'Removal internal control' %></h1>
+
+<%= paginate @invoices %>
+
+<table class="table table-striped">
+  <tr>
+    <th>Client</th>
+    <th><%= Quote.model_name.human %></th>
+    <th><%= Truck.model_name.human %></th>
+    <th><%= t 'removal_team_lead' %></th>
+    <th>Date</th>
+    <th><%= t 'payment_method' %></th>
+    <th><%= t 'amount', default: 'Amount' %></th>
+  </tr>
+
+<% @invoices.each do |invoice| %>
+  <tr>
+    <td><%= link_to invoice.quote.client.name, client_path(invoice.quote.client) %></td>
+    <td><%= link_to "##{invoice.quote.code}", quote_path(invoice.quote) %></td>
+    <td><%= invoice.quote.trucks.map(&:name_with_plate).to_sentence %></td>
+    <td><%= invoice.quote.removal_leader_id if invoice.quote.removal_leader_id.present? %></td>
+    <td><%= l invoice.signed_at.to_date %></td>
+    <td><%= invoice.removal.payment_method %></td>
+    <td><%= link_to number_to_currency(invoice.total), quote_invoice_path(invoice.quote, invoice) %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate @invoices %>

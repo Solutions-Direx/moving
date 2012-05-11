@@ -7,3 +7,10 @@
 .clearfix {
   overflow: hidden;
 }
+
+/* Bootstrap override */
+.label-danger {
+	background-color:#BD362F;
+
+    &:hover { background-color: #97310E;}
+}

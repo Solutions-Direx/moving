@@ -56,10 +56,11 @@ fr:
         insurance_increase: "Augmentation de l'assurance"
         removal_men: "Déménageurs"
         trucks: "Camion"
-        removal_leader_id: "Chef d'équipe"
+        removal_leader_id: "Déménageur en chef"
         available: "Disponibilité"
         name: "Nom"
         plate: "Plaque"
+        invoice_start_number: "Début numérotation des factures"
     hints:
       defaults:
       user:

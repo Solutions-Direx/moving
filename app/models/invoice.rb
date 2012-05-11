@@ -15,6 +15,8 @@ class Invoice < ActiveRecord::Base
                   :invoice_supplies_attributes, :forfait_ids, :client_satisfaction
   
   before_create :copy_quote_info, :generate_code
+
+  scope :signed, where("signed_at IS NOT NULL")
   
   def signed?
     !signer_name.blank? && !signature.blank?
@@ -72,7 +74,7 @@ class Invoice < ActiveRecord::Base
     (total_with_taxes + total_franchise_cancellation + total_insurance_increase).round(2)
   end
   
-  private
+private
   
   def copy_quote_info
     self.rate = quote.price

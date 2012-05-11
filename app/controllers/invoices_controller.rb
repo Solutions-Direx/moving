@@ -1,10 +1,10 @@
 class InvoicesController < ApplicationController
   # load_and_authorize_resource
-  before_filter :load_quote_and_invoice, :except => ['index', :export]
+  before_filter :load_quote_and_invoice, :except => [:index, :export, :reports]
   set_tab :invoice
   
   def index
-    @invoices = current_account.invoices.order(sort_column + " " + sort_direction).page(params[:page])
+    @invoices = current_account.invoices.includes(:quote).order(sort_column + " " + sort_direction).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,6 +41,10 @@ class InvoicesController < ApplicationController
     respond_to do |format|
       format.csv
     end
+  end
+  
+  def reports
+    @invoices = current_account.invoices.signed.includes(:quote).order(sort_column + " " + sort_direction).page(params[:page])
   end
   
 protected

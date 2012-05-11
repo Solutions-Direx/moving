@@ -40,7 +40,10 @@ Moving::Application.routes.draw do
   end
   
   resources :invoices, :only => :index do
-    get 'export', :on => :collection, :as => 'export'
+    collection do
+      get 'export'
+      get 'reports'
+    end
   end
   resources :documents
   resource :account, :only => [:show, :update]
