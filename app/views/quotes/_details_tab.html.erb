@@ -1,6 +1,7 @@
 <div class="tab-pane" id="lB">
   <%= f.fields_for :rooms %>
-  <p><%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + " Add Room", :rooms, :class => "btn btn-primary" %></p><br/>
+  <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + " Add Room", :rooms, :class => "btn btn-primary add-link" %><br/>
+  
   <% @quote.build_furniture unless @quote.furniture %>
     <%= f.fields_for :furniture do |ff| %>
       <div class="control-group integer optional">
