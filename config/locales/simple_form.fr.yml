@@ -69,3 +69,6 @@ fr:
         profile:
           create: "Créer %{model}"
           update: "Mettre à jour"
+        quote:
+          create: "Créer cette entente"
+          update: "Modifier cette entente"
