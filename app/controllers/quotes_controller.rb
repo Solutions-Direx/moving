@@ -105,13 +105,13 @@ class QuotesController < ApplicationController
   def monthly
     set_tab :calendar
     @date = params[:month] ? Date.strptime(params[:month], "%Y-%m") : Date.today
-    @quotes = Quote.where(removal_at: (@date - 1.month).beginning_of_month..(@date + 1.month).end_of_month).order('removal_at')
+    @quotes = Quote.applicable.where(removal_at: (@date - 1.month).beginning_of_month..(@date + 1.month).end_of_month).order('removal_at')
   end
   
   def daily
     set_tab :calendar
     @day = params[:day] ? Date.strptime(params[:day], "%Y-%m-%d") : Date.today
-    @quotes = Quote.includes(:from_address => [:address], :to_addresses => [:address]).confirmed.where(removal_at: @day.beginning_of_day..@day.end_of_day).order('removal_at')
+    @quotes = Quote.applicable.includes(:from_address => [:address], :to_addresses => [:address]).confirmed.where(removal_at: @day.beginning_of_day..@day.end_of_day).order('removal_at')
   end
   
   def daily_update
@@ -138,6 +138,21 @@ class QuotesController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: @quote }
+    end
+  end
+  
+  def reject
+    @quote = Quote.find(params[:id])
+    @quote.status = "Rejected"
+    
+    respond_to do |format|
+      if @quote.save
+        format.html { redirect_to @quote, notice: 'Quote was successfully rejected.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to @quote, alert: 'Failed to reject quote. Please contact system administrator.' }
+        format.json { render json: @quote.errors, status: :unprocessable_entity }
+      end
     end
   end
   

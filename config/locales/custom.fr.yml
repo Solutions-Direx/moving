@@ -59,6 +59,9 @@ fr:
   plate: 'Plaque'
   in_service: 'En service'
   removal_at: "Date du déménagement"
+  reject: "Rejeter"
+  confirm_reject: "Etes-vous sûr de rejeter cette citation?"
+  rejected: "Rejeté"
   activerecord:
     models:
       account: Compte

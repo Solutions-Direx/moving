@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Quote < ActiveRecord::Base
-  STATUSES = %w{ Pending Confirmed }
+  STATUSES = %w{ Pending Confirmed Rejected}
   
   # ASSOCIATIONS
   belongs_to :account
@@ -66,9 +66,11 @@ class Quote < ActiveRecord::Base
   # SCOPES
   scope :pending, where(:status => 'Pending')
   scope :confirmed, where(:status => 'Confirmed')
+  scope :rejected, where(:status => 'Rejected')
+  scope :applicable, where(:status => ['Pending', "Confirmed"])
   scope :today, lambda { where("removal_at BETWEEN '#{Date.today.beginning_of_day}' AND '#{Date.today.end_of_day}'") }
   
-  # define pending? and confirmed?
+  # define pending?, confirmed? and rejected?
   STATUSES.each do |method|
    define_method "#{method.downcase}?" do
       self.status == method

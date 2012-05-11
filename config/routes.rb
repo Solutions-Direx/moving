@@ -22,6 +22,7 @@ Moving::Application.routes.draw do
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'
       put 'daily_update'
       get 'terms'
+      put 'reject'
     end
     
     collection do
