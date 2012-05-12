@@ -18,7 +18,7 @@
     <td><%= link_to invoice.quote.client.name, client_path(invoice.quote.client) %></td>
     <td><%= link_to "##{invoice.quote.code}", quote_path(invoice.quote) %></td>
     <td><%= invoice.quote.trucks.map(&:name_with_plate).to_sentence %></td>
-    <td><%= invoice.quote.removal_leader_id if invoice.quote.removal_leader_id.present? %></td>
+    <td><%= invoice.quote.removal_leader.full_name if invoice.quote.removal_leader_id.present? %></td>
     <td><%= l invoice.signed_at.to_date %></td>
     <td><%= invoice.removal.payment_method %></td>
     <td><%= link_to number_to_currency(invoice.total), quote_invoice_path(invoice.quote, invoice) %></td>
