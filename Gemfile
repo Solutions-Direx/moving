@@ -5,7 +5,7 @@ gem 'rails', '3.2.3'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+gem 'pg'
 gem 'rmagick'
 gem 'carrierwave'
 gem 'tabs_on_rails', "~> 2.1.1"
