@@ -24,6 +24,9 @@ class CreateQuotes < ActiveRecord::Migration
       t.boolean :long_distance, :default => false
       t.integer :removal_leader_id
       t.boolean :internal_address, :default => false
+      t.string :signer_name
+      t.text :signature
+      t.datetime :signed_at
 
       t.timestamps
     end

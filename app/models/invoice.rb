@@ -1,7 +1,7 @@
 class Invoice < ActiveRecord::Base
   include Taxable
+  include Signable
   
-  belongs_to :removal
   belongs_to :quote, :touch => true
   
   has_many :invoice_forfaits, :dependent => :destroy
@@ -12,21 +12,20 @@ class Invoice < ActiveRecord::Base
   accepts_nested_attributes_for :invoice_supplies, :allow_destroy => true, :reject_if => lambda {|qs| qs[:quantity].blank? || qs[:supply_id].blank?}
   
   attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :removal_id, :gas, :rate, :overtime, :overtime_rate,
-                  :invoice_supplies_attributes, :forfait_ids, :client_satisfaction
+                  :invoice_supplies_attributes, :forfait_ids, :client_satisfaction,
+                  :payment_method, :franchise_cancellation, :insurance_limit_enough, :insurance_increase
   
   before_create :copy_quote_info, :generate_code
+  
+  validates_presence_of :payment_method
+  validates_presence_of :insurance_increase, :if => lambda {|q| !q.insurance_limit_enough }
+  validates_inclusion_of :franchise_cancellation, :insurance_limit_enough, :in => [true,false]
 
-  scope :signed, where("signed_at IS NOT NULL")
-  
-  def signed?
-    !signer_name.blank? && !signature.blank?
-  end
-  
   # cache grand_total calculation since it's expensive
   # pass recalculate = true to recalculate
   def grand_total(recalculate = false)
     if @grand_total.nil? || recalculate
-      @grand_total = total_time_spent + gas + total_overtime + total_supplies + total_forfaits
+      @grand_total = total_time_spent + gas + total_overtime + total_supplies + total_forfaits + total_franchise_cancellation + total_insurance_increase
     end
     @grand_total
   end
@@ -63,15 +62,15 @@ class Invoice < ActiveRecord::Base
   end
   
   def total_franchise_cancellation
-    removal.franchise_cancellation ? quote.account.franchise_cancellation_amount : 0
+    franchise_cancellation ? quote.account.franchise_cancellation_amount : 0
   end
   
   def total_insurance_increase
-    removal.insurance_limit_enough ? 0 : (removal.try(:insurance_increase).round(2) || 0)
+    insurance_limit_enough ? 0 : (try(:insurance_increase) || 0).round(2)
   end
   
   def total
-    (total_with_taxes + total_franchise_cancellation + total_insurance_increase).round(2)
+    total_with_taxes
   end
   
 private

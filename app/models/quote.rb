@@ -1,5 +1,7 @@
 # encoding: utf-8
 class Quote < ActiveRecord::Base
+  include Signable
+  
   STATUSES = %w{ Pending Confirmed Rejected}
   
   # ASSOCIATIONS
@@ -38,7 +40,6 @@ class Quote < ActiveRecord::Base
   has_many :removal_men, :through => :quote_removal_men
   
   has_one :quote_confirmation, :dependent => :destroy
-  has_one :removal, :dependent => :destroy
   
   has_one :invoice, :dependent => :destroy
   accepts_nested_attributes_for :invoice
@@ -46,15 +47,13 @@ class Quote < ActiveRecord::Base
   has_one :report, :dependent => :destroy
   accepts_nested_attributes_for :report
   
-  has_many :tucks, :through => :quote_trucks
-  
   # ATTRIBUTES
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, 
                   :materiel, :num_of_removal_man, :price, :rating, :removal_at, 
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
                   :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment, 
                   :document_ids, :forfait_ids, :quote_supplies_attributes, :pm, :long_distance, 
-                  :removal_leader_id, :removal_man_ids, :internal_address, :invoice_attributes
+                  :removal_leader_id, :removal_man_ids, :internal_address, :invoice_attributes, :signer_name, :signature
   
   # VALIDATIONS
   validates_presence_of :removal_at_picker, :removal_at, :account, :creator, :client
@@ -99,10 +98,6 @@ class Quote < ActiveRecord::Base
   
   def conf_details
     "Approuvée le #{I18n.l(quote_confirmation.approved_at, :format => :long)} par #{quote_confirmation.user.full_name}"
-  end
-  
-  def signed?
-    !removal.blank? && !removal.signer_name.blank? && !removal.signature.blank?
   end
   
 private

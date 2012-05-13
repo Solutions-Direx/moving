@@ -17,21 +17,21 @@
 <% if @invoice.total_time_spent > 0 %>
   <div class="row">
     <div class="span4">Time spent (<%= @invoice.time_spent  %> * <%= number_to_currency(@invoice.rate) %>)</div>
-    <div class="span2"><%= number_to_currency(@invoice.total_time_spent) %></div>
+    <div class="span2 money"><%= number_to_currency(@invoice.total_time_spent) %></div>
   </div>
 <% end %>  
 
 <% if @invoice.gas > 0 %>
   <div class="row">
     <div class="span4">Gas</div>
-    <div class="span2"><%= number_to_currency(@invoice.gas) %></div>
+    <div class="span2 money"><%= number_to_currency(@invoice.gas) %></div>
   </div>
 <% end %>
 
 <% if @invoice.total_overtime > 0 %>
   <div class="row">
     <div class="span4">Overtime (<%= @invoice.overtime %> * <%= number_to_currency(@invoice.overtime_rate) %>)</div>
-    <div class="span2"><%= number_to_currency(@invoice.total_overtime) %></div>
+    <div class="span2 money"><%= number_to_currency(@invoice.total_overtime) %></div>
   </div>
 <% end %>
 
@@ -41,7 +41,7 @@
   <% @invoice.invoice_supplies.each do |inv_supply| %>
     <div class="row">
       <div class="span4"><%= inv_supply.supply.name %> (<%= inv_supply.quantity %> * <%= number_to_currency(inv_supply.supply.price) %>)</div>
-      <div class="span2"><%= number_to_currency(inv_supply.quantity * inv_supply.supply.price) %></div>
+      <div class="span2 money"><%= number_to_currency(inv_supply.quantity * inv_supply.supply.price) %></div>
     </div>
   <% end %>
 <% end %>
@@ -52,9 +52,25 @@
   <% @invoice.forfaits.each do |forfait| %>
     <div class="row">
       <div class="span4"><%= forfait.name %></div>
-      <div class="span2"><%= number_to_currency(forfait.price) %></div>
+      <div class="span2 money"><%= number_to_currency(forfait.price) %></div>
     </div>
   <% end %>
+<% end %>
+
+<!-- FRANCHISE CANCELLATION -->
+<% if @invoice.franchise_cancellation %>
+<div class="row">
+  <div class="span4"><%= t 'franchise_cancelation' %></div>
+  <div class="span2 money"><%= number_to_currency(current_account.franchise_cancellation_amount) %></div>
+</div>
+<% end %>
+
+<!-- INSURANCE -->
+<% if @invoice.total_insurance_increase > 0 %>
+<div class="row">
+  <div class="span4">Augmentation de l'assurance</div>
+  <div class="span2 money"><%= number_to_currency(@invoice.total_insurance_increase) %></div>
+</div>
 <% end %>
 
 <div class="row">
@@ -64,35 +80,20 @@
 <!-- GRAND TOTAL -->
 <div class="row">
   <div class="span4"><h3>Grand Total</h3></div>
-  <div class="span2"><h3><%= number_to_currency(@invoice.grand_total) %></h3></div>
+  <div class="span2 money"><h3><%= number_to_currency(@invoice.grand_total) %></h3></div>
 </div>
 <!-- TAX 1 -->
 <% if @invoice.tax1_amount > 0 %>
 <div class="row">
   <div class="span4"><h3 style="font-weight: normal;"><%= @invoice.tax1_name %></h3></div>
-  <div class="span2"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax1_amount) %></h3></div>
+  <div class="span2 money"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax1_amount) %></h3></div>
 </div>
 <% end %>
 <!-- TAX 2 -->
 <% if @invoice.tax2_amount > 0 %>
 <div class="row">
   <div class="span4"><h3 style="font-weight: normal;"><%= @invoice.tax2_name %></h3></div>
-  <div class="span2"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax2_amount) %></h3></div>
-</div>
-<% end %>
-<!-- FRANCHISE CANCELLATION -->
-<% if @invoice.removal.franchise_cancellation %>
-<div class="row">
-  <div class="span4"><h3><%= t 'franchise_cancelation' %></h3></div>
-  <div class="span2"><h3><%= number_to_currency(current_account.franchise_cancellation_amount) %></h3></div>
-</div>
-<% end %>
-
-<!-- INSURANCE -->
-<% if @invoice.total_insurance_increase > 0 %>
-<div class="row">
-  <div class="span4"><h3>Augmentation de l'assurance</h3></div>
-  <div class="span2"><h3><%= number_to_currency(@invoice.total_insurance_increase) %></h3></div>
+  <div class="span2 money"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax2_amount) %></h3></div>
 </div>
 <% end %>
 
@@ -102,8 +103,13 @@
 </div>
 <div class="row">
   <div class="span4" style="text-align:right;"><h3>Total</h3></div>
-  <div class="span2"><h3><%= number_to_currency(@invoice.total) %></h3></div>
+  <div class="span2 money"><h3><%= number_to_currency(@invoice.total) %></h3></div>
 </div>
+
+<div class="row">
+  <div class="span12"><h3>Payment Method: <%= @invoice.payment_method %></h3></div>
+</div>
+
 
 <% unless @invoice.comment.blank? %>
 <%= section %>

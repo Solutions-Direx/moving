@@ -1,8 +1,12 @@
 <% if !@is_preview %>
-$('#invoice-form-container').html("<%= j render('form') %>");
-$('#msg').show().effect('highlight', {}, 3000, function() {
-  $(this).hide();
-});
+  $('#invoice-form-container').html("<%= j render('form') %>");
+  $('#msg').show().effect('highlight', {}, 3000, function() {
+    $(this).hide();
+  });
 <% else %>
-  window.location = "<%= quote_invoice_url(@quote) %>";
+  <% if @invoice.errors.blank? %>
+    window.location = "<%= quote_invoice_url(@quote) %>";
+  <% else %>
+    $('#invoice-form-container').html("<%= j render('form') %>");
+  <% end %>    
 <% end %>  

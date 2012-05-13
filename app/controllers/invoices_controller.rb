@@ -44,7 +44,7 @@ class InvoicesController < ApplicationController
   end
   
   def reports
-    @invoices = current_account.invoices.signed.includes(:quote).order(sort_column + " " + sort_direction).page(params[:page])
+    @invoices = current_account.invoices.where('invoices.signed_at IS NOT NULL').includes(:quote).order(sort_column + " " + sort_direction).page(params[:page])
   end
   
 protected

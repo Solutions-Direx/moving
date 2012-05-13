@@ -68,22 +68,15 @@
     
 @Quote.Terms = 
   init: ->
-    $('#removal_insurance_limit_enough_false').click ->
-      $('#insurance_increase').show()
-      
-    $('#removal_insurance_limit_enough_true').click ->
-      $('#insurance_increase').hide()
-      
+    # signatepad
     $('.sigPad').signaturePad({drawOnly:true, lineTop: 120})
     
-    $('#edit-removal').click ->
-      $('#franchise-options').toggle()
-      return false
-      
-    $('#submit-removal').click ->
-      $('#frm-removal').submit()
+    # submit signature
+    $('#submit-quote').click ->
+      $('#frm-quote').submit()
       return false
     
+    # document flows
     $('.mark-read').click ->
       $document = $(this).closest('.document')
       if $(this).is(":checked")

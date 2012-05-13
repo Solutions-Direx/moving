@@ -1,5 +1,6 @@
 class QuotesController < ApplicationController
   load_and_authorize_resource
+  before_filter :load_quote, :only => [:show, :edit, :update, :destroy, :daily_update, :terms, :reject, :sign]
   helper_method :sort_column
   set_tab :quotes
   
@@ -17,7 +18,6 @@ class QuotesController < ApplicationController
   # GET /quotes/1
   # GET /quotes/1.json
   def show
-    @quote = Quote.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -41,7 +41,6 @@ class QuotesController < ApplicationController
 
   # GET /quotes/1/edit
   def edit
-    @quote = Quote.find(params[:id])
   end
 
   # POST /quotes
@@ -66,7 +65,6 @@ class QuotesController < ApplicationController
   # PUT /quotes/1
   # PUT /quotes/1.json
   def update
-    @quote = Quote.find(params[:id])
     @quote.assign_attributes(params[:quote])
     @quote.bypass_validations
 
@@ -84,7 +82,6 @@ class QuotesController < ApplicationController
   # DELETE /quotes/1
   # DELETE /quotes/1.json
   def destroy
-    @quote = Quote.find(params[:id])
     @quote.destroy
 
     respond_to do |format|
@@ -115,7 +112,6 @@ class QuotesController < ApplicationController
   end
   
   def daily_update
-    @quote = Quote.find(params[:id])
     @quote.assign_attributes(params[:quote])
 
     respond_to do |format|
@@ -131,18 +127,7 @@ class QuotesController < ApplicationController
     end
   end
   
-  def terms
-    set_tab :terms
-    @quote = Quote.find(params[:id])
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @quote }
-    end
-  end
-  
   def reject
-    @quote = Quote.find(params[:id])
     @quote.status = "Rejected"
     
     respond_to do |format|
@@ -156,7 +141,41 @@ class QuotesController < ApplicationController
     end
   end
   
+  # ======================================
+  # MOBILE ACTIONS
+  # ======================================
+  def terms
+    set_tab :terms
+
+    respond_to do |format|
+      format.html { render layout: 'mobile' }
+      format.json { render json: @quote }
+    end
+  end
+  
+  def sign
+    authorize! :sign, @quote
+    @quote.assign_attributes(params[:quote])
+    @quote.signed_at = Time.now unless @quote.signature.blank?
+    if @quote.save
+      @quote.create_invoice!(
+        payment_method: @quote.quote_confirmation.payment_method,
+        franchise_cancellation: @quote.quote_confirmation.franchise_cancellation,
+        insurance_limit_enough: @quote.quote_confirmation.insurance_limit_enough,
+        insurance_increase: @quote.quote_confirmation.insurance_increase
+      )
+      @quote.create_report!(gas: @quote.gas)
+      redirect_to terms_quote_url(@quote), notice: "#{Quote.model_name.human} #{t 'signed'}"
+    else
+      redirect_to terms_quote_url(@quote), alert: "Quote cannot be saved, please contact system administrator"
+    end
+  end
+  
 private
+
+  def load_quote
+    @quote = Quote.find(params[:id])
+  end
   
   def sort_column
     Quote.column_names.include?(params[:sort]) ? params[:sort] : "date"

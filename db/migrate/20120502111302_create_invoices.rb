@@ -19,6 +19,10 @@ class CreateInvoices < ActiveRecord::Migration
       t.float :tax2
       t.boolean :compound
       t.text :client_satisfaction
+      t.string :payment_method
+      t.boolean :franchise_cancellation 
+      t.boolean :insurance_limit_enough
+      t.float :insurance_increase
 
       t.timestamps
     end

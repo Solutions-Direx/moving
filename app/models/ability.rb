@@ -14,11 +14,12 @@ class Ability
       can :manage, Forfait
       can :manage, Furniture
       can :manage, Quote
-      can :manage, Removal
       can :manage, Storage
       can :manage, Supply
       can :manage, Truck
-      
+      can :manage, Invoice
+      can :manage, Report
+      can :sign, Quote
     elsif user.removal_man?
       can :read, :dashboard
       can :read, Client
@@ -26,10 +27,12 @@ class Ability
       can :read, Forfait
       can :read, Furniture
       can :read, Quote
-      can :manage, Removal
       can :read, Storage
       can :read, Supply
       can :read, Truck
+      can [:read, :edit, :new], Invoice
+      can [:read, :edit, :new], Report
+      can :sign, Quote
     end
   end
 end

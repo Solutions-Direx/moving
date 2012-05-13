@@ -54,7 +54,7 @@
   <div id="signature" style="width: 200px; clear:both;" class='signed'>
     <div class="sigWrapper"> 
       <canvas class="pad" width="500"></canvas>
-      <p><%= @quote.removal.signer_name.titleize %><br><%= l @quote.removal.signed_at, :format => :short %></p>
+      <p><%= @quote.signer_name.titleize %><br><%= l @quote.signed_at, :format => :short %></p>
     </div>
   </div>
 <% else %>
@@ -89,7 +89,7 @@
 <script type="text/javascript" charset="utf-8">
   $(function() {
     <% if @quote.signed? %>
-      var sig = '<%= @quote.removal.signature.html_safe %>';
+      var sig = '<%= @quote.signature.html_safe %>';
       var api = $('#signature').signaturePad({displayOnly:true});
       api.regenerate(sig);
     <% else %>

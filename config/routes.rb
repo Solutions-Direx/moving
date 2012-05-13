@@ -8,9 +8,6 @@ Moving::Application.routes.draw do
   resources :trucks
   resources :quotes do
     resources :quote_confirmations, :except => [:index]
-    resources :removals, :only => [:update] do
-      post "sign", :on => :member
-    end
     # HAS ONE ROUTES
     resource :invoice, :only => [:show, :edit, :update] do
       post "sign"
@@ -19,6 +16,7 @@ Moving::Application.routes.draw do
       post "sign"
     end
     member do
+      post "sign"
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'
       put 'daily_update'
       get 'terms'

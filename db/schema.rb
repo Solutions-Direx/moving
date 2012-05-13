@@ -148,8 +148,12 @@ ActiveRecord::Schema.define(:version => 20120510132215) do
     t.float    "tax2"
     t.boolean  "compound"
     t.text     "client_satisfaction"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.string   "payment_method"
+    t.boolean  "franchise_cancellation"
+    t.boolean  "insurance_limit_enough"
+    t.float    "insurance_increase"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
   end
 
   create_table "quote_addresses", :force => true do |t|
@@ -232,21 +236,11 @@ ActiveRecord::Schema.define(:version => 20120510132215) do
     t.boolean  "long_distance",      :default => false
     t.integer  "removal_leader_id"
     t.boolean  "internal_address",   :default => false
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
-  end
-
-  create_table "removals", :force => true do |t|
-    t.integer  "quote_id"
-    t.string   "payment_method"
-    t.boolean  "franchise_cancellation"
-    t.boolean  "insurance_limit_enough"
-    t.float    "insurance_increase"
     t.string   "signer_name"
     t.text     "signature"
     t.datetime "signed_at"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
   end
 
   create_table "reports", :force => true do |t|

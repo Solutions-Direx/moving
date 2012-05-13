@@ -20,8 +20,8 @@
     <td><%= invoice.quote.trucks.map(&:name_with_plate).to_sentence %></td>
     <td><%= invoice.quote.removal_leader.full_name if invoice.quote.removal_leader_id.present? %></td>
     <td><%= l invoice.signed_at.to_date %></td>
-    <td><%= invoice.removal.payment_method %></td>
-    <td><%= link_to number_to_currency(invoice.total), quote_invoice_path(invoice.quote, invoice) %></td>
+    <td><%= invoice.payment_method %></td>
+    <td><%= link_to number_to_currency(invoice.total), quote_invoice_path(invoice.quote) %></td>
   </tr>
 <% end %>
 </table>

@@ -1,12 +1,21 @@
 @Invoices = {}
 @Invoices.Form =
   init: ->
+    # auto saved form after 30 seconds
     $(document).bind "idle.idleTimer", ->
       $('#edit-invoice').submit()
 
     idle_time = 30 # seconds
     $.idleTimer(1000 * idle_time)
     
+    # toggle insurance
+    $('#invoice_insurance_limit_enough_false').live 'click', ->
+      $('#insurance_increase').slideDown()
+      
+    $('#invoice_insurance_limit_enough_true').live 'click', ->
+      $('#insurance_increase').slideUp()  
+    
+    # live grand total calculation
     $("#edit-invoice .supply").livequery ->
       $(this).chosen().change ->
         Invoices.Form.calculate_grand_total()
