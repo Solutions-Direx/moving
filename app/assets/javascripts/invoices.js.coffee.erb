@@ -64,7 +64,7 @@
     
     # grand total      
     grand_total = total_time_spent + gas + total_overtime + Invoices.Form.roundup(total_forfaits) + Invoices.Form.roundup(total_supplies)
-    $('#grand-total').text(Invoices.Form.roundup(grand_total))
+    $('#grand-total').text(Invoices.Form.roundup(grand_total) + " <%= I18n.t 'number.currency.format.unit' %>")
     
   roundup: (value) ->  
     Math.round(value * 100) / 100
