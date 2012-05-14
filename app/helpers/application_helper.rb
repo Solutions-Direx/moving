@@ -22,6 +22,14 @@ module ApplicationHelper
     options
   end
   
+  def room_size_options
+    options = []
+    Room::SIZES.each do |size|
+      options << [I18n.t(size), size]
+    end
+    options
+  end
+  
   def current_child_index(f, zero_based = true)
     index = f.object_name.gsub(/[^0-9]+/,'').to_i
     index += 1 unless zero_based

@@ -1,5 +1,5 @@
 <% @quote.rooms.each_with_index do |room, index| %>
-  <p><%= "Room ##{index + 1}:" %> <%= room.size %> <%= room.comment %></p>
+  <p><%= "Room ##{index + 1}:" %> <%= t(room.size) %> <%= room.comment %></p>
 <% end %>
 
 <% if @quote.furniture %>
