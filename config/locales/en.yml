@@ -25,6 +25,22 @@ en:
   comment: 'Comment'
   other: 'Other'
   internal: 'Internal'
+  from: 'From'
+  to: 'To'
+  email_to_client: 'Email to client'
+  room: Room
+  nb_appliances: 'Number of appliances'
+  sofa: 'Sofa'
+  chair: 'Chair'
+  armchair: 'Armchair'
+  salon_set: 'Salon set'
+  lawn_mower: 'Lawn mower'
+  patio_table: 'Patio table'
+  bike: 'Bicycle'
+  shelf: 'Shelf'
+  quotes:
+    show:
+      removal_time_confirmation: 'The exact time will be confirmed the same day.'
   activerecord:
     attributes:
       user:  

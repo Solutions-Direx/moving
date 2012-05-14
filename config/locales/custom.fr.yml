@@ -105,12 +105,29 @@ fr:
   sofa: 'Divan'
   dining_table: 'Table de salon'
   wall_unit: 'Unité murale'
+  wall_units: 'Unités murale'
+  salon_set: Set de salon
+  salon_sets: 'Sets de salon'
+  training_set: "Set d'entraînement"
+  training_sets: "Sets d'entraînement"
   other: 'Autres'
-  shelves: 'Étagères'
+  shelf: 'Étagère'
   desk: Bureau
+  desks: Bureaux
+  patio_table: 'Table patio'
+  patio_table: 'Tables patio'
+  tire: Pneu
   tires: Pneux
   lawn_mower: 'Tondeuse'
   bike: Vélo
+  small: 'Petite'
+  medium: 'Moyenne'
+  large: 'Large'
+  from: Départ
+  to: Arrivée
+  created_by: Créée par
+  email_to_client: 'Envoyer une copie au client'
+  nb_appliances: "Nombre d'électroménagers"
   activerecord:
     models:
       account: Compte
@@ -159,6 +176,8 @@ fr:
       title: "Déménagements prévus le"
       success_update: "Mis à jour avec succès."
       error_update: "Une erreur est survenue. Veuillez réessayer ou contacter l'administrateur du système."
+    show:
+      removal_time_confirmation: "L'heure exacte sera confirmée le jour même"
   users:
     form:
       intro: "Un email avec un mot de passe par défaut sera envoyé à chauqe nouvel utilisateur inscrit."
