@@ -13,6 +13,7 @@ en:
   approved: 'Approved'
   approve: 'Approve'
   signed: 'Signed'
+  preview: Preview
   confirm_reject: "Are you sure you want to reject this quote?"
   localization: "Language"
   client_satisfaction: Client satisfaction
@@ -45,6 +46,8 @@ en:
   inactive: 'Inactive'
   new: 'New'
   supplies: 'Supplies'
+  type_to_select_forfaits: 'Type to select forfaits'
+  type_to_select_trucks: 'Type to select trucks'
   quotes:
     show:
       removal_time_confirmation: 'The exact time will be confirmed the same day.'

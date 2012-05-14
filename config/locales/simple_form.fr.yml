@@ -67,6 +67,14 @@ fr:
         comment: Commentaire
         materiel: Matériel
         storage: Entrepôt
+        distance_in_qc: Distance au Québec
+        distance_in_on: Distance en Ontario
+        distance_in_nb: Distance au Nouveau Brunswick
+        distance_other: Autre distance
+        start_time: Heure de départ
+        end_time: Heure de fin
+        km_start: Kilométrage départ
+        km_end: Kilométrage fin
     hints:
       defaults:
       user:

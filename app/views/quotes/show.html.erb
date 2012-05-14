@@ -1,7 +1,7 @@
 <h2><%= @quote.client.name %> <%= content_tag(:span, @quote.rating, :class => "badge badge-#{@quote.rating.downcase}") %>
   <span class='submenu'>
     <% unless @quote.client.email.blank? %>
-      <%= button_link_to "#{t 'email_to_client'}", email_quote_path, :method => :post, level: "success", large: true if @quote.client.email.present? %>
+      <%= button_link_to "#{t 'email_to_client'}", email_quote_path, :method => :post, level: "success", large: true, disabled_with: "#{t 'email_to_client'}" if @quote.client.email.present? %>
     <% end %>
     <% if @quote.rejected? %>
       <%= link_to "#{t 'rejected', default: 'Rejected'}", '#', :class => 'btn btn-warning btn-large disabled' %>
@@ -11,7 +11,7 @@
         <%= link_to "#{t 'confirmed', default: 'Confirmed'}", '#', :class => 'btn btn-success btn-large disabled', "data-original-title"=>"Confirmation",
         "data-content"=> "#{render(template: 'quote_confirmations/show', locals: {quote_confirmation: @quote.quote_confirmation}, formats: [:html])}", "data-placement" => "left", :id => "confirm" %>
       <% else %>
-        <%= button_link_to "#{t 'reject', default: 'Reject'}", reject_quote_path(@quote), level: "warning", large: true, method: :put, confirm: "#{t 'confirm_reject', defaut: 'Are you sure to reject this quote?'}" %>
+        <%= button_link_to "#{t 'reject', default: 'Reject'}", reject_quote_path(@quote), level: "warning", large: true, method: :put, confirm: "#{t 'confirm_reject', defaut: 'Are you sure you want to reject this quote?'}" %>
         <%= button_link_to "#{t 'confirm', default: 'Confirm'}", confirmation_quote_path(@quote), level: "success", large: true, remote: true %>
       <% end %>
     <% end %>  
@@ -21,7 +21,7 @@
 
 <p>
   <b><%= t 'removal_at' %>:</b>
-  <%= l @quote.removal_at, :format => :long %> || <%= @quote.is_house? ? 'Maison' : 'Appartement' %>
+  <%= l @quote.removal_at, :format => :long %> || <%= @quote.is_house? ? "#{t 'house'}" : "#{t 'apartment'}" %>
   <span class='submenu'><b><%= t 'created_by', default: 'Created by' %>: </b><%= @quote.creator.full_name %></span>
 </p>
 

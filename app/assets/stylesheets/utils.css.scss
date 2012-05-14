@@ -8,6 +8,12 @@
   overflow: hidden;
 }
 
+#msg {
+	font-size:13px; 
+	font-weight: normal; 
+	color: grey;
+}
+
 /* Bootstrap override */
 .label-danger {
 	background-color:#BD362F;

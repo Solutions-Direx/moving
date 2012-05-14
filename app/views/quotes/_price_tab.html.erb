@@ -38,7 +38,7 @@
   <%= f.input :materiel %>
   <%= f.fields_for :quote_supplies %>
   <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_supply', default: 'Add supply'}", :quote_supplies, :class => "btn btn-primary add-link", :id => "add-supply" %>
-  <%= f.association :forfaits, :collection => current_account.forfaits.all.map{|s| [s.name_with_price, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "#{t 'type_to_select_forfaits', default: 'Type to select forfaits'}", :multiple => true, :style => "width: 360px;"} %>
-  <%= f.association :trucks, label: "#{t 'trucks'}", :collection => current_account.trucks.all.map{|s| [s.name_with_plate, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "#{t 'type_to_select_trucks', default: 'Type to select trucks'}", :multiple => true, :style => "width: 360px;"} %>
+  <%= f.association :forfaits, :collection => current_account.forfaits.all.map{|s| [s.name_with_price, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "#{t 'type_to_select_forfaits'}", :multiple => true, :style => "width: 360px;"} %>
+  <%= f.association :trucks, label: "#{t 'trucks'}", :collection => current_account.trucks.all.map{|s| [s.name_with_plate, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "#{t 'type_to_select_trucks'}", :multiple => true, :style => "width: 360px;"} %>
   <%= f.input :comment, :input_html => { :rows => 10, :class => "span4" } %>
 </div>

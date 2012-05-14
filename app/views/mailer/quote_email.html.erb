@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Quote Information</title>
+  <title>Détail du contrat de déménagement</title>
   <style type="text/css">
   h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; }
   body, td { color:#000000; font-size:14px; font-family: Helvetica,Arial; padding: 10px; vertical-align: top;}
@@ -18,14 +18,14 @@
     <tr>
       <td style="padding-left: 0;">
         <table width="350" class="grey-background" border="0" cellpadding="0" cellspacing="0">
-          <tr><td><h3>From <%= '(Internal)' if @quote.internal_address %></h3></td></tr>
+          <tr><td><h3>Adresse de départ <%= '(Internal)' if @quote.internal_address %></h3></td></tr>
           <tr>
             <td>
               <% if @quote.from_address.has_storage? %>
-                <h6>Storage: <%= @quote.from_address.storage.name %></h6>
+                <h6>Entrepôt: <%= @quote.from_address.storage.name %></h6>
                 <%= address_for(@quote.from_address.storage.address, :p) %>
               <% else %>
-                <h6>Address</h6>
+                <h6>Adresse</h6>
                 <%= address_for(@quote.from_address.address, :p) %>        
               <% end %>
             </td>
@@ -35,15 +35,15 @@
       <% if !@quote.internal_address? && !@quote.to_addresses.blank? %>
       <td>
         <table width="350" class="grey-background" border="0" cellpadding="0" cellspacing="0">
-          <tr><td>To</td></tr>
+          <tr><td><h3>Adresse d'arrivée</h3></td></tr>
           <tr>
             <td>
               <% for to_address in @quote.to_addresses %>
                 <% if to_address.has_storage? %>
-                  <h6>Storage: <%= to_address.storage.name %></h6>
+                  <h6>Entrepôt: <%= to_address.storage.name %></h6>
                   <%= address_for(to_address.storage.address, :p) %>
                 <% else %>
-                  <h6>Address</h6>
+                  <h6>Adresse</h6>
                   <%= address_for(to_address.address, :p) %>        
                 <% end %>
               <% end %>
@@ -139,7 +139,7 @@
   </p>
 
   <p>
-    <b>Price:</b>
+    <b>Prix:</b>
     <%= number_to_currency(@quote.price) %> par heure
   </p>
 
@@ -149,18 +149,18 @@
   </p>
 
   <p>
-    <b>Transport time:</b>
+    <b>Temps de transport:</b>
     <%= @quote.transport_time %><% if @quote.long_distance %> <%= content_tag(:span, '(Long distance)', :class => 'label label-warning label_override') %><% end %>
   </p>
 
   <p>
-    <b>Insurance:</b>
-    <%= @quote.insurance? ? 'Included' : 'Not included' %>
+    <b>Assurance:</b>
+    <%= @quote.insurance? ? "#{t 'included'}" : "#{t 'not_included'}" %>
   </p>
 
   <p>
     <b>Matériel:</b>
-    <%= @quote.materiel? ? 'Included' : 'Not included' %>
+    <%= @quote.materiel? ? "#{t 'included'}" : "#{t 'not_included'}" %>
   </p>
   <!-- OPTIONAL -->
   <% if @quote.trucks.any? %>
@@ -175,7 +175,7 @@
   
   <% if @quote.quote_supplies.any? %>
     <hr/>
-    <h3 class='with_margin'>Supplies</h3>
+    <h3 class='with_margin'>Matériels</h3>
     <% @quote.quote_supplies.each do |q_supply| %>
     <ul>
       <li><%= q_supply.quantity %> * <%=q_supply.supply.name_with_price %></li>
@@ -196,7 +196,7 @@
   <!-- DOCUMENTS -->
   <% if @quote.documents.any? %>
     <hr/>
-    <h3>Documents attached</h3>
+    <h3>Documents</h3>
     <% @quote.documents.each do |document| %>
     <ul>
       <li><%= document.name %></li>

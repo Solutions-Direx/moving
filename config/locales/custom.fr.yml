@@ -4,6 +4,7 @@ fr:
   settings: "Réglages"
   account: "Paramètres"
   cancel: "Annuler"
+  preview: 'Aperçu'
   or: "ou"
   in: 'dans'
   yessai: "Oui"
@@ -135,6 +136,8 @@ fr:
   transport_time: 'Temps de transport'
   nb_removal_men: Nombre de déménageurs
   supplies: 'Matériels'
+  email_notification: "L'entente a été envoyée avec succès à"
+  report_for: Rapport du déménagement pour
   activerecord:
     models:
       account: Compte
