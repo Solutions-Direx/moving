@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Quote Information</title>
+  <style type="text/css">
+  h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; }
+  body, td { color:#000000; font-size:14px; font-family: Helvetica,Arial; padding: 10px; vertical-align: top;}
+  table.grey-background td { background: #f5f5f5; }
+  h6 { text-transform: uppercase; color: #999999;}
+  </style>
+</head>
+<body>
+  <h1><%= @quote.client.name %></h1>
+  <p><b>Removal at:</b> <%= l @quote.removal_at, :format => :long %> || <%= @quote.is_house? ? 'Maison' : 'Appartement' %></p>
+  <!-- ADDRESSES -->
+  <table width="100%" id="background" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td style="padding-left: 0;">
+        <table width="350" class="grey-background" border="0" cellpadding="0" cellspacing="0">
+          <tr><td><h3>From <%= '(Internal)' if @quote.internal_address %></h3></td></tr>
+          <tr>
+            <td>
+              <% if @quote.from_address.has_storage? %>
+                <h6>Storage: <%= @quote.from_address.storage.name %></h6>
+                <%= address_for(@quote.from_address.storage.address, :p) %>
+              <% else %>
+                <h6>Address</h6>
+                <%= address_for(@quote.from_address.address, :p) %>        
+              <% end %>
+            </td>
+          </tr>
+        </table>  
+      </td>
+      <% if !@quote.internal_address? && !@quote.to_addresses.blank? %>
+      <td>
+        <table width="350" class="grey-background" border="0" cellpadding="0" cellspacing="0">
+          <tr><td>To</td></tr>
+          <tr>
+            <td>
+              <% for to_address in @quote.to_addresses %>
+                <% if to_address.has_storage? %>
+                  <h6>Storage: <%= to_address.storage.name %></h6>
+                  <%= address_for(to_address.storage.address, :p) %>
+                <% else %>
+                  <h6>Address</h6>
+                  <%= address_for(to_address.address, :p) %>        
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        </table>  
+      </td>
+      <% end %>
+    </tr>
+  </table>
+  <!-- ROOMS -->
+  <% @quote.rooms.each_with_index do |room, index| %>
+    <hr/>
+    <p><%= "Room ##{index + 1}:" %> <%= room.size %> <%= room.comment %></p>
+  <% end %>
+  
+  <!-- FURNITURE -->
+  <% if @quote.furniture %>
+  <p>Nombre d'électroménager: <%= @quote.furniture.num_appliances %></p>
+  
+  <table width="100%" id="background" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td style="padding-left: 0;">
+        <table width="350" class="grey-background" border="0" cellpadding="0" cellspacing="0">
+          <td>
+            <h3>Cuisine</h3>
+            <ul>
+              <%= content_tag(:li, pluralize(@quote.furniture.kitchen_table, 'buffet')) if @quote.furniture.kitchen_table.present? %>
+              <%= content_tag(:li, pluralize(@quote.furniture.kitchen_chair, 'buffet')) if @quote.furniture.kitchen_chair.present? %>
+              <%= content_tag(:li, pluralize(@quote.furniture.kitchen_buffet, 'buffet')) if @quote.furniture.kitchen_buffet.present? %>
+            </ul>
+          </td>
+        </table>
+      </td>
+      <td>
+        <table width="350" class="grey-background" border="0" cellpadding="0" cellspacing="0">
+          <td>
+            <h3>Salon</h3>
+            <ul>
+              <%= content_tag(:li, pluralize(@quote.furniture.living_couch_3pl, 'divan') + ' 3pl') if @quote.furniture.living_couch_3pl.present? %>
+              <%= content_tag(:li, pluralize(@quote.furniture.living_couch_2pl, 'divan') + ' 2pl') if @quote.furniture.living_couch_2pl.present? %>
+              <%= content_tag(:li, pluralize(@quote.furniture.living_table, 'table')) if @quote.furniture.living_table.present? %>
+              <%= content_tag(:li, pluralize(@quote.furniture.living_armchair, 'fauteuil')) if @quote.furniture.living_armchair.present? %>
+              <%= content_tag(:li, pluralize(@quote.furniture.living_wall_unit, 'unité murale')) if @quote.furniture.living_wall_unit.present? %>
+              <%= content_tag(:li, pluralize(@quote.furniture.living_tv, 'TV')) if @quote.furniture.living_tv.present? %>
+              <%= content_tag(:li, @quote.furniture.living_other) if @quote.furniture.living_other.present? %>
+            </ul>
+          </td>
+        </table>  
+      </td>
+    </tr>
+  </table>  
+  
+  <table width="100%" id="background" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td style="padding-left: 0;">
+        <table width="350" class="grey-background" border="0" cellpadding="0" cellspacing="0">
+          <td>
+            <h3>Sous-sol</h3>
+            <ul>
+              <%= content_tag(:li, pluralize(@quote.furniture.base_salon, 'set') + ' de salon') if @quote.furniture.base_salon.present? %>
+              <%= content_tag(:li, pluralize(@quote.furniture.base_shelf, 'étagère')) if @quote.furniture.base_shelf.present? %>
+              <%= content_tag(:li, pluralize(@quote.furniture.base_desk, 'bureau')) if @quote.furniture.base_desk.present? %>
+              <%= content_tag(:li, pluralize(@quote.furniture.base_training, 'set') + " d'entrainement") if @quote.furniture.base_training.present? %>
+              <%= content_tag(:li, @quote.furniture.base_other) if @quote.furniture.base_other.present? %>
+            </ul>
+          </td>
+        </table>
+      </td>
+      <td>
+        <table width="350" class="grey-background" border="0" cellpadding="0" cellspacing="0">
+          <td>
+            <h3>Extérieur</h3>
+            <ul>
+              <%= content_tag(:li, pluralize(@quote.furniture.outside_tire, 'tire')) if @quote.furniture.outside_tire.present? %>
+              <%= content_tag(:li, pluralize(@quote.furniture.outside_lawn_mower, 'tondeuse')) if @quote.furniture.outside_lawn_mower.present? %>
+              <%= content_tag(:li, pluralize(@quote.furniture.outside_bike, 'vélo')) if @quote.furniture.outside_bike.present? %>
+              <%= content_tag(:li, pluralize(@quote.furniture.outside_table, 'table') + ' patio') if @quote.furniture.outside_table.present? %>
+              <%= content_tag(:li, pluralize(@quote.furniture.outside_bbq, 'BBQ')) if @quote.furniture.outside_bbq.present? %>
+              <%= content_tag(:li, @quote.furniture.outside_other) if @quote.furniture.outside_other.present? %>
+            </ul>  
+          </td>
+        </table>  
+      </td>
+    </tr>
+  </table>            
+  <% end %>
+  <!-- PRICES -->
+  <hr/>
+  <p>
+    <b>Nombre de déménageurs:</b>
+    <%= @quote.num_of_removal_man %>
+  </p>
+
+  <p>
+    <b>Price:</b>
+    <%= number_to_currency(@quote.price) %> par heure
+  </p>
+
+  <p>
+    <b>Gas:</b>
+    <%= number_to_currency(@quote.gas) %>
+  </p>
+
+  <p>
+    <b>Transport time:</b>
+    <%= @quote.transport_time %><% if @quote.long_distance %> <%= content_tag(:span, '(Long distance)', :class => 'label label-warning label_override') %><% end %>
+  </p>
+
+  <p>
+    <b>Insurance:</b>
+    <%= @quote.insurance? ? 'Included' : 'Not included' %>
+  </p>
+
+  <p>
+    <b>Matériel:</b>
+    <%= @quote.materiel? ? 'Included' : 'Not included' %>
+  </p>
+  <!-- OPTIONAL -->
+  <% if @quote.trucks.any? %>
+    <hr/>
+    <h3><%= Truck.model_name.human + 's' %></h3>
+    <% @quote.trucks.each do |truck| %>
+    <ul>
+      <li><%= truck.name_with_plate %></li>
+    </ul>
+    <% end %>
+  <% end %>
+  
+  <% if @quote.quote_supplies.any? %>
+    <hr/>
+    <h3 class='with_margin'>Supplies</h3>
+    <% @quote.quote_supplies.each do |q_supply| %>
+    <ul>
+      <li><%= q_supply.quantity %> * <%=q_supply.supply.name_with_price %></li>
+    </ul>
+    <% end %>
+  <% end %>
+
+  <% if @quote.forfaits.any? %>
+    <hr/>
+    <h3>Forfaits</h3>
+    <% @quote.forfaits.each do |forfait| %>
+    <ul>
+      <li><%= forfait.name_with_price %></li>
+    </ul>
+    <% end %>
+  <% end %>
+  
+  <!-- DOCUMENTS -->
+  <% if @quote.documents.any? %>
+    <hr/>
+    <h3>Documents attached</h3>
+    <% @quote.documents.each do |document| %>
+    <ul>
+      <li><%= document.name %></li>
+    </ul>
+    <% end %>
+  <% end %>
+  
+  <!-- CONFIRMATION -->
+  <% if @quote.confirmed? %>
+    <hr/>
+    <h3><%= t 'confirmation_details', default: 'Confirmation Details' %></h3>
+    <p><%= t 'insurance_increase' %>: 
+    <%= @quote.quote_confirmation.insurance_limit_enough? ? "#{t 'nope'}" : number_to_currency(@quote.quote_confirmation.insurance_increase) %>
+    </p>
+
+    <p><%= t 'franchise_cancelation' %>: <%= @quote.quote_confirmation.franchise_cancellation? ? 
+    "#{t 'yessai'} (frais de #{@quote.account.franchise_cancellation_amount}$)" : "#{t 'nope'}" %></p>
+    <p><%= t 'payment_method' %>: <%= @quote.quote_confirmation.payment_method %></p>
+  <% end %>
+</body>
+</html>

@@ -69,7 +69,7 @@ class Quote < ActiveRecord::Base
   scope :confirmed, where(:status => 'Confirmed')
   scope :rejected, where(:status => 'Rejected')
   scope :applicable, where(:status => ['Pending', "Confirmed"])
-  scope :today, lambda { where("removal_at BETWEEN '#{Date.today.beginning_of_day}' AND '#{Date.today.end_of_day}'") }
+  scope :today, lambda { where("removal_at BETWEEN '#{Date.today.beginning_of_day.utc}' AND '#{Date.today.end_of_day.utc}'") }
   
   # define pending?, confirmed? and rejected?
   STATUSES.each do |method|

@@ -18,7 +18,6 @@ class QuotesController < ApplicationController
   # GET /quotes/1
   # GET /quotes/1.json
   def show
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @quote }
@@ -138,6 +137,14 @@ class QuotesController < ApplicationController
         format.html { redirect_to @quote, alert: 'Failed to reject quote. Please contact system administrator.' }
         format.json { render json: @quote.errors, status: :unprocessable_entity }
       end
+    end
+  end
+  
+  def email
+    Mailer.quote_email(@quote).deliver
+    respond_to do |format|
+      format.html { redirect_to @quote, notice: "Quote was successfully send to client email #{@quote.client.email}." }
+      format.json { render json: @quote }
     end
   end
   

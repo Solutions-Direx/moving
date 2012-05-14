@@ -21,6 +21,7 @@ Moving::Application.routes.draw do
       put 'daily_update'
       get 'terms'
       put 'reject'
+      post 'email'
     end
     
     collection do

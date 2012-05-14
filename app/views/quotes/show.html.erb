@@ -1,5 +1,8 @@
 <h2><%= @quote.client.name %> <%= content_tag(:span, @quote.rating, :class => "badge badge-#{@quote.rating.downcase}") %>
   <span class='submenu'>
+    <% unless @quote.client.email.blank? %>
+      <%= button_link_to "Email to client", email_quote_path, :method => :post, level: "success", large: true %>
+    <% end %>
     <% if @quote.rejected? %>
       <%= link_to "#{t 'rejected', default: 'Rejected'}", '#', :class => 'btn btn-warning btn-large disabled' %>
     <% else %>

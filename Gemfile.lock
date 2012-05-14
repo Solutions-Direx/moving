@@ -78,6 +78,9 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.1)
       compass (~> 0.12.0)
+    css_parser (1.2.6)
+      addressable
+      rdoc
     database_cleaner (0.7.2)
     debugger (1.1.0)
       columnize (>= 0.3.1)
@@ -177,6 +180,11 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rmagick (2.13.1)
+    roadie (2.3.1)
+      actionmailer (> 3.0.0, < 3.3.0)
+      css_parser
+      nokogiri (>= 1.4.4)
+      sprockets
     rspec (2.9.0)
       rspec-core (~> 2.9.0)
       rspec-expectations (~> 2.9.0)
@@ -257,6 +265,7 @@ DEPENDENCIES
   rails (= 3.2.3)
   rails-settings!
   rmagick
+  roadie
   rspec-rails
   sass-rails (~> 3.2.3)
   simple_form
