@@ -38,6 +38,13 @@ en:
   patio_table: 'Patio table'
   bike: 'Bicycle'
   shelf: 'Shelf'
+  included: 'Included'
+  not_included: 'Not included'
+  long_distance: 'Long distance'
+  active: 'Active'
+  inactive: 'Inactive'
+  new: 'New'
+  supplies: 'Supplies'
   quotes:
     show:
       removal_time_confirmation: 'The exact time will be confirmed the same day.'

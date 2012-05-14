@@ -77,7 +77,8 @@ fr:
   km_total: "KM au total"
   start_time: "Horaire de départ"
   end_time: "Horaire à l'arrivée"
-  gas: 'Fuel (litres)'
+  gas: 'Fuel'
+  gas_helper: 'Fuel (litres)'
   distance_in_qc: 'KM parcourus au Québec'
   distance_in_on: 'KM parcourus en Ontario'
   distance_in_nb: 'KM parcourus au Nouveau Brunswick'
@@ -128,6 +129,12 @@ fr:
   created_by: Créée par
   email_to_client: 'Envoyer une copie au client'
   nb_appliances: "Nombre d'électroménagers"
+  included: 'Inclus'
+  not_included: 'Non inclus'
+  insurance: 'Assurance'
+  transport_time: 'Temps de transport'
+  nb_removal_men: Nombre de déménageurs
+  supplies: 'Matériels'
   activerecord:
     models:
       account: Compte

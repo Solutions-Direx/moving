@@ -1,6 +1,6 @@
 <% if @quote.documents.any? %>
   <%= section %>
-  <h3 class='with_margin'>Documents attached</h3>
+  <h3 class='with_margin'>Documents</h3>
   <% @quote.documents.each do |document| %>
   <ul>
     <li><%= document.name %></li>

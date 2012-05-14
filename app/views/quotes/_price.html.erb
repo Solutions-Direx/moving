@@ -1,29 +1,29 @@
 <p>
-  <b>Nombre de déménageurs:</b>
+  <b><%= t 'nb_removal_men', default: 'Nb of removal men' %>:</b>
   <%= @quote.num_of_removal_man %>
 </p>
 
 <p>
-  <b>Price:</b>
+  <b><%= t 'price' %>:</b>
   <%= number_to_currency(@quote.price) %> <%= t 'per_hour' %>
 </p>
 
 <p>
-  <b>Gas:</b>
+  <b><%= t 'gas' %>:</b>
   <%= number_to_currency(@quote.gas) %>
 </p>
 
 <p>
-  <b>Transport time:</b>
-  <%= @quote.transport_time %><% if @quote.long_distance %> <%= content_tag(:span, '(Long distance)', :class => 'label label-warning label_override') %><% end %>
+  <b><%= t 'transport_time', default: 'Transport time' %>:</b>
+  <%= @quote.transport_time %><% if @quote.long_distance %> <%= content_tag(:span, "(#{t 'long_distance'})", :class => 'label label-warning label_override') %><% end %>
 </p>
 
 <p>
-  <b>Insurance:</b>
-  <%= @quote.insurance? ? 'Included' : 'Not included' %>
+  <b><%= t 'insurance' %>:</b>
+  <%= @quote.insurance? ? "#{t 'included'}" : "#{t 'not_included'}" %>
 </p>
 
 <p>
-  <b>Matériel:</b>
-  <%= @quote.materiel? ? 'Included' : 'Not included' %>
+  <b><%= t 'equipment' %>:</b>
+  <%= @quote.materiel? ? "#{t 'included'}" : "#{t 'not_included'}" %>
 </p>

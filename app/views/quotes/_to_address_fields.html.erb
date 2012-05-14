@@ -1,4 +1,4 @@
 <% f.object.build_address if f.object.address.blank? %>
 <%= f.fields_for :address do |fa| %>
-  <%= render 'address_widget', title: 'To', quote_address_form: f, address_form: fa, removable: true %>
+  <%= render 'address_widget', title: "#{t 'to'}", quote_address_form: f, address_form: fa, removable: true %>
 <% end %>

@@ -2,7 +2,7 @@
 
 <% if @quote.quote_supplies.any? %>
   <%= section %>
-  <h3 class='with_margin'>Supplies</h3>
+  <h3 class='with_margin'><%= Supply.model_name.human + 's' %></h3>
   <% @quote.quote_supplies.each do |q_supply| %>
   <ul>
     <li><%= q_supply.quantity %> * <%=q_supply.supply.name_with_price %></li>
