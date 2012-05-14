@@ -1,5 +1,5 @@
-<%= f.input :size, :label => "Room #{current_child_index(f, false)}", :label_html => {:class => "room-number"}, :wrapper_class => "room control-group", :required => false do %>
+<%= f.input :size, :label => "#{t 'room'} #{current_child_index(f, false)}", :label_html => {:class => "room-number"}, :wrapper_class => "room control-group", :required => false do %>
   <%= f.input_field :size, :as => :radio_buttons, :collection => Room::SIZES, :item_wrapper_class => 'inline' %>
-  <%= f.input_field :comment, :as => :string, :placeholder => "Comment", :class => 'comment_one_liner', :style => 'width:210px;' %>
-  <%= f.link_to_remove "Remove" %>
+  <%= f.input_field :comment, :as => :string, :placeholder => "#{t 'comment'}", :class => 'comment_one_liner', :style => 'width:210px;' %>
+  <%= f.link_to_remove "#{t 'remove'}" %>
 <% end %>

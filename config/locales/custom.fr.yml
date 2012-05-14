@@ -10,6 +10,7 @@ fr:
   nope: "No"
   edit: 'Éditer'
   destroy: 'Supprimer'
+  remove: 'Effacer'
   pending: 'En attente'
   confirmed: 'Confirmé'
   address: 'Adresse'
@@ -25,6 +26,8 @@ fr:
   approved: 'Approuvée'
   approve: 'Approve'
   print: 'Imprimer'
+  internal: 'Interne'
+  not_internal: 'Externe'
   terms: 'Termes'
   creator: 'Créateur'
   billing_address: 'Adresse de facturation'
@@ -83,6 +86,31 @@ fr:
   reports: Rapports
   amount: Montant
   removal_control: Contrôle des contrats de déménagements
+  per_hour: 'par heure'
+  add_supply: Ajouter un matériel
+  long_distance: Longue distance
+  trucks: Camions
+  click_to_add_address: 'Cliquez pour ajouter une autre adresse'
+  type_to_select_forfaits: 'Rechercher des forfaits'
+  type_to_select_trucks: 'Rechercher des camions'
+  kitchen: Cuisine
+  living_room: 'Salle de séjour'
+  basement: 'Sous-sol'
+  outside: Extérieur
+  room: Pièce
+  add_room: 'Ajouter une pièce'
+  comment: 'Commentaire'
+  chair: 'Chaise'
+  armchair: 'Fauteuil'
+  sofa: 'Divan'
+  dining_table: 'Table de salon'
+  wall_unit: 'Unité murale'
+  other: 'Autres'
+  shelves: 'Étagères'
+  desk: Bureau
+  tires: Pneux
+  lawn_mower: 'Tondeuse'
+  bike: Vélo
   activerecord:
     models:
       account: Compte

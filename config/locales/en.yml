@@ -19,6 +19,12 @@ en:
   franchise_cancelation: 'Franchise cancelation'
   insurance_increase: "Insurance increase"
   payment_method: Payment method
+  per_hour: per hour
+  click_to_add_address: Click to add address
+  remove: 'Remove'
+  comment: 'Comment'
+  other: 'Other'
+  internal: 'Internal'
   activerecord:
     attributes:
       user:  

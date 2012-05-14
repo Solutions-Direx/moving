@@ -61,6 +61,12 @@ fr:
         name: "Nom"
         plate: "Plaque"
         invoice_start_number: "Début numérotation des factures"
+        transport_time: Temps de transport
+        long_distance: Longue distance
+        insurance: Assurance
+        comment: Commentaire
+        materiel: Matériel
+        storage: Entrepôt
     hints:
       defaults:
       user:

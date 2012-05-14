@@ -1,7 +1,7 @@
 <div class="tab-pane active" id="lA">
   <!-- CLIENT -->
   <%= f.input :client_id do %>
-    <%= f.input_field :client_id, :collection => Client.all.map{|c| [c.name, c.id]}, :class => "chzn", "data-placeholder" => "Select", :id => "select-clients" %> ou 
+    <%= f.input_field :client_id, :collection => Client.all.map{|c| [c.name, c.id]}, :class => "chzn", "data-placeholder" => "Select", :id => "select-clients" %> <%= t 'or' %> 
     <%= icon_button_link_to "New Client", new_client_path, icon: 'plus', level: "inverse", white: true, remote: true %>
   <% end %>
 
@@ -43,10 +43,10 @@
   <div class="row" id="addresses">
     <%= f.fields_for :from_address do |fa| %>
       <%= fa.fields_for :address do |faa| %>
-        <%= render 'address_widget', title: 'From', quote_address_form: fa, address_form: faa, internal: !@quote.internal_address.nil? ? (@quote.internal_address? ? "Not Internal" : "Internal") : nil %>
+        <%= render 'address_widget', title: 'From', quote_address_form: fa, address_form: faa, internal: !@quote.internal_address.nil? ? (@quote.internal_address? ? "#{t 'not_internal'}" : "#{t 'internal'}") : nil %>
       <% end %>
     <% end %>
     <%= f.fields_for :to_addresses %>
-    <%= f.link_to_add content_tag(:span, "Click to add address"), :to_addresses, :id => "add-address", :class => "span3 to", :style => "display: #{@quote.internal_address? ? 'none' : 'block'}" %>
+    <%= f.link_to_add content_tag(:span, "#{t 'click_to_add_address'}"), :to_addresses, :id => "add-address", :class => "span3 to", :style => "display: #{@quote.internal_address? ? 'none' : 'block'}" %>
   </div>
 </div>
