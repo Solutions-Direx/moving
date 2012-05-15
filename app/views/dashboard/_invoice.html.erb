@@ -1,0 +1,2 @@
+<% invoice = Invoice.find(result.searchable_id) %>
+<%= status_tag(result.searchable_type, level: "inverse") %> <%= link_to invoice.code, quote_invoice_path(invoice.quote_id) %>

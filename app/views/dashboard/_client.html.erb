@@ -1,0 +1,2 @@
+<% client = Client.find(result.searchable_id) %>
+<%= status_tag(result.searchable_type, level: 'success') %> <%= link_to client.name, client_path(client) %> <%= "- #{client.phone1}" if client.phone1 %> <%= "| #{client.phone2}" if client.phone2 %>

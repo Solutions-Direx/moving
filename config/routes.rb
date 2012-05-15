@@ -1,5 +1,8 @@
 Moving::Application.routes.draw do
   
+  # BACK OFFICE ROUTES
+  # ==================
+  
   # match 'calendar' => 'calendar#show', :as => 'calendar'
   match 'schedule' => 'schedule#show', :as => 'schedule'
   get 'new_invoice' => "invoices#new", :as => "new_invoice"
@@ -49,5 +52,12 @@ Moving::Application.routes.draw do
   resource :profile, :only => [:show, :update], :path => "users/profile"
   resources :users
   
+  get 'search', :to => "dashboard#search"
   root :to => 'dashboard#show'
+  
+  # MOBILE ROUTES
+  # ==================
+  namespace :mobile do
+    root :to => 'dashboard#show'
+  end
 end

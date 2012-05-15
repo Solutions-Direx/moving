@@ -1,5 +1,13 @@
 h1. Moving
 
+h2. Copy database.yml
+
+$ cp config/database.yml.postgres config/database.yml
+
+h2. Bootstrap db
+
+$ rake db:bootstrap
+
 h2. Deploy to Heroku
 
 h4. 1. Switch to master branch

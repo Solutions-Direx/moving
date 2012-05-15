@@ -1,0 +1,2 @@
+<% quote = Quote.find(result.searchable_id) %>
+<%= status_tag(result.searchable_type, level: "warning") %> <%= link_to quote.code, quote_path(quote) %>

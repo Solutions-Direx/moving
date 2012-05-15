@@ -1,6 +1,8 @@
 # encoding: utf-8
 class Quote < ActiveRecord::Base
   include Signable
+  include PgSearch
+  multisearchable :against => [:code]
   
   STATUSES = %w{ Pending Confirmed Rejected}
   

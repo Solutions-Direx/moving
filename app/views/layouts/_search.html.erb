@@ -1,5 +1,6 @@
 <div id="main_search">
-  <form>
-    <input id="iemail" name="email" type="text" placeholder="<%= t 'srch_inpt_plcholder', default: 'Client, Phone, Quote ID...' %>"><input class="btn btn-search btn-xlarge" type="submit" value="<%= t 'search' %>">
-  </form>
+  <%= form_tag search_path, :method => :get, :remote => true, :id => "search-form" do %>
+    <%= text_field_tag :query, params[:query], placeholder: t('srch_inpt_plcholder', default: 'Client, Phone, Quote ID...') %>
+    <%= submit_tag t('search'), class: "btn btn-search btn-xlarge" %>
+  <% end %>
 </div>

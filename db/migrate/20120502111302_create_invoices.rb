@@ -2,7 +2,6 @@ class CreateInvoices < ActiveRecord::Migration
   def change
     create_table :invoices do |t|
       t.integer :code
-      t.integer :removal_id
       t.integer :quote_id
       t.float :time_spent
       t.text :comment

@@ -1,4 +1,7 @@
 class Client < ActiveRecord::Base
+  include PgSearch
+  multisearchable :against => [:name, :phone1, :phone2]
+  
   belongs_to :account
   has_one :address, :as => :addressable, :dependent => :destroy
   accepts_nested_attributes_for :address

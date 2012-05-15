@@ -1,6 +1,8 @@
 class Invoice < ActiveRecord::Base
   include Taxable
   include Signable
+  include PgSearch
+  multisearchable :against => [:code]
   
   belongs_to :quote, :touch => true
   
@@ -11,7 +13,7 @@ class Invoice < ActiveRecord::Base
   has_many :supplies, :through => :invoice_supplies
   accepts_nested_attributes_for :invoice_supplies, :allow_destroy => true, :reject_if => lambda {|qs| qs[:quantity].blank? || qs[:supply_id].blank?}
   
-  attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :removal_id, :gas, :rate, :overtime, :overtime_rate,
+  attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :gas, :rate, :overtime, :overtime_rate,
                   :invoice_supplies_attributes, :forfait_ids, :client_satisfaction,
                   :payment_method, :franchise_cancellation, :insurance_limit_enough, :insurance_increase
   

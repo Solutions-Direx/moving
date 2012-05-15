@@ -21,6 +21,7 @@ gem 'faker'
 gem "watu_table_builder", :require => "table_builder", :git => "git://github.com/watu/table_builder.git"
 gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
 gem 'roadie'
+gem 'pg_search'
 
 # Gems used only for assets and not required
 # in production environments by default.

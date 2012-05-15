@@ -31,7 +31,11 @@ class ApplicationController < ActionController::Base
   
   def set_layout
     (current_user && current_user.removal_man?) ? 'mobile' : 'application' 
-  end 
+  end
+  
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || (resource.removal_man? ? mobile_root_path : root_path)
+  end
 
 protected   
   

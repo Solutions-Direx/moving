@@ -1,0 +1,15 @@
+<div class="well">
+  <% unless @results.blank? %>
+      <h3 class="total">Total <%= pluralize @results.total_count, "search result" %> found.</h3>
+      <ul>
+        <% @results.each do |result| %>
+          <li><%= render result.searchable_type.downcase, result: result %></li>
+        <% end %>
+      </ul>
+      <div class="clearfix">
+      <%= paginate @results, remote: true %>
+      </div>
+  <% else %>
+    <h3 class="total">No search result found.</h3>
+  <% end %>  
+</div>
