@@ -10,6 +10,17 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
   
+  rescue_from ActiveRecord::StaleObjectError do |exception|
+    respond_to do |format|
+      format.html {
+        correct_stale_record_version
+        stale_record_recovery_action
+      }
+      format.xml  { head :conflict }
+      format.json { head :conflict }
+    end
+  end     
+  
   def current_account
     @current_account ||= Account.first
   end
@@ -20,9 +31,14 @@ class ApplicationController < ActionController::Base
   
   def set_layout
     (current_user && current_user.removal_man?) ? 'mobile' : 'application' 
-  end
+  end 
+
+protected   
   
-private
+  def stale_record_recovery_action
+    flash.now[:alert] = t('conflict', default: "Another user has made a change to this record since you access the edit form. Please recheck information and update again.")
+    render :edit, :status => :conflict
+  end
   
   def set_locale
     if user_signed_in? && current_user.localization.present?

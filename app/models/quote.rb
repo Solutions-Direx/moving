@@ -52,7 +52,7 @@ class Quote < ActiveRecord::Base
                   :materiel, :num_of_removal_man, :price, :rating, :removal_at, 
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
                   :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment, 
-                  :document_ids, :forfait_ids, :quote_supplies_attributes, :pm, :long_distance, 
+                  :document_ids, :forfait_ids, :quote_supplies_attributes, :pm, :long_distance, :lock_version,
                   :removal_leader_id, :removal_man_ids, :internal_address, :invoice_attributes, :signer_name, :signature
   
   # VALIDATIONS

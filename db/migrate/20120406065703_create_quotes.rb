@@ -27,6 +27,7 @@ class CreateQuotes < ActiveRecord::Migration
       t.string :signer_name
       t.text :signature
       t.datetime :signed_at
+      t.integer :lock_version, :integer, :default => 0
 
       t.timestamps
     end

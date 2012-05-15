@@ -2,6 +2,7 @@
 
 <%= simple_nested_form_for(@quote, :html => {:id => "quote-form"}) do |f| %>
   <%= f.error_notification %>
+  <%= locking_field_tag(f) %>
 
   <div class="form-inputs">
     <div class="tabbable tabs row">

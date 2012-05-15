@@ -43,4 +43,9 @@ module ApplicationHelper
     content_for(:body_class) { klass }
   end
   
+  def locking_field_tag(form)
+    can_lock = form.object.respond_to?(:locking_enabled?) && form.object.locking_enabled? && !form.object.new_record?
+    form.hidden_field(form.object.class.locking_column) if can_lock
+  end
+  
 end

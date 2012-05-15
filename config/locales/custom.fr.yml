@@ -138,6 +138,7 @@ fr:
   supplies: 'Matériels'
   email_notification: "L'entente a été envoyée avec succès à"
   report_for: Rapport du déménagement pour
+  conflict: "Un autre utilisateur a apporté une modification à ce record depuis que vous accédez au formulaire de modification. S'il vous plaît vérifiez les informations et mettre à jour à nouveau."
   activerecord:
     models:
       account: Compte

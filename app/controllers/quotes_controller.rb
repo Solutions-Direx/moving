@@ -187,4 +187,8 @@ private
   def sort_column
     Quote.column_names.include?(params[:sort]) ? params[:sort] : "date"
   end
+  
+  def correct_stale_record_version
+    @quote.reload
+  end
 end

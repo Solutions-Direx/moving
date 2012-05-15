@@ -239,6 +239,8 @@ ActiveRecord::Schema.define(:version => 20120510132215) do
     t.string   "signer_name"
     t.text     "signature"
     t.datetime "signed_at"
+    t.integer  "lock_version",       :default => 0
+    t.integer  "integer",            :default => 0
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
   end
