@@ -10,7 +10,13 @@
           <tr>
             <td>
               <% if quote.signed? %>
-                <%= link_to quote.client.name, quote_invoice_path(quote) %>
+                <% if session[:current_view] == "invoice" %>
+                  <%= link_to quote.client.name, quote_invoice_path(quote) %>
+                <% elsif session[:current_view] == "report" %>  
+                  <%= link_to quote.client.name, quote_report_path(quote) %>
+                <% else %>
+                  <%= link_to quote.client.name, terms_quote_path(quote) %>
+                <% end %>  
               <% else %>
                 <%= link_to quote.client.name, terms_quote_path(quote) %>
               <% end %>  

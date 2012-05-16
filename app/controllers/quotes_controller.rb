@@ -152,6 +152,7 @@ class QuotesController < ApplicationController
   # MOBILE ACTIONS
   # ======================================
   def terms
+    session[:current_view] = "terms"
     set_tab :terms
 
     respond_to do |format|

@@ -13,9 +13,11 @@ class ReportsController < ApplicationController
   end
   
   def show
+    session[:current_view] = "invoice"
   end
   
   def edit
+    session[:current_view] = "report"
     redirect_to quote_report_url(@quote) if @report.signed?
   end
   

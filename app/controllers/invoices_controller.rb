@@ -13,9 +13,11 @@ class InvoicesController < ApplicationController
   end
   
   def show
+    session[:current_view] = "invoice"
   end
   
   def edit
+    session[:current_view] = "invoice"
     redirect_to quote_invoice_url(@quote) if @invoice.signed?
   end
   

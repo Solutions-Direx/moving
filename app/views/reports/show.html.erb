@@ -16,8 +16,8 @@
 <p><b><%= t 'km_end', default: 'KM end' %>:</b> <%= @report.km_end %></p>
 <p><b><%= t 'km_total', default: 'KM total' %>:</b> <%= @report.total_km %></p>
 <p><b><%= t 'gas_helper', default: 'Gas (liters)' %>:</b> <%= @report.gas %></p>
-<p><b><%= t 'start_time', default: 'Start time' %>:</b> <%= @report.start_time.strftime("%H:%M") %></p>
-<p><b><%= t 'end_time', default: 'End time' %>:</b> <%= @report.end_time.strftime("%H:%M") %></p>
+<p><b><%= t 'start_time', default: 'Start time' %>:</b> <%= @report.start_time.strftime("%H:%M") unless @report.start_time.blank? %></p>
+<p><b><%= t 'end_time', default: 'End time' %>:</b> <%= @report.end_time.strftime("%H:%M") unless @report.end_time.blank? %></p>
 
 <% if !@quote.invoice.blank? && !@quote.invoice.client_satisfaction.blank? %>
   <%= section %>
