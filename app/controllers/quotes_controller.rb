@@ -171,7 +171,7 @@ class QuotesController < ApplicationController
         insurance_limit_enough: @quote.quote_confirmation.insurance_limit_enough,
         insurance_increase: @quote.quote_confirmation.insurance_increase
       )
-      @quote.create_report!(gas: @quote.gas)
+      @quote.create_report!(gas: @quote.gas, start_time: @quote.removal_at)
       redirect_to terms_quote_url(@quote), notice: "#{Quote.model_name.human} #{t 'signed'}"
     else
       redirect_to terms_quote_url(@quote), alert: "Quote cannot be saved, please contact system administrator"

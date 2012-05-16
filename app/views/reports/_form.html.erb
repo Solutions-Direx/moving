@@ -30,7 +30,7 @@
       <%= f.label :start_time %>
       <div class="controls">
         <div class='input-append'>
-          <%= f.text_field :start_time, :class => 'span1 input-append' %><span class="add-on"><i class="icon-time"></i></span>
+          <%= select_time @report.start_time, :minute_step => 15, :ignore_date => true, :prefix => "report[start_time]" %>
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@
       <%= f.label :end_time %>
       <div class="controls">
         <div class='input-append'>
-          <%= f.text_field :end_time, :class => 'span1 input-append' %><span class="add-on"><i class="icon-time"></i></span>
+          <%= select_time @report.end_time, :minute_step => 15, :ignore_date => true, :prefix => "report[end_time]" %>
         </div>
       </div>
     </div>

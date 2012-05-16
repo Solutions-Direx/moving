@@ -5,8 +5,8 @@ class CreateReports < ActiveRecord::Migration
       t.float :km_start
       t.float :km_end
       t.float :gas
-      t.string :start_time
-      t.string :end_time
+      t.datetime :start_time
+      t.datetime :end_time
       t.float :distance_in_qc
       t.float :distance_in_on
       t.float :distance_in_nb
