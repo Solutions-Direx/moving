@@ -48,4 +48,12 @@ module ApplicationHelper
     form.hidden_field(form.object.class.locking_column) if can_lock
   end
   
+  def payment_method_options
+    [[t('comptant'), 'comptant'], [t('debit'), 'debit'], [t('credit'), 'credit'], [t('cheque'), 'cheque']]
+  end
+  
+  def credit_card_type_options
+    [[t('visa'), "visa"], [t('mastercard'), 'mastercard'], [t('amex'), "amex"]]
+  end
+  
 end

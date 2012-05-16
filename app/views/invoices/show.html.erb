@@ -29,10 +29,12 @@
 <% end %>
 
 <% if @invoice.total_overtime > 0 %>
+  <% @invoice.overtimes.each do |overtime| %>
   <div class="row">
-    <div class="span4">Overtime (<%= @invoice.overtime %> * <%= number_to_currency(@invoice.overtime_rate) %>)</div>
-    <div class="span2 money"><%= number_to_currency(@invoice.total_overtime) %></div>
+    <div class="span4">Overtime (<%= overtime.duration %> * <%= number_to_currency(overtime.rate) %>)</div>
+    <div class="span2 money"><%= number_to_currency(overtime.amount) %></div>
   </div>
+  <% end %>
 <% end %>
 
 <!-- SUPPLIES -->
@@ -58,7 +60,7 @@
 <% end %>
 
 <!-- FRANCHISE CANCELLATION -->
-<% if @invoice.franchise_cancellation %>
+<% if @invoice.quote.quote_confirmation.franchise_cancellation %>
 <div class="row">
   <div class="span4"><%= t 'franchise_cancelation' %></div>
   <div class="span2 money"><%= number_to_currency(current_account.franchise_cancellation_amount) %></div>
@@ -107,7 +109,7 @@
 </div>
 
 <div class="row">
-  <div class="span12"><h3>Payment Method: <%= @invoice.payment_method %></h3></div>
+  <div class="span12"><h3>Payment Method: <%= t @invoice.payment_method %> <%= "(#{t @invoice.credit_card_type})" if @invoice.payment_method == "credit" %></h3></div>
 </div>
 
 

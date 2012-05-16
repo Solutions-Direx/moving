@@ -26,27 +26,14 @@
         </div>
       </div>
     </div>
-    <div class="control-group float optional">
-      <%= f.label "Overtime" %>
-      <div class="controls">
-        <div class='input-append'>
-          <%= f.text_field :overtime, :class => 'span1 input-append' %><span class="add-on"><i class="icon-time"></i></span>
-        </div>
-        *
-        <div class='input-append'>
-          <%= f.text_field :overtime_rate, :class => 'span1 input-append' %><span class="add-on">$</span>
-        </div>
-      </div>
-    </div> 
-    <%= f.input :insurance_limit_enough, :label => "Est-ce suffisant?", :as => :radio_buttons, :collection => [['Oui', true],['Non', false]], :item_wrapper_class => "inline" %>
-    <%= f.input :insurance_increase, :wrapper_html => {:id => "insurance_increase", :style => "display: #{@invoice.insurance_limit_enough.nil? || @invoice.insurance_limit_enough? ? 'none' : 'block'}"} do %>
-      <div class='input-append'>
-        <%= f.text_field :insurance_increase, :class => 'span1 input-append' %><span class="add-on">$</span>
-      </div>
+    <%= content_tag "div", id: "overtimes" do %>
+      <%= f.fields_for :overtimes %>
+      <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_overtime'}", :overtimes, :class => "btn btn-primary add-link", :id => "add-overtime" %>
     <% end %>
     
-    <%= f.input :franchise_cancellation, :as => :radio_buttons, :collection => [["Oui (#{current_account.franchise_cancellation_amount}$)", true],['Non', false]], :item_wrapper_class => "inline" %>
-    <%= f.input :payment_method, :as => :radio_buttons, :collection => [['Comptant', 'Comptant'],['Débit', 'Débit'], ['Crédit', 'Crédit']], :item_wrapper_class => "inline" %>
+    <%= f.input :payment_method, required: false, :as => :radio_buttons, :collection => payment_method_options, :item_wrapper_class => "inline", :wrapper_html => {:id => "payment_methods"} %>
+    <%= f.input :credit_card_type, :collection => credit_card_type_options, :include_blank => false, :wrapper_html => {:id => "credit_card_type", :style => "display: #{@invoice.payment_method == 'credit' ? 'block' : 'none'};"}  %>
+    <%= f.input :coupon_code, :input_html => {:class => "span1"} %>
   </div>
   
   <%= section %>

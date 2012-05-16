@@ -13,15 +13,16 @@ class Invoice < ActiveRecord::Base
   has_many :supplies, :through => :invoice_supplies
   accepts_nested_attributes_for :invoice_supplies, :allow_destroy => true, :reject_if => lambda {|qs| qs[:quantity].blank? || qs[:supply_id].blank?}
   
+  has_many :overtimes, :dependent => :destroy
+  accepts_nested_attributes_for :overtimes, :allow_destroy => true, :reject_if => :all_blank
+  
   attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :gas, :rate, :overtime, :overtime_rate,
                   :invoice_supplies_attributes, :forfait_ids, :client_satisfaction,
-                  :payment_method, :franchise_cancellation, :insurance_limit_enough, :insurance_increase
+                  :payment_method, :coupon_code, :credit_card_type, :overtimes_attributes
   
   before_create :copy_quote_info, :generate_code
   
   validates_presence_of :payment_method
-  validates_presence_of :insurance_increase, :if => lambda {|q| !q.insurance_limit_enough }
-  validates_inclusion_of :franchise_cancellation, :insurance_limit_enough, :in => [true,false]
 
   # cache grand_total calculation since it's expensive
   # pass recalculate = true to recalculate
@@ -36,7 +37,13 @@ class Invoice < ActiveRecord::Base
   alias :subtotal :grand_total
   
   def total_overtime
-    (number_or_zero(:overtime_rate) * number_or_zero(:overtime)).round(2)
+    sum = 0
+    if overtimes.any?
+      overtimes.each do |overtime|
+        sum += ((overtime.try(:rate) || 0) * (overtime.try(:duration) || 0)).round(2)
+      end
+    end
+    sum.round(2)
   end
   
   def total_time_spent
@@ -64,11 +71,11 @@ class Invoice < ActiveRecord::Base
   end
   
   def total_franchise_cancellation
-    franchise_cancellation ? quote.account.franchise_cancellation_amount : 0
+    quote.quote_confirmation.franchise_cancellation ? quote.account.franchise_cancellation_amount : 0
   end
   
   def total_insurance_increase
-    insurance_limit_enough ? 0 : (try(:insurance_increase) || 0).round(2)
+    quote.quote_confirmation.insurance_limit_enough ? 0 : (quote.quote_confirmation.try(:insurance_increase) || 0).round(2)
   end
   
   def total

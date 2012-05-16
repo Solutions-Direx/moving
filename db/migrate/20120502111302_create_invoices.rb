@@ -9,8 +9,6 @@ class CreateInvoices < ActiveRecord::Migration
       t.text :signature
       t.datetime :signed_at
       t.float :rate
-      t.float :overtime_rate
-      t.float :overtime
       t.float :gas
       t.string :tax1_label
       t.float :tax1
@@ -19,10 +17,9 @@ class CreateInvoices < ActiveRecord::Migration
       t.boolean :compound
       t.text :client_satisfaction
       t.string :payment_method
-      t.boolean :franchise_cancellation 
-      t.boolean :insurance_limit_enough
-      t.float :insurance_increase
-
+      t.string :coupon_code
+      t.string :credit_card_type
+      
       t.timestamps
     end
   end

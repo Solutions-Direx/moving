@@ -166,10 +166,7 @@ class QuotesController < ApplicationController
     @quote.signed_at = Time.now unless @quote.signature.blank?
     if @quote.save
       @quote.create_invoice!(
-        payment_method: @quote.quote_confirmation.payment_method,
-        franchise_cancellation: @quote.quote_confirmation.franchise_cancellation,
-        insurance_limit_enough: @quote.quote_confirmation.insurance_limit_enough,
-        insurance_increase: @quote.quote_confirmation.insurance_increase
+        payment_method: @quote.quote_confirmation.payment_method
       )
       @quote.create_report!(gas: @quote.gas, start_time: @quote.removal_at)
       redirect_to terms_quote_url(@quote), notice: "#{Quote.model_name.human} #{t 'signed'}"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120515083010) do
+ActiveRecord::Schema.define(:version => 20120516134642) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company_name"
@@ -138,8 +138,6 @@ ActiveRecord::Schema.define(:version => 20120515083010) do
     t.text     "signature"
     t.datetime "signed_at"
     t.float    "rate"
-    t.float    "overtime_rate"
-    t.float    "overtime"
     t.float    "gas"
     t.string   "tax1_label"
     t.float    "tax1"
@@ -148,11 +146,18 @@ ActiveRecord::Schema.define(:version => 20120515083010) do
     t.boolean  "compound"
     t.text     "client_satisfaction"
     t.string   "payment_method"
-    t.boolean  "franchise_cancellation"
-    t.boolean  "insurance_limit_enough"
-    t.float    "insurance_increase"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.string   "coupon_code"
+    t.string   "credit_card_type"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  create_table "overtimes", :force => true do |t|
+    t.integer  "invoice_id"
+    t.float    "duration"
+    t.float    "rate"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "pg_search_documents", :force => true do |t|

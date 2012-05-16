@@ -9,11 +9,11 @@
     $.idleTimer(1000 * idle_time)
     
     # toggle insurance
-    $('#invoice_insurance_limit_enough_false').live 'click', ->
-      $('#insurance_increase').slideDown()
-      
-    $('#invoice_insurance_limit_enough_true').live 'click', ->
-      $('#insurance_increase').slideUp()  
+    $('#payment_methods input:radio').live 'click', ->
+      if $(this).val() == "credit"
+        $('#credit_card_type').slideDown()
+      else
+        $('#credit_card_type').slideUp()
     
     # live grand total calculation
     $("#edit-invoice .supply").livequery ->
@@ -35,7 +35,7 @@
       $('#submit-to-preview').trigger('click')
       return false
       
-    $('#invoice_time_spent, #invoice_rate, #invoice_gas, #invoice_overtime, #invoice_overtime_rate').live 'change', ->
+    $('#invoice_time_spent, #invoice_rate, #invoice_gas, .duration, .rate').live 'change', ->
       Invoices.Form.calculate_grand_total()
       
   calculate_grand_total: ->
@@ -47,9 +47,12 @@
     gas = Invoices.Form.to_f($('#invoice_gas').val())
     
     # overtime
-    overtime = Invoices.Form.to_f($('#invoice_overtime').val())
-    overtime_rate = Invoices.Form.to_f($('#invoice_overtime_rate').val())
-    total_overtime = Invoices.Form.roundup(overtime * overtime_rate)
+    total_overtime = 0
+    $.each $('#overtimes .overtime:visible'), (index, item) ->
+      duration = Invoices.Form.to_f($(item).find('.duration').val())
+      rate = Invoices.Form.to_f($(item).find('.rate').val())
+      total_overtime = total_overtime + duration * rate
+    total_overtime = Invoices.Form.roundup(total_overtime)
     
     # supplies
     supply_list = $('#supply-list').data('supplies')
