@@ -1,5 +1,5 @@
 <span class='floatr'>
-  <%= link_to "Current Month", :month => (Date.today.beginning_of_month).strftime("%Y-%m") %>
+  <%= link_to "#{t 'current_month', default: 'Current Month'}", :month => (Date.today.beginning_of_month).strftime("%Y-%m") %>
 </span>
 
 <div id="calendar">
@@ -22,11 +22,11 @@
   <% end %>
 </div>
 
-<h6>Legend</h6>
+<h6><%= t 'legend' %></h6>
 <ul id="monthly_legend">
-  <li><%= status_tag '&nbsp;&nbsp;&nbsp;'.html_safe, level: 'success' %> : Confirmed Quote</li>
-  <li><%= status_tag '&nbsp;&nbsp;&nbsp;'.html_safe %> : Pending Quote</li>
-  <li>**&nbsp; &nbsp;: Long distance</li>
+  <li><%= status_tag '&nbsp;&nbsp;&nbsp;'.html_safe, level: 'success' %> : <%= t 'confirmed_quote' %></li>
+  <li><%= status_tag '&nbsp;&nbsp;&nbsp;'.html_safe %> : <%= t 'pending_quote' %></li>
+  <li>**&nbsp; &nbsp;: <%= t 'long_distance' %></li>
 </ul>
 
 <script type="text/javascript" charset="utf-8">

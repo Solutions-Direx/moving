@@ -17,7 +17,7 @@ class CreateInvoices < ActiveRecord::Migration
       t.boolean :compound
       t.text :client_satisfaction
       t.string :payment_method
-      t.string :coupon_code
+      t.string :dicsount
       t.string :credit_card_type
       
       t.timestamps

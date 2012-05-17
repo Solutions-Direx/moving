@@ -7,10 +7,10 @@
     <%= simple_form_for([@quote, @report], :url => sign_quote_report_path(@quote), :method => :post, :html => {:class => "sigPad", :id => "frm-report", :style => "width: 100%;"}) do |f| %>
       <%= f.error_notification %>
       <!-- SIGNATURE -->
-      <label for="name" class="sig-label">Print your name</label>
+      <label for="name" class="sig-label"><%= t 'print_your_name' %></label>
       <%= f.text_field :signer_name, :class => "sig-input name", :value => @quote.removal_leader_id ? @quote.removal_leader.full_name : "" %>
       <ul class="sigNav">
-        <li class="clearButton"><a href="#clear">Clear</a></li>
+        <li class="clearButton"><a href="#clear"><%= t 'clear' %></a></li>
       </ul>
       <div class="sig sigWrapper">
         <div class="typed"></div>
@@ -20,6 +20,6 @@
     <% end %>
   </div>
   <div class="modal-footer">
-     <a href="#" class="btn btn-success" id="submit-report">Done</a>
+     <a href="#" class="btn btn-success" id="submit-report"><%= t 'sign' %></a>
    </div>
 </div>

@@ -1,35 +1,44 @@
 fr:
   today: "Aujourd'hui"
-  monthly: "Mois"
+  monthly: "Vue mensuelle"
   settings: "Réglages"
   account: "Paramètres"
   cancel: "Annuler"
   preview: 'Aperçu'
   or: "ou"
   in: 'dans'
+  by: par
   yessai: "Oui"
   nope: "No"
   edit: 'Éditer'
   destroy: 'Supprimer'
   remove: 'Effacer'
+  close: Fermer
   pending: 'En attente'
   confirmed: 'Confirmé'
   address: 'Adresse'
   storage: 'Entrepôt'
   search: 'Chercher'
+  searching: 'Recherche en cours...'
+  no_search_results_found: 'Aucun résultat trouvé'
+  search_result: 'résultat'
+  found: 'trouvé'
   srch_inpt_plcholder: "Client, Téléphone, Numéro d'entente..."
   signed: 'signée'
+  sign: Signer
   logout: 'Déconnexion'
   login: 'Connexion'
   edit: 'Editer'
+  view: 'Voir'
   confirmed: 'Confirmée'
   confirm: 'Confirmer'
   approved: 'Approuvée'
-  approve: 'Approve'
+  approve: 'Approuver'
   print: 'Imprimer'
   internal: 'Interne'
   not_internal: 'Externe'
   terms: 'Termes'
+  terms_and_conditions: Termes et conditions
   creator: 'Créateur'
   billing_address: 'Adresse de facturation'
   phone: 'Téléphone'
@@ -64,8 +73,10 @@ fr:
   in_service: 'En service'
   removal_at: "Date du déménagement"
   removal_team_lead: "Déménageur en chef"
+  removal_man: 'Déménageur'
   reject: "Rejeter"
-  confirm_reject: "Etes-vous sûr de vouloir rejeter cette entente?"
+  confirm_reject: "Êtes-vous sûr de vouloir rejeter cette entente?"
+  are_you_sure: "Veuillez confirmer la suppression"
   rejected: "Rejetée"
   house: 'Maison'
   apartment: 'Apartement'
@@ -142,11 +153,27 @@ fr:
   comptant: "Comptant"
   debit: "Débit"
   credit: "Crédit"
-  cheque: "Cheque"
+  cheque: "Chèque"
   visa: "Visa"
   mastercard: "Master Card"
   amex: "American Express"
   add_overtime: 'Ajouter des heures supplémentaires'
+  quote_confirmation: Confirmation de l'entente
+  quote_is_confirmed: L'entente est confirmée.
+  approved_on: 'Approuvée le'
+  legend: Légende
+  confirmed_quote: 'Entente confirmée'
+  pending_quote: 'Entente en attente'
+  current_month: 'Mois en cours'
+  removal_time_confirmation: "L'heure exacte sera confirmée le jour même"
+  i_approve: J'approuve
+  next: 'Suivant'
+  invoice_for: Facture pour
+  time_spent: Temps passé
+  print_your_name: Inscrivez votre nom
+  clear: 'Effacer'
+  discount: 'Remise'
+  invoice_code: 'Numéro de facture'
   activerecord:
     models:
       account: Compte
@@ -195,8 +222,6 @@ fr:
       title: "Déménagements prévus le"
       success_update: "Mis à jour avec succès."
       error_update: "Une erreur est survenue. Veuillez réessayer ou contacter l'administrateur du système."
-    show:
-      removal_time_confirmation: "L'heure exacte sera confirmée le jour même"
   users:
     form:
       intro: "Un email avec un mot de passe par défaut sera envoyé à chauqe nouvel utilisateur inscrit."

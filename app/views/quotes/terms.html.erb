@@ -1,15 +1,4 @@
-<p>
-  <b>Removal at:</b>
-  <%= l @quote.removal_at, :format => :long %> || <%= @quote.is_house? ? 'Maison' : 'Appartement' %>
-  <span class='submenu'><b>Créée par: </b><%= @quote.creator.full_name %></span>
-</p>
-
-<% if @quote.pm? %>
-  <p>
-    <span class='label label-warning label_override'>L'heure exacte sera confirmée le jour même</span>
-    <% if @quote.removal_at_comment.present? %><%= @quote.removal_at_comment %><% end %>
-  </p>
-<% end %>
+<%= render 'q_header', quote: @quote %>
 
 <div class="span6 well col2 odd">
   <h3>From <%= '(Internal)' if @quote.internal_address %></h3>
@@ -59,10 +48,10 @@
   </div>
 <% else %>
   <div class="well">
-    <h2>Terms & Conditions
+    <h2><%= t 'terms_and_conditions', default: 'Terms & Conditions' %>
       <span class='submenu'>
         <% if @quote.signed? %>
-          <%= link_to 'Approved', '#', :class => 'btn btn-success btn-large disabled' %>
+          <%= link_to "#{t 'approved'}", '#', :class => 'btn btn-success btn-large disabled' %>
         <% end %>
       </span>
     </h2>
@@ -72,9 +61,9 @@
         <%= simple_format(document.body) %>
         <p class='approve_doc'>
           <%= check_box_tag "approve_document_#{document.id}", document.id, false, :class => "mark-read" %>
-          <%= label_tag "approve_document_#{document.id}", "I approve", :style => "display: inline-block;" %>
+          <%= label_tag "approve_document_#{document.id}", "#{t 'i_approve'}", :style => "display: inline-block;" %>
           <% if @quote.documents.size > 1 %>
-          <%= button_link_to 'Next', '#', large: true, level: "success", white: true, class: "next disabled" %>
+          <%= button_link_to "#{t 'next'}", '#', large: true, level: "success", white: true, class: "next disabled" %>
           <% end %>
           <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, style: 'display: none;', class: "approve" %>
         </p>
@@ -82,7 +71,6 @@
     <% end %>
   </div>
 <% end %>
-
 
 <%= render 'signaturepad' %>
 

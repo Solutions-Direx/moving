@@ -33,11 +33,11 @@
     
     <%= f.input :payment_method, required: false, :as => :radio_buttons, :collection => payment_method_options, :item_wrapper_class => "inline", :wrapper_html => {:id => "payment_methods"} %>
     <%= f.input :credit_card_type, :collection => credit_card_type_options, :include_blank => false, :wrapper_html => {:id => "credit_card_type", :style => "display: #{@invoice.payment_method == 'credit' ? 'block' : 'none'};"}  %>
-    <%= f.input :coupon_code, :input_html => {:class => "span1"} %>
+    <%= f.input :discount, :input_html => {:class => "span1"} %>
   </div>
   
   <%= section %>
-  <h3>Supplies</h3>
+  <h3><%= Supply.model_name.human + 's' %></h3>
   <%= content_tag "div", id: "supply-list", data: {supplies: current_account.supplies.all } do %>
     <%= f.fields_for :invoice_supplies %>
     <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_supply'}", :invoice_supplies, :class => "btn btn-primary add-link", :id => "add-supply" %>

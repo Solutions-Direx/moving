@@ -1,7 +1,7 @@
 <% body_class('quotes') %>
 <div class="clearfix">
   <h2><%= t '.title', :default => 'Removal scheduled for' %> <%= l(@day, :format => :long) %>
-    <%= link_to((t 'monthly', :default => 'Monthly'), monthly_quotes_path, :class => "floatr", :style => 'font-size: 15px;') %></span>
+    <%= link_to((t 'monthly', :default => 'Monthly view'), monthly_quotes_path, :class => "floatr", :style => 'font-size: 15px;') %></span>
   </h2>
 </div>
 
@@ -23,33 +23,36 @@
           </p>
 
           <div class="span4 from cal_address">
-            <h3>From</h3>
+            <h3><%= t 'from' %> <%= "#{t 'internal'}" if quote.internal_address %></h3>
             <div class="storage" >
               <% if quote.from_address.has_storage? %>
-                <h6>Storage: <%= quote.from_address.storage.name %></h6>
+                <h6><%= t 'storage' %>: <%= quote.from_address.storage.name %></h6>
                 <%= address_for(quote.from_address.storage.address) %>
               <% else %>
-                <h6>Address</h6>
+                <h6><%= t 'address' %></h6>
                 <%= address_for(quote.from_address.address) %>        
               <% end %>
             </div>
           </div>
+          <% unless quote.internal_address? %>
           <div class="span6 cal_address">
-            <h3>To</h3>
+            <h3><%= t 'to' %></h3>
             <% if !quote.to_addresses.blank? %>
               <% for to_address in quote.to_addresses %>
                 <div class="storage">
                   <% if to_address.has_storage? %>
-                    <h6>Storage: <%= to_address.storage.name %></h6>
+                    <h6><%= t 'storage' %>: <%= to_address.storage.name %></h6>
                     <%= address_for(to_address.storage.address) %>
                   <% else %>
-                    <h6>Address</h6>
+                    <h6><%= t 'address' %></h6>
                     <%= address_for(to_address.address) %>        
                   <% end %>
                 </div>
               <% end %>
             <% end %>
           </div>
+          <% end %>
+          
           <div class='span4 from cal_additional' id='cal_price'>
             <% if quote.comment.present? %><p id='cal_comment'><%= quote.comment %></p><% end %>
             <p><%= Quote.human_attribute_name(:price) %>: <b><%= number_to_currency(quote.price) %></b> par heure</p>

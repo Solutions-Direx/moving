@@ -18,7 +18,7 @@ class Invoice < ActiveRecord::Base
   
   attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :gas, :rate, :overtime, :overtime_rate,
                   :invoice_supplies_attributes, :forfait_ids, :client_satisfaction,
-                  :payment_method, :coupon_code, :credit_card_type, :overtimes_attributes
+                  :payment_method, :discount, :credit_card_type, :overtimes_attributes
   
   before_create :copy_quote_info, :generate_code
   

@@ -6,7 +6,7 @@
     <% if @quote.rejected? %>
       <%= link_to "#{t 'rejected', default: 'Rejected'}", '#', :class => 'btn btn-warning btn-large disabled' %>
     <% else %>
-      <%= button_link_to "#{t 'edit', default: 'Edit'}", edit_quote_path(@quote), level: "inverse", large: true %>
+      <%= button_link_to "#{t 'edit', default: 'Edit'}", edit_quote_path(@quote), level: "inverse", large: true unless @quote.signed? %>
       <% if @quote.confirmed? %>
         <%= link_to "#{t 'confirmed', default: 'Confirmed'}", '#', :class => 'btn btn-success btn-large disabled', "data-original-title"=>"Confirmation",
         "data-content"=> "#{render(template: 'quote_confirmations/show', locals: {quote_confirmation: @quote.quote_confirmation}, formats: [:html])}", "data-placement" => "left", :id => "confirm" %>
@@ -19,21 +19,10 @@
   </span>
 </h2>
 
-<p>
-  <b><%= t 'removal_at' %>:</b>
-  <%= l @quote.removal_at, :format => :long %> || <%= @quote.is_house? ? "#{t 'house'}" : "#{t 'apartment'}" %>
-  <span class='submenu'><b><%= t 'created_by', default: 'Created by' %>: </b><%= @quote.creator.full_name %></span>
-</p>
-
-<% if @quote.pm? %>
-  <p>
-    <span class='label label-warning label_override'><%= t '.removal_time_confirmation' %></span>
-    <% if @quote.removal_at_comment.present? %><%= @quote.removal_at_comment %><% end %>
-  </p>
-<% end %>
+<%= render 'q_header', quote: @quote %>
 
 <div class="span6 well col2 odd">
-  <h3><%= t 'from' %> <%= '(Internal)' if @quote.internal_address %></h3>
+  <h3><%= t 'from' %> <%= "#{t 'internal'}" if @quote.internal_address %></h3>
   <div class="storage">
   <% if @quote.from_address.has_storage? %>
     <h6><%= t 'storage' %>: <%= @quote.from_address.storage.name %></h6>

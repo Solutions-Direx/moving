@@ -37,9 +37,9 @@ class QuoteConfirmationsController < ApplicationController
       if @quote_confirmation.save
         format.html { 
           if request.xhr?
-            render :partial => "flash_modal_msg", :locals => { :message => "Quote was successfully confirmed.", :close_dialog_id => "new-quote-confirmation" }
+            render partial: "flash_modal_msg", :locals => { notice: "#{t 'quote_is_confirmed'}", :close_dialog_id => "new-quote-confirmation" }
           else
-            redirect_to @quote, notice: 'Quote was successfully confirmed.' 
+            redirect_to @quote, notice: "#{t 'quote_is_confirmed'}" 
           end
         }
         format.json { render json: @quote_confirmation, status: :created, location: @quote_confirmation }

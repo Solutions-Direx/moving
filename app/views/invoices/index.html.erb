@@ -7,6 +7,7 @@
 <table class="table table-striped">
   <tr>
     <th><%= t 'removal_at' %></th>
+    <th><%= t 'invoice_code' %></th>
     <th>Client</th>
     <th><%= Quote.model_name.human %></th>
     <th>Grand Total</th>
@@ -16,6 +17,7 @@
 <% @invoices.each do |invoice| %>
   <tr>
     <td><%= l invoice.quote.removal_at.to_date %> <%= status_tag("#{ t 'signed'}", level: 'success') if invoice.signed? %></td>
+    <td><%= invoice.code %></td>
     <td><%= link_to invoice.quote.client.name, client_path(invoice.quote.client) %></td>
     <td><%= link_to "##{invoice.quote.code}", quote_path(invoice.quote) %></td>
     <td><%= number_to_currency(invoice.grand_total) %></td>

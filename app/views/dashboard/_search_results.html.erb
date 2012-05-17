@@ -1,6 +1,6 @@
 <div class="well">
   <% unless @results.blank? %>
-      <h3 class="total">Total <%= pluralize @results.total_count, "search result" %> found.</h3>
+      <h3 class="total"><%= pluralize @results.total_count, "#{t 'search_result', default: 'search result'}" %></h3>
       <ul>
         <% @results.each do |result| %>
           <li><%= render result.searchable_type.downcase, result: result %></li>
@@ -10,6 +10,6 @@
       <%= paginate @results, remote: true %>
       </div>
   <% else %>
-    <h3 class="total">No search result found.</h3>
+    <h3><%= t 'no_search_results_found', default: 'No search result found.' %></h3>
   <% end %>  
 </div>

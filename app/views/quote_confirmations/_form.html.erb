@@ -9,7 +9,7 @@
       </div>
     <% end %>
     
-    <%= f.input :franchise_cancellation, :as => :radio_buttons, :collection => [["Oui (#{current_account.franchise_cancellation_amount}$)", true],['Non', false]], :item_wrapper_class => "inline" %>
+    <%= f.input :franchise_cancellation, :as => :radio_buttons, :collection => [["#{t 'yessai'} (#{current_account.franchise_cancellation_amount}$)", true],["#{t 'nope'}", false]], :item_wrapper_class => "inline" %>
     <%= f.input :payment_method, :as => :radio_buttons, :collection => payment_method_options, :item_wrapper_class => "inline" %>
   </div>
 

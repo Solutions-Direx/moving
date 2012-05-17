@@ -1,4 +1,4 @@
-<h1>Quote Confirmation</h1>
+<h1><%= t 'quote_confirmation', default: 'Quote confirmation' %></h1>
 
 <p>En cas d'accident, le contenu du camion est assuré pour <%= number_to_currency(current_account.insurance_coverage_short_distance, :precision => 0) %>
 (<%= number_to_currency(current_account.insurance_coverage_long_distance, :precision => 0) %> longue distance).</p>

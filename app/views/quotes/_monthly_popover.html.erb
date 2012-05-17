@@ -1,3 +1,3 @@
-<p><%= pluralize(quote.num_of_removal_man, 'déménageur') %></p>
+<p><%= pluralize(quote.num_of_removal_man, "#{t 'removal_man'}") %></p>
 <p><%= quote.trucks.map(&:name_with_plate).to_sentence %></p><br />
-<p><%= link_to "View", quote_path(quote), :class => 'btn' %></p>
+<p><%= link_to "#{t 'view'}", quote_path(quote), :class => 'btn' %></p>

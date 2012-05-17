@@ -7,6 +7,7 @@ en:
   edit: 'Edit'
   destroy: 'Destroy'
   in: 'in'
+  by: by
   address: 'Address'
   storage: 'Storage'
   search: 'Search'
@@ -14,6 +15,7 @@ en:
   approve: 'Approve'
   signed: 'Signed'
   preview: Preview
+  view: View
   confirm_reject: "Are you sure you want to reject this quote?"
   localization: "Language"
   client_satisfaction: Client satisfaction
@@ -48,9 +50,14 @@ en:
   supplies: 'Supplies'
   type_to_select_forfaits: 'Type to select forfaits'
   type_to_select_trucks: 'Type to select trucks'
-  quotes:
-    show:
-      removal_time_confirmation: 'The exact time will be confirmed the same day.'
+  quote_is_confirmed: 'Quote was successfully confirmed.'
+  approved_on: 'Approved on'
+  removal_man: Removal man
+  are_you_sure: "Are sure sure?"
+  removal_time_confirmation: 'The exact time will be confirmed the same day.'
+  i_approve: I approve
+  next: 'Next'
+  print_your_name: Print your name
   activerecord:
     attributes:
       user:  

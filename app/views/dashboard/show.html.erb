@@ -1,7 +1,7 @@
 <%= render 'layouts/search' %>
 
 <div class="center" id="loading" style="display: none; margin-bottom: 15px;">
-  <%= image_tag('loader.gif') %> Searching...
+  <%= image_tag('loader.gif') %><%= t 'searching', default: 'Searching...' %>
 </div>
 <div id="search-results">
 </div>

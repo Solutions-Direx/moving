@@ -75,15 +75,26 @@ fr:
         end_time: Heure de fin
         km_start: Kilométrage départ
         km_end: Kilométrage fin
+        time_spent: Temps passé
+        rate: Taux horaire
+        discount: Remise
+        overtime: 'Autre taux horaire'
+        credit_card_type: Type de carte
     hints:
       defaults:
       user:
         password: "(Laisser vide si vous ne souhaitez pas le modifier)"
   helpers:
     submit:
+      client:
+        create: Créer ce client
+        update: Modifier ce client
       profile:
         create: "Créer %{model}"
         update: "Mettre à jour"
       quote:
-        create: "Créer cette entente"
-        update: "Modifier cette entente"
+        create: Créer cette entente
+        update: Modifier cette entente
+      quote_confirmation:
+        create: Confirmer cette entente
+        update: Modifier cette entente

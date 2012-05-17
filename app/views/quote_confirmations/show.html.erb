@@ -1,3 +1,3 @@
-<p>Approuvée le <%= I18n.l(quote_confirmation.approved_at, :format => :long) %> par <%= quote_confirmation.user.full_name %></p>
-<p><%= link_to "Edit", edit_quote_quote_confirmation_path(quote_confirmation.quote, quote_confirmation), :remote => true %></p>
+<p><%= t 'approved_on' %> <%= I18n.l(quote_confirmation.approved_at, :format => :long) %> <%= t 'by' %> <%= quote_confirmation.user.full_name %></p>
+<p><%= link_to "#{t 'edit'}", edit_quote_quote_confirmation_path(quote_confirmation.quote, quote_confirmation), :remote => true %></p>
 

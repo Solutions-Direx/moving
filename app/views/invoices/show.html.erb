@@ -16,7 +16,7 @@
 
 <% if @invoice.total_time_spent > 0 %>
   <div class="row">
-    <div class="span4">Time spent (<%= @invoice.time_spent  %> * <%= number_to_currency(@invoice.rate) %>)</div>
+    <div class="span4"><%= t 'time_spent' %> (<%= @invoice.time_spent  %> * <%= number_to_currency(@invoice.rate) %>)</div>
     <div class="span2 money"><%= number_to_currency(@invoice.total_time_spent) %></div>
   </div>
 <% end %>  
@@ -70,8 +70,15 @@
 <!-- INSURANCE -->
 <% if @invoice.total_insurance_increase > 0 %>
 <div class="row">
-  <div class="span4">Augmentation de l'assurance</div>
+  <div class="span4"><%= t 'insurance_increase' %></div>
   <div class="span2 money"><%= number_to_currency(@invoice.total_insurance_increase) %></div>
+</div>
+<% end %>
+
+<% if @invoice.discount > 0 %>
+<div class="row">
+  <div class="span4"><%= t 'discount' %></div>
+  <div class="span2 money"><% number_to_currency(@invoice.discount) %></div>
 </div>
 <% end %>
 
@@ -109,7 +116,8 @@
 </div>
 
 <div class="row">
-  <div class="span12"><h3>Payment Method: <%= t @invoice.payment_method %> <%= "(#{t @invoice.credit_card_type})" if @invoice.payment_method == "credit" %></h3></div>
+  <br />
+  <div class="span12"><h3><%= t 'payment_method' %>: <%= t @invoice.payment_method %> <%= "(#{t @invoice.credit_card_type})" if @invoice.payment_method == "credit" %></h3></div>
 </div>
 
 
@@ -122,6 +130,7 @@
 <% if @invoice.signed? %>
   <% unless @invoice.client_satisfaction.blank? %>
     <%= section %>
+    <br />
     <h3><%= t 'client_satisfaction' %></h3>
     <p><i><%= simple_format(@invoice.client_satisfaction) %></i></p>
   <% end %>
@@ -142,7 +151,8 @@
   </script>
 <!-- INVOICE NOT SIGNED -->  
 <% else %>
-  <h3>Client Satisfaction</h3>
+  <br />
+  <h3><%= t 'client_satisfaction' %></h3>
   <%= text_area_tag :client_satisfaction, @invoice.client_satisfaction, :class => "span6", :rows => 5 %>
 
   <%= render 'signaturepad' %>
