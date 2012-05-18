@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(:version => 20120516134642) do
     t.boolean  "compound"
     t.text     "client_satisfaction"
     t.string   "payment_method"
-    t.string   "dicsount"
+    t.string   "discount"
     t.string   "credit_card_type"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false

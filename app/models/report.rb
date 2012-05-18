@@ -6,8 +6,10 @@ class Report < ActiveRecord::Base
                   :end_time, :gas, :km_end, :km_start, :quote_id, :signature, :signer_name, :start_time, :comment
   
   before_validation(:on => :update) do
-    self.start_time = Time.zone.parse("#{Time.zone.now.strftime('%Y/%m/%d')} #{start_time[:hour]}:#{start_time[:minute]}")
-    self.end_time = Time.zone.parse("#{Time.zone.now.strftime('%Y/%m/%d')} #{end_time[:hour]}:#{end_time[:minute]}")
+    if start_time.kind_of?(ActiveSupport::HashWithIndifferentAccess)
+      self.start_time = Time.zone.parse("#{Time.zone.now.strftime('%Y/%m/%d')} #{start_time[:hour]}:#{start_time[:minute]}")
+      self.end_time = Time.zone.parse("#{Time.zone.now.strftime('%Y/%m/%d')} #{end_time[:hour]}:#{end_time[:minute]}")
+    end  
   end
   
   def total_km
