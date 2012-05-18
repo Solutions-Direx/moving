@@ -1,0 +1,46 @@
+<h1><%= Quote.model_name.human + 's' %> sur <%= l @day, :format => :long %>
+  <span class="submenu">
+    <%= icon_button_link_to "#{t 'new_quote', default: 'New quote'}", new_quote_path, icon: "plus", large: true, level: "primary", white: true %>
+  </span>
+</h1>
+
+<%= form_tag '', :method => :get do %>
+  <%= text_field_tag :day, l(@day, :format => :default), :class => "datepicker", "data-date-format" => t('date.js_format') %>
+<% end %>
+
+<% if @quotes.any? %>
+  <%= paginate @quotes %>
+  <table class="table table-striped">
+    <tr>
+      <th>ID</th>
+      <th>Client</th>
+      <th><%= t 'removal_at', default: 'Removal at' %></th>
+      <th><%= t 'creator', default: 'Creator' %></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @quotes.each do |quote| %>
+    <tr>
+      <td><%= link_to quote.code, quote %> <%= status_tag(quote.status, level: quote.rejected? ? 'danger' : (quote.confirmed? ? 'success' : '')) %></td>
+      <td><%= link_to quote.client.name, client_path(quote.client) %></td>
+      <td><%= l quote.removal_at, :format => :long %> 
+          <%= quote.removal_at.future? ? "(#{t 'in'} #{distance_of_time_in_words_to_now(quote.removal_at)})" : '' %></td>
+      <td><%= quote.creator.full_name %></td>
+      <td><%= link_to "#{t 'edit'}", edit_quote_path(quote) unless quote.rejected? %></td>
+      <td><%= link_to "#{t 'destroy'}", quote, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+  <%= paginate @quotes %>
+<% else %>
+  <p class='alert alert-info'><%= t "no_pending_quotes", default: 'No pending quotes for today.' %></p>
+<% end %>  
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $('#day').datepicker().on('changeDate', function(e) {
+      $(e.target).closest('form').submit();
+    });
+  });
+</script>

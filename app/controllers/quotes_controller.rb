@@ -83,10 +83,17 @@ class QuotesController < ApplicationController
   end
   
   def pending
-    @quotes = current_account.quotes.pending.order('removal_at ASC').order(sort_column + " " + sort_direction).page(params[:page])
+    if params[:day]
+      @day = Time.zone.parse(params[:day]).to_date
+      puts @day
+      @quotes = current_account.quotes.by_day(@day).pending.order('removal_at ASC').order(sort_column + " " + sort_direction).page(params[:page])
+    else
+      @day = Time.zone.today
+      @quotes = current_account.quotes.today.pending.order('removal_at ASC').order(sort_column + " " + sort_direction).page(params[:page])
+    end
 
     respond_to do |format|
-      format.html { render action: 'index' }
+      format.html
       format.json { render json: @quotes }
     end
   end
