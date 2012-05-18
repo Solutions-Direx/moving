@@ -12,17 +12,10 @@ Moving::Application.routes.draw do
   resources :quotes do
     resources :quote_confirmations, :except => [:index]
     # HAS ONE ROUTES
-    resource :invoice, :only => [:show, :edit, :update] do
-      post "sign"
-    end
-    resource :report, :only => [:show, :edit, :update] do
-      post "sign"
-    end
+    resource :invoice, :only => [:new, :create, :show, :edit, :update]
     member do
-      post "sign"
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'
       put 'daily_update'
-      get 'terms'
       put 'reject'
       post 'email'
     end
@@ -57,7 +50,19 @@ Moving::Application.routes.draw do
   
   # MOBILE ROUTES
   # ==================
-  namespace :mobile do
+  namespace :mobile, :path => "/m" do
     root :to => 'dashboard#show'
+    resources :quotes, :only => [] do
+      resource :invoice, :only => [:show, :edit, :update] do
+        post "sign"
+      end
+      resource :report, :only => [:show, :edit, :update] do
+        post "sign"
+      end
+      member do
+        post "sign"
+        get 'terms'
+      end
+    end
   end
 end

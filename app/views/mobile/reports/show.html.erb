@@ -1,7 +1,7 @@
 <h2><%= Report.model_name.human %>
   <span class='submenu'>
     <% unless @report.signed? %>
-      <%= button_link_to "#{t 'edit'}", edit_quote_report_path(@quote), level: 'inverse', large: true %>
+      <%= button_link_to "#{t 'edit'}", edit_mobile_quote_report_path(@quote), level: 'inverse', large: true %>
       <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>  
     <% end %>
   </span>

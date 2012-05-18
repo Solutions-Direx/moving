@@ -1,4 +1,4 @@
-<%= simple_nested_form_for(@report, :url => quote_report_path(@quote), :method => :put, :remote => true, :html => {:id => "edit-report"}) do |f| %>
+<%= simple_nested_form_for(@report, :url => mobile_quote_report_path(@quote), :method => :put, :remote => true, :html => {:id => "edit-report"}) do |f| %>
   <%= f.error_notification %>
   
   <div class="form-inputs">

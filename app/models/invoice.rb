@@ -20,7 +20,7 @@ class Invoice < ActiveRecord::Base
                   :invoice_supplies_attributes, :forfait_ids, :client_satisfaction,
                   :payment_method, :discount, :credit_card_type, :overtimes_attributes
   
-  before_create :copy_quote_info, :generate_code
+  before_create :generate_code
   
   validates_presence_of :payment_method
 
@@ -87,8 +87,6 @@ class Invoice < ActiveRecord::Base
     total_with_taxes
   end
   
-private
-  
   def copy_quote_info
     self.rate = quote.price
     self.gas = quote.gas
@@ -103,6 +101,7 @@ private
     copy_tax_setting_from(quote.account)
   end
   
+private  
   def generate_code
     last_invoice = Invoice.last
     account = quote.account

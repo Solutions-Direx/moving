@@ -1,4 +1,4 @@
-<%= render 'q_header', quote: @quote %>
+<%= render 'quotes/q_header', quote: @quote %>
 
 <div class="span6 well col2 odd">
   <h3>From <%= '(Internal)' if @quote.internal_address %></h3>
@@ -33,7 +33,7 @@
 <% end %>
 
 <%= section %>
-<%= render 'price' %>
+<%= render 'quotes/price' %>
 
 <%= render 'quotes/optional' %>
 

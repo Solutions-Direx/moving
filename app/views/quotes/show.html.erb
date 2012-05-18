@@ -1,7 +1,10 @@
 <h2><%= @quote.client.name %> <%= content_tag(:span, @quote.rating, :class => "badge badge-#{@quote.rating.downcase}") %>
   <span class='submenu'>
+    <% if @quote.confirmed? && @quote.invoice.blank? %>
+      <%= button_link_to "#{t 'create_invoice'}", new_quote_invoice_path(@quote), level: "success", large: true %>
+    <% end %>  
     <% unless @quote.client.email.blank? %>
-      <%= button_link_to "#{t 'email_to_client'}", email_quote_path, :method => :post, level: "success", large: true, disabled_with: "#{t 'email_to_client'}" if @quote.client.email.present? %>
+      <%= button_link_to "#{t 'email_to_client'}", email_quote_path, :method => :post, level: "success", large: true, disabled_with: "#{t 'email_to_client'}" %>
     <% end %>
     <% if @quote.rejected? %>
       <%= link_to "#{t 'rejected', default: 'Rejected'}", '#', :class => 'btn btn-warning btn-large disabled' %>

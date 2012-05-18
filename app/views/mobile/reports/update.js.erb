@@ -4,5 +4,5 @@ $('#msg').show().effect('highlight', {}, 3000, function() {
   $(this).hide();
 });
 <% else %>
-  window.location = "<%= quote_report_url(@quote) %>";
+  window.location = "<%= mobile_quote_report_url(@quote) %>";
 <% end %>

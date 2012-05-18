@@ -1,7 +1,7 @@
 class InvoicesController < ApplicationController
   # load_and_authorize_resource
-  before_filter :load_quote_and_invoice, :except => [:index, :export, :reports]
-  set_tab :invoice
+  before_filter :load_quote_and_invoice, :except => [:index, :export, :reports, :new, :create]
+  set_tab :invoices
   
   def index
     @invoices = current_account.invoices.includes(:quote).order(sort_column + " " + sort_direction).page(params[:page])
@@ -12,29 +12,36 @@ class InvoicesController < ApplicationController
     end
   end
   
-  def show
-    session[:current_view] = "invoice"
+  def new
+    @quote = Quote.find(params[:quote_id])
+    @invoice = @quote.build_invoice(payment_method: @quote.quote_confirmation.payment_method)
+    @invoice.copy_quote_info
   end
   
-  def edit
-    session[:current_view] = "invoice"
-    redirect_to quote_invoice_url(@quote) if @invoice.signed?
-  end
-  
-  def sign
-    @invoice.assign_attributes(params[:invoice])
-    @invoice.signed_at = Time.now unless @invoice.signature.blank?
-    @invoice.save!
-    if request.xhr?
-      render :nothing => true
+  def create
+    @quote = Quote.find(params[:quote_id])
+    @invoice = @quote.build_invoice(params[:invoice])
+    @invoice.copy_tax_setting_from(@quote.account)
+    if @invoice.save
+      redirect_to quote_invoice_url(@quote), notice: "Invoice successfully created."
     else
-      redirect_to quote_invoice_url(@quote), notice: "#{Invoice.model_name.human} #{t 'signed'}"
+      render action: :new
     end
   end
   
+  def show
+  end
+  
+  def edit
+    redirect_to quote_invoice_url(@quote) if @invoice.signed?
+  end
+  
   def update
-    @invoice.update_attributes(params[:invoice])
-    @is_preview = params[:commit] == "Preview"
+    if @invoice.update_attributes(params[:invoice])
+      redirect_to quote_invoice_url(@quote), notice: "Invoice successfully updated."
+    else
+      render action: :edit
+    end
   end
   
   def export
@@ -46,6 +53,7 @@ class InvoicesController < ApplicationController
   end
   
   def reports
+    set_tab :reports
     @invoices = current_account.invoices.where('invoices.signed_at IS NOT NULL').includes(:quote).order(sort_column + " " + sort_direction).page(params[:page])
   end
   

@@ -22,21 +22,23 @@
       <%= tabs_tag :builder => BootstrapSubnavBuilder, :open_tabs => { :class => "nav nav-pills" } do |tab| %>
         <%= tab.today "#{t 'today', default: 'Today'}", root_path %>
         <% if @quote %>
-          <%= tab.terms "#{t 'terms', default: 'Terms'}", terms_quote_path(@quote) %>
-          <% unless @quote.invoice.blank? %>
-            <% if @quote.invoice.signed? %>
-              <%= tab.invoice Invoice.model_name.human, quote_invoice_path(@quote) %>
-            <% else %>
-              <%= tab.invoice Invoice.model_name.human, edit_quote_invoice_path(@quote) %>
+          <%= tab.terms "#{t 'terms', default: 'Terms'}", terms_mobile_quote_path(@quote) %>
+          <% if @quote.signed? %>
+            <% unless @quote.invoice.blank? %>
+              <% if @quote.invoice.signed? %>
+                <%= tab.invoice Invoice.model_name.human, mobile_quote_invoice_path(@quote) %>
+              <% else %>
+                <%= tab.invoice Invoice.model_name.human, edit_mobile_quote_invoice_path(@quote) %>
+              <% end %>
             <% end %>
-          <% end %>
-          <% unless @quote.report.blank? %>
-            <% if @quote.report.signed? %>
-              <%= tab.report 'Report', quote_report_path(@quote) %>
-            <% else %>
-              <%= tab.report 'Report', edit_quote_report_path(@quote) %>
-            <% end %>  
-          <% end %>
+            <% unless @quote.report.blank? %>
+              <% if @quote.report.signed? %>
+                <%= tab.report 'Report', mobile_quote_report_path(@quote) %>
+              <% else %>
+                <%= tab.report 'Report', edit_mobile_quote_report_path(@quote) %>
+              <% end %>  
+            <% end %>
+          <% end %>  
         <% end %>
       <% end %>
       </div>

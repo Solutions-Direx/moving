@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   end
   
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || (resource.removal_man? ? mobile_root_path : root_path)
+    stored_location_for(resource) || (resource.removal_man? ? m_root_path : root_path)
   end
 
 protected   

@@ -15,19 +15,7 @@
       <table class="table table-striped">
         <% quotes.each do |quote| %>
           <tr>
-            <td>
-              <% if quote.signed? %>
-                <% if session[:current_view] == "invoice" %>
-                  <%= link_to quote.client.name, quote_invoice_path(quote) %>
-                <% elsif session[:current_view] == "report" %>  
-                  <%= link_to quote.client.name, quote_report_path(quote) %>
-                <% else %>
-                  <%= link_to quote.client.name, terms_quote_path(quote) %>
-                <% end %>  
-              <% else %>
-                <%= link_to quote.client.name, terms_quote_path(quote) %>
-              <% end %>  
-            </td>
+            <td><%= link_to quote.client.name, quote_path(quote) %></td>
             <td><%= quote.client.phone1 %><%= content_tag(:br) + quote.client.phone2 if quote.client.phone2.present? %></td>
             <td><% if quote.from_address.has_storage? %>
                   <h6><%= t 'storage', default: 'Storage' %>: <%= quote.from_address.storage.name %></h6>

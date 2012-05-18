@@ -148,34 +148,6 @@ class QuotesController < ApplicationController
     end
   end
   
-  # ======================================
-  # MOBILE ACTIONS
-  # ======================================
-  def terms
-    session[:current_view] = "terms"
-    set_tab :terms
-
-    respond_to do |format|
-      format.html { render layout: 'mobile' }
-      format.json { render json: @quote }
-    end
-  end
-  
-  def sign
-    authorize! :sign, @quote
-    @quote.assign_attributes(params[:quote])
-    @quote.signed_at = Time.now unless @quote.signature.blank?
-    if @quote.save
-      @quote.create_invoice!(
-        payment_method: @quote.quote_confirmation.payment_method
-      )
-      @quote.create_report!(gas: @quote.gas, start_time: @quote.removal_at)
-      redirect_to terms_quote_url(@quote), notice: "#{Quote.model_name.human} #{t 'signed'}"
-    else
-      redirect_to terms_quote_url(@quote), alert: "Quote cannot be saved, please contact system administrator"
-    end
-  end
-  
 private
 
   def load_quote

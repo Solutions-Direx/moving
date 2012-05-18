@@ -5,7 +5,7 @@
   });
 <% else %>
   <% if @invoice.errors.blank? %>
-    window.location = "<%= quote_invoice_url(@quote) %>";
+    window.location = "<%= mobile_quote_invoice_url(@quote) %>";
   <% else %>
     $('#invoice-form-container').html("<%= j render('form') %>");
   <% end %>    
