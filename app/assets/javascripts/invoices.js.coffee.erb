@@ -35,7 +35,7 @@
       $('#submit-to-preview').trigger('click')
       return false
       
-    $('#invoice_time_spent, #invoice_rate, #invoice_gas, .duration, .rate').live 'change', ->
+    $('#invoice_time_spent, #invoice_rate, #invoice_gas, .duration, .rate, #invoice_discount').live 'change', ->
       Invoices.Form.calculate_grand_total()
       
   calculate_grand_total: ->
@@ -74,8 +74,19 @@
           if parseInt(obj.id) == parseInt(forfait_id)
             total_forfaits = total_forfaits + parseFloat(obj.price)
     
-    # grand total      
-    grand_total = total_time_spent + gas + total_overtime + Invoices.Form.roundup(total_forfaits) + Invoices.Form.roundup(total_supplies)
+    # total franchise cancellation
+    total_cancellation = Invoices.Form.to_f($('#franchise_cancellation').val())
+    
+    # total insurance
+    total_insurance = Invoices.Form.to_f($('#insurance_increase').val())
+    
+    # discount
+    total_discount = Invoices.Form.to_f($('#invoice_discount').val())
+    
+    # grand total
+    console.log Invoices.Form.roundup(total_supplies)
+    grand_total = total_time_spent + gas + total_overtime + Invoices.Form.roundup(total_cancellation) + Invoices.Form.roundup(total_insurance) + Invoices.Form.roundup(total_forfaits) + Invoices.Form.roundup(total_supplies) - Invoices.Form.roundup(total_discount)
+    grand_total = 0 if grand_total < 0
     $('#grand-total').text(Invoices.Form.roundup(grand_total) + " <%= I18n.t 'number.currency.format.unit' %>")
     
   roundup: (value) ->  

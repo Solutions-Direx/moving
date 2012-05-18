@@ -33,7 +33,37 @@
     
     <%= f.input :payment_method, required: false, :as => :radio_buttons, :collection => payment_method_options, :item_wrapper_class => "inline", :wrapper_html => {:id => "payment_methods"} %>
     <%= f.input :credit_card_type, :collection => credit_card_type_options, :include_blank => false, :wrapper_html => {:id => "credit_card_type", :style => "display: #{@invoice.payment_method == 'credit' ? 'block' : 'none'};"}  %>
-    <%= f.input :discount, :input_html => {:class => "span1"} %>
+    
+    <% if @invoice.quote.quote_confirmation.franchise_cancellation %>
+    <div class="control-group float optional">
+      <%= f.label :franchise_cancellation %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= text_field_tag :franchise_cancellation, current_account.franchise_cancellation_amount, :class => 'span1 input-append', :disabled => true %><span class="add-on">$</span>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    
+    <% if @invoice.total_insurance_increase > 0 %>
+    <div class="control-group float optional">
+      <%= f.label :insurance_increase %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= text_field_tag :insurance_increase, @invoice.total_insurance_increase, :class => 'span1 input-append', :disabled => true %><span class="add-on">$</span>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    
+    <div class="control-group float optional">
+      <%= f.label :discount %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :discount, :class => 'span1 input-append' %><span class="add-on">$</span>
+        </div>
+      </div>
+    </div>
   </div>
   
   <%= section %>
