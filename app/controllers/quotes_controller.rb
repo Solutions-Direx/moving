@@ -4,8 +4,6 @@ class QuotesController < ApplicationController
   helper_method :sort_column
   set_tab :quotes
   
-  # GET /quotes
-  # GET /quotes.json
   def index
     @quotes = current_account.quotes.order(sort_column + " " + sort_direction).page(params[:page])
 
@@ -15,8 +13,6 @@ class QuotesController < ApplicationController
     end
   end
 
-  # GET /quotes/1
-  # GET /quotes/1.json
   def show
     respond_to do |format|
       format.html # show.html.erb
@@ -24,8 +20,6 @@ class QuotesController < ApplicationController
     end
   end
 
-  # GET /quotes/new
-  # GET /quotes/new.json
   def new
     @quote = Quote.new
     3.times { @quote.rooms.build }
@@ -38,12 +32,15 @@ class QuotesController < ApplicationController
     end
   end
 
-  # GET /quotes/1/edit
   def edit
+    if @quote.invoice.present? && @quote.invoice.signed?
+      
+      respond_to do |format|
+        format.html { redirect_to @quote, alert: "Quote can no longer be edited once invoice has been signed by client." }
+      end
+    end
   end
 
-  # POST /quotes
-  # POST /quotes.json
   def create
     @quote = current_account.quotes.new(params[:quote])
     @quote.bypass_validations
@@ -61,8 +58,6 @@ class QuotesController < ApplicationController
     end
   end
 
-  # PUT /quotes/1
-  # PUT /quotes/1.json
   def update
     @quote.assign_attributes(params[:quote])
     @quote.bypass_validations
@@ -78,8 +73,6 @@ class QuotesController < ApplicationController
     end
   end
 
-  # DELETE /quotes/1
-  # DELETE /quotes/1.json
   def destroy
     @quote.destroy
 
