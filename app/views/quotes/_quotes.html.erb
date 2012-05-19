@@ -1,0 +1,26 @@
+<%= paginate @quotes %>
+
+<table class="table table-striped">
+  <tr>
+    <th>ID</th>
+    <th>Client</th>
+    <th><%= t 'removal_at', default: 'Removal at' %></th>
+    <th><%= t 'creator', default: 'Creator' %></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @quotes.each do |quote| %>
+  <tr>
+    <td><%= link_to quote.code, quote %> <%= status_tag(quote.status, level: quote.rejected? ? 'danger' : (quote.confirmed? ? 'success' : '')) %></td>
+    <td><%= link_to quote.client.name, client_path(quote.client) %></td>
+    <td><%= l quote.removal_at, :format => :long %> 
+        <%= quote.removal_at.future? ? "(#{t 'in'} #{distance_of_time_in_words_to_now(quote.removal_at)})" : '' %></td>
+    <td><%= quote.creator.full_name %></td>
+    <td><%= link_to "#{t 'edit'}", edit_quote_path(quote) unless quote.signed? %></td>
+    <td><%= link_to "#{t 'destroy'}", quote, confirm: "#{t 'are_you_sure'}", method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate @quotes %>

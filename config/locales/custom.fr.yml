@@ -176,6 +176,7 @@ fr:
   invoice_code: 'Numéro de facture'
   no_pending_quotes: "Pas de citations en attente pour aujourd'hui"
   create_invoice: 'Créer une facture'
+  scheduled_on: prévues le
   activerecord:
     models:
       account: Compte
