@@ -28,7 +28,7 @@ class ReportsController < ApplicationController
     if request.xhr?
       render :nothing => true
     else
-      redirect_to quote_report_url(@quote), notice: "#{Report.model_name.human} #{t 'signed'}"
+      redirect_to quote_report_url(@quote), notice: "#{Report.model_name.human} #{t 'is_signed', default: 'signed'}"
     end
   end
   

@@ -25,6 +25,7 @@ fr:
   found: 'trouvé'
   srch_inpt_plcholder: "Client, Téléphone, Numéro d'entente..."
   signed: 'signée'
+  is_signed: 'signé'
   sign: Signer
   logout: 'Déconnexion'
   login: 'Connexion'
