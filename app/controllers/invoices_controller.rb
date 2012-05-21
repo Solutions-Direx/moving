@@ -36,6 +36,14 @@ class InvoicesController < ApplicationController
     redirect_to quote_invoice_url(@quote) if @invoice.signed?
   end
   
+  def email
+    Mailer.invoice_email(@invoice).deliver
+    respond_to do |format|
+      format.html { redirect_to quote_invoice_url(@quote), notice: "#{t 'email_notification', default: "Invoice was successfully sent to "} #{@quote.client.email}" }
+      format.json { render json: @quote }
+    end
+  end
+  
   def update
     if @invoice.update_attributes(params[:invoice])
       redirect_to quote_invoice_url(@quote), notice: "Invoice successfully updated."

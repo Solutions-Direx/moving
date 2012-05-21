@@ -12,7 +12,9 @@ Moving::Application.routes.draw do
   resources :quotes do
     resources :quote_confirmations, :except => [:index]
     # HAS ONE ROUTES
-    resource :invoice, :only => [:new, :create, :show, :edit, :update]
+    resource :invoice, :only => [:new, :create, :show, :edit, :update] do
+      post 'email'
+    end
     member do
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'
       put 'daily_update'

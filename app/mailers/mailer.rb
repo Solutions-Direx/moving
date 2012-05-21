@@ -15,4 +15,10 @@ class Mailer < ActionMailer::Base
     @quote = quote
     mail(to: @quote.client.email, subject: "Quote Information")
   end
+  
+  def invoice_email(invoice)
+    @quote = invoice.quote
+    @invoice = invoice
+    mail(to: @quote.client.email, subject: "Invoice")
+  end
 end
