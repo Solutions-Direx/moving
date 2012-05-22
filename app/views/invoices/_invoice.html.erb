@@ -158,7 +158,7 @@
   <h3><%= t 'client_satisfaction' %></h3>
   <%= text_area_tag :client_satisfaction, @invoice.client_satisfaction, :class => "span6", :rows => 5 %>
 
-  <%= render 'signaturepad' %>
+  <%= render 'invoices/signaturepad' %>
   <script type="text/javascript" charset="utf-8">
     $(function() {
       $('#submit-invoice').click(function() {
