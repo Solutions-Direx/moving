@@ -9,6 +9,8 @@ class Invoice < ActiveRecord::Base
   has_many :invoice_forfaits, :dependent => :destroy
   has_many :forfaits, :through => :invoice_forfaits
   
+  has_one :account, :through => :quote
+  
   has_many :invoice_supplies, :dependent => :destroy
   has_many :supplies, :through => :invoice_supplies
   accepts_nested_attributes_for :invoice_supplies, :allow_destroy => true, :reject_if => lambda {|qs| qs[:quantity].blank? || qs[:supply_id].blank?}

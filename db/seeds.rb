@@ -14,6 +14,7 @@ account = Account.create!(company_name: "Déménagement Maximum",
                           compound: true,
                           invoice_start_number: 10000
                          )
+address = account.create_address!(address: "250 Blvd de l'aéroport", city: "Gatineau", province: "Québec", postal_code: "J8Z4P3", country: "Canada")
 owner = account.users.build(username: "super", 
                             first_name: Faker::Name.first_name, 
                             last_name: Faker::Name.last_name, 

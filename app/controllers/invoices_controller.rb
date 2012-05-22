@@ -68,7 +68,7 @@ class InvoicesController < ApplicationController
   def print
     respond_to do |format|
       format.html
-      format.pdf { render :text => PDFKit.new(render_to_string(:action => 'print.html', :layout => 'print')).to_pdf }
+      format.pdf { render :text => PDFKit.new(render_to_string(:formats => [:html], :layout => 'print')).to_pdf }
     end
   end
   

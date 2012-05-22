@@ -21,7 +21,7 @@
     <td><%= link_to invoice.quote.client.name, client_path(invoice.quote.client) %></td>
     <td><%= link_to "##{invoice.quote.code}", quote_path(invoice.quote) %></td>
     <td><%= number_to_currency(invoice.grand_total) %></td>
-    <td><%= link_to number_to_currency(invoice.total), quote_invoice_path(invoice.quote, invoice) %></td>
+    <td><%= link_to number_to_currency(invoice.total), quote_invoice_path(invoice.quote) %></td>
   </tr>
 <% end %>
 </table>

@@ -56,4 +56,8 @@ module ApplicationHelper
     [[t('visa'), "visa"], [t('mastercard'), 'mastercard'], [t('amex'), "amex"]]
   end
   
+  def mobile?
+    controller.class.name.split("::").first=="Mobile"
+  end
+  
 end

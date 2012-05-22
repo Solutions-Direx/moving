@@ -1,4 +1,4 @@
 Invoice, Client, Grand Total, <%= current_account.tax1_label.present? ? current_account.tax1_label : 'Tax1' %>, <%= current_account.tax2_label.present? ? current_account.tax2_label : 'Tax2' %>, Total
 <%= @invoices.order('created_at DESC').each do |invoice| %>
-  <%=  %>, <%= invoice.grand_total %>, <%= invoice.quote.client.name %>, <%= invoice.tax1 %>, <%= invoice.total %>
+  <%= invoice.code %>, <%= invoice.grand_total %>, <%= invoice.quote.client.name %>, <%= invoice.tax1 %>, <%= invoice.total %>
 <% end %>

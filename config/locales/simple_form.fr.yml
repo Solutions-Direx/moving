@@ -86,6 +86,8 @@ fr:
         password: "(Laisser vide si vous ne souhaitez pas le modifier)"
   helpers:
     submit:
+      account:
+        update: Mettre à jour les informations du compte
       client:
         create: Créer ce client
         update: Modifier ce client

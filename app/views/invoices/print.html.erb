@@ -1,22 +1,18 @@
-<h1><%= Invoice.model_name.human %> #<%= @invoice.code %></h1>
+<h1 class='floatr'><%= Invoice.model_name.human %> #<%= @invoice.code %></h1>
 
 <table>
   <tr>
     <td>
-      <p class="grey-box">
-        <b>Client:</b> <%= @invoice.quote.client.name %><br/><br/>
-        <b><%= t "removal_at" %>:</b> <%= l @invoice.quote.removal_at.to_date %>
-      </p>
+      <p class="grey-boxs">
+        <%= @invoice.account.address.address unless @invoice.account.address.address.nil? %><br/>
+        <%= @invoice.account.address.city %>, <%= @invoice.account.address.province %>, <%= @invoice.account.address.postal_code %><br/><br/>
+        <%= @invoice.quote.account.phone %><br/><br/>
+        <%= @invoice.quote.account.website %>
     </td>
     <td>
       <p class="grey-box">
-        <b>Address:</b><br/>
-        <%= @invoice.quote.account.address.address %><br/>
-        <%= @invoice.quote.account.address.city %><br/>
-        <%= @invoice.quote.account.address.province %><br/>
-        <%= @invoice.quote.account.address.postal_code %><br/><br/>
-        <b>Phone:</b> <%= @invoice.quote.account.phone %><br/><br/>
-        <b>Website:</b> <%= @invoice.quote.account.website %>
+        <b>Client:</b> <%= @invoice.quote.client.name %><br/><br/>
+        <b><%= t "removal_at" %>:</b> <%= l @invoice.quote.removal_at.to_date %>
       </p>
     </td>
   </tr>
