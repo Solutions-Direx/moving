@@ -14,6 +14,7 @@ Moving::Application.routes.draw do
     # HAS ONE ROUTES
     resource :invoice, :only => [:new, :create, :show, :edit, :update] do
       post 'email'
+      get 'print'
     end
     member do
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'
@@ -57,6 +58,7 @@ Moving::Application.routes.draw do
     resources :quotes, :only => [] do
       resource :invoice, :only => [:show, :edit, :update] do
         post "sign"
+        post 'email'
       end
       resource :report, :only => [:show, :edit, :update] do
         post "sign"

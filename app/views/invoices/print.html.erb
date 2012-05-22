@@ -1,0 +1,134 @@
+<h1><%= Invoice.model_name.human %> #<%= @invoice.code %></h1>
+
+<table>
+  <tr>
+    <td>
+      <p class="grey-box">
+        <b>Client:</b> <%= @invoice.quote.client.name %><br/><br/>
+        <b><%= t "removal_at" %>:</b> <%= l @invoice.quote.removal_at.to_date %>
+      </p>
+    </td>
+    <td>
+      <p class="grey-box">
+        <b>Address:</b><br/>
+        <%= @invoice.quote.account.address.address %><br/>
+        <%= @invoice.quote.account.address.city %><br/>
+        <%= @invoice.quote.account.address.province %><br/>
+        <%= @invoice.quote.account.address.postal_code %><br/><br/>
+        <b>Phone:</b> <%= @invoice.quote.account.phone %><br/><br/>
+        <b>Website:</b> <%= @invoice.quote.account.website %>
+      </p>
+    </td>
+  </tr>
+</table>
+
+<hr/>
+<table style="width: 500px;">
+  <% if @invoice.total_time_spent > 0 %>
+  <tr>
+    <td><%= t 'time_spent' %> (<%= @invoice.time_spent  %> * <%= number_to_currency(@invoice.rate) %>)</td>
+    <td class="right"><%= number_to_currency(@invoice.total_time_spent) %></td>
+  </tr>
+  <% end %>
+  
+  <% if @invoice.gas > 0 %>
+  <tr>
+    <td>Gas</td>
+    <td class="right"><%= number_to_currency(@invoice.gas) %></td>
+  </tr>
+  <% end %>
+  
+  <% if @invoice.total_overtime > 0 %>
+    <% @invoice.overtimes.each do |overtime| %>
+    <tr>
+      <td>Overtime (<%= overtime.duration %> * <%= number_to_currency(overtime.rate) %>)</td>
+      <td class="right"><%= number_to_currency(overtime.amount) %></td>
+    </tr>
+    <% end %>
+  <% end %>
+  
+  <!-- SUPPLIES -->
+  <% if @invoice.invoice_supplies.any? %>
+    <tr>
+      <td colspan="2"><h3><%= Supply.model_name.human + 's' %></h3></td>
+    </tr>
+    <% @invoice.invoice_supplies.each do |inv_supply| %>
+      <tr>
+        <td><%= inv_supply.supply.name %> (<%= inv_supply.quantity %> * <%= number_to_currency(inv_supply.supply.price) %>)</td>
+        <td class="right"><%= number_to_currency(inv_supply.quantity * inv_supply.supply.price) %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  
+  <!-- FORFAIT -->
+  <% if @invoice.forfaits.any? %>
+    <tr>
+      <td colspan="2"><h3><%= Forfait.model_name.human + 's' %></h3></td>
+    </tr>
+    <% @invoice.forfaits.each do |forfait| %>
+      <tr>
+        <td><%= forfait.name %></td>
+        <td class="right"><%= number_to_currency(forfait.price) %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  
+  <!-- FRANCHISE CANCELLATION -->
+  <% if @invoice.quote.quote_confirmation.franchise_cancellation %>
+  <tr>
+    <td><%= t 'franchise_cancelation' %></td>
+    <td class="right"><%= number_to_currency(@quote.account.franchise_cancellation_amount) %></td>
+  </tr>
+  <% end %>
+
+  <!-- INSURANCE -->
+  <% if @invoice.total_insurance_increase > 0 %>
+  <tr>
+    <td><%= t 'insurance_increase' %></td>
+    <td class="right"><%= number_to_currency(@invoice.total_insurance_increase) %></td>
+  </tr>
+  <% end %>
+
+  <% if @invoice.total_discount > 0 %>
+  <tr>
+    <td><%= t 'discount' %></td>
+    <td class="right">- <%= number_to_currency(@invoice.total_discount) %></td>
+  </tr>
+  <% end %>
+  
+  <tr>
+    <td></td>
+    <td><hr/></td>
+  </tr>
+  
+  <!-- GRAND TOTAL -->
+  <tr>
+    <td><h3>Grand Total</h3></td>
+    <td class="right"><h3><%= number_to_currency(@invoice.grand_total) %></h3></td>
+  </tr>
+  <!-- TAX 1 -->
+  <% if @invoice.tax1_amount > 0 %>
+  <tr>
+    <td><h3 style="font-weight: normal;"><%= @invoice.tax1_name %></h3></td>
+    <td class="right"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax1_amount) %></h3></td>
+  </tr>
+  <% end %>
+  <!-- TAX 2 -->
+  <% if @invoice.tax2_amount > 0 %>
+  <tr>
+    <td><h3 style="font-weight: normal;"><%= @invoice.tax2_name %></h3></td>
+    <td class="right"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax2_amount) %></h3></td>
+  </tr>
+  <% end %>
+  
+  <tr>
+    <td></td>
+    <td><hr/></td>
+  </tr>
+  
+  <tr>
+    <td class="right"><h3>Total</h3></td>
+    <td class="right"><h3><%= number_to_currency(@invoice.total) %></h3></td>
+  </tr>
+</table>
+<h3><%= t 'payment_method' %>: <%= t @invoice.payment_method %> <%= "(#{t @invoice.credit_card_type})" if @invoice.payment_method == "credit" %></h3>

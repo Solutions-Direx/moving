@@ -1,5 +1,6 @@
 <h2><%= Invoice.model_name.human %>
   <span class='submenu'>
+    <%= icon_button_link_to "#{t 'print', default: 'Print'}", print_quote_invoice_path(:format => :pdf), icon: "print", large: true, level: "primary", white: true %>
     <% if @invoice.signed? %>
       <% unless @quote.client.email.blank? %>
         <%= button_link_to "#{t 'email_to_client'}", email_quote_invoice_path(@quote), :method => :post, level: "success", large: true, disabled_with: "#{t 'email_to_client'}" %>

@@ -40,7 +40,7 @@ class InvoicesController < ApplicationController
     Mailer.invoice_email(@invoice).deliver
     respond_to do |format|
       format.html { redirect_to quote_invoice_url(@quote), notice: "#{t 'email_notification', default: "Invoice was successfully sent to "} #{@quote.client.email}" }
-      format.json { render json: @quote }
+      format.json { render json: @invoice }
     end
   end
   
@@ -63,6 +63,13 @@ class InvoicesController < ApplicationController
   def reports
     set_tab :reports
     @invoices = current_account.invoices.where('invoices.signed_at IS NOT NULL').includes(:quote).order(sort_column + " " + sort_direction).page(params[:page])
+  end
+  
+  def print
+    respond_to do |format|
+      format.html
+      format.pdf { render :text => PDFKit.new(render_to_string(:action => 'print.html', :layout => 'print')).to_pdf }
+    end
   end
   
 protected

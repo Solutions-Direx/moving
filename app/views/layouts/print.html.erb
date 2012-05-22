@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Moving</title>
+  <link href="<%= Rails.root.join("app", "assets", "stylesheets", "print.css") %>" rel='stylesheet' type='text/css' media="all">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <%= image_tag(Rails.root.join("app", "assets", "images", "logo.jpg")) %>
+    </header>
+    <div id="main-print">
+      <%= yield %>
+    </div>
+  </div>
+</body>
+</html>

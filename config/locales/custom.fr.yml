@@ -178,6 +178,7 @@ fr:
   no_pending_quotes: "Pas de citations en attente pour aujourd'hui"
   create_invoice: 'Créer une facture'
   scheduled_on: prévues le
+  print: 'Imprimer'
   activerecord:
     models:
       account: Compte

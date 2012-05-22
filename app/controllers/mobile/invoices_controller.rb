@@ -27,7 +27,14 @@ module Mobile
     def update
       @invoice.update_attributes(params[:invoice])
       @is_preview = params[:commit] == "Preview"
-      puts @is_preview
+    end
+    
+    def email
+      Mailer.invoice_email(@invoice).deliver
+      respond_to do |format|
+        format.html { redirect_to mobile_quote_invoice_url(@quote), notice: "#{t 'email_notification', default: "Invoice was successfully sent to "} #{@quote.client.email}" }
+        format.json { render json: @invoice }
+      end
     end
   
   protected

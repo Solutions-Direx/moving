@@ -1,6 +1,9 @@
 <h2><%= Invoice.model_name.human %>
   <span class='submenu'>
     <% if @invoice.signed? %>
+      <% unless @quote.client.email.blank? %>
+        <%= button_link_to "#{t 'email_to_client'}", email_mobile_quote_invoice_path(@quote), :method => :post, level: "success", large: true, disabled_with: "#{t 'email_to_client'}" %>
+      <% end %>
       <%= icon_button_link_to "#{t 'approved'}", '#', icon: 'ok', level: 'success', large: true, class: 'disabled', white: true %>
     <% else %>
       <%= button_link_to "#{t 'edit'}", edit_mobile_quote_invoice_path(@quote), level: 'inverse', large: true %>
