@@ -1,6 +1,11 @@
 class Account < ActiveRecord::Base
   include Taxable
   
+  has_attached_file :logo, 
+                    :styles => { :thumb => "200x200>" },
+                    :url => "/uploads/account/:id/logo/:style/:basename.:extension",
+                    :path => ":rails_root/public/uploads/account/:id/logo/:style/:basename.:extension"
+  
   # ASSOCIATIONS
   has_many :users, :dependent => :destroy
   has_one :address, :as => :addressable, :dependent => :destroy
@@ -15,7 +20,7 @@ class Account < ActiveRecord::Base
   has_many :invoices, :through => :quotes
   
   # ATTRIBUTES
-  attr_accessible :company_name, :logo, :logo_cache, :email, :phone, :website, :tax1_label, :tax1, :tax2_label, :tax2, :compound, 
+  attr_accessible :company_name, :logo, :email, :phone, :website, :tax1_label, :tax1, :tax2_label, :tax2, :compound, 
                   :address_attributes, :franchise_cancellation_amount, :insurance_coverage_short_distance, :insurance_coverage_long_distance,
                   :invoice_start_number
   
@@ -25,9 +30,6 @@ class Account < ActiveRecord::Base
   
   # CALLBACKS
   before_save :set_rebase_invoice_number
-  
-  # UPLOADER
-  mount_uploader :logo, LogoUploader
   
   def owner
     users.account_owner.first

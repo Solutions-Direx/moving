@@ -29,6 +29,10 @@ ActiveRecord::Schema.define(:version => 20120516134642) do
     t.float    "insurance_coverage_long_distance"
     t.integer  "invoice_start_number"
     t.boolean  "rebase_invoice_number",             :default => false
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
     t.datetime "created_at",                                           :null => false
     t.datetime "updated_at",                                           :null => false
   end

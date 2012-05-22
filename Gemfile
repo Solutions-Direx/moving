@@ -6,8 +6,6 @@ gem 'rails', '3.2.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'rmagick'
-gem 'carrierwave'
 gem 'tabs_on_rails', "~> 2.1.1"
 gem 'jquery-rails'
 gem 'devise'
@@ -23,6 +21,7 @@ gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
 gem 'roadie'
 gem 'pg_search'
 gem 'pdfkit'
+gem 'paperclip', '~> 3.0'
 
 # Gems used only for assets and not required
 # in production environments by default.

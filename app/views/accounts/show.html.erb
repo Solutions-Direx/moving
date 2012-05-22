@@ -19,8 +19,7 @@
           <%= f.input :logo %>
         </div>
         <div class="span4">
-          <span class='floatr' style='float:right;'><%= image_tag @account.logo_url(:thumb) if @account.logo? %></span>
-          <%= f.hidden_field :logo_cache %>
+          <span class='floatr' style='float:right;'><%= image_tag @account.logo.url(:thumb) if @account.logo? %></span>
         </div>
       </div>
       

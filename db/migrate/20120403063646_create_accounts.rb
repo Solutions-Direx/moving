@@ -16,6 +16,7 @@ class CreateAccounts < ActiveRecord::Migration
       t.float :insurance_coverage_long_distance
       t.integer :invoice_start_number
       t.boolean :rebase_invoice_number, :default => false
+      t.has_attached_file :logo
 
       t.timestamps
     end

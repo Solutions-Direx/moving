@@ -59,11 +59,10 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
-    carrierwave (0.5.8)
-      activesupport (~> 3.0)
     childprocess (0.3.1)
       ffi (~> 1.0.6)
     chunky_png (1.2.5)
+    cocaine (0.2.1)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -147,6 +146,12 @@ GEM
     netrc (0.7.1)
     nokogiri (1.5.2)
     orm_adapter (0.0.7)
+    paperclip (3.0.0)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (>= 0.0.2)
+      mime-types
     pdfkit (0.5.2)
     pg (0.13.2)
     pg_search (0.5)
@@ -182,7 +187,6 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rmagick (2.13.1)
     roadie (2.3.1)
       actionmailer (> 3.0.0, < 3.3.0)
       css_parser
@@ -245,7 +249,6 @@ PLATFORMS
 DEPENDENCIES
   cancan
   capybara
-  carrierwave
   coffee-rails (~> 3.2.1)
   compass-rails
   database_cleaner
@@ -262,13 +265,13 @@ DEPENDENCIES
   kaminari
   letter_opener
   nested_form!
+  paperclip (~> 3.0)
   pdfkit
   pg
   pg_search
   quiet_assets
   rails (= 3.2.3)
   rails-settings!
-  rmagick
   roadie
   rspec-rails
   sass-rails (~> 3.2.3)
