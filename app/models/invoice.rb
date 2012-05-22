@@ -103,7 +103,8 @@ class Invoice < ActiveRecord::Base
     copy_tax_setting_from(quote.account)
   end
   
-private  
+private
+
   def generate_code
     last_invoice = Invoice.last
     account = quote.account
