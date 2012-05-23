@@ -6,10 +6,6 @@
 </head>
 <body>
   <div class="container">
-    <header>
-      <%= image_tag(Rails.root.join("app", "assets", "images", "logo.jpg")) %>
-      <%= image_tag current_account.logo.url(:thumb) %>
-    </header>
     <div id="main-print">
       <%= yield %>
     </div>

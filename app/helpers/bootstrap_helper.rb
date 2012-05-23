@@ -12,9 +12,9 @@ module BootstrapHelper
     content_tag(:span, status, options)
   end
   
-  def address_for(address, wrapper_tag = :address)
+  def address_for(address, wrapper_tag = :address, separator_tag = :br)
     content_tag(wrapper_tag) do
-      safe_concat(address.address + tag(:br) + 
+      safe_concat(address.address + tag(separator_tag) + 
                   address.city + ", " + address.province + ", " + address.postal_code)
     end
   end
