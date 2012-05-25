@@ -47,5 +47,11 @@ module Mobile
     def sort_column
       Invoice.column_names.include?(params[:sort]) ? params[:sort] : "signed_at"
     end
+    
+    def correct_stale_record_version
+      @quote.reload
+      @invoice.reload
+      @invoice.errors.add(:base, t('conflict', default: "Another user has made a change to this record since you access the edit form. Please recheck information and update again."))
+    end
   end
 end

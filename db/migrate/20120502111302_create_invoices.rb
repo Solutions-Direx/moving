@@ -19,6 +19,7 @@ class CreateInvoices < ActiveRecord::Migration
       t.string :payment_method
       t.float :discount
       t.string :credit_card_type
+      t.integer :lock_version, :integer, :default => 0
       
       t.timestamps
     end

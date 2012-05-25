@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
       }
       format.xml  { head :conflict }
       format.json { head :conflict }
+      format.js
     end
   end     
   

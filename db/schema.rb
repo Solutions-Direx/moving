@@ -152,8 +152,10 @@ ActiveRecord::Schema.define(:version => 20120516134642) do
     t.string   "payment_method"
     t.float    "discount"
     t.string   "credit_card_type"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.integer  "lock_version",        :default => 0
+    t.integer  "integer",             :default => 0
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   create_table "overtimes", :force => true do |t|
