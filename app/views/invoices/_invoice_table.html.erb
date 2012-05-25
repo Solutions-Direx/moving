@@ -15,10 +15,10 @@
       <table class="grey-box" width="100%">
         <tr>
           <td>
-            <b>Address:</b>
+            <b><%= t 'address' %>:</b>
             <%= address_for @invoice.quote.account.address, :p %>
-            <b>Phone:</b> <%= @invoice.quote.account.phone %><br/><br/>
-            <b>Website:</b> <%= @invoice.quote.account.website %>
+            <b><%= t 'phone' %>:</b> <%= @invoice.quote.account.phone %><br/><br/>
+            <b><%= t 'website' %>:</b> <%= @invoice.quote.account.website %>
           </td>
         </tr>
       </table>
@@ -36,7 +36,7 @@
     </td>
   </tr>
 </table>
-
+<br />
 <hr/>
 <table>
   <% if @invoice.total_time_spent > 0 %>
@@ -146,4 +146,5 @@
     <td class="right"><h3><%= number_to_currency(@invoice.total) %></h3></td>
   </tr>
 </table>
+<br />
 <h3><%= t 'payment_method' %>: <%= t @invoice.payment_method %> <%= "(#{t @invoice.credit_card_type})" if @invoice.payment_method == "credit" %></h3>
