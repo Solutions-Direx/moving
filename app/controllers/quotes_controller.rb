@@ -1,6 +1,6 @@
 class QuotesController < ApplicationController
   load_and_authorize_resource
-  before_filter :load_quote, :only => [:show, :edit, :update, :destroy, :daily_update, :terms, :reject, :sign]
+  before_filter :load_quote, :only => [:show, :edit, :update, :destroy, :daily_update, :terms, :reject, :sign, :print]
   helper_method :sort_column
   set_tab :quotes
   
@@ -145,6 +145,13 @@ class QuotesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @quote, notice: "#{t 'email_notification', default: "Quote was successfully sent to "} #{@quote.client.email}" }
       format.json { render json: @quote }
+    end
+  end
+  
+  def print
+    respond_to do |format|
+      format.html
+      format.pdf { render :text => PDFKit.new(render_to_string(:formats => [:html], :layout => 'print')).to_pdf }
     end
   end
   

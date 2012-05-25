@@ -1,8 +1,8 @@
 <% if @invoice.quote.account.logo.present? %>
   <% if absolute_path %>
-    <%= image_tag(Rails.root.join("public", "uploads", "account", @invoice.quote.account_id.to_s, "logo", "original", @invoice.quote.account.logo_file_name)) %>
+    <%= image_tag(Rails.root.join("public", "uploads", "account", @invoice.quote.account_id.to_s, "logo", "thumb", @invoice.quote.account.logo_file_name)) %>
   <% else %>
-    <%= image_tag(@invoice.quote.account.logo.url) %>
+    <%= image_tag(@invoice.quote.account.logo.url(:thumb)) %>
   <% end %>    
 <% end %>
 
@@ -10,7 +10,7 @@
 
 <table>
   <tr>
-    <td width="55%">
+    <td style="padding-left: 0;width: 55%">
       <% if @invoice.quote.account.address.present? %>
       <table class="grey-box" width="100%">
         <tr>
@@ -24,7 +24,7 @@
       </table>
       <% end %>
     </td>
-    <td width="45%">
+    <td style="padding-left: 0; padding-right: 0;width: 45%;">
       <table class="grey-box" width="100%">
         <tr>
           <td>

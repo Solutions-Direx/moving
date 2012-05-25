@@ -4,7 +4,7 @@ var html = "<p class='alert alert-success'><%= ("#{t 'quotes.daily.success_updat
 var html = "<p class='alert alert-error'><%= ("#{t 'quotes.daily.error_update', default: 'An error occured. Please try again and contact system admininistrator.'}") %></p>";
 <% end %>  
 $(html).dialog2({ 
-    id: "alert2",
+    id: "daily-update-dialog",
     autoOpen: true,
     buttons: {
         Close: { 
@@ -16,3 +16,5 @@ $(html).dialog2({
     }, 
     removeOnClose: true
 });
+
+setInterval("$('#daily-update-dialog').dialog2('close');", 1000)
