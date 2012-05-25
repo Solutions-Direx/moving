@@ -7,20 +7,19 @@
 <% end %>
 
 <h1><%= @quote.client.name %></h1>
-<p><b>Removal at:</b> <%= l @quote.removal_at, :format => :long %> || <%= @quote.is_house? ? 'Maison' : 'Appartement' %></p>
+<p><b><%= t 'removal_at' %>:</b> <%= l @quote.removal_at, :format => :long %> || <%= @quote.is_house? ? 'Maison' : 'Appartement' %></p>
 <!-- ADDRESSES -->
 <table width="100%" id="background" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td style="padding-left: 0; width: 50%;">
       <table style="width: 100%; padding-left: 0;" class="grey-background" border="0" cellpadding="0" cellspacing="0">
-        <tr><td><h3>Adresse de départ <%= '(Internal)' if @quote.internal_address %></h3></td></tr>
+        <tr><td><h3><%= t 'from' %> <%= "#{t 'internal'}" if @quote.internal_address %></h3></td></tr>
         <tr>
           <td>
             <% if @quote.from_address.has_storage? %>
               <h6>Entrepôt: <%= @quote.from_address.storage.name %></h6>
               <%= address_for(@quote.from_address.storage.address, :p) %>
             <% else %>
-              <h6>Adresse</h6>
               <%= address_for(@quote.from_address.address, :p) %>        
             <% end %>
           </td>
@@ -30,7 +29,7 @@
     <% if !@quote.internal_address? && !@quote.to_addresses.blank? %>
     <td style="padding-left: 0; padding-right: 0; width: 50%;">
       <table width="100%" class="grey-background" border="0" cellpadding="0" cellspacing="0">
-        <tr><td><h3>Adresse d'arrivée</h3></td></tr>
+        <tr><td><h3><%= t 'to' %></h3></td></tr>
         <tr>
           <td>
             <% for to_address in @quote.to_addresses %>
@@ -38,7 +37,6 @@
                 <h6>Entrepôt: <%= to_address.storage.name %></h6>
                 <%= address_for(to_address.storage.address, :p) %>
               <% else %>
-                <h6>Adresse</h6>
                 <%= address_for(to_address.address, :p) %>        
               <% end %>
             <% end %>
@@ -52,7 +50,7 @@
 <!-- ROOMS -->
 <% @quote.rooms.each_with_index do |room, index| %>
   <hr/>
-  <p><%= "Room ##{index + 1}:" %> <%= t(room.size) %> <%= room.comment %></p>
+  <p><%= "#{t 'room'} ##{index + 1}:" %> <%= t(room.size) %> <%= room.comment %></p>
 <% end %>
 
 <!-- FURNITURE -->
