@@ -9,7 +9,7 @@ fr:
   in: 'dans'
   by: par
   yessai: "Oui"
-  nope: "No"
+  nope: "Non"
   edit: 'Éditer'
   destroy: 'Supprimer'
   remove: 'Effacer'
@@ -140,7 +140,7 @@ fr:
   from: Départ
   to: Arrivée
   created_by: Créée par
-  email_to_client: 'Envoyer une copie au client'
+  email_to_client: 'Envoyer'
   nb_appliances: "Nombre d'électroménagers"
   included: 'Inclus'
   not_included: 'Non inclus'
@@ -163,6 +163,9 @@ fr:
   quote_is_confirmed: L'entente est confirmée.
   approved_on: 'Approuvée le'
   legend: Légende
+  confirmed: Confirmée
+  pending: En atttente
+  rejected: Rejetée
   confirmed_quote: 'Entente confirmée'
   pending_quote: 'Entente en attente'
   current_month: 'Mois en cours'
@@ -179,6 +182,9 @@ fr:
   create_invoice: 'Créer une facture'
   scheduled_on: prévues le
   print: 'Imprimer'
+  overtime: Heures supplémentaires
+  website: Web
+  fees: Frais de
   activerecord:
     models:
       account: Compte

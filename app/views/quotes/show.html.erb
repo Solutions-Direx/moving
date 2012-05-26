@@ -9,6 +9,7 @@
     <% end %>
     <% if @quote.rejected? %>
       <%= link_to "#{t 'rejected', default: 'Rejected'}", '#', :class => 'btn btn-warning btn-large disabled' %>
+      <%= button_link_to "#{t 'edit', default: 'Edit'}", edit_quote_path(@quote), level: "inverse", large: true unless @quote.signed? %>
     <% else %>
       <%= button_link_to "#{t 'edit', default: 'Edit'}", edit_quote_path(@quote), level: "inverse", large: true unless @quote.signed? %>
       <% if @quote.confirmed? %>

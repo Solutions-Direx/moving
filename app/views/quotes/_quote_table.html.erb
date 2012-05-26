@@ -1,3 +1,4 @@
+<h1>
 <% if @quote.account.logo.present? %>
   <% if absolute_path %>
     <%= image_tag(Rails.root.join("public", "uploads", "account", @quote.account_id.to_s, "logo", "thumb", @quote.account.logo_file_name)) %>
@@ -5,9 +6,10 @@
     <%= image_tag(@quote.account.logo.url(:thumb)) %>
   <% end %>    
 <% end %>
+  <span style='float:right; vertical-align:top;'><%= @quote.client.name %></span>
+</h1>
 
-<h1><%= @quote.client.name %></h1>
-<p><b><%= t 'removal_at' %>:</b> <%= l @quote.removal_at, :format => :long %> || <%= @quote.is_house? ? 'Maison' : 'Appartement' %></p>
+<p><b><%= t 'removal_at' %>:</b> <%= l @quote.removal_at, :format => :long %> || <%= @quote.is_house? ? "#{t 'house'}" : "#{t 'apartment'}" %></p>
 <!-- ADDRESSES -->
 <table width="100%" id="background" border="0" cellpadding="0" cellspacing="0">
   <tr>
@@ -15,9 +17,9 @@
       <table style="width: 100%; padding-left: 0;" class="grey-background" border="0" cellpadding="0" cellspacing="0">
         <tr><td><h3><%= t 'from' %> <%= "#{t 'internal'}" if @quote.internal_address %></h3></td></tr>
         <tr>
-          <td>
+          <td style='padding-top:0;'>
             <% if @quote.from_address.has_storage? %>
-              <h6>Entrepôt: <%= @quote.from_address.storage.name %></h6>
+              <h6><%= t 'storage' %>: <%= @quote.from_address.storage.name %></h6>
               <%= address_for(@quote.from_address.storage.address, :p) %>
             <% else %>
               <%= address_for(@quote.from_address.address, :p) %>        
@@ -31,10 +33,10 @@
       <table width="100%" class="grey-background" border="0" cellpadding="0" cellspacing="0">
         <tr><td><h3><%= t 'to' %></h3></td></tr>
         <tr>
-          <td>
+          <td style='padding-top:0;'>
             <% for to_address in @quote.to_addresses %>
               <% if to_address.has_storage? %>
-                <h6>Entrepôt: <%= to_address.storage.name %></h6>
+                <h6><%= t 'storage' %>: <%= to_address.storage.name %></h6>
                 <%= address_for(to_address.storage.address, :p) %>
               <% else %>
                 <%= address_for(to_address.address, :p) %>        
@@ -55,18 +57,18 @@
 
 <!-- FURNITURE -->
 <% if @quote.furniture %>
-<p>Nombre d'électroménager: <%= @quote.furniture.num_appliances %></p>
+<p><%= t 'nb_appliances' %>: <%= @quote.furniture.num_appliances %></p>
 
 <table width="100%" id="background" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td style="padding-left: 0; width: 50%;">
       <table width="100%" class="grey-background" border="0" cellpadding="0" cellspacing="0">
         <td>
-          <h3>Cuisine</h3>
+          <h3><%= t 'kitchen' %></h3>
           <ul>
-            <%= content_tag(:li, pluralize(@quote.furniture.kitchen_table, 'buffet')) if @quote.furniture.kitchen_table.present? %>
-            <%= content_tag(:li, pluralize(@quote.furniture.kitchen_chair, 'buffet')) if @quote.furniture.kitchen_chair.present? %>
-            <%= content_tag(:li, pluralize(@quote.furniture.kitchen_buffet, 'buffet')) if @quote.furniture.kitchen_buffet.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.kitchen_table, 'Table')) if @quote.furniture.kitchen_table.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.kitchen_chair, "#{t 'chair'}")) if @quote.furniture.kitchen_chair.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.kitchen_buffet, 'Buffet')) if @quote.furniture.kitchen_buffet.present? %>
           </ul>
         </td>
       </table>
@@ -74,13 +76,13 @@
     <td style="padding-right: 0;padding-left: 0;width: 50%;">
       <table width="100%" class="grey-background" border="0" cellpadding="0" cellspacing="0">
         <td>
-          <h3>Salon</h3>
+          <h3><%= t 'living_room' %></h3>
           <ul>
-            <%= content_tag(:li, pluralize(@quote.furniture.living_couch_3pl, 'divan') + ' 3pl') if @quote.furniture.living_couch_3pl.present? %>
-            <%= content_tag(:li, pluralize(@quote.furniture.living_couch_2pl, 'divan') + ' 2pl') if @quote.furniture.living_couch_2pl.present? %>
-            <%= content_tag(:li, pluralize(@quote.furniture.living_table, 'table')) if @quote.furniture.living_table.present? %>
-            <%= content_tag(:li, pluralize(@quote.furniture.living_armchair, 'fauteuil')) if @quote.furniture.living_armchair.present? %>
-            <%= content_tag(:li, pluralize(@quote.furniture.living_wall_unit, 'unité murale')) if @quote.furniture.living_wall_unit.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.living_couch_3pl, "#{t 'sofa'}") + ' 3pl') if @quote.furniture.living_couch_3pl.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.living_couch_2pl, "#{t 'sofa'}") + ' 2pl') if @quote.furniture.living_couch_2pl.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.living_table, 'Table')) if @quote.furniture.living_table.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.living_armchair, "#{t 'armchair'}")) if @quote.furniture.living_armchair.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.living_wall_unit, "#{t 'wall_unit'}")) if @quote.furniture.living_wall_unit.present? %>
             <%= content_tag(:li, pluralize(@quote.furniture.living_tv, 'TV')) if @quote.furniture.living_tv.present? %>
             <%= content_tag(:li, @quote.furniture.living_other) if @quote.furniture.living_other.present? %>
           </ul>
@@ -95,12 +97,12 @@
     <td style="padding-left: 0; width: 50%;">
       <table width="100%" class="grey-background" border="0" cellpadding="0" cellspacing="0">
         <td>
-          <h3>Sous-sol</h3>
+          <h3><%= t 'basement' %></h3>
           <ul>
-            <%= content_tag(:li, pluralize(@quote.furniture.base_salon, 'set') + ' de salon') if @quote.furniture.base_salon.present? %>
-            <%= content_tag(:li, pluralize(@quote.furniture.base_shelf, 'étagère')) if @quote.furniture.base_shelf.present? %>
-            <%= content_tag(:li, pluralize(@quote.furniture.base_desk, 'bureau')) if @quote.furniture.base_desk.present? %>
-            <%= content_tag(:li, pluralize(@quote.furniture.base_training, 'set') + " d'entrainement") if @quote.furniture.base_training.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.base_salon, "#{t 'salon_set'}", "#{t 'salon_sets', default: 'Salon sets'}")) if @quote.furniture.base_salon.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.base_shelf, "#{t 'shelf'}")) if @quote.furniture.base_shelf.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.base_desk, "#{t 'desk'}", "#{t 'desks', default: 'Desks'}")) if @quote.furniture.base_desk.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.base_training, "#{t 'training_set'}", "#{t 'training_sets', default: 'Training sets'}")) if @quote.furniture.base_training.present? %>
             <%= content_tag(:li, @quote.furniture.base_other) if @quote.furniture.base_other.present? %>
           </ul>
         </td>
@@ -109,12 +111,12 @@
     <td style="padding-right: 0;padding-left: 0;width: 50%;">
       <table width="100%" class="grey-background" border="0" cellpadding="0" cellspacing="0">
         <td>
-          <h3>Extérieur</h3>
+          <h3><%= t 'outside' %></h3>
           <ul>
-            <%= content_tag(:li, pluralize(@quote.furniture.outside_tire, 'tire')) if @quote.furniture.outside_tire.present? %>
-            <%= content_tag(:li, pluralize(@quote.furniture.outside_lawn_mower, 'tondeuse')) if @quote.furniture.outside_lawn_mower.present? %>
-            <%= content_tag(:li, pluralize(@quote.furniture.outside_bike, 'vélo')) if @quote.furniture.outside_bike.present? %>
-            <%= content_tag(:li, pluralize(@quote.furniture.outside_table, 'table') + ' patio') if @quote.furniture.outside_table.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.outside_tire, "#{t 'tire'}", "#{t 'tires', default: 'Tires'}")) if @quote.furniture.outside_tire.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.outside_lawn_mower, "#{t 'lawn_mower'}")) if @quote.furniture.outside_lawn_mower.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.outside_bike, "#{t 'bike'}")) if @quote.furniture.outside_bike.present? %>
+            <%= content_tag(:li, pluralize(@quote.furniture.outside_table, "#{t 'patio_table'}", "#{t 'patio_tables', default: 'Patio tables'}")) if @quote.furniture.outside_table.present? %>
             <%= content_tag(:li, pluralize(@quote.furniture.outside_bbq, 'BBQ')) if @quote.furniture.outside_bbq.present? %>
             <%= content_tag(:li, @quote.furniture.outside_other) if @quote.furniture.outside_other.present? %>
           </ul>  
@@ -127,32 +129,32 @@
 <!-- PRICES -->
 <hr/>
 <p>
-  <b>Nombre de déménageurs:</b>
+  <b><%= t 'nb_removal_men', default: 'Nb of removal men' %>:</b>
   <%= @quote.num_of_removal_man %>
 </p>
 
 <p>
-  <b>Prix:</b>
-  <%= number_to_currency(@quote.price) %> par heure
+  <b><%= t 'price' %>:</b>
+  <%= number_to_currency(@quote.price) %> <%= t 'per_hour' %>
 </p>
 
 <p>
-  <b>Gas:</b>
+  <b><%= t 'gas' %>:</b>
   <%= number_to_currency(@quote.gas) %>
 </p>
 
 <p>
-  <b>Temps de transport:</b>
+  <b><%= t 'transport_time' %>:</b>
   <%= @quote.transport_time %><% if @quote.long_distance %> <%= content_tag(:span, '(Long distance)', :class => 'label label-warning label_override') %><% end %>
 </p>
 
 <p>
-  <b>Assurance:</b>
+  <b><%= t 'insurance' %>:</b>
   <%= @quote.insurance? ? "#{t 'included'}" : "#{t 'not_included'}" %>
 </p>
 
 <p>
-  <b>Matériel:</b>
+  <b><%= t 'equipment' %>:</b>
   <%= @quote.materiel? ? "#{t 'included'}" : "#{t 'not_included'}" %>
 </p>
 <!-- OPTIONAL -->
@@ -206,6 +208,6 @@
   </p>
 
   <p><%= t 'franchise_cancelation' %>: <%= @quote.quote_confirmation.franchise_cancellation? ? 
-  "#{t 'yessai'} (frais de #{@quote.account.franchise_cancellation_amount}$)" : "#{t 'nope'}" %></p>
+  "#{t 'yessai'} (#{t 'fees'} #{@quote.account.franchise_cancellation_amount}$)" : "#{t 'nope'}" %></p>
   <p><%= t 'payment_method' %>: <%= @quote.quote_confirmation.payment_method %></p>
 <% end %>

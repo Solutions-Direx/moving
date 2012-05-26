@@ -1,7 +1,7 @@
 h1, h2, h3, h4, h5, h6 { margin: 0; padding: 10px; }
 body, td { color:#000000; font-size:14px; font-family: Helvetica,Arial; vertical-align: top;}
 table {width: 100%;}
-table td {padding: 5px 10px;}
+table td {padding: 0 10px 5px;}
 table.grey-background td { background: #f5f5f5; }
 h6 { text-transform: uppercase; color: #999999;}
 hr { color: #CCC; background-color: #CCC; height: 1px; border: 0;}

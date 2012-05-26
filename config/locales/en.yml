@@ -8,6 +8,8 @@ en:
   destroy: 'Destroy'
   in: 'in'
   by: by
+  yessai: "Yes"
+  nope: "No"
   address: 'Address'
   storage: 'Storage'
   search: 'Search'
@@ -30,7 +32,7 @@ en:
   internal: 'Internal'
   from: 'From'
   to: 'To'
-  email_to_client: 'Email to client'
+  email_to_client: 'Send'
   room: Room
   nb_appliances: 'Number of appliances'
   sofa: 'Sofa'
@@ -58,6 +60,9 @@ en:
   i_approve: I approve
   next: 'Next'
   print_your_name: Print your name
+  house: House
+  apartment: Apartment
+  fees: Fees
   activerecord:
     attributes:
       user:  

@@ -20,3 +20,9 @@
 
     &:hover { background-color: #97310E;}
 }
+.label-warning {
+	background-color:#BD362F;
+	@include background-image(linear-gradient(top, #F5D185, #EFB73E));
+
+    &:hover { background-color: #efb73e;}
+}

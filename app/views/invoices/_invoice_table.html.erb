@@ -1,3 +1,4 @@
+<h1>
 <% if @invoice.quote.account.logo.present? %>
   <% if absolute_path %>
     <%= image_tag(Rails.root.join("public", "uploads", "account", @invoice.quote.account_id.to_s, "logo", "thumb", @invoice.quote.account.logo_file_name)) %>
@@ -5,8 +6,8 @@
     <%= image_tag(@invoice.quote.account.logo.url(:thumb)) %>
   <% end %>    
 <% end %>
-
-<h1 class='floatr'><%= Invoice.model_name.human %> #<%= @invoice.code %></h1>
+  <span style='float:right; vertical-align:top;'><%= Invoice.model_name.human %> #<%= @invoice.code %></span>
+</h1>
 
 <table>
   <tr>
@@ -48,7 +49,7 @@
   
   <% if @invoice.gas > 0 %>
   <tr>
-    <td>Gas</td>
+    <td><%= t 'gas' %></td>
     <td class="right"><%= number_to_currency(@invoice.gas) %></td>
   </tr>
   <% end %>
@@ -56,7 +57,7 @@
   <% if @invoice.total_overtime > 0 %>
     <% @invoice.overtimes.each do |overtime| %>
     <tr>
-      <td>Overtime (<%= overtime.duration %> * <%= number_to_currency(overtime.rate) %>)</td>
+      <td><%= t 'overtime' %> (<%= overtime.duration %> * <%= number_to_currency(overtime.rate) %>)</td>
       <td class="right"><%= number_to_currency(overtime.amount) %></td>
     </tr>
     <% end %>

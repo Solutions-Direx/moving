@@ -6,7 +6,7 @@
 
 <% if quote.pm? %>
   <p>
-    <span class='label label-warning label_override'><%= t 'removal_time_confirmation' %></span>
+    <span class='label label-danger label_override'><%= t 'removal_time_confirmation' %></span>
     <% if quote.removal_at_comment.present? %><%= quote.removal_at_comment %><% end %>
   </p>
 <% end %>
