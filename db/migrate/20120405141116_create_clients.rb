@@ -5,6 +5,7 @@ class CreateClients < ActiveRecord::Migration
       t.string :phone1
       t.string :phone2
       t.string :email
+      t.boolean :commercial, :default => false
       t.integer :account_id
 
       t.timestamps

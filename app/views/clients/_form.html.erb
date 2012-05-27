@@ -6,6 +6,7 @@
     <%= f.input :phone1 %>
     <%= f.input :phone2 %>
     <%= f.input :email %>
+    <%= f.input :commercial, :as => :radio_buttons %>
     
     <% @client.build_address unless @client.address %>
       <%= f.fields_for :address do |fa| %>

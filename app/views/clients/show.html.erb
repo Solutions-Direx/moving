@@ -1,4 +1,5 @@
-<h2><%= @client.name %>
+<h2>
+  <%= @client.name %> <%= content_tag(:span, 'commercial', :class => "badge") if @client.commercial? %>
   <span class='submenu'><%= button_link_to "#{t 'edit'}", edit_client_path(@client), level: "inverse", large: true  %></span>
 </h2>
 

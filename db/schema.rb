@@ -65,9 +65,10 @@ ActiveRecord::Schema.define(:version => 20120516134642) do
     t.string   "phone1"
     t.string   "phone2"
     t.string   "email"
+    t.boolean  "commercial", :default => false
     t.integer  "account_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "clients", ["phone1"], :name => "index_clients_on_phone1"

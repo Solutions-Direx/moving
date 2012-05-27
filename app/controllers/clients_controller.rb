@@ -60,7 +60,7 @@ class ClientsController < ApplicationController
           if request.xhr?
             render :partial => "flash_modal_msg", :locals => { :message => "Client was successfully created.", :close_dialog_id => "new-client", :client => @client }
           else
-            redirect_to @client, notice: 'Client was successfully created.' 
+            redirect_to @client, notice: 'Client was successfully created.'
           end
         }
         format.json { render json: @client, status: :created, location: @client }
@@ -82,7 +82,7 @@ class ClientsController < ApplicationController
           if request.xhr?
             render :partial => "flash_modal_msg", :locals => { :message => "Client was successfully updated.", :close_dialog_id => "edit-client", :client => @client }
           else
-            redirect_to @client, notice: 'Client was successfully updated.' 
+            redirect_to @client, notice: 'Client was successfully updated.'
           end
         }
         format.json { head :no_content }
