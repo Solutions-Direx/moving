@@ -294,7 +294,7 @@ ActiveRecord::Schema.define(:version => 20120516134642) do
     t.string   "name"
     t.boolean  "internal",   :default => false
     t.float    "price"
-    t.string   "account_id"
+    t.integer  "account_id"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end

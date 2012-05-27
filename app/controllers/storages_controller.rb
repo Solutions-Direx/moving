@@ -87,6 +87,6 @@ class StoragesController < ApplicationController
 private
   
   def sort_column
-    Document.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    Storage.column_names.include?(params[:sort]) ? params[:sort] : "name"
   end
 end

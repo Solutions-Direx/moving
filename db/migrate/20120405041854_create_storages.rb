@@ -4,7 +4,7 @@ class CreateStorages < ActiveRecord::Migration
       t.string :name
       t.boolean :internal, :default => false
       t.float :price
-      t.string :account_id
+      t.integer :account_id
 
       t.timestamps
     end
