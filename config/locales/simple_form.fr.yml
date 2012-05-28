@@ -84,6 +84,7 @@ fr:
       defaults:
       user:
         password: "(Laisser vide si vous ne souhaitez pas le modifier)"
+        role: 'Le manager a un accès complet. Les utilisateurs standard ne peuvent pas changer les réglages. Les déménageurs ont un accès mobile aux rapports et à la facturation.'
   helpers:
     submit:
       account:
@@ -91,6 +92,12 @@ fr:
       client:
         create: Créer ce client
         update: Modifier ce client
+      document:
+        create: Créer ce document
+        update: Modifier ce document
+      forfait:
+        create: Créer ce forfait
+        update: Modifier ce forfait
       profile:
         create: "Créer %{model}"
         update: "Mettre à jour"
@@ -100,3 +107,15 @@ fr:
       quote_confirmation:
         create: Confirmer cette entente
         update: Modifier cette entente
+      storage:
+        create: Créer cet entrepôt
+        update: Modifier cet entrepôt
+      supply:
+        create: Créer ce matériel
+        update: Modifier ce matériel
+      user:
+        create: Créer cet utilisateur
+        update: Modifier cet utilisateur
+      truck:
+        create: Créer ce camion
+        update: Modifier ce camion

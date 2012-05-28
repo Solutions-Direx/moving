@@ -21,4 +21,5 @@ en:
     hints:
       user:
         password: "(leave blank if you don't want to change it)"
+        role: 'Manager has access to all. Standard users can not edit settings. Removal men have access to mobile reporting and invoicing.'
 
