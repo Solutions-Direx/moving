@@ -189,6 +189,10 @@ fr:
   change_my_password: Modifier mon mot de passe
   forgot_password: Mot de passe oublié?
   reset_password: Envoyez-moi les instructions pour modifier mon mot de passe
+  admin: "Administrateur"
+  manager: "Directeur"
+  removal_man: "Déménageur"
+  standard: "Standard"
   activerecord:
     models:
       account: Compte

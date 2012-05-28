@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
     REMOVAL_MAN = 'removal_man'
     
     def self.options
-      [[MANAGER.humanize, MANAGER], [STANDARD.humanize, STANDARD], [REMOVAL_MAN.humanize, REMOVAL_MAN]]
+      [[I18n.t(MANAGER), MANAGER], [I18n.t(STANDARD), STANDARD], [I18n.t(REMOVAL_MAN), REMOVAL_MAN]]
     end
   end
   
