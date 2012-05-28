@@ -22,6 +22,7 @@ gem 'roadie'
 gem 'pg_search'
 gem 'pdfkit'
 gem 'paperclip', '~> 3.0'
+gem 'capistrano'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -56,4 +57,6 @@ end
 
 group :production do
   gem 'pg'
+  #gem 'passenger'
+  gem 'exception_notification'
 end
