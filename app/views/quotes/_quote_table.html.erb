@@ -14,8 +14,8 @@
 <table width="100%" id="background" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td style="padding-left: 0; width: 50%;">
-      <table style="width: 100%; padding-left: 0;" class="grey-background" border="0" cellpadding="0" cellspacing="0">
-        <tr><td><h3><%= t 'from' %> <%= "#{t 'internal'}" if @quote.internal_address %></h3></td></tr>
+      <table style="width: 100%; padding-left: 0;" class="grey-background addresses" border="0" cellpadding="0" cellspacing="0">
+        <tr><td style="padding: 0 10px 0 10px;"><h3><%= t 'from' %> <%= "#{t 'internal'}" if @quote.internal_address %></h3></td></tr>
         <tr>
           <td style='padding-top:0;'>
             <% if @quote.from_address.has_storage? %>
@@ -30,8 +30,8 @@
     </td>
     <% if !@quote.internal_address? && !@quote.to_addresses.blank? %>
     <td style="padding-left: 0; padding-right: 0; width: 50%;">
-      <table width="100%" class="grey-background" border="0" cellpadding="0" cellspacing="0">
-        <tr><td><h3><%= t 'to' %></h3></td></tr>
+      <table width="100%" class="grey-background addresses" border="0" cellpadding="0" cellspacing="0">
+        <tr><td style="padding: 0 10px 0 10px;"><h3><%= t 'to' %></h3></td></tr>
         <tr>
           <td style='padding-top:0;'>
             <% for to_address in @quote.to_addresses %>
