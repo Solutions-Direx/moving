@@ -70,7 +70,7 @@ class Quote < ActiveRecord::Base
   scope :pending, where(:status => 'Pending')
   scope :confirmed, where(:status => 'Confirmed')
   scope :rejected, where(:status => 'Rejected')
-  scope :applicable, where(:status => ['Pending', "Confirmed"])
+  scope :applicable, where(:status => ['Pending', 'Confirmed'])
   scope :today, lambda { where("removal_at BETWEEN '#{Date.today.beginning_of_day.utc}' AND '#{Date.today.end_of_day.utc}'") }
   scope :by_day, lambda { |day| where("removal_at BETWEEN '#{day.beginning_of_day.utc}' AND '#{day.end_of_day.utc}'") }
   
@@ -100,7 +100,7 @@ class Quote < ActiveRecord::Base
   end
   
   def conf_details
-    "Approuvée le #{I18n.l(quote_confirmation.approved_at, :format => :long)} par #{quote_confirmation.user.full_name}"
+    "#{I18n.t 'approved_on'} #{I18n.l(quote_confirmation.approved_at, :format => :long)} #{I18n.t 'by'} #{quote_confirmation.user.full_name}"
   end
   
 private
@@ -134,7 +134,7 @@ private
   
   def validate_addresses
     if from_address && from_address.address.all_blank?
-      errors.add(:base, "From address cannot be blank")
+      errors.add(:base, "#{I18n.t 'from_address_cannot_be_blank', default: 'From address cannot be blank'}")
     end
   end
   

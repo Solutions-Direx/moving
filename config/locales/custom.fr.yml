@@ -171,6 +171,7 @@ fr:
   current_month: 'Mois en cours'
   removal_time_confirmation: "L'heure exacte sera confirmée le jour même"
   i_approve: J'approuve
+  approved_on: 'Approuvée le'
   next: 'Suivant'
   invoice_for: Facture pour
   time_spent: Temps passé
@@ -193,6 +194,7 @@ fr:
   manager: "Manager"
   removal_man: "Déménageur"
   standard: "Standard"
+  from_address_cannot_be_blank: "L'addresse de départ ne peut être vide"
   activerecord:
     models:
       account: Compte
