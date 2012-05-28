@@ -55,7 +55,7 @@ class Quote < ActiveRecord::Base
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
                   :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment, 
                   :document_ids, :forfait_ids, :quote_supplies_attributes, :pm, :long_distance, :lock_version,
-                  :removal_leader_id, :removal_man_ids, :internal_address, :invoice_attributes, :signer_name, :signature
+                  :removal_leader_id, :removal_man_ids, :internal_address, :invoice_attributes, :signer_name, :signature, :contact
   
   # VALIDATIONS
   validates_presence_of :removal_at_picker, :removal_at, :account, :creator, :client

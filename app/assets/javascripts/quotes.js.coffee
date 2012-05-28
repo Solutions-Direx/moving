@@ -55,6 +55,10 @@
       $(room).find('.room-number').text("Room #{index + 1}")
       
   fill_client_info: (client) ->
+    if client.commercial
+      $('#quote_contact').closest('.control-group').slideDown()
+    else
+      $('#quote_contact').closest('.control-group').slideUp()
     $('#quote_phone1').val(client.phone1)
     $('#quote_phone2').val(client.phone2)
     $('#quote_from_address_attributes_address_attributes_address').val(client.address.address)

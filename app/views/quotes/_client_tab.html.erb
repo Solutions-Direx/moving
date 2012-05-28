@@ -18,6 +18,8 @@
     </div>
   </div>
   
+  <%= f.input :contact, :wrapper_html => {:style => "display: #{@quote.client && @quote.client.commercial ? 'block' : 'none' };"} %>
+  
   <!-- REMOVAL PICKER -->
   <div class="control-group datetime_picker">
     <label class="control-label"><%= Quote.human_attribute_name(:removal_at) %></label>

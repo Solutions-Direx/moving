@@ -214,6 +214,7 @@ fr:
         phone2: "Téléphone2"
         price: "Prix"
         payment_method: "Méthode de paiement"
+        contact: "Contacter"
       supply:
         active: "Actif"
   accounts:
