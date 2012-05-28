@@ -32,8 +32,10 @@
       <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_overtime'}", :overtimes, :class => "btn btn-primary add-link", :id => "add-overtime" %>
     <% end %>
     
-    <%= f.input :payment_method, required: false, :as => :radio_buttons, :collection => payment_method_options, :item_wrapper_class => "inline", :wrapper_html => {:id => "payment_methods"} %>
-    <%= f.input :credit_card_type, :collection => credit_card_type_options, :include_blank => false, :wrapper_html => {:id => "credit_card_type", :style => "display: #{@invoice.payment_method == 'credit' ? 'block' : 'none'};"}  %>
+    <% unless @invoice.quote.client.commercial? %>
+      <%= f.input :payment_method, required: false, :as => :radio_buttons, :collection => payment_method_options, :item_wrapper_class => "inline", :wrapper_html => {:id => "payment_methods"} %>
+      <%= f.input :credit_card_type, :collection => credit_card_type_options, :include_blank => false, :wrapper_html => {:id => "credit_card_type", :style => "display: #{@invoice.payment_method == 'credit' ? 'block' : 'none'};"}  %>
+    <% end %>
     
     <% if @invoice.quote.quote_confirmation.franchise_cancellation %>
     <div class="control-group float optional">

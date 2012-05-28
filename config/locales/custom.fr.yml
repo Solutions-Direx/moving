@@ -190,7 +190,7 @@ fr:
   forgot_password: Mot de passe oublié?
   reset_password: Envoyez-moi les instructions pour modifier mon mot de passe
   admin: "Administrateur"
-  manager: "Directeur"
+  manager: "Manager"
   removal_man: "Déménageur"
   standard: "Standard"
   activerecord:
@@ -214,7 +214,7 @@ fr:
         phone2: "Téléphone2"
         price: "Prix"
         payment_method: "Méthode de paiement"
-        contact: "Contacter"
+        contact: "Personne à contacter"
       supply:
         active: "Actif"
   accounts:

@@ -158,7 +158,8 @@ class QuotesController < ApplicationController
 private
 
   def load_quote
-    @quote = Quote.find(params[:id])
+    @quote = Quote.includes(:from_address, :to_addresses, :quote_forfaits, :quote_supplies, :quote_documents, :quote_trucks, 
+                            :quote_confirmation, :furniture, :rooms).find(params[:id])
   end
   
   def sort_column

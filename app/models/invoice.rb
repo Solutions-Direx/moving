@@ -24,7 +24,7 @@ class Invoice < ActiveRecord::Base
   
   before_create :generate_code
   
-  validates_presence_of :payment_method
+  validates_presence_of :payment_method, :unless => Proc.new { |invoice| invoice.quote.client.commercial? }
 
   # cache grand_total calculation since it's expensive
   # pass recalculate = true to recalculate

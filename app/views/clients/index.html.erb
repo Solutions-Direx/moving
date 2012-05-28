@@ -17,7 +17,7 @@
 
 <% @clients.each do |client| %>
   <tr>
-    <td><%= link_to client.name, client %></td>
+    <td><%= link_to client.name, client %> <%= status_tag('comm.') if client.commercial? %></td>
     <td><%= client.phone1 %></td>
     <td><%= client.phone2 %></td>
     <td><%= address_for(client.address) %></td>

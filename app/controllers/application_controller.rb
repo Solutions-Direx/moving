@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
 protected   
   
   def stale_record_recovery_action
-    flash.now[:alert] = t('conflict', default: "Another user has made a change to this record since you access the edit form. Please recheck information and update again.")
+    flash.now[:alert] = t('conflict', default: "Another user has made a change to this record since you accessed the edit form. Please check information and update again.")
     render :edit, :status => :conflict
   end
   

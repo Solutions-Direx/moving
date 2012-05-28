@@ -63,6 +63,9 @@ en:
   house: House
   apartment: Apartment
   fees: Fees
+  admin: "Administrator"
+  manager: "Manager"
+  standard: "Standard"
   activerecord:
     attributes:
       user:  

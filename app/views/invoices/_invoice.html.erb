@@ -120,9 +120,8 @@
 
 <div class="row">
   <br />
-  <div class="span12"><h3><%= t 'payment_method' %>: <%= t @invoice.payment_method %> <%= "(#{t @invoice.credit_card_type})" if @invoice.payment_method == "credit" %></h3></div>
+  <div class="span12"><h3><%= t 'payment_method' %>: <%= t @invoice.payment_method unless @invoice.quote.client.commercial? %> <%= "(#{t @invoice.credit_card_type})" if @invoice.payment_method == "credit" %></h3></div>
 </div>
-
 
 <% unless @invoice.comment.blank? %>
 <%= section %>
