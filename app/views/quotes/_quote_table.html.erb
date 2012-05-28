@@ -64,8 +64,8 @@
     <td style="padding-left: 0; width: 50%;">
       <table width="100%" class="grey-background" border="0" cellpadding="0" cellspacing="0">
         <td>
-          <h3><%= t 'kitchen' %></h3>
-          <ul>
+          <h3 style='margin-bottom:0;'><%= t 'kitchen' %></h3>
+          <ul style='margin-top:0; margin-bottom:0;'>
             <%= content_tag(:li, pluralize(@quote.furniture.kitchen_table, 'Table')) if @quote.furniture.kitchen_table.present? %>
             <%= content_tag(:li, pluralize(@quote.furniture.kitchen_chair, "#{t 'chair'}")) if @quote.furniture.kitchen_chair.present? %>
             <%= content_tag(:li, pluralize(@quote.furniture.kitchen_buffet, 'Buffet')) if @quote.furniture.kitchen_buffet.present? %>
@@ -77,7 +77,7 @@
       <table width="100%" class="grey-background" border="0" cellpadding="0" cellspacing="0">
         <td>
           <h3><%= t 'living_room' %></h3>
-          <ul>
+          <ul style='margin-top:0; margin-bottom:0;'>
             <%= content_tag(:li, pluralize(@quote.furniture.living_couch_3pl, "#{t 'sofa'}") + ' 3pl') if @quote.furniture.living_couch_3pl.present? %>
             <%= content_tag(:li, pluralize(@quote.furniture.living_couch_2pl, "#{t 'sofa'}") + ' 2pl') if @quote.furniture.living_couch_2pl.present? %>
             <%= content_tag(:li, pluralize(@quote.furniture.living_table, 'Table')) if @quote.furniture.living_table.present? %>
@@ -98,7 +98,7 @@
       <table width="100%" class="grey-background" border="0" cellpadding="0" cellspacing="0">
         <td>
           <h3><%= t 'basement' %></h3>
-          <ul>
+          <ul style='margin-top:0; margin-bottom:0;'>
             <%= content_tag(:li, pluralize(@quote.furniture.base_salon, "#{t 'salon_set'}", "#{t 'salon_sets', default: 'Salon sets'}")) if @quote.furniture.base_salon.present? %>
             <%= content_tag(:li, pluralize(@quote.furniture.base_shelf, "#{t 'shelf'}")) if @quote.furniture.base_shelf.present? %>
             <%= content_tag(:li, pluralize(@quote.furniture.base_desk, "#{t 'desk'}", "#{t 'desks', default: 'Desks'}")) if @quote.furniture.base_desk.present? %>
@@ -112,7 +112,7 @@
       <table width="100%" class="grey-background" border="0" cellpadding="0" cellspacing="0">
         <td>
           <h3><%= t 'outside' %></h3>
-          <ul>
+          <ul style='margin-top:0; margin-bottom:0;'>
             <%= content_tag(:li, pluralize(@quote.furniture.outside_tire, "#{t 'tire'}", "#{t 'tires', default: 'Tires'}")) if @quote.furniture.outside_tire.present? %>
             <%= content_tag(:li, pluralize(@quote.furniture.outside_lawn_mower, "#{t 'lawn_mower'}")) if @quote.furniture.outside_lawn_mower.present? %>
             <%= content_tag(:li, pluralize(@quote.furniture.outside_bike, "#{t 'bike'}")) if @quote.furniture.outside_bike.present? %>
