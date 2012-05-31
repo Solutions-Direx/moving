@@ -4,7 +4,7 @@
     <h3>Signature</h3>
   </div>
   <div class="modal-body">
-    <%= simple_form_for([@quote, @invoice], :url => sign_mobile_quote_invoice_path(@quote), :method => :post, :html => {:class => "sigPad", :id => "frm-invoice", :style => "width: 100%;"}) do |f| %>
+    <%= simple_form_for([@quote, @invoice], :url => sign_quote_invoice_path(@quote), :method => :post, :html => {:class => "sigPad", :id => "frm-invoice", :style => "width: 100%;"}) do |f| %>
       <%= f.error_notification %>
       <!-- SIGNATURE -->
       <label for="name" class="sig-label"><%= t 'print_your_name' %></label>

@@ -15,6 +15,7 @@ Moving::Application.routes.draw do
     resource :invoice, :only => [:new, :create, :show, :edit, :update] do
       post 'email'
       get 'print'
+      post "sign"
     end
     member do
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'

@@ -72,6 +72,17 @@ class InvoicesController < ApplicationController
     end
   end
   
+  def sign
+    @invoice.assign_attributes(params[:invoice])
+    @invoice.signed_at = Time.now unless @invoice.signature.blank?
+    @invoice.save!
+    if request.xhr?
+      render :nothing => true
+    else
+      redirect_to quote_invoice_url(@quote), notice: "#{Invoice.model_name.human} #{t 'signed'}"
+    end
+  end
+  
 protected
   
   def load_quote_and_invoice
