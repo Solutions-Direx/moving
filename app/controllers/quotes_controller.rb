@@ -149,6 +149,8 @@ class QuotesController < ApplicationController
   end
   
   def print
+    to_ids = params[:to] || []
+    @to_addresses = @quote.to_addresses.select {|a| to_ids.include?(a.id.to_s) }
     respond_to do |format|
       format.html
       format.pdf { render :text => PDFKit.new(render_to_string(:formats => [:html], :layout => 'print')).to_pdf }

@@ -1,6 +1,7 @@
 <h2><%= @quote.client.name %> <%= content_tag(:span, @quote.rating, :class => "badge badge-#{@quote.rating.downcase}") %>
   <span class='submenu'>
-    <%= icon_button_link_to "#{t 'print', default: 'Print'}", print_quote_path(:format => :pdf), icon: "print", large: true, level: "primary", white: true %>
+    <%#= icon_button_link_to "#{t 'print', default: 'Print'}", print_quote_path(:format => :pdf), icon: "print", large: true, level: "primary", white: true %>
+    <%= icon_button_link_to "#{t 'print', default: 'Print'}", '#print-modal', icon: "print", large: true, level: "primary", white: true, "data-toggle" => "modal" %>
     <% if @quote.confirmed? && @quote.invoice.blank? %>
       <%= button_link_to "#{t 'create_invoice'}", new_quote_invoice_path(@quote), level: "success", large: true %>
     <% end %>  
@@ -65,6 +66,48 @@
 <%= render 'optional' %>
 <%= render 'documents' %>
 <%= render 'confirmation' %>
+
+<!-- PRINT MODAL -->
+<div class="modal" id="print-modal">
+  <%= form_tag print_quote_path(:format => :pdf), :method => :get do %>
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">×</button>
+    <h3>Sélectionnez les adresses</h3>
+  </div>
+  <div class="modal-body">
+    <h3><%= t 'from' %> <%= "#{t 'internal'}" if @quote.internal_address %></h3>
+    <div class="address">
+    <% if @quote.from_address.has_storage? %>
+      <h6><%= t 'storage' %>: <%= @quote.from_address.storage.name %></h6>
+      <%= address_for(@quote.from_address.storage.address) %>
+    <% else %>
+      <h6><%= t 'address' %></h6>
+      <%= address_for(@quote.from_address.address) %>        
+    <% end %>
+    </div>
+    
+    <h3><%= t 'to' %></h3>
+    <% if !@quote.to_addresses.blank? %>
+      <% for to_address in @quote.to_addresses %>
+        <div class="address">
+        <%= check_box_tag 'to[]', to_address.id %>  
+        <% if to_address.has_storage? %>
+          <h6><%= t 'storage' %>: <%= to_address.storage.name %></h6>
+          <%= address_for(to_address.storage.address) %>
+        <% else %>
+          <h6><%= t 'address' %></h6>
+          <%= address_for(to_address.address) %>        
+        <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn">Close</a>
+    <%= submit_tag t('print', default: 'Print'), class: "btn btn-primary", name: nil %>
+  </div>
+  <% end %>
+</div>
 
 <script type="text/javascript" charset="utf-8">
   $(function() {
