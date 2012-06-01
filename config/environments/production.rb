@@ -68,6 +68,7 @@ Moving::Application.configure do
   config.action_mailer.default_url_options = { :host => 'replacethis.com' }
   config.action_mailer.asset_host = 'http://replacethis.com'
   
+  ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.sendgrid.net',
     :port           => '587',
@@ -76,5 +77,10 @@ Moving::Application.configure do
     :password       => ENV['SENDGRID_PASSWORD'],
     :domain         => 'heroku.com'
   }
-  ActionMailer::Base.delivery_method = :smtp
+  
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[Exception]",
+    :sender_address => %{"Exception Notifier [Dem. Max]" <sales@moreflowerswholesale.com>},
+    :exception_recipients => %w{alert@yafoy.com}
+  
 end

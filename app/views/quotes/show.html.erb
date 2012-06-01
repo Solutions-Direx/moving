@@ -1,6 +1,5 @@
 <h2><%= @quote.client.name %> <%= content_tag(:span, @quote.rating, :class => "badge badge-#{@quote.rating.downcase}") %>
   <span class='submenu'>
-    <%#= icon_button_link_to "#{t 'print', default: 'Print'}", print_quote_path(:format => :pdf), icon: "print", large: true, level: "primary", white: true %>
     <%= icon_button_link_to "#{t 'print', default: 'Print'}", '#print-modal', icon: "print", large: true, level: "primary", white: true, "data-toggle" => "modal" %>
     <% if @quote.confirmed? && @quote.invoice.blank? %>
       <%= button_link_to "#{t 'create_invoice'}", new_quote_invoice_path(@quote), level: "success", large: true %>
@@ -72,7 +71,7 @@
   <%= form_tag print_quote_path(:format => :pdf), :method => :get do %>
   <div class="modal-header">
     <button class="close" data-dismiss="modal">×</button>
-    <h3>Sélectionnez les adresses</h3>
+    <h3><%= t 'select_addresses_to_print', default: 'Select addresses to print' %></h3>
   </div>
   <div class="modal-body">
     <h3><%= t 'from' %> <%= "#{t 'internal'}" if @quote.internal_address %></h3>
@@ -103,7 +102,7 @@
     <% end %>
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn">Close</a>
+    <a href="#" class="btn" data-dismiss="modal"><%= t 'close' %></a>
     <%= submit_tag t('print', default: 'Print'), class: "btn btn-primary", name: nil %>
   </div>
   <% end %>

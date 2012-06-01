@@ -31,6 +31,7 @@ fr:
   login: 'Connexion'
   edit: 'Editer'
   view: 'Voir'
+  close: Fermer
   confirmed: 'Confirmée'
   confirm: 'Confirmer'
   approved: 'Approuvée'
@@ -195,6 +196,7 @@ fr:
   removal_man: "Déménageur"
   standard: "Standard"
   from_address_cannot_be_blank: "L'addresse de départ ne peut être vide"
+  select_addresses_to_print: Sélectionnez les adresses à imprimer
   activerecord:
     models:
       account: Compte
