@@ -211,3 +211,14 @@
   "#{t 'yessai'} (#{t 'fees'} #{@quote.account.franchise_cancellation_amount}$)" : "#{t 'nope'}" %></p>
   <p><%= t 'payment_method' %>: <%= @quote.quote_confirmation.payment_method %></p>
 <% end %>
+
+<% if @to_addresses.any? %>
+  <% @to_addresses.each do |to_address| %>
+    <p class="static_map">
+      <img src="<%= QuoteAddress.static_map_link(@quote.from_address, to_address, options={size: '700x400'}) %>"/>
+      <br/>
+      <br/>
+      <%= link_to 'Get Direction', QuoteAddress.driving_direction_link(@quote.from_address, to_address) %>
+    </p>
+  <% end %>  
+<% end %>

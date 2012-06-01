@@ -27,8 +27,11 @@ class Address < ActiveRecord::Base
   end
   
   def get_directions
-    location = "#{address}, #{city}, #{province}"
-    link = "http://maps.google.com/maps?q=#{location}"
+    link = "http://maps.google.com/maps?q=#{map_location}"
+  end
+  
+  def map_location
+    "#{address},#{city},#{province},#{country}"
   end
   
 end

@@ -12,3 +12,5 @@ hr { color: #CCC; background-color: #CCC; height: 1px; border: 0;}
 table.addresses td table td { padding: 0; margin: 0;}
 table.addresses h3 { padding-left: 0;}
 table.addresses p { padding: 0; margin: 0;}
+
+.static_map {margin-bottom: 50px; text-align: center;}
