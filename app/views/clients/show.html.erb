@@ -42,7 +42,7 @@
 
   <% @client.quotes.each do |quote| %>
     <tr>
-      <td><%= link_to quote.code, quote %> <%= status_tag(quote.status) %></td>
+      <td><%= link_to quote.code, quote %> <%= status_tag(t(quote.status)) %></td>
       <td><%= l quote.removal_at, :format => :long %></td>
       <td><%= quote.creator.full_name %></td>
       <td><%= link_to Invoice.model_name.human, quote_invoice_path(quote) %></td>

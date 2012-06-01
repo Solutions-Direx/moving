@@ -18,7 +18,7 @@ class CreateQuotes < ActiveRecord::Migration
       t.boolean :insurance
       t.string :rating, :default => "A"
       t.integer :creator_id
-      t.string :status, :default => "Pending"
+      t.string :status, :default => "pending"
       t.text :comment
       t.boolean :pm, :default => false
       t.boolean :long_distance, :default => false

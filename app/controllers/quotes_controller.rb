@@ -127,7 +127,7 @@ class QuotesController < ApplicationController
   end
   
   def reject
-    @quote.status = "Rejected"
+    @quote.status = "rejected"
     
     respond_to do |format|
       if @quote.save

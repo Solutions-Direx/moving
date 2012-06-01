@@ -4,7 +4,7 @@ class Quote < ActiveRecord::Base
   include PgSearch
   multisearchable :against => [:code]
   
-  STATUSES = %w{ Pending Confirmed Rejected}
+  STATUSES = %w{pending confirmed rejected}
   
   # ASSOCIATIONS
   belongs_to :account
@@ -67,10 +67,10 @@ class Quote < ActiveRecord::Base
   before_save :ignore_blank_addresses, :ignore_blank_rooms
   
   # SCOPES
-  scope :pending, where(:status => 'Pending')
-  scope :confirmed, where(:status => 'Confirmed')
-  scope :rejected, where(:status => 'Rejected')
-  scope :applicable, where(:status => ['Pending', 'Confirmed'])
+  scope :pending, where(:status => 'pending')
+  scope :confirmed, where(:status => 'confirmed')
+  scope :rejected, where(:status => 'rejected')
+  scope :applicable, where(:status => ['pending', 'confirmed'])
   scope :today, lambda { where("removal_at BETWEEN '#{Date.today.beginning_of_day.utc}' AND '#{Date.today.end_of_day.utc}'") }
   scope :by_day, lambda { |day| where("removal_at BETWEEN '#{day.beginning_of_day.utc}' AND '#{day.end_of_day.utc}'") }
   
