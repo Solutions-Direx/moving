@@ -118,7 +118,8 @@ class Quote < ActiveRecord::Base
 private
 
   def generate_code
-    self.code = Array.new.tap {|a| 5.times { a << Random.rand(9) } }.join("")
+    last_quote_id = Quote.last.present? ? Quote.last.id : 0
+    self.code = "%05d" % (last_quote_id + 1)
   end
   
   def ignore_blank_addresses
