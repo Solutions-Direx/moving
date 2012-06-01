@@ -40,6 +40,7 @@ group :development do
   gem 'letter_opener'
   gem 'guard'
   gem 'quiet_assets'
+  gem 'thin'
 end
 
 group :development, :test do
