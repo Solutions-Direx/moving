@@ -18,7 +18,9 @@ en:
   signed: 'Signed'
   preview: Preview
   view: View
+  search: Rechercher
   close: Close
+  update: Update
   confirm_reject: "Are you sure you want to reject this quote?"
   localization: "Language"
   client_satisfaction: Client satisfaction

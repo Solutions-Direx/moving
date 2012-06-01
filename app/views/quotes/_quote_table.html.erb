@@ -19,7 +19,7 @@
         <tr>
           <td style='padding-top:0;'>
             <% if @quote.from_address.has_storage? %>
-              <h6><%= t 'storage' %>: <%= @quote.from_address.storage.name %></h6>
+              <h6 style="padding-left:0;"><%= t 'storage' %>: <%= @quote.from_address.storage.name %></h6>
               <%= address_for(@quote.from_address.storage.address, :p) %>
             <% else %>
               <%= address_for(@quote.from_address.address, :p) %>        
@@ -36,10 +36,10 @@
           <td style='padding-top:0;'>
             <% for to_address in @quote.to_addresses %>
               <% if to_address.has_storage? %>
-                <h6><%= t 'storage' %>: <%= to_address.storage.name %></h6>
+                <h6 style="padding-left:0;"><%= t 'storage' %>: <%= to_address.storage.name %></h6>
                 <%= address_for(to_address.storage.address, :p) %>
               <% else %>
-                <%= address_for(to_address.address, :p) %>        
+                <%= address_for(to_address.address, :p) %><br />  
               <% end %>
             <% end %>
           </td>
