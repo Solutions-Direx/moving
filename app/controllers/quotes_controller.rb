@@ -29,6 +29,7 @@ class QuotesController < ApplicationController
     3.times { @quote.rooms.build }
     @quote.build_from_address.build_address
     @quote.to_addresses.build.build_address
+    @client = Client.find(params[:client_id]) if params[:client_id].present?
 
     respond_to do |format|
       format.html # new.html.erb

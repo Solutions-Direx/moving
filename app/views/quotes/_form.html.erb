@@ -28,6 +28,10 @@
 
 <script type="text/javascript" charset="utf-8">
   $(function() {
-    Quote.Form.init();
+    var client = null;
+    <% if @client.present? %>
+      client = $.parseJSON('<%= @client.to_json(:include => :address, :except => [:updated_at, :created_at]).html_safe %>');
+    <% end %>
+    Quote.Form.init(client);
   });
 </script>

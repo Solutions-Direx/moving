@@ -28,7 +28,7 @@
 <br />
 
 <% if @client.quotes.any? %>
-  <h3><%= Quote.model_name.human + 's' %></h3><br />
+  <h3><%= Quote.model_name.human + 's' %><span class='submenu'><%= icon_button_link_to "#{t 'new_quote'}", new_quote_path(client_id: @client.id), icon: "plus", white: true, level: "inverse", large: true  %></span></h3><br />
   
   <table class="table table-striped">
     <tr>

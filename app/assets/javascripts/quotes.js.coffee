@@ -1,14 +1,16 @@
 @Quote = {}
 @Quote.Form = 
-  init: ->
+  init: (client) ->
     $("#quote-form .chzn").chosen()
     # $(".chzn-deselectable").chosen({allow_single_deselect: true})
     
     $('#quote_from_address_attributes_city').autocomplete
       source: $('#quote_from_address_attributes_city').data('autocomplete-source')
     
-    # HANDLE CLIENT SELECT  
-    clients = $('#clients').data('url')
+    # HANDLE CLIENT SELECT
+    if client
+      Quote.Form.fill_client_info(client)
+      
     $('#select-clients').chosen().change ->
       $.getJSON "/clients/#{$(this).val()}.json", (client) ->
         Quote.Form.fill_client_info(client)
