@@ -5,7 +5,11 @@ class QuotesController < ApplicationController
   set_tab :quotes
   
   def index
-    @quotes = current_account.quotes.order(sort_column + " " + sort_direction).page(params[:page])
+    if params[:search].present?
+      @quotes = current_account.quotes.includes(:client, :creator).search_by_keyword(params[:search]).page(params[:page])
+    else
+      @quotes = current_account.quotes.includes(:client, :creator).order(sort_column + " " + sort_direction).page(params[:page])
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -165,7 +169,7 @@ private
   end
   
   def sort_column
-    Quote.column_names.include?(params[:sort]) ? params[:sort] : "date"
+    params[:sort].present? ? params[:sort] : "date"
   end
   
   def correct_stale_record_version

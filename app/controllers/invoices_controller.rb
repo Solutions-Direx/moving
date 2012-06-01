@@ -1,10 +1,15 @@
 class InvoicesController < ApplicationController
   # load_and_authorize_resource
   before_filter :load_quote_and_invoice, :except => [:index, :export, :reports, :new, :create]
+  helper_method :sort_column
   set_tab :invoices
   
   def index
-    @invoices = current_account.invoices.includes(:quote).order(sort_column + " " + sort_direction).page(params[:page])
+    if params[:search].present?
+      @invoices = current_account.invoices.includes({:quote => [:client, :quote_confirmation]}, :forfaits, :overtimes, :supplies).search_by_keyword(params[:search]).page(params[:page])
+    else
+      @invoices = current_account.invoices.includes({:quote => [:client, :quote_confirmation]}, :forfaits, :overtimes, :supplies).order(sort_column + " " + sort_direction).page(params[:page])
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -22,6 +27,7 @@ class InvoicesController < ApplicationController
     @quote = Quote.find(params[:quote_id])
     @invoice = @quote.build_invoice(params[:invoice])
     @invoice.copy_tax_setting_from(@quote.account)
+    @invoice.client_id = @quote.client_id
     if @invoice.save
       redirect_to quote_invoice_url(@quote), notice: "Invoice successfully created."
     else
@@ -91,7 +97,7 @@ protected
   end
   
   def sort_column
-    Invoice.column_names.include?(params[:sort]) ? params[:sort] : "signed_at"
+    params[:sort].present? ? params[:sort] : "signed_at"
   end
   
   def correct_stale_record_version

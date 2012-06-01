@@ -3,6 +3,7 @@ class CreateInvoices < ActiveRecord::Migration
     create_table :invoices do |t|
       t.integer :code
       t.integer :quote_id
+      t.integer :client_id
       t.float :time_spent
       t.text :comment
       t.string :signer_name

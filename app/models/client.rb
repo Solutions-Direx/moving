@@ -1,6 +1,14 @@
 class Client < ActiveRecord::Base
   include PgSearch
   multisearchable :against => [:name, :phone1, :phone2]
+  pg_search_scope :search_by_keyword, 
+                  :against => :name, 
+                  :using => { 
+                    :tsearch => {
+                      :prefix => true # match any characters
+                    } 
+                  },
+                  :ignoring => :accents
   
   belongs_to :account
   has_one :address, :as => :addressable, :dependent => :destroy
@@ -12,6 +20,5 @@ class Client < ActiveRecord::Base
   validates_presence_of :name, :phone1
   validates_uniqueness_of :name
   
-  default_scope :order => "name"
   scope :commercial, where(commerical: true)
 end

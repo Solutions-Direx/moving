@@ -3,8 +3,21 @@ class Invoice < ActiveRecord::Base
   include Signable
   include PgSearch
   multisearchable :against => [:code]
-  
+  pg_search_scope :search_by_keyword, 
+                  :against => :code,
+                  :associated_against  => {
+                    :quote => :code,
+                    :client => :name
+                  },
+                  :using => { 
+                    :tsearch => {
+                      :prefix => true # match any characters
+                    } 
+                  },
+                  :ignoring => :accents
+                  
   belongs_to :quote, :touch => true
+  belongs_to :client
   
   has_many :invoice_forfaits, :dependent => :destroy
   has_many :forfaits, :through => :invoice_forfaits

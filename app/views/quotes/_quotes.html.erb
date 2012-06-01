@@ -1,11 +1,19 @@
-<%= paginate @quotes %>
+<div class="clearfix">
+  <%= form_tag '', :method => :get, :class => "form-search" do %>
+    <%= hidden_field_tag 'sort', params[:sort] %>
+    <%= hidden_field_tag 'direction', params[:direction] %>
+    <%= text_field_tag 'search', params[:search], :placeholder => "Enter keyword..." %>
+    <%= submit_tag 'Search', class: 'btn', name: nil %>
+  <% end %>
+  <%= paginate @quotes %>
+</div>
 
 <table class="table table-striped">
   <tr>
-    <th>ID</th>
-    <th>Client</th>
-    <th><%= t 'removal_at', default: 'Removal at' %></th>
-    <th><%= t 'creator', default: 'Creator' %></th>
+    <th><%= sortable 'code', "ID" %></th>
+    <th><%= sortable 'clients.name', 'Client' %></th>
+    <th><%= sortable "removal_at", t('removal_at', default: 'Removal at') %></th>
+    <th><%= sortable 'users.first_name', t('creator', default: 'Creator') %></th>
     <th></th>
     <th></th>
   </tr>

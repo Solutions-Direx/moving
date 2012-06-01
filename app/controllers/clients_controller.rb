@@ -6,7 +6,11 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = current_account.clients.includes(:address).order(sort_column + " " + sort_direction).page(params[:page])
+    if params[:search].present?
+      @clients = current_account.clients.includes(:address).search_by_keyword(params[:search]).page(params[:page])
+    else
+      @clients = current_account.clients.includes(:address).order(sort_column + " " + sort_direction).page(params[:page])
+    end
 
     respond_to do |format|
       format.html # index.html.erb

@@ -3,6 +3,18 @@ class Quote < ActiveRecord::Base
   include Signable
   include PgSearch
   multisearchable :against => [:code]
+  pg_search_scope :search_by_keyword, 
+                  :against => :code,
+                  :associated_against  => {
+                    :client => :name,
+                    :creator => [:first_name, :last_name]
+                  },
+                  :using => { 
+                    :tsearch => {
+                      :prefix => true # match any characters
+                    } 
+                  },
+                  :ignoring => :accents
   
   STATUSES = %w{pending confirmed rejected}
   

@@ -2,15 +2,23 @@
   <span class="submenu"><%= icon_button_link_to "#{t 'new'} #{Client.model_name.human}", new_client_path, icon: 'plus', large: true, level: 'primary', white: true, remote: true %></span>
 </h1>
 
-<%= paginate @clients %>
+<div class="clearfix">
+  <%= form_tag '', :method => :get, :class => "form-search" do %>
+    <%= hidden_field_tag 'sort', params[:sort] %>
+    <%= hidden_field_tag 'direction', params[:direction] %>
+    <%= text_field_tag 'search', params[:search], :placeholder => "Enter keyword..." %>
+    <%= submit_tag 'Search', class: 'btn', name: nil %>
+  <% end %>
+  <%= paginate @clients %>
+</div>
 
 <table class="table table-striped">
   <tr>
-    <th><%= t 'name' %></th>
+    <th><%= sortable "name", "#{t 'name', default: 'Name'}" %></th>
     <th><%= t 'phone' %>1</th>
     <th><%= t 'phone' %>2</th>
     <th><%= t 'billing_address' %></th>
-    <th>Email</th>
+    <th><%= sortable "email" %></th>
     <th></th>
     <th></th>
   </tr>

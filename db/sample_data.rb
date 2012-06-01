@@ -91,13 +91,13 @@ end
 print "\n"
 puts "Generated 3 sample supplies."
 
-# generate 10 quotes
-10.times do |x|
+# generate 50 quotes
+50.times do |x|
   print '.'
   count = x + 1
   client = Client.find(count)
   quote = account.quotes.build(client_id: client.id, 
-                               creator_id: User.first.id, 
+                               creator_id: User.managers.all.sample.id, 
                                removal_at: Time.now + [0,5,10,15,20].sample.days, 
                                date: Time.now,
                                phone1: client.phone1,
@@ -125,5 +125,5 @@ puts "Generated 3 sample supplies."
   quote.save!
 end
 print "\n"
-puts "Generated 10 sample quotes."
+puts "Generated 50 sample quotes."
 puts "DONE"

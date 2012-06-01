@@ -2,13 +2,21 @@
   <span class="submenu"><%= icon_button_link_to "#{t 'download_invoices', default: 'Download invoices'}", export_invoices_path(:format => :csv), icon: "download-alt", large: true, level: "primary", white: true %></span>
 </h1>
 
-<%= paginate @invoices %>
+<div class="clearfix">
+  <%= form_tag '', :method => :get, :class => "form-search" do %>
+    <%= hidden_field_tag 'sort', params[:sort] %>
+    <%= hidden_field_tag 'direction', params[:direction] %>
+    <%= text_field_tag 'search', params[:search], :placeholder => "Enter keyword..." %>
+    <%= submit_tag 'Search', class: 'btn', name: nil %>
+  <% end %>
+  <%= paginate @invoices %>
+</div>
 
 <table class="table table-striped">
   <tr>
-    <th><%= t 'removal_at' %></th>
+    <th><%= sortable 'removal_at', t('removal_at') %></th>
     <th><%= t 'invoice_code' %></th>
-    <th>Client</th>
+    <th><%= sortable 'clients.name', 'Client' %></th>
     <th><%= Quote.model_name.human %></th>
     <th>Grand Total</th>
     <th>Total</th>
@@ -18,7 +26,7 @@
   <tr>
     <td><%= l invoice.quote.removal_at.to_date %> <%= status_tag("#{ t 'signed'}", level: 'success') if invoice.signed? %></td>
     <td><%= link_to invoice.code, quote_invoice_path(invoice.quote_id) %></td>
-    <td><%= link_to invoice.quote.client.name, client_path(invoice.quote.client) %></td>
+    <td><%= link_to invoice.client.name, client_path(invoice.client) %></td>
     <td><%= link_to "##{invoice.quote.code}", quote_path(invoice.quote) %></td>
     <td><%= number_to_currency(invoice.grand_total) %></td>
     <td><%= link_to number_to_currency(invoice.total), quote_invoice_path(invoice.quote) %></td>
