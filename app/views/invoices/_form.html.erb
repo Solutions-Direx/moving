@@ -67,6 +67,17 @@
         </div>
       </div>
     </div>
+    
+    <% if @invoice.quote.deposit %>
+    <div class="control-group float optional">
+      <%= f.label :deposit, t('deposit'), class: "float control-label" %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= text_field_tag :deposit, @invoice.quote.deposit.amount, :class => 'span1 input-append', :disabled => true %><span class="add-on">$</span>
+        </div>
+      </div>
+    </div>
+    <% end %>
   </div>
   
   <%= section %>

@@ -1,0 +1,20 @@
+<%= simple_form_for @deposit, :url => quote_deposit_path(@quote), html: {class: @ajax ? 'ajax' : ''} do |f| %>
+  <%= f.input :amount, label: t('amount') %>
+  <%= f.input :date, as: :string, :input_html => {:class => "datepicker", "data-date-format" => t('date.js_format')} %>
+  <%= f.input :payment_method, :as => :radio_buttons, :collection => payment_method_options, :item_wrapper_class => "inline", :wrapper_html => {:id => "payment_methods"} %>
+  <%= f.input :credit_card_type, :collection => credit_card_type_options, :include_blank => false, :wrapper_html => {:id => "credit_card_type", :style => "display: none;"}  %>
+  
+  <div class="form-actions actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $('#payment_methods input:radio').live('click', function() {
+    if ($(this).val() == "credit") {
+      $('#credit_card_type').slideDown();
+    } else {
+      $('#credit_card_type').slideUp();
+    }
+  });
+</script>

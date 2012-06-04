@@ -1,4 +1,5 @@
 class QuoteConfirmationsController < ApplicationController
+  before_filter :authenticate_user!
   
   def show
     @quote_confirmation = QuoteConfirmation.find(params[:id])

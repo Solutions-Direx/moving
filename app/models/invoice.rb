@@ -99,7 +99,10 @@ class Invoice < ActiveRecord::Base
   end
   
   def total
-    total_with_taxes
+    t = total_with_taxes
+    t -= quote.deposit.amount if quote.deposit
+    t = 0 if t < 0
+    t
   end
   
   def copy_quote_info

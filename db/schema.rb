@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120601114517) do
+ActiveRecord::Schema.define(:version => 20120604035846) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company_name"
@@ -194,6 +194,16 @@ ActiveRecord::Schema.define(:version => 20120601114517) do
     t.float    "insurance_increase"
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
+  end
+
+  create_table "quote_deposits", :force => true do |t|
+    t.integer  "quote_id"
+    t.float    "amount"
+    t.date     "date"
+    t.string   "payment_method"
+    t.string   "credit_card_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "quote_documents", :force => true do |t|

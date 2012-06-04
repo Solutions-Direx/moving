@@ -17,6 +17,8 @@ Moving::Application.routes.draw do
       get 'print'
       post "sign"
     end
+    
+    resource :deposit, :only => [:new, :create]
     member do
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'
       put 'daily_update'

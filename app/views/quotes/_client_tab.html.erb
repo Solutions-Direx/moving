@@ -1,7 +1,7 @@
 <div class="tab-pane active" id="lA">
   <!-- CLIENT -->
   <%= f.input :client_id do %>
-    <%= f.input_field :client_id, :collection => Client.all.map{|c| [c.name, c.id]}, :selected => @client.id, :class => "chzn", "data-placeholder" => "Select", :id => "select-clients" %> <%= t 'or' %> 
+    <%= f.input_field :client_id, :collection => Client.all.map{|c| [c.name, c.id]}, :selected => @client ? @client.id : nil, :class => "chzn", "data-placeholder" => "Select", :id => "select-clients" %> <%= t 'or' %> 
     <%= icon_button_link_to "New Client", new_client_path, icon: 'plus', level: "inverse", white: true, remote: true %>
   <% end %>
 
