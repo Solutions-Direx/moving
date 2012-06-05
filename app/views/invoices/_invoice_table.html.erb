@@ -148,4 +148,6 @@
   </tr>
 </table>
 <br />
+<% unless @invoice.client.commercial? %>
 <h3><%= t 'payment_method' %>: <%= t @invoice.payment_method %> <%= "(#{t @invoice.credit_card_type})" if @invoice.payment_method == "credit" %></h3>
+<% end %>
