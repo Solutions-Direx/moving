@@ -47,7 +47,7 @@ class SuppliesController < ApplicationController
 
     respond_to do |format|
       if @supply.save
-        format.html { redirect_to supplies_url, notice: 'Supply was successfully created.' }
+        format.html { redirect_to supplies_url, notice: "#{Supply.model_name.human} #{t 'is_created'}" }
         format.json { render json: @supply, status: :created, location: @supply }
       else
         format.html { render action: "new" }
@@ -63,7 +63,7 @@ class SuppliesController < ApplicationController
 
     respond_to do |format|
       if @supply.update_attributes(params[:supply])
-        format.html { redirect_to supplies_url, notice: 'Supply was successfully updated.' }
+        format.html { redirect_to supplies_url, notice: "#{Supply.model_name.human} #{t 'is_updated'}" }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -79,7 +79,7 @@ class SuppliesController < ApplicationController
     @supply.destroy
 
     respond_to do |format|
-      format.html { redirect_to supplies_url, notice: 'Supply was successfully deleted.' }
+      format.html { redirect_to supplies_url, notice: "#{Supply.model_name.human} #{t 'is_deleted'}" }
       format.json { head :no_content }
     end
   end

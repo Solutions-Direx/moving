@@ -51,7 +51,7 @@ module Mobile
     def correct_stale_record_version
       @quote.reload
       @invoice.reload
-      @invoice.errors.add(:base, t('conflict', default: "Another user has made a change to this record since you access the edit form. Please recheck information and update again."))
+      @invoice.errors.add(:base, t('conflict'))
     end
   end
 end

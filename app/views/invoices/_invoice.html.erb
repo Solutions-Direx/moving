@@ -114,7 +114,7 @@
 
 <% if @invoice.quote.deposit %>
 <div class="row">
-  <div class="span4"><h3 style="font-weight: normal;"><%= t('deposit') %></h3></div>
+  <div class="span4"><h3 style="font-weight: normal;"><%= t('deposit_received') %></h3></div>
   <div class="span2 money"><h3 style="font-weight: normal;">- <%= number_to_currency(@invoice.quote.deposit.amount) %></h3></div>
 </div>
 <% end %>
@@ -128,9 +128,10 @@
   <div class="span2 money"><h3><%= number_to_currency(@invoice.total) %></h3></div>
 </div>
 
+<br />
+
 <% unless @invoice.quote.client.commercial? %>
 <div class="row">
-  <br />
   <div class="span12"><h3><%= t 'payment_method' %>: <%= t @invoice.payment_method %> <%= "(#{t @invoice.credit_card_type})" if @invoice.payment_method == "credit" %></h3></div>
 </div>
 <% end %>
@@ -138,7 +139,7 @@
 <% if @invoice.quote.deposit %>
   <% deposit = @invoice.quote.deposit %>
   <div class="row">
-    <div class="span12"><h3><%= number_to_currency(deposit.amount) %> - <%= t(deposit.payment_method) %><%= "(#{t(deposit.credit_card_type)})" if deposit.credit_card_type %> - <%= l deposit.date, format: :long %></h3></div>
+    <div class="span12"><h3><%= t 'deposit_received' %>: <%= number_to_currency(deposit.amount) %> - <%= t(deposit.payment_method) %> <%= "(#{t(deposit.credit_card_type)})" if deposit.credit_card_type %> - <%= l deposit.date, format: :long %></h3></div>
   </div>
 <% end %>
 

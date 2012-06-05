@@ -20,7 +20,7 @@ module Mobile
       if request.xhr?
         render :nothing => true
       else
-        redirect_to mobile_quote_report_url(@quote), notice: "#{Report.model_name.human} #{t 'signed'}"
+        redirect_to mobile_quote_report_url(@quote), notice: "#{Report.model_name.human} #{t 'is_signed'}"
       end
     end
 

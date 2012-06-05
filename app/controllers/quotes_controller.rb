@@ -41,7 +41,7 @@ class QuotesController < ApplicationController
     if @quote.invoice.present? && @quote.invoice.signed?
       
       respond_to do |format|
-        format.html { redirect_to @quote, alert: "Quote can no longer be edited once invoice has been signed by client." }
+        format.html { redirect_to @quote, alert: "#{Quote.model_name.human} #{t 'can_no_longer_be_edited'}" }
       end
     end
   end
@@ -54,7 +54,7 @@ class QuotesController < ApplicationController
 
     respond_to do |format|
       if @quote.save
-        format.html { redirect_to @quote, notice: 'Quote was successfully created.' }
+        format.html { redirect_to @quote }
         format.json { render json: @quote, status: :created, location: @quote }
       else
         format.html { render action: "new" }
@@ -69,7 +69,7 @@ class QuotesController < ApplicationController
 
     respond_to do |format|
       if @quote.save
-        format.html { redirect_to @quote, notice: 'Quote was successfully updated.' }
+        format.html { redirect_to @quote, notice: "#{Quote.model_name.human} #{t 'updated'}" }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -120,7 +120,7 @@ class QuotesController < ApplicationController
 
     respond_to do |format|
       if @quote.save
-        format.html { redirect_to @quote, notice: 'Quote was successfully updated.' }
+        format.html { redirect_to @quote, notice: "#{Quote.model_name.human} #{t 'updated'}" }
         format.json { head :no_content }
         format.js
       else
@@ -136,7 +136,7 @@ class QuotesController < ApplicationController
     
     respond_to do |format|
       if @quote.save
-        format.html { redirect_to @quote, notice: 'Quote was successfully rejected.' }
+        format.html { redirect_to @quote, notice: "#{Quote.model_name.human} #{t 'rejected'}" }
         format.json { head :no_content }
       else
         format.html { redirect_to @quote, alert: 'Failed to reject quote. Please contact system administrator.' }
@@ -176,4 +176,5 @@ private
   def correct_stale_record_version
     @quote.reload
   end
+  
 end

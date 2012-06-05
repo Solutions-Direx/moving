@@ -62,9 +62,9 @@ class ClientsController < ApplicationController
       if @client.save
         format.html {
           if request.xhr?
-            render :partial => "flash_modal_msg", :locals => { :message => "Client was successfully created.", :close_dialog_id => "new-client", :client => @client }
+            render :partial => "flash_modal_msg", :locals => { :message => "Client #{t 'is_created'}", :close_dialog_id => "new-client", :client => @client }
           else
-            redirect_to @client, notice: 'Client was successfully created.'
+            redirect_to @client, notice: "Client #{t 'is_created'}"
           end
         }
         format.json { render json: @client, status: :created, location: @client }
@@ -86,7 +86,7 @@ class ClientsController < ApplicationController
           if request.xhr?
             render :partial => "flash_modal_msg", :locals => { :message => "Client was successfully updated.", :close_dialog_id => "edit-client", :client => @client }
           else
-            redirect_to @client, notice: 'Client was successfully updated.'
+            redirect_to @client, notice: "Client #{t 'is_updated'}"
           end
         }
         format.json { head :no_content }
@@ -104,7 +104,7 @@ class ClientsController < ApplicationController
     @client.destroy
 
     respond_to do |format|
-      format.html { redirect_to clients_url, :notice => "Client #{@client.name} was successfully destroy." }
+      format.html { redirect_to clients_url, :notice => "Client #{@client.name} was successfully deleted." }
       format.json { head :no_content }
     end
   end

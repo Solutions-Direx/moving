@@ -47,7 +47,7 @@ class ForfaitsController < ApplicationController
 
     respond_to do |format|
       if @forfait.save
-        format.html { redirect_to forfaits_url, notice: 'Forfait was successfully created.' }
+        format.html { redirect_to forfaits_url, notice: "Forfait #{t 'is_created'}" }
         format.json { render json: @forfait, status: :created, location: @forfait }
       else
         format.html { render action: "new" }
@@ -63,7 +63,7 @@ class ForfaitsController < ApplicationController
 
     respond_to do |format|
       if @forfait.update_attributes(params[:forfait])
-        format.html { redirect_to forfaits_url, notice: 'Forfait was successfully updated.' }
+        format.html { redirect_to forfaits_url, notice: "Forfait #{t 'is_updated'}" }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -79,7 +79,7 @@ class ForfaitsController < ApplicationController
     @forfait.destroy
 
     respond_to do |format|
-      format.html { redirect_to forfaits_url, notice: 'Forfait was successfully deleted.' }
+      format.html { redirect_to forfaits_url, notice: "Forfait #{t 'is_deleted'}" }
       format.json { head :no_content }
     end
   end

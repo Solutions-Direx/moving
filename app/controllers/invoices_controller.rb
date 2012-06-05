@@ -29,7 +29,7 @@ class InvoicesController < ApplicationController
     @invoice.copy_tax_setting_from(@quote.account)
     @invoice.client_id = @quote.client_id
     if @invoice.save
-      redirect_to quote_invoice_url(@quote), notice: "Invoice successfully created."
+      redirect_to quote_invoice_url(@quote), notice: "#{Invoice.model_name.human} #{t 'created'}."
     else
       render action: :new
     end
@@ -52,7 +52,7 @@ class InvoicesController < ApplicationController
   
   def update
     if @invoice.update_attributes(params[:invoice])
-      redirect_to quote_invoice_url(@quote), notice: "Invoice successfully updated."
+      redirect_to quote_invoice_url(@quote), notice: "#{Invoice.model_name.human} #{t 'updated'}"
     else
       render action: :edit
     end
@@ -103,7 +103,6 @@ protected
   def correct_stale_record_version
     @quote.reload
     @invoice.reload
-    # @invoice.errors.add(:base, t('conflict', default: "Another user has made a change to this record since you access the edit form. Please recheck information and update again."))
+    @invoice.errors.add(:base, t('conflict'))
   end
 end
-  

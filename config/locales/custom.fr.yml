@@ -68,6 +68,13 @@ fr:
   title: 'Titre'
   created_at: 'Créé le'
   updated_at: 'Mis à jour le'
+  created: créée avec succès
+  is_created: créé avec succès
+  updated: mise à jour avec succès
+  is_updated: mis à jour avec succès
+  deleted: supprimée avec succès
+  is_deleted: supprimé avec succès
+  an_email_was_sent_to: Un courriel a été envoyé à
   active: 'Actif'
   inactive: 'Inactif'
   status: 'État'
@@ -152,7 +159,7 @@ fr:
   supplies: 'Matériels'
   email_notification: "L'entente a été envoyée avec succès à"
   report_for: Rapport du déménagement pour
-  conflict: "Un autre utilisateur a apporté une modification à ce record depuis que vous accédez au formulaire de modification. S'il vous plaît vérifiez les informations et mettre à jour à nouveau."
+  conflict: "Un autre utilisateur a apporté une modification à cet enregistrement depuis que vous y avez accédé. Veuillez vérifiez les informations puis mettre à jour."
   comptant: "Comptant"
   debit: "Débit"
   credit: "Crédit"
@@ -201,6 +208,9 @@ fr:
   from_address_cannot_be_blank: "L'addresse de départ ne peut être vide"
   select_addresses_to_print: Sélectionnez les adresses à imprimer
   deposit_received: Dépôt reçu
+  cannot_be_saved: "n' a pu être sauvegardée. Veuillez contacter l'administrateur système."
+  successfully_rejected: rejetée avec succès.
+  can_no_longer_be_edited: ne peut plus être modifiée quand la facture a étésignée par le client.
   activerecord:
     models:
       account: Compte

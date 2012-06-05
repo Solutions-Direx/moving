@@ -50,7 +50,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         Mailer.user_created_email(@user, generated_password).deliver
-        format.html { redirect_to @user, notice: "User was successfully created. An email was sent to #{@user.email}." }
+        format.html { redirect_to @user, notice: "#{User.model_name.human} #{t 'is_createed'}. #{t 'an_email_was_sent_to', default: 'An email was sent to'} #{@user.email}." }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to @user, notice: "#{User.model_name.human} #{t 'is_updated'}" }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -82,7 +82,7 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully deleted.' }
+      format.html { redirect_to users_url, notice: "#{User.model_name.human} #{t 'is_deleted'}" }
       format.json { head :no_content }
     end
   end

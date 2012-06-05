@@ -21,6 +21,12 @@ en:
   search: Rechercher
   close: Close
   update: Update
+  created: was successfully created
+  is_created: was successfully created
+  updated: was successfully updated
+  is_updated: was successfully updated
+  deleted: was successfully deleted
+  is_deleted: was successfully deleted
   confirm_reject: "Are you sure you want to reject this quote?"
   localization: "Language"
   client_satisfaction: Client satisfaction
@@ -71,6 +77,10 @@ en:
   manager: "Manager"
   standard: "Standard"
   deposit_received: Deposit received
+  cannot_be_saved: can not be saved. Please contact system administrator.
+  successfully_rejected: was successfully rejected.
+  can_no_longer_be_edited: Quote can no longer be edited once invoice has been signed by client.
+  conflict: "Another user has made a change to this record since you accessed it. Please recheck information and update again."
   activerecord:
     attributes:
       user:  

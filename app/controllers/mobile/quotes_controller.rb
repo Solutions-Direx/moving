@@ -26,18 +26,18 @@ module Mobile
         @quote.create_report!(gas: @quote.gas, start_time: @quote.removal_at) if @quote.report.blank?
         redirect_to terms_mobile_quote_url(@quote), notice: "#{Quote.model_name.human} #{t 'signed'}"
       else
-        redirect_to terms_mobile_quote_url(@quote), alert: "Quote cannot be saved, please contact system administrator"
+        redirect_to terms_mobile_quote_url(@quote), alert: "#{Quote.model_name.human} #{t 'cannot_be_saved'}"
       end
     end
     
-    private
-      def load_quote
-        @quote = Quote.find(params[:id])
-      end
+private
+
+    def load_quote
+      @quote = Quote.find(params[:id])
+    end
       
-      def correct_stale_record_version
-        @quote.reload
-      end
+    def correct_stale_record_version
+      @quote.reload
+    end
   end
-  
 end

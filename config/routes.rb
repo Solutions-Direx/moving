@@ -47,7 +47,9 @@ Moving::Application.routes.draw do
       get 'reports'
     end
   end
-  resources :documents
+  resources :documents do
+    get 'print', :on => :member
+  end
   resource :account, :only => [:show, :update]
   resource :profile, :only => [:show, :update], :path => "users/profile"
   resources :users

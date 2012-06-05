@@ -18,7 +18,7 @@
     <td><%= link_to document.name, document %></td>
     <td><%= l document.updated_at.to_date %></td>
     <td><%= link_to "#{t 'edit'}", edit_document_path(document) %></td>
-    <td><%= link_to "#{t 'print'}", '#' %></td>
+    <td><%= link_to "#{t 'print'}", print_document_path(document, :format => :pdf) %></td>
     <td><%= link_to "#{t 'destroy'}", document, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
