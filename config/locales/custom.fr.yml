@@ -157,7 +157,7 @@ fr:
   debit: "Débit"
   credit: "Crédit"
   cheque: "Chèque"
-  deposit: "Dépôt"
+  deposit: "Faire un dépôt"
   visa: "Visa"
   mastercard: "Master Card"
   amex: "American Express"
@@ -200,6 +200,7 @@ fr:
   standard: "Standard"
   from_address_cannot_be_blank: "L'addresse de départ ne peut être vide"
   select_addresses_to_print: Sélectionnez les adresses à imprimer
+  deposit_received: Dépôt reçu
   activerecord:
     models:
       account: Compte

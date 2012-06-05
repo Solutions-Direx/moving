@@ -107,6 +107,9 @@ fr:
       quote_confirmation:
         create: Confirmer cette entente
         update: Modifier cette entente
+      quote_deposit:
+        create: Faire un dépôt
+        update: Modifier ce dépôt
       storage:
         create: Créer cet entrepôt
         update: Modifier cet entrepôt

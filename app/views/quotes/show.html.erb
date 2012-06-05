@@ -1,15 +1,20 @@
 <h2><%= @quote.client.name %> <%= content_tag(:span, @quote.rating, :class => "badge badge-#{@quote.rating.downcase}") %>
   <span class='submenu'>
-    <% if @quote.deposit.blank? %>
-      <%= button_link_to "#{t 'deposit', default: 'Deposit'}", new_quote_deposit_path(@quote), large: true, level: "primary", white: true, remote: true %>
-    <% end %>  
-    <%= icon_button_link_to "#{t 'print', default: 'Print'}", '#print-modal', icon: "print", large: true, level: "primary", white: true, "data-toggle" => "modal" %>
-    <% if @quote.confirmed? && @quote.invoice.blank? %>
-      <%= button_link_to "#{t 'create_invoice'}", new_quote_invoice_path(@quote), level: "success", large: true %>
-    <% end %>  
-    <% unless @quote.client.email.blank? %>
-      <%= icon_button_link_to "#{t 'email_to_client'}", email_quote_path, :method => :post, level: "success", large: true, icon: 'envelope', white: true, disabled_with: "#{t 'email_to_client'}" %>
-    <% end %>
+    <div class="btn-group" style="display:inline-block;">
+      <button class="btn btn-large dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+      <ul class="dropdown-menu" style="font-size:14px;">
+        <% if @quote.deposit.blank? %>
+          <li><%= link_to "#{t 'deposit', default: 'Deposit'}", new_quote_deposit_path(@quote), remote: true %></li>
+        <% end %>
+        <% unless @quote.client.email.blank? %>
+          <li><%= link_to "#{t 'email_to_client'}", email_quote_path, :method => :post %></li>
+        <% end %>
+        <li><%= link_to "#{t 'print', default: 'Print'}", '#print-modal', "data-toggle" => "modal" %></li>
+        <% if @quote.confirmed? && @quote.invoice.blank? %>
+          <li><%= link_to "#{t 'create_invoice'}", new_quote_invoice_path(@quote) %></li>
+        <% end %>
+      </ul>
+    </div>
     <% if @quote.rejected? %>
       <%= link_to "#{t 'rejected', default: 'Rejected'}", '#', :class => 'btn btn-warning btn-large disabled' %>
       <%= button_link_to "#{t 'edit', default: 'Edit'}", edit_quote_path(@quote), level: "inverse", large: true unless @quote.signed? %>
