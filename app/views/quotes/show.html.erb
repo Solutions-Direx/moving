@@ -92,6 +92,12 @@
       }).mouseenter(function(e) {
           $(this).popover('show');
       });
-    
+    $('.datepicker').live('click', function () {
+      <% if I18n.locale == :fr %>
+      $(this).datepicker('destroy').datepicker($.datepicker.regional["fr"]).focus();
+      <% else %>
+      $(this).datepicker('destroy').datepicker($.datepicker.regional["en-GB"]).focus();
+      <% end %>  
+    });
   });
 </script>

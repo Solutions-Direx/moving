@@ -32,6 +32,6 @@
 <p>
   <b><%= t 'deposit_received' %>:</b>
   <%= number_to_currency(@quote.deposit.amount) %> - <%= l @quote.deposit.date, format: :long %> - <%= t "#{@quote.deposit.payment_method}" %>
-  <%= "(#{t(@quote.deposit.credit_card_type)})" if @quote.deposit.credit_card_type %>
+  <%= "(#{t(@quote.deposit.credit_card_type)})" if @quote.deposit.credit_card_type.present? %>
 </p>
 <% end %>

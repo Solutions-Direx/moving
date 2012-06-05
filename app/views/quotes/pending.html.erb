@@ -16,8 +16,8 @@
 
 <script type="text/javascript" charset="utf-8">
   $(function() {
-    $('#day').datepicker().on('changeDate', function(e) {
-      $(e.target).closest('form').submit();
+    $('#day').on('change', function() {
+      $(this).closest('form').submit();
     });
   });
 </script>

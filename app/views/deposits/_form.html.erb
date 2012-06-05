@@ -2,7 +2,7 @@
   <%= f.input :amount, label: t('amount') %>
   <%= f.input :date, as: :string, :input_html => {:class => "datepicker", "data-date-format" => t('date.js_format')} %>
   <%= f.input :payment_method, :as => :radio_buttons, :collection => payment_method_options, :item_wrapper_class => "inline", :wrapper_html => {:id => "payment_methods"} %>
-  <%= f.input :credit_card_type, :collection => credit_card_type_options, :include_blank => false, :wrapper_html => {:id => "credit_card_type", :style => "display: none;"}  %>
+  <%= f.input :credit_card_type, :collection => credit_card_type_options, :include_blank => true, :wrapper_html => {:id => "credit_card_type", :style => "display: none;"}  %>
   
   <div class="form-actions actions">
     <%= f.button :submit %>
