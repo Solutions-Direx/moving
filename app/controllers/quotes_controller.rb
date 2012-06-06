@@ -145,6 +145,20 @@ class QuotesController < ApplicationController
     end
   end
   
+  def cancel_reject
+    @quote.status = "pending"
+    
+    respond_to do |format|
+      if @quote.save
+        format.html { redirect_to @quote, notice: 'Quote was reverted to pending state.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to @quote, alert: 'Failed to cancel reject quote. Please contact system administrator.' }
+        format.json { render json: @quote.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   def email
     Mailer.quote_email(@quote).deliver
     respond_to do |format|

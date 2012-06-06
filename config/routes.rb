@@ -10,7 +10,7 @@ Moving::Application.routes.draw do
   resources :supplies
   resources :trucks
   resources :quotes do
-    resources :quote_confirmations, :except => [:index]
+    resource :quote_confirmation, :except => [:index]
     # HAS ONE ROUTES
     resource :invoice, :only => [:new, :create, :show, :edit, :update] do
       post 'email'
@@ -23,6 +23,7 @@ Moving::Application.routes.draw do
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'
       put 'daily_update'
       put 'reject'
+      put 'cancel_reject'
       post 'email'
       get 'print'
     end

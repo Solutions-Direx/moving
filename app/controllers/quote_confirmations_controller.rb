@@ -1,13 +1,13 @@
 class QuoteConfirmationsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :load_quote
   
   def show
-    @quote_confirmation = QuoteConfirmation.find(params[:id])
+    @quote_confirmation = @quote.quote_confirmation
     render :layout => false
   end
 
   def new
-    @quote = Quote.find(params[:id])
     @quote_confirmation = @quote.build_quote_confirmation(:user_id => current_user.id)
 
     respond_to do |format|
@@ -18,8 +18,7 @@ class QuoteConfirmationsController < ApplicationController
   end
 
   def edit
-    @quote = Quote.find(params[:quote_id])
-    @quote_confirmation = QuoteConfirmation.find(params[:id])
+    @quote_confirmation = @quote.quote_confirmation
     
     respond_to do |format|
       format.html # new.html.erb
@@ -29,7 +28,6 @@ class QuoteConfirmationsController < ApplicationController
   end
 
   def create
-    @quote = Quote.find(params[:quote_id])
     @quote_confirmation = @quote.create_quote_confirmation(params[:quote_confirmation])
     @quote_confirmation.approved_at = Time.zone.now
     @quote_confirmation.user_id = current_user
@@ -52,13 +50,13 @@ class QuoteConfirmationsController < ApplicationController
   end
 
   def update
-    @quote_confirmation = QuoteConfirmation.find(params[:id])
+    @quote_confirmation = @quote.quote_confirmation
 
     respond_to do |format|
       if @quote_confirmation.update_attributes(params[:quote_confirmation])
         format.html { 
           if request.xhr?
-            render :partial => "flash_modal_msg", :locals => { :message => "Confirmation was successfully updated.", :close_dialog_id => "new-quote-confirmation" }
+            render :partial => "flash_modal_msg", :locals => { :notice => "Confirmation was successfully updated.", :close_dialog_id => "new-quote-confirmation" }
           else
             redirect_to @quote, notice: 'Confirmation was successfully updated.' 
           end
@@ -69,6 +67,23 @@ class QuoteConfirmationsController < ApplicationController
         format.json { render json: @quote_confirmation.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  def destroy
+    @quote_confirmation = @quote.quote_confirmation
+    respond_to do |format|
+      if @quote_confirmation.destroy
+        format.html { redirect_to quote_path(@quote), notice: "Quote reverted to pending state." }
+      else
+        format.html { redirect_to quote_path(@quote), alert: "Failed to delete quote confirmation. Please contact system administrator." }
+      end
+    end
+  end
+  
+  private
+  
+  def load_quote
+    @quote = Quote.find(params[:quote_id])
   end
 
 end

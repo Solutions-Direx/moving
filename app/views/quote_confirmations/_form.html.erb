@@ -1,4 +1,4 @@
-<%= simple_form_for([@quote, @quote_confirmation], html: {class: @ajax ? 'ajax' : ''}) do |f| %>
+<%= simple_form_for(@quote_confirmation, url: quote_quote_confirmation_path(@quote), html: {class: @ajax ? 'ajax' : ''}) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
