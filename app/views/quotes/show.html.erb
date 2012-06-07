@@ -5,23 +5,23 @@
         <button class="btn btn-large dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
         <ul class="dropdown-menu" style="font-size:14px;">
           <% if @quote.deposit.blank? %>
-            <li><%= link_to "#{t 'deposit', default: 'Deposit'}", new_quote_deposit_path(@quote), remote: true %></li>
+            <li><%= icon_link_to "#{t 'deposit', default: 'Deposit'}", new_quote_deposit_path(@quote), icon: "download", remote: true %></li>
           <% end %>
           <% unless @quote.client.email.blank? %>
-            <li><%= link_to "#{t 'email_to_client'}", email_quote_path, :method => :post %></li>
+            <li><%= icon_link_to "#{t 'email_to_client'}", email_quote_path, :method => :post, icon: "envelope" %></li>
           <% end %>
-          <li><%= link_to "#{t 'print', default: 'Print'}", '#print-modal', "data-toggle" => "modal" %></li>
+          <li><%= icon_link_to "#{t 'print'}", '#print-modal', "data-toggle" => "modal", icon: "print" %></li>
           <% if @quote.confirmed? && @quote.invoice.blank? %>
-            <li><%= link_to "#{t 'create_invoice'}", new_quote_invoice_path(@quote) %></li>
+            <li><%= icon_link_to "#{t 'create_invoice'}", new_quote_invoice_path(@quote), icon: "plus" %></li>
           <% end %>
         </ul>
       </div>
       <% if @quote.rejected? %>
         <%= link_to "#{t 'rejected', default: 'Rejected'}", '#', :class => 'btn btn-warning btn-large disabled', "data-original-title"=> t('reject'),
         "data-content"=> "#{render(template: 'quotes/cancel_reject', locals: {quote: @quote}, formats: [:html])}", "data-placement" => "left", :id => "reject" %>
-        <%= button_link_to "#{t 'edit', default: 'Edit'}", edit_quote_path(@quote), level: "inverse", large: true unless @quote.signed? %>
+        <%= button_link_to "#{t 'edit'}", edit_quote_path(@quote), level: "inverse", large: true unless @quote.signed? %>
       <% else %>
-        <%= button_link_to "#{t 'edit', default: 'Edit'}", edit_quote_path(@quote), level: "inverse", large: true unless @quote.signed? %>
+        <%= button_link_to "#{t 'edit'}", edit_quote_path(@quote), level: "inverse", large: true unless @quote.signed? %>
         <% if @quote.confirmed? %>
           <%= link_to "#{t 'confirmed', default: 'Confirmed'}", '#', :class => 'btn btn-success btn-large disabled', "data-original-title"=> t('quote_confirmation'),
           "data-content"=> "#{render(template: 'quote_confirmations/show', locals: {quote_confirmation: @quote.quote_confirmation}, formats: [:html])}", "data-placement" => "left", :id => "confirm" %>

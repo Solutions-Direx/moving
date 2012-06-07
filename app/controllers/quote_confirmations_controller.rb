@@ -56,9 +56,9 @@ class QuoteConfirmationsController < ApplicationController
       if @quote_confirmation.update_attributes(params[:quote_confirmation])
         format.html { 
           if request.xhr?
-            render :partial => "flash_modal_msg", :locals => { :notice => "Confirmation was successfully updated.", :close_dialog_id => "new-quote-confirmation" }
+            render :partial => "flash_modal_msg", :locals => { :notice => "Confirmation #{t 'updated'}", :close_dialog_id => "new-quote-confirmation" }
           else
-            redirect_to @quote, notice: 'Confirmation was successfully updated.' 
+            redirect_to @quote, notice: "Confirmation #{t 'updated'}" 
           end
         }
         format.json { render json: @quote_confirmation, status: :created, location: @quote_confirmation }
@@ -73,14 +73,14 @@ class QuoteConfirmationsController < ApplicationController
     @quote_confirmation = @quote.quote_confirmation
     respond_to do |format|
       if @quote_confirmation.destroy
-        format.html { redirect_to quote_path(@quote), notice: "Quote reverted to pending state." }
+        format.html { redirect_to quote_path(@quote), notice: "#{Quote.model_name.human} #{t 'revert_to_pending'}" }
       else
-        format.html { redirect_to quote_path(@quote), alert: "Failed to delete quote confirmation. Please contact system administrator." }
+        format.html { redirect_to quote_path(@quote), alert: "#{t 'failed_to_deleted_confirmation'}" }
       end
     end
   end
   
-  private
+private
   
   def load_quote
     @quote = Quote.find(params[:quote_id])

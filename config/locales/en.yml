@@ -15,6 +15,7 @@ en:
   search: 'Search'
   approved: 'Approved'
   approve: 'Approve'
+  print: 'Print'
   signed: 'Signed'
   preview: Preview
   view: View
@@ -81,6 +82,9 @@ en:
   successfully_rejected: was successfully rejected.
   can_no_longer_be_edited: Quote can no longer be edited once invoice has been signed by client.
   conflict: "Another user has made a change to this record since you accessed it. Please recheck information and update again."
+  failed_to_cancel_rejection: Failed to cancel quote rejection. Please contact system administrator.
+  failed_to_reject: Quote could not be rejected. Please contact system administrator.
+  failed_to_delete_confirmation: Failed to delete quote confirmation. Please contact system administrator.
   activerecord:
     attributes:
       user:  

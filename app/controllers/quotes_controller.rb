@@ -139,7 +139,7 @@ class QuotesController < ApplicationController
         format.html { redirect_to @quote, notice: "#{Quote.model_name.human} #{t 'rejected'}" }
         format.json { head :no_content }
       else
-        format.html { redirect_to @quote, alert: 'Failed to reject quote. Please contact system administrator.' }
+        format.html { redirect_to @quote, alert: "#{t 'failed_to_reject'}" }
         format.json { render json: @quote.errors, status: :unprocessable_entity }
       end
     end
@@ -150,10 +150,10 @@ class QuotesController < ApplicationController
     
     respond_to do |format|
       if @quote.save
-        format.html { redirect_to @quote, notice: 'Quote was reverted to pending state.' }
+        format.html { redirect_to @quote, notice: "#{Quote.model_name.human} #{t 'revert_to_pending'}" }
         format.json { head :no_content }
       else
-        format.html { redirect_to @quote, alert: 'Failed to cancel reject quote. Please contact system administrator.' }
+        format.html { redirect_to @quote, alert: "#{t 'failed_to_cancel_rejection'}" }
         format.json { render json: @quote.errors, status: :unprocessable_entity }
       end
     end
@@ -190,5 +190,5 @@ private
   def correct_stale_record_version
     @quote.reload
   end
-  
+
 end

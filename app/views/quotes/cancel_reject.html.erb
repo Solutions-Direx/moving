@@ -1,1 +1,1 @@
-<p><%= link_to t('cancel'), cancel_reject_quote_path(quote), :method => :put, :confirm => t("are_you_sure") %></p>
+<p><%= link_to t('cancel_rejection', default:'Cancel quote rejection'), cancel_reject_quote_path(quote), :method => :put, :confirm => "#{t 'please_confirm'}" %></p>

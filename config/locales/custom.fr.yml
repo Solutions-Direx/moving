@@ -15,7 +15,6 @@ fr:
   remove: 'Effacer'
   close: Fermer
   pending: 'En attente'
-  confirmed: 'Confirmé'
   address: 'Adresse'
   storage: 'Entrepôt'
   search: 'Chercher'
@@ -33,6 +32,7 @@ fr:
   view: 'Voir'
   close: Fermer
   update: Mettre à jour
+  is_confirmed: 'Confirmé'
   confirmed: 'Confirmée'
   confirm: 'Confirmer'
   approved: 'Approuvée'
@@ -87,6 +87,7 @@ fr:
   reject: "Rejeter"
   confirm_reject: "Êtes-vous sûr de vouloir rejeter cette entente?"
   are_you_sure: "Veuillez confirmer la suppression"
+  please_confirm: Veuillez confirmer cette action
   rejected: "Rejetée"
   house: 'Maison'
   apartment: 'Apartement'
@@ -211,6 +212,11 @@ fr:
   cannot_be_saved: "n' a pu être sauvegardée. Veuillez contacter l'administrateur système."
   successfully_rejected: rejetée avec succès.
   can_no_longer_be_edited: ne peut plus être modifiée quand la facture a étésignée par le client.
+  revert_to_pending: "marquée de nouveau comme 'En attente'."
+  failed_to_cancel_rejection: Impossible d'annuler le rejet de l'entente. Veuillez contacter l'administrateur système.
+  failed_to_reject: "L'entente n'a pu être marquée comme 'Rejetée'. Veuillez contacter l'administrateur système."
+  cancel_confirmation: Supprimer la confirmation
+  cancel_rejection: Marquer comme non rejetéé
   activerecord:
     models:
       account: Compte
@@ -218,6 +224,7 @@ fr:
       calendar: Calendrier
       invoice: Facture
       quote: Entente
+      quote_confirmation: Confirmation de l'entente
       profile: Profil
       report: Rapport
       storage: Entrepôt
