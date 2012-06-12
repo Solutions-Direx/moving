@@ -217,6 +217,8 @@ fr:
   failed_to_reject: "L'entente n'a pu être marquée comme 'Rejetée'. Veuillez contacter l'administrateur système."
   cancel_confirmation: Supprimer la confirmation
   cancel_rejection: Marquer comme non rejetéé
+  download_invoices: Exporter
+  tip: Pourboire
   activerecord:
     models:
       account: Compte

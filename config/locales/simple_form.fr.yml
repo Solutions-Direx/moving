@@ -80,6 +80,7 @@ fr:
         discount: Remise
         overtime: 'Autre taux horaire'
         credit_card_type: Type de carte
+        tip: Pourboire
     hints:
       defaults:
       user:

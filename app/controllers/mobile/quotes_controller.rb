@@ -5,7 +5,9 @@ module Mobile
     def terms
       session[:current_view] = "terms"
       set_tab :terms
-
+      
+      #@quote = Quote.includes(:).find(params[:id])
+      
       respond_to do |format|
         format.html
         format.json { render json: @quote }
