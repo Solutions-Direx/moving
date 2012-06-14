@@ -8,7 +8,7 @@ class ProfilesController < ApplicationController
     @user = current_user
     if @user.update_with_password(params[:user])
       sign_in @user, :bypass => true
-      redirect_to profile_url, notice: "Profile updated"
+      redirect_to profile_url, notice: "#{t 'profile', default: 'Profile'} #{t 'is_updated'}"
     else
       @user.password = ""
       @user.password_confirmation = ""

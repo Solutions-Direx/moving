@@ -219,6 +219,8 @@ fr:
   cancel_rejection: Marquer comme non rejetéé
   download_invoices: Exporter
   tip: Pourboire
+  profile: Profil
+  update_profile: 'Mettre à jour votre profil'
   activerecord:
     models:
       account: Compte
@@ -227,7 +229,6 @@ fr:
       invoice: Facture
       quote: Entente
       quote_confirmation: Confirmation de l'entente
-      profile: Profil
       report: Rapport
       storage: Entrepôt
       supply: Matériel
