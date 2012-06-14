@@ -23,6 +23,7 @@ gem 'pg_search'
 gem 'pdfkit'
 gem 'paperclip', '~> 3.0'
 gem 'capistrano'
+gem 'unicorn'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -57,7 +58,6 @@ group :development, :test do
 end
 
 group :production do
-  gem 'pg'
   #gem 'passenger'
   gem 'exception_notification'
 end
