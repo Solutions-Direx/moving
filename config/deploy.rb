@@ -17,6 +17,7 @@ ssh_options[:forward_agent] = true
 
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 
+###### DEPLOY TASKS #######
 namespace :deploy do
   %w[start stop restart].each do |command|
     desc "#{command} unicorn server"
@@ -48,6 +49,24 @@ namespace :deploy do
     end
   end
   before "deploy", "deploy:check_revision"
+end
+
+###### DB TASKS #######
+namespace :db do
+  desc "Migrate database"
+  task :migrate, :roles => :app do
+    run "cd #{current_path}; bundle exec rake RAILS_ENV=production -f #{current_path}/Rakefile db:migrate --trace"
+  end
+  
+  desc "Seed database"
+  task :seed, :roles => :app do
+    run "cd #{current_path}; bundle exec rake RAILS_ENV=production -f #{current_path}/Rakefile db:seed --trace"
+  end
+  
+  desc "Drop & Migrate database"
+  task :reset, :roles => :app do
+    run "cd #{current_path}; bundle exec rake RAILS_ENV=production -f #{current_path}/Rakefile db:drop db:migrate --trace"
+  end
 end
 
 
