@@ -165,7 +165,7 @@ GEM
     netrc (0.7.1)
     nokogiri (1.5.2)
     orm_adapter (0.0.7)
-    paperclip (3.0.0)
+    paperclip (3.0.4)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -295,7 +295,7 @@ DEPENDENCIES
   kaminari
   letter_opener
   nested_form!
-  paperclip (~> 3.0)
+  paperclip (~> 3.0.3)
   pdfkit
   pg
   pg_search
