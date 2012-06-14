@@ -65,22 +65,22 @@ Moving::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   
-  config.action_mailer.default_url_options = { :host => 'replacethis.com' }
-  config.action_mailer.asset_host = 'http://replacethis.com'
+  config.action_mailer.default_url_options = { :host => ENV['MAILER_URL'] }
+  config.action_mailer.asset_host = ENV['MAILER_ASSET_URL']
   
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
-    :address        => 'smtp.sendgrid.net',
+    :address        => ENV['MAILER_ADDRESS'],
     :port           => '587',
     :authentication => :plain,
-    :user_name      => ENV['SENDGRID_USERNAME'],
-    :password       => ENV['SENDGRID_PASSWORD'],
-    :domain         => 'heroku.com'
+    :user_name      => ENV['MAILER_USERNAME'],
+    :password       => ENV['MAILER_PASSWORD'],
+    :domain         => ENV['MAILER_DOMAIN']
   }
   
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[Exception]",
-    :sender_address => %{"Exception Notifier [Dem. Max]" <sales@moreflowerswholesale.com>},
+    :sender_address => %{"Exception Notifier [Dem. Max]" <app@demenagementmaximum.com>},
     :exception_recipients => %w{alert@yafoy.com}
   
 end
