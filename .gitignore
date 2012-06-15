@@ -20,3 +20,5 @@
 /coverage/*
 public/uploads/*
 /config/database.yml
+
+config/environments/development.rb

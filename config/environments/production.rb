@@ -75,7 +75,8 @@ Moving::Application.configure do
     :authentication => :plain,
     :user_name      => ENV['MAILER_USERNAME'],
     :password       => ENV['MAILER_PASSWORD'],
-    :domain         => ENV['MAILER_DOMAIN']
+    #:domain         => ENV['MAILER_DOMAIN'],
+    :enable_starttls_auto => false
   }
   
   config.middleware.use ExceptionNotifier,

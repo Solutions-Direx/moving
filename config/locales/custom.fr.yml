@@ -221,6 +221,8 @@ fr:
   tip: Pourboire
   profile: Profil
   update_profile: 'Mettre à jour votre profil'
+  account_created: Votre compte a été créé
+  quote_information: Contrat de déménagement
   activerecord:
     models:
       account: Compte
