@@ -92,6 +92,15 @@
   <%= f.association :forfaits, :collection => current_account.forfaits.all.map{|s| [s.name_with_price, s.id]}, :input_html => {:id => "forfaits", :class => "chzn", "data-placeholder" => "#{t 'type_to_select_forfaits'}", :multiple => true, :style => "width: 508px;", :data => {:forfaits => current_account.forfaits.all}} %>
   
   <%= section %>
+  <h3><%= t 'insurance_cancellation', default: 'Insurance cancellation' %></h3>
+    <%= f.input :furnitures, :input_html => {:class => "comment_one_liner"} %>
+    <%= f.input :too_big_for_stairway  %>
+    <%= f.input :too_big_for_hallway %>
+    <%= f.input :too_big %>
+    <%= f.input :broken %>
+    <%= f.input :too_fragile %>
+  
+  <%= section %>
   <%= f.input :comment, :input_html => {:class => "live-input", :style => "width:500px; height:150px;"} %>
   
   <%= section %>

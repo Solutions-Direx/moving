@@ -78,6 +78,15 @@
       </div>
     </div>
     <% end %>
+    
+    <div class="control-group float optional">
+      <%= f.label :tip %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :tip, :class => 'span1 input-append' %><span class="add-on">$</span>
+        </div>
+      </div>
+    </div>
   </div>
   
   <%= section %>
@@ -89,20 +98,22 @@
   
   <%= section %>
   <h3>Forfaits</h3>
-  <%= f.association :forfaits, :collection => current_account.forfaits.all.map{|s| [s.name_with_price, s.id]}, :input_html => {:id => "forfaits", :class => "chzn", "data-placeholder" => "#{t 'type_to_select_forfaits'}", :multiple => true, :style => "width: 508px;", :data => {:forfaits => current_account.forfaits.all}} %>
+    <%= f.association :forfaits, :collection => current_account.forfaits.all.map{|s| [s.name_with_price, s.id]}, :input_html => {:id => "forfaits", :class => "chzn", "data-placeholder" => "#{t 'type_to_select_forfaits'}", :multiple => true, :style => "width: 508px;", :data => {:forfaits => current_account.forfaits.all}} %>
   
   <%= section %>
-  <%= f.input :too_big_for_stairway %>
-  <%= f.input :too_big_for_hallway %>
-  <%= f.input :too_big %>
-  <%= f.input :broken %>
-  <%= f.input :too_fragile %>
-  <%= f.input :furnitures, :input_html => {:class => "live-input", :style => "width:500px; height:150px;"} %>
-  <%= f.input :tip, :input_html => {:class => "live-input", :style => "width:500px;"} %>
-  <%= f.input :comment, :input_html => {:class => "live-input", :style => "width:500px; height:150px;"} %>
+  <h3><%= t 'insurance_cancellation', default: 'Insurance cancellation' %></h3>
+    <%= f.input :furnitures, :input_html => {:class => "comment_one_liner"} %>
+    <%= f.input :too_big_for_stairway  %>
+    <%= f.input :too_big_for_hallway %>
+    <%= f.input :too_big %>
+    <%= f.input :broken %>
+    <%= f.input :too_fragile %>
   
   <%= section %>
-  <h3>Grand Total: <span id="grand-total"><%= number_to_currency(@invoice.grand_total) %></span></h3>
+    <%= f.input :comment, :input_html => {:class => "live-input", :style => "width:500px; height:150px;"} %>
+  
+  <%= section %>
+    <h3>Grand Total: <span id="grand-total"><%= number_to_currency(@invoice.grand_total) %></span></h3>
   
   <div class="form-actions" style="display: none;">
     <%= submit_or_cancel(f) %>

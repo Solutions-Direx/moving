@@ -45,7 +45,7 @@
   <div class="row" id="addresses">
     <%= f.fields_for :from_address do |fa| %>
       <%= fa.fields_for :address do |faa| %>
-        <%= render 'address_widget', title: 'From', quote_address_form: fa, address_form: faa, internal: !@quote.internal_address.nil? ? (@quote.internal_address? ? "#{t 'not_internal'}" : "#{t 'internal'}") : nil %>
+        <%= render 'address_widget', title: "#{t 'from'}", quote_address_form: fa, address_form: faa, internal: !@quote.internal_address.nil? ? (@quote.internal_address? ? "#{t 'not_internal'}" : "#{t 'internal'}") : nil %>
       <% end %>
     <% end %>
     <%= f.fields_for :to_addresses %>

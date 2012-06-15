@@ -143,35 +143,33 @@
   </div>
 <% end %>
 
-<%= content_tag(:p, check_box_tag('too_big_for_stairway', 'true', true, :disabled => true) + " " + t('too_big_for_stairway')) if @invoice.too_big_for_stairway %>
-<%= content_tag(:p, check_box_tag('too_big_for_hallway', 'true', true, :disabled => true) + " " + t('too_big_for_hallway')) if @invoice.too_big_for_hallway %>
-<%= content_tag(:p, check_box_tag('too_big', 'true', true, :disabled => true) + " " + t('too_big')) if @invoice.too_big %>
-<%= content_tag(:p, check_box_tag('broken', 'true', true, :disabled => true) + " " + t('broken')) if @invoice.broken %>
-<%= content_tag(:p, check_box_tag('too_fragile', 'true', true, :disabled => true) + " " + t('too_fragile')) if @invoice.too_fragile %>
-
 <% unless @invoice.furnitures.blank? %>
-<%= section %>
-<h4><%= t('furninutes', default: "Furnitures") %></h4>
-<p><%= simple_format(@invoice.furnitures) %></p>
-<% end %>
-
-<% unless @invoice.tip.blank? %>
-<%= section %>
-<h4><%= t('tip', default: "Tip") %></h4>
-<p><%= simple_format(@invoice.tip) %></p>
+  <%= section %>
+  <h3><%= t('insurance_cancellation') %></h3>
+  <br />
+  <p><%= t('insurance_cancellation_info') %>:</p>
+  <%= simple_format(@invoice.furnitures) %>
+  <%= content_tag(:p, check_box_tag('too_big_for_stairway', 'true', true, :disabled => true) + " " + t('too_big_for_stairway')) if @invoice.too_big_for_stairway %>
+  <%= content_tag(:p, check_box_tag('too_big_for_hallway', 'true', true, :disabled => true) + " " + t('too_big_for_hallway')) if @invoice.too_big_for_hallway %>
+  <%= content_tag(:p, check_box_tag('too_big', 'true', true, :disabled => true) + " " + t('too_big')) if @invoice.too_big %>
+  <%= content_tag(:p, check_box_tag('broken', 'true', true, :disabled => true) + " " + t('broken')) if @invoice.broken %>
+  <%= content_tag(:p, check_box_tag('too_fragile', 'true', true, :disabled => true) + " " + t('too_fragile')) if @invoice.too_fragile %>
 <% end %>
 
 <% unless @invoice.comment.blank? %>
-<%= section %>
-<p><i><%= simple_format(@invoice.comment) %></i></p>
+  <%= section %>
+  <p><i><%= simple_format(@invoice.comment) %></i></p>
 <% end %>
 
 <!-- INVOICE SIGNED -->
 <% if @invoice.signed? %>
+  <%= section %>
+  <br />
+  <h3><%= t 'client_satisfaction' %></h3>
+  <% unless @invoice.tip.blank? %>
+    <p><%= t 'tip' %>: <%= number_to_currency(@invoice.tip) %></p>
+  <% end %>
   <% unless @invoice.client_satisfaction.blank? %>
-    <%= section %>
-    <br />
-    <h3><%= t 'client_satisfaction' %></h3>
     <p><i><%= simple_format(@invoice.client_satisfaction) %></i></p>
   <% end %>
   
@@ -192,7 +190,8 @@
 <!-- INVOICE NOT SIGNED -->  
 <% else %>
   <br />
-  <h3><%= t 'client_satisfaction' %></h3>
+  <h3><%= t 'client_satisfaction' %></h3> <br />
+  <%= t 'tip' %> <%= text_field_tag :tip, @invoice.tip, :class => "span1" %><br />
   <%= text_area_tag :client_satisfaction, @invoice.client_satisfaction, :class => "span6", :rows => 5 %>
 
   <%= render 'invoices/signaturepad' %>

@@ -11,8 +11,8 @@
             <li><%= icon_link_to "#{t 'email_to_client'}", email_quote_path, :method => :post, icon: "envelope" %></li>
           <% end %>
           <li><%= icon_link_to "#{t 'print'}", '#print-modal', "data-toggle" => "modal", icon: "print" %></li>
-          <% if @quote.confirmed? && @quote.invoice.blank? %>
-            <li><%= icon_link_to "#{t 'create_invoice'}", new_quote_invoice_path(@quote), icon: "plus" %></li>
+          <% if @quote.confirmed? %>
+            <li><%= @quote.invoice.blank? ? (icon_link_to "#{t 'create_invoice'}", new_quote_invoice_path(@quote), icon: "plus") : (icon_link_to "#{t 'view_invoice'}", quote_invoice_path(@quote), icon: "file") %></li>
           <% end %>
         </ul>
       </div>
@@ -24,7 +24,7 @@
         <%= button_link_to "#{t 'edit'}", edit_quote_path(@quote), level: "inverse", large: true unless @quote.signed? %>
         <% if @quote.confirmed? %>
           <%= link_to "#{t 'confirmed', default: 'Confirmed'}", '#', :class => 'btn btn-success btn-large disabled', "data-original-title"=> t('quote_confirmation'),
-          "data-content"=> "#{render(template: 'quote_confirmations/show', locals: {quote_confirmation: @quote.quote_confirmation}, formats: [:html])}", "data-placement" => "left", :id => "confirm" %>
+"data-content"=> "#{render(template: 'quote_confirmations/show', locals: {quote_confirmation: @quote.quote_confirmation}, formats: [:html])}", "data-placement" => "left", :id => "confirm" %>
         <% else %>
           <%= button_link_to "#{t 'reject', default: 'Reject'}", reject_quote_path(@quote), level: "warning", large: true, method: :put, confirm: "#{t 'confirm_reject', defaut: 'Are you sure you want to reject this quote?'}" %>
           <%= button_link_to "#{t 'confirm', default: 'Confirm'}", new_quote_quote_confirmation_path(@quote), level: "success", large: true, remote: true %>

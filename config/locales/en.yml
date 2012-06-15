@@ -62,6 +62,8 @@ en:
   supplies: 'Supplies'
   type_to_select_forfaits: 'Type to select forfaits'
   type_to_select_trucks: 'Type to select trucks'
+  type_to_select_removal_men: Type to select teammates
+  select_team_lead: Select team lead
   quote_is_confirmed: 'Quote was successfully confirmed.'
   approved_on: 'Approved on'
   removal_man: Removal man
@@ -90,6 +92,15 @@ en:
   username: Username
   password: Password
   forgot_password: Forgot your password?
+  create_invoice: Create invoice
+  view_invoice: View invoice
+  insurance_cancellation: Insurance cancellation
+  insurance_cancellation_info: We can not insure these furnitures for the following reasons
+  too_big_for_stairway: Furniture too large for stairway
+  too_big_for_hallway: Furniture too large for hallway
+  too_big: Oversize furniture
+  broken: Furniture broken
+  too_fragile: Furniture too fragile
   activerecord:
     attributes:
       user:  

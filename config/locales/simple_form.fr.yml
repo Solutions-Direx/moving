@@ -81,8 +81,13 @@ fr:
         overtime: 'Autre taux horaire'
         credit_card_type: Type de carte
         tip: Pourboire
-        furnitures: Meubles
+        furnitures: Meubles concernés
         remember_me: 'Se souvenir de moi'
+        too_big_for_stairway: Meuble ne passe pas dans la cage d'escalier
+        too_big_for_hallway: Meuble ne passe pas dans le corridor
+        too_big: Meuble hors dimension
+        broken: Meuble déjà abîmé / brisé
+        too_fragile: Meuble trop fragile
     hints:
       defaults:
       user:

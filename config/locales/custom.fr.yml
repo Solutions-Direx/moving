@@ -118,6 +118,8 @@ fr:
   click_to_add_address: 'Cliquez pour ajouter une autre adresse'
   type_to_select_forfaits: 'Rechercher des forfaits'
   type_to_select_trucks: 'Rechercher des camions'
+  type_to_select_removal_men: Rechercher des déménageurs
+  select_team_lead: Sélectionner un chef d'équipe
   kitchen: Cuisine
   living_room: 'Salle de séjour'
   basement: 'Sous-sol'
@@ -194,6 +196,7 @@ fr:
   invoice_code: 'Numéro de facture'
   no_pending_quotes: "Pas de citations en attente pour aujourd'hui"
   create_invoice: 'Créer une facture'
+  view_invoice: Voir la facture
   scheduled_on: prévues le
   print: 'Imprimer'
   overtime: Heures supplémentaires
@@ -208,6 +211,7 @@ fr:
   admin: "Administrateur"
   manager: "Manager"
   removal_man: "Déménageur"
+  removal_men: Déménageurs
   standard: "Standard"
   from_address_cannot_be_blank: "L'addresse de départ ne peut être vide"
   select_addresses_to_print: Sélectionnez les adresses à imprimer
@@ -228,6 +232,13 @@ fr:
   login_details: Utilisez les informations suivantes pour vous connecter
   link_to_login_for_first_time: Cliquez sur le lien suivant pour vous connecter
   quote_information: Contrat de déménagement
+  insurance_cancellation: Annulation d'assurance
+  insurance_cancellation_info: Nous ne pouvons assurer ces meubles pour les raisons suivantes
+  too_big_for_stairway: Meuble ne passe pas dans la cage d'escalier
+  too_big_for_hallway: Meuble ne passe pas dans le corridor
+  too_big: Meuble hors dimension
+  broken: Meuble déjà abîmé / brisé
+  too_fragile: Meuble trop fragile
   activerecord:
     models:
       account: Compte
