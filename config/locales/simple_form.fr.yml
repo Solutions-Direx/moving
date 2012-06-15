@@ -81,6 +81,7 @@ fr:
         overtime: 'Autre taux horaire'
         credit_card_type: Type de carte
         tip: Pourboire
+        furnitures: Meubles
     hints:
       defaults:
       user:

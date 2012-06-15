@@ -92,6 +92,13 @@
   <%= f.association :forfaits, :collection => current_account.forfaits.all.map{|s| [s.name_with_price, s.id]}, :input_html => {:id => "forfaits", :class => "chzn", "data-placeholder" => "#{t 'type_to_select_forfaits'}", :multiple => true, :style => "width: 508px;", :data => {:forfaits => current_account.forfaits.all}} %>
   
   <%= section %>
+  <%= f.input :too_big_for_stairway %>
+  <%= f.input :too_big_for_hallway %>
+  <%= f.input :too_big %>
+  <%= f.input :broken %>
+  <%= f.input :too_fragile %>
+  <%= f.input :furnitures, :input_html => {:class => "live-input", :style => "width:500px; height:150px;"} %>
+  <%= f.input :tip, :input_html => {:class => "live-input", :style => "width:500px;"} %>
   <%= f.input :comment, :input_html => {:class => "live-input", :style => "width:500px; height:150px;"} %>
   
   <%= section %>

@@ -31,6 +31,15 @@
   <p><i><%= simple_format(@report.comment) %></i></p>
 <% end %>
 
+<% unless @report.removal_men.blank?  %>
+  <h3><%= t 'removal_man', default: "Removal Men" %></h3>
+  <ul>
+    <% @report.removal_men.each do |removal_man| %>
+      <li><%= removal_man.full_name %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= section %>
 <p><b><%= t 'distance_in_qc', default: 'Distance in Québec' %>:</b> <%= @report.distance_in_qc %></p>
 <p><b><%= t 'distance_in_on', default: 'Distance in Ontario' %>:</b> <%= @report.distance_in_on %></p>

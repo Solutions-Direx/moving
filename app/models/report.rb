@@ -2,7 +2,11 @@ class Report < ActiveRecord::Base
   include Signable
   
   belongs_to :quote
-  attr_accessible :distance_in_nb, :distance_in_on, :distance_in_qc, :distance_other, 
+  
+  has_many :report_removal_men, :dependent => :destroy
+  has_many :removal_men, :through => :report_removal_men
+  
+  attr_accessible :distance_in_nb, :distance_in_on, :distance_in_qc, :distance_other, :removal_man_ids,
                   :end_time, :gas, :km_end, :km_start, :quote_id, :signature, :signer_name, :start_time, :comment
   
   before_validation(:on => :update) do

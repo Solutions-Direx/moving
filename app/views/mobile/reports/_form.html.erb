@@ -74,6 +74,8 @@
         </div>
       </div>
     </div>
+    
+    <%= f.association :removal_men, :label => "Déménageurs", :collection => current_account.users.removal_men.all.map{|s| [s.full_name, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to select removal man", :id => "removal-men-#{@report.id}", :multiple => true, :style => "width: 360px;"} %>
        
   </div>
   
@@ -85,3 +87,9 @@
     <%= submit_tag 'Preview', style: "display: none;", :id => "submit-to-preview" %>
   </div>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $(".chzn").chosen();
+  });
+</script>

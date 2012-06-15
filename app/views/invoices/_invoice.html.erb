@@ -143,6 +143,24 @@
   </div>
 <% end %>
 
+<%= content_tag(:p, check_box_tag('too_big_for_stairway', 'true', true, :disabled => true) + " " + t('too_big_for_stairway')) if @invoice.too_big_for_stairway %>
+<%= content_tag(:p, check_box_tag('too_big_for_hallway', 'true', true, :disabled => true) + " " + t('too_big_for_hallway')) if @invoice.too_big_for_hallway %>
+<%= content_tag(:p, check_box_tag('too_big', 'true', true, :disabled => true) + " " + t('too_big')) if @invoice.too_big %>
+<%= content_tag(:p, check_box_tag('broken', 'true', true, :disabled => true) + " " + t('broken')) if @invoice.broken %>
+<%= content_tag(:p, check_box_tag('too_fragile', 'true', true, :disabled => true) + " " + t('too_fragile')) if @invoice.too_fragile %>
+
+<% unless @invoice.furnitures.blank? %>
+<%= section %>
+<h4><%= t('furninutes', default: "Furnitures") %></h4>
+<p><%= simple_format(@invoice.furnitures) %></p>
+<% end %>
+
+<% unless @invoice.tip.blank? %>
+<%= section %>
+<h4><%= t('tip', default: "Tip") %></h4>
+<p><%= simple_format(@invoice.tip) %></p>
+<% end %>
+
 <% unless @invoice.comment.blank? %>
 <%= section %>
 <p><i><%= simple_format(@invoice.comment) %></i></p>

@@ -33,7 +33,8 @@ class Invoice < ActiveRecord::Base
   
   attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :gas, :rate, :overtime, :overtime_rate,
                   :invoice_supplies_attributes, :forfait_ids, :client_satisfaction,
-                  :payment_method, :discount, :credit_card_type, :overtimes_attributes, :lock_version
+                  :payment_method, :discount, :credit_card_type, :overtimes_attributes, :lock_version,
+                  :too_big_for_stairway, :too_big_for_hallway, :too_big, :broken, :too_fragile, :furnitures, :tip
   
   before_create :generate_code
   
