@@ -85,6 +85,11 @@ en:
   failed_to_cancel_rejection: Failed to cancel quote rejection. Please contact system administrator.
   failed_to_reject: Quote could not be rejected. Please contact system administrator.
   failed_to_delete_confirmation: Failed to delete quote confirmation. Please contact system administrator.
+  sign_up: Sign up
+  sign_in: Sign in
+  username: Username
+  password: Password
+  forgot_password: Forgot your password?
   activerecord:
     attributes:
       user:  

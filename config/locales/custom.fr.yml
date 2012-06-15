@@ -65,6 +65,7 @@ fr:
   name: 'Nom'
   role: "Rôle"
   username: "Nom d'utilisateur"
+  password: Mot de passe
   title: 'Titre'
   created_at: 'Créé le'
   updated_at: 'Mis à jour le'
@@ -202,6 +203,8 @@ fr:
   change_my_password: Modifier mon mot de passe
   forgot_password: Mot de passe oublié?
   reset_password: Envoyez-moi les instructions pour modifier mon mot de passe
+  sign_in: Se connecter
+  sign_up: S'enregistrer
   admin: "Administrateur"
   manager: "Manager"
   removal_man: "Déménageur"
@@ -222,6 +225,8 @@ fr:
   profile: Profil
   update_profile: 'Mettre à jour votre profil'
   account_created: Votre compte a été créé
+  login_details: Utilisez les informations suivantes pour vous connecter
+  link_to_login_for_first_time: Cliquez sur le lien suivant pour vous connecter
   quote_information: Contrat de déménagement
   activerecord:
     models:
@@ -247,6 +252,8 @@ fr:
         contact: "Personne à contacter"
       supply:
         active: "Actif"
+      user:
+        login: Nom d'utilisateur ou email
   accounts:
     show:
       general: 'Général'
@@ -274,4 +281,4 @@ fr:
       error_update: "Une erreur est survenue. Veuillez réessayer ou contacter l'administrateur du système."
   users:
     form:
-      intro: "Un email avec un mot de passe par défaut sera envoyé à chauqe nouvel utilisateur inscrit."
+      intro: "Un email avec un mot de passe par défaut sera envoyé à chaque nouvel utilisateur inscrit."

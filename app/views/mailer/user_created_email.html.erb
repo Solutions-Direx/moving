@@ -1,13 +1,13 @@
 <p>Hello <%= @user.first_name %>,</p>
 
-<p>Your account has been created.</p>
+<p><%= t 'account_created', default: 'Your account has been created.' %></p>
 
-<p>Use the following details to login:</p>
+<p><%= t 'login_details', defalut: 'Use the following details to login' %>:</p>
 
-<p>Username: <%= @user.username %></p>
-<p>Password: <%= @generated_password %></p>
+<p><%= t 'username' %>: <%= @user.username %></p>
+<p><%= t 'password' %>: <%= @generated_password %></p>
 <p>Email: <%= @user.email %></p>
 
-<p>Click the link below to login and change password:</p>
+<p><%= t 'link_to_login_for_first_time', default: 'Click the link below to login and change your password' %>:</p>
 
 <%= link_to new_user_session_url, new_user_session_url %>

@@ -82,6 +82,7 @@ fr:
         credit_card_type: Type de carte
         tip: Pourboire
         furnitures: Meubles
+        remember_me: 'Se souvenir de moi'
     hints:
       defaults:
       user:
