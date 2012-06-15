@@ -50,7 +50,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         Mailer.user_created_email(@user, generated_password).deliver
-        format.html { redirect_to @user, notice: "#{User.model_name.human} #{t 'is_createed'}. #{t 'an_email_was_sent_to', default: 'An email was sent to'} #{@user.email}." }
+        format.html { redirect_to @user, notice: "#{User.model_name.human} #{t 'is_created'}. #{t 'an_email_was_sent_to', default: 'An email was sent to'} #{@user.email}." }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -87,7 +87,7 @@ class UsersController < ApplicationController
     end
   end
   
-  private
+private
   
   def sort_column
     User.column_names.include?(params[:sort]) ? params[:sort] : "first_name"
