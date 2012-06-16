@@ -21,7 +21,7 @@ class CreateInvoices < ActiveRecord::Migration
       t.float :discount
       t.string :credit_card_type
       t.integer :lock_version, :integer, :default => 0
-      t.string :tip
+      t.float :tip
       t.string :furnitures
       t.boolean :too_big_for_stairway
       t.boolean :too_big_for_hallway

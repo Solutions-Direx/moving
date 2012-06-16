@@ -16,7 +16,13 @@ class Report < ActiveRecord::Base
     end  
   end
   
+  before_create :copy_quote_removal_men
+  
   def total_km
     (try(:km_start) || 0) + (try(:km_end) || 0)
+  end
+  
+  def copy_quote_removal_men
+    self.removal_man_ids = quote.quote_removal_men.pluck(:removal_man_id)
   end
 end

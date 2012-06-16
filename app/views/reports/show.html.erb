@@ -1,0 +1,19 @@
+<div>
+  <% if @invoice.tip.present? %>
+    <p><strong><%= t 'tip' %>:</strong> <%= number_to_currency(@invoice.tip) %></p>
+  <% end %>
+  
+  <% if @invoice.quote.deposit.present? %>
+    <p><strong><%= t('deposit_received') %>:</strong> <%= number_to_currency(@invoice.quote.deposit.amount) %></p>
+  <% end %>
+  
+  <% unless @invoice.quote.report.removal_men.blank?  %>
+    <h4><%= t 'removal_man', default: "Removal Men" %></h4>
+    <ul>
+      <% @invoice.quote.report.removal_men.each do |removal_man| %>
+        <li><%= removal_man.full_name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  
+</div>

@@ -5,7 +5,7 @@
       <%= tab.calendar Calendar.model_name.human, monthly_quotes_path %>
       <%= tab.clients  'Clients', clients_path %>
       <%= tab.invoices  Invoice.model_name.human + 's', invoices_path %>
-      <%= tab.reports  "#{t 'reports', default: 'Reports'}", reports_invoices_path %>
+      <%= tab.reports  "#{t 'reports', default: 'Reports'}", reports_path %>
     <% end %>
   </div>
 <% end %>

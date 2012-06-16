@@ -11,6 +11,7 @@
     <th>Date</th>
     <th><%= t 'payment_method' %></th>
     <th><%= t 'amount', default: 'Amount' %></th>
+    <th></th>
   </tr>
 
 <% @invoices.each do |invoice| %>
@@ -22,8 +23,25 @@
     <td><%= l invoice.signed_at.to_date %></td>
     <td><%= invoice.payment_method %></td>
     <td><%= link_to number_to_currency(invoice.total), quote_invoice_path(invoice.quote) %></td>
+    <td><%= icon_button_link_to t('details'), report_path(invoice), icon: 'list-alt', remote: true, class: "details", :"data-type" => 'html'  %></td>
   </tr>
 <% end %>
 </table>
 
 <%= paginate @invoices %>
+
+<script type="text/javascript">
+  $(function() {
+    $(".details").bind('ajax:success', function(e, data, status, xhr) {
+      $(data).dialog2({
+          title: "Report Details", 
+          id: "report-details"
+      });
+    }).bind('ajax:error', function() {
+      $('<div>Error occurred. Please contact system administrator.</div>').dialog2({
+          title: "Server Error", 
+          id: "server-notice"
+      });
+    });
+  });
+</script>

@@ -156,8 +156,8 @@ ActiveRecord::Schema.define(:version => 20120615142021) do
     t.string   "credit_card_type"
     t.integer  "lock_version",         :default => 0
     t.integer  "integer",              :default => 0
-    t.string   "tip"
-    t.text     "furnitures"
+    t.float    "tip"
+    t.string   "furnitures"
     t.boolean  "too_big_for_stairway"
     t.boolean  "too_big_for_hallway"
     t.boolean  "too_big"
