@@ -23,7 +23,11 @@
     <td><%= l invoice.signed_at.to_date %></td>
     <td><%= invoice.payment_method %></td>
     <td><%= link_to number_to_currency(invoice.total), quote_invoice_path(invoice.quote) %></td>
-    <td><%= icon_button_link_to t('details'), report_path(invoice), icon: 'list-alt', remote: true, class: "details", :"data-type" => 'html'  %></td>
+    <td>
+      <% if invoice.quote.report && invoice.quote.report.removal_men.any? %>
+        <%= icon_button_link_to t('details'), report_path(invoice), icon: 'list-alt', remote: true, class: "details", :"data-type" => 'html' %>
+      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>
