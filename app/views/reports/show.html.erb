@@ -8,12 +8,11 @@
   <% end %>
   
   <% unless @invoice.quote.report.removal_men.blank?  %>
-    <h4><%= t 'removal_man', default: "Removal Men" %></h4>
+    <h4><%= t 'removal_men', default: "Removal Men" %></h4>
     <ul>
       <% @invoice.quote.report.removal_men.each do |removal_man| %>
         <li><%= removal_man.full_name %></li>
       <% end %>
     </ul>
   <% end %>
-  
 </div>

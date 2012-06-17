@@ -240,6 +240,8 @@ fr:
   too_big: Meuble hors dimension
   broken: Meuble déjà abîmé / brisé
   too_fragile: Meuble trop fragile
+  report_details: Détails du rapport
+  error_msg: Une erreur est survenue. Veuillez réessayer ou contacter l'administrateur du système.
   activerecord:
     models:
       account: Compte

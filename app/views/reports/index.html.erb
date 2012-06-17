@@ -25,7 +25,7 @@
     <td><%= link_to number_to_currency(invoice.total), quote_invoice_path(invoice.quote) %></td>
     <td>
       <% if invoice.quote.report && invoice.quote.report.removal_men.any? %>
-        <%= icon_button_link_to t('details'), report_path(invoice), icon: 'list-alt', remote: true, class: "details", :"data-type" => 'html' %>
+        <%= icon_button_link_to t('details', default: 'Details'), report_path(invoice), icon: 'list-alt', remote: true, class: "details", :"data-type" => 'html' %>
       <% end %>
     </td>
   </tr>
@@ -38,11 +38,11 @@
   $(function() {
     $(".details").bind('ajax:success', function(e, data, status, xhr) {
       $(data).dialog2({
-          title: "Report Details", 
+          title: "<%= t('report_details', default: 'Report details') %>", 
           id: "report-details"
       });
     }).bind('ajax:error', function() {
-      $('<div>Error occurred. Please contact system administrator.</div>').dialog2({
+      $("<p class='alert alert-error'><%= t('error_msg') %></p>").dialog2({
           title: "Server Error", 
           id: "server-notice"
       });

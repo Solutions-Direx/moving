@@ -32,7 +32,7 @@
 <% end %>
 
 <% unless @report.removal_men.blank?  %>
-  <h3><%= t 'removal_man', default: "Removal Men" %></h3>
+  <h3><%= t 'removal_men', default: "Removal Men" %></h3>
   <ul>
     <% @report.removal_men.each do |removal_man| %>
       <li><%= removal_man.full_name %></li>

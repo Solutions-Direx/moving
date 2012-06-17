@@ -7,7 +7,7 @@ class Report < ActiveRecord::Base
   has_many :removal_men, :through => :report_removal_men
   
   attr_accessible :distance_in_nb, :distance_in_on, :distance_in_qc, :distance_other, :removal_man_ids,
-                  :end_time, :gas, :km_end, :km_start, :quote_id, :signature, :signer_name, :start_time, :comment
+                  :gas, :km_start, :km_end, :quote_id, :signature, :signer_name, :start_time, :end_time, :comment
   
   before_validation(:on => :update) do
     if start_time.kind_of?(ActiveSupport::HashWithIndifferentAccess)
@@ -15,6 +15,8 @@ class Report < ActiveRecord::Base
       self.end_time = Time.zone.parse("#{Time.zone.now.strftime('%Y/%m/%d')} #{end_time[:hour]}:#{end_time[:minute]}")
     end  
   end
+  
+  validates_presence_of: :km_start, :km_end, :start_time, :end_time
   
   before_create :copy_quote_removal_men
   
