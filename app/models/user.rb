@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   scope :managers, where(role: Role::MANAGER)
   scope :standards, where(role: Role::STANDARD)
   scope :removal_men, where(role: Role::REMOVAL_MAN)
+  default_scope :order => "first_name, last_name"
   
   # INSTANCE METHODS
   

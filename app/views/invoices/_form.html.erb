@@ -103,11 +103,14 @@
   <%= section %>
   <h3><%= t 'insurance_cancellation', default: 'Insurance cancellation' %></h3>
     <%= f.input :furnitures, :input_html => {:class => "comment_one_liner"} %>
-    <%= f.input :too_big_for_stairway  %>
-    <%= f.input :too_big_for_hallway %>
-    <%= f.input :too_big %>
-    <%= f.input :broken %>
-    <%= f.input :too_fragile %>
+    
+    <%= f.input :misc, :label => false do %>
+      <label for="invoice_too_big_for_stairway" class="checkbox"><%= f.check_box :too_big_for_stairway %> <%= t('too_big_for_stairway') %></label>
+      <label for="invoice_too_big_for_hallway" class="checkbox"><%= f.check_box :too_big_for_hallway %> <%= t('too_big_for_hallway') %></label>
+      <label for="invoice_too_big" class="checkbox"><%= f.check_box :too_big %> <%= t('too_big') %></label>
+      <label for="invoice_broken" class="checkbox"><%= f.check_box :broken %> <%= t('broken') %></label>
+      <label for="invoice_too_fragile" class="checkbox"><%= f.check_box :too_fragile %> <%= t('too_fragile') %></label>
+    <% end %>
   
   <%= section %>
     <%= f.input :comment, :input_html => {:class => "live-input", :style => "width:500px; height:150px;"} %>
