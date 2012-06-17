@@ -169,6 +169,7 @@ fr:
   credit: "Crédit"
   cheque: "Chèque"
   deposit: "Faire un dépôt"
+  deposit_name: Dépôt
   visa: "Visa"
   mastercard: "Master Card"
   amex: "American Express"
