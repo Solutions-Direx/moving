@@ -59,16 +59,14 @@ class InvoicesController < ApplicationController
   end
   
   def export
-    @invoices = current_account.invoices
+    @invoices = current_account.invoices.includes({:quote => [:client, :quote_confirmation, :deposit]}, :forfaits, :overtimes, :supplies)
+    if params[:invoices].present?
+      @invoices = @invoices.where(id: params[:invoices])
+    end
     
     respond_to do |format|
       format.csv
     end
-  end
-  
-  def reports
-    set_tab :reports
-    @invoices = current_account.invoices.includes(:quote).where('invoices.signed_at IS NOT NULL').includes(:quote).order(sort_column + " " + sort_direction).page(params[:page])
   end
   
   def print

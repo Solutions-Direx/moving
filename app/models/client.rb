@@ -21,4 +21,5 @@ class Client < ActiveRecord::Base
   validates_uniqueness_of :name
   
   scope :commercial, where(commerical: true)
+  
 end

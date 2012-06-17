@@ -34,4 +34,8 @@ class Address < ActiveRecord::Base
     "#{address},#{city},#{province},#{country}"
   end
   
+  def to_s
+    "#{address}, #{city}, #{province}, #{postal_code}"
+  end
+  
 end
