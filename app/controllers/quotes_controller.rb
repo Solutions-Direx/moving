@@ -38,7 +38,6 @@ class QuotesController < ApplicationController
   end
 
   def edit
-    puts I18n.locale    
     if @quote.invoice.present? && @quote.invoice.signed?
       
       respond_to do |format|
@@ -91,7 +90,6 @@ class QuotesController < ApplicationController
   def pending
     if params[:day]
       @day = Time.zone.parse(params[:day]).to_date
-      puts @day
       @quotes = current_account.quotes.by_day(@day).pending.order('removal_at ASC').order(sort_column + " " + sort_direction).page(params[:page])
     else
       @day = Time.zone.today
