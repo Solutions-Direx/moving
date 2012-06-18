@@ -10,7 +10,7 @@ $ ->
     $('#modal-form').find('form').submit()
     return false  
   
-  locale = <% I18n.locale.to_s %>
+  locale = '<%= I18n.locale.to_s %>'
   if locale == "fr"
     $('.datepicker').datepicker($.datepicker.regional["fr"]);
   else  
