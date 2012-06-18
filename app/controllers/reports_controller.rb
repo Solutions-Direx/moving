@@ -9,7 +9,6 @@ class ReportsController < ApplicationController
   
   def show
     @invoice = Invoice.find(params[:id])
-    puts @invoice.inspect
     respond_to do |format|
       format.html { render :layout => false }
       format.js { render :template => 'reports/show', :layout => false, :formats => [:html] }
