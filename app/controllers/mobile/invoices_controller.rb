@@ -51,7 +51,7 @@ module Mobile
     def correct_stale_record_version
       @quote.reload
       @invoice.reload
-      @invoice.errors.add(:base, t('conflict'))
+      @invoice.errors.add(:base, t('conflict', default: "Conflict"))
     end
   end
 end

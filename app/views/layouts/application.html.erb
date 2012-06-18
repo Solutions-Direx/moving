@@ -6,6 +6,13 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <script type="text/javascript" charset="utf-8">
+    <% if I18n.locale == :fr %>
+      $.datepicker.setDefaults($.datepicker.regional["fr"]);
+    <% else %>
+      $.datepicker.setDefaults($.datepicker.regional["en-GB"]);
+    <% end %>
+  </script>
 </head>
 <body data-spy="scroll" data-target=".subnav" data-offset="50" class="<%= yield(:body_class) || '' %>">
   <%= render 'layouts/navbar' %>

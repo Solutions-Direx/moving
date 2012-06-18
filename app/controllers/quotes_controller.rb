@@ -38,6 +38,7 @@ class QuotesController < ApplicationController
   end
 
   def edit
+    puts I18n.locale    
     if @quote.invoice.present? && @quote.invoice.signed?
       
       respond_to do |format|

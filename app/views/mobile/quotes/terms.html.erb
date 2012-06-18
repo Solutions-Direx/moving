@@ -55,20 +55,30 @@
         <% end %>
       </span>
     </h2>
-    <% @quote.documents.each_with_index do |document, index| %>
-      <%= div_for(document, :style => "display: #{index == 0 ? 'block' : 'none' };", :class => index == @quote.documents.size - 1 ? "last" : "") do %>
-        <h3 class='with_margin'><%= document.name %></h3>
-        <%= simple_format(document.body) %>
+    <% if @quote.documents.present? %>
+      <% @quote.documents.each_with_index do |document, index| %>
+        <%= div_for(document, :style => "display: #{index == 0 ? 'block' : 'none' };", :class => index == @quote.documents.size - 1 ? "last" : "") do %>
+          <h3 class='with_margin'><%= document.name %></h3>
+          <%= simple_format(document.body) %>
+          <p class='approve_doc'>
+            <%= check_box_tag "approve_document_#{document.id}", document.id, false, :class => "mark-read" %>
+            <%= label_tag "approve_document_#{document.id}", "#{t 'i_approve'}", :style => "display: inline-block;" %>
+            <% if @quote.documents.size > 1 %>
+            <%= button_link_to "#{t 'next'}", '#', large: true, level: "success", white: true, class: "next disabled" %>
+            <% end %>
+            <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, style: 'display: none;', class: "approve" %>
+          </p>
+        <% end %>
+      <% end %>
+    <% else %>
+      <div class="document last">
         <p class='approve_doc'>
-          <%= check_box_tag "approve_document_#{document.id}", document.id, false, :class => "mark-read" %>
-          <%= label_tag "approve_document_#{document.id}", "#{t 'i_approve'}", :style => "display: inline-block;" %>
-          <% if @quote.documents.size > 1 %>
-          <%= button_link_to "#{t 'next'}", '#', large: true, level: "success", white: true, class: "next disabled" %>
-          <% end %>
+          <%= check_box_tag "approve_document_1", '1', false, :class => "mark-read" %>
+          <%= label_tag "approve_document_1", "#{t 'i_approve'}", :style => "display: inline-block;" %>
           <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, style: 'display: none;', class: "approve" %>
         </p>
-      <% end %>
-    <% end %>
+      </div>
+    <% end %>  
   </div>
 <% end %>
 

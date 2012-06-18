@@ -2,30 +2,21 @@
   <%= f.error_notification %>
   
   <div class="form-inputs">
-    <div class="control-group float optional">
-      <%= f.label :km_start %>
-      <div class="controls">
-        <div class='input-append'>
-          <%= f.text_field :km_start, :class => 'span1 input-append' %><span class="add-on">km</i></span>
-        </div>
-      </div>
-    </div>
-    <div class="control-group float optional">
-      <%= f.label :km_end %>
-      <div class="controls">
-        <div class='input-append'>
-          <%= f.number_field :km_end, :class => 'span1 input-append' %><span class="add-on">km</span>
-        </div>
-      </div>
-    </div>
-    <div class="control-group float optional">
-      <%= f.label :gas %>
-      <div class="controls">
-        <div class='input-append'>
-          <%= f.number_field :gas, :class => 'span1 input-append' %><span class="add-on">$</span>
-        </div>
-      </div>
-    </div>
+    <%= f.input :km_start, :wrapper => :append do %>
+      <%= f.input_field :km_start, :class => "span1 input-append" %>
+      <%= content_tag :span, "km", :class => "add-on" %>
+    <% end %>
+    
+    <%= f.input :km_end, :wrapper => :append do %>
+      <%= f.input_field :km_end, :class => "span1 input-append" %>
+      <%= content_tag :span, "km", :class => "add-on" %>
+    <% end %>
+    
+    <%= f.input :gas, :wrapper => :append do %>
+      <%= f.input_field :gas, :class => "span1 input-append" %>
+      <%= content_tag :span, "$", :class => "add-on" %>
+    <% end %>
+    
     <div class="control-group float optional">
       <%= f.label :start_time %>
       <div class="controls">
@@ -42,38 +33,26 @@
         </div>
       </div>
     </div>
-    <div class="control-group float optional">
-      <%= f.label :distance_in_qc %>
-      <div class="controls">
-        <div class='input-append'>
-          <%= f.number_field :distance_in_qc, :class => 'span1 input-append' %><span class="add-on">km</span>
-        </div>
-      </div>
-    </div>
-    <div class="control-group float optional">
-      <%= f.label :distance_in_on %>
-      <div class="controls">
-        <div class='input-append'>
-          <%= f.number_field :distance_in_on, :class => 'span1 input-append' %><span class="add-on">km</span>
-        </div>
-      </div>
-    </div>
-    <div class="control-group float optional">
-      <%= f.label :distance_in_nb %>
-      <div class="controls">
-        <div class='input-append'>
-          <%= f.number_field :distance_in_nb, :class => 'span1 input-append' %><span class="add-on">km</span>
-        </div>
-      </div>
-    </div>
-    <div class="control-group float optional">
-      <%= f.label :distance_other %>
-      <div class="controls">
-        <div class='input-append'>
-          <%= f.number_field :distance_other, :class => 'span1 input-append' %><span class="add-on">km</span>
-        </div>
-      </div>
-    </div>
+    
+    <%= f.input :distance_in_qc, :wrapper => :append do %>
+      <%= f.input_field :distance_in_qc, :class => "span1 input-append" %>
+      <%= content_tag :span, "km", :class => "add-on" %>
+    <% end %>
+    
+    <%= f.input :distance_in_on, :wrapper => :append do %>
+      <%= f.input_field :distance_in_on, :class => "span1 input-append" %>
+      <%= content_tag :span, "km", :class => "add-on" %>
+    <% end %>
+    
+    <%= f.input :distance_in_nb, :wrapper => :append do %>
+      <%= f.input_field :distance_in_nb, :class => "span1 input-append" %>
+      <%= content_tag :span, "km", :class => "add-on" %>
+    <% end %>
+    
+    <%= f.input :distance_other, :wrapper => :append do %>
+      <%= f.input_field :distance_other, :class => "span1 input-append" %>
+      <%= content_tag :span, "km", :class => "add-on" %>
+    <% end %>
     
     <%= f.association :removal_men, :label => "Déménageurs", :collection => current_account.users.removal_men.all.map{|s| [s.full_name, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to select removal man", :id => "removal-men-#{@report.id}", :multiple => true, :style => "width: 360px;"} %>
        

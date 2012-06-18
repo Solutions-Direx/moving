@@ -17,7 +17,7 @@
         </ul>
       </div>
       <% if @quote.rejected? %>
-        <%= link_to "#{t 'rejected', default: 'Rejected'}", '#', :class => 'btn btn-warning btn-large disabled', "data-original-title"=> t('reject'),
+        <%= link_to "#{t 'rejected', default: 'Rejected'}", '#', :class => 'btn btn-warning btn-large disabled', "data-original-title"=> t('reject', default: "Rejected"),
         "data-content"=> "#{render(template: 'quotes/cancel_reject', locals: {quote: @quote}, formats: [:html])}", "data-placement" => "left", :id => "reject" %>
         <%= button_link_to "#{t 'edit'}", edit_quote_path(@quote), level: "inverse", large: true unless @quote.signed? %>
       <% else %>

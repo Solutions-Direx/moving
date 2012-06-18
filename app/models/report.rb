@@ -16,7 +16,7 @@ class Report < ActiveRecord::Base
     end  
   end
   
-  validates_presence_of: :km_start, :km_end, :start_time, :end_time
+  validates_presence_of :km_start, :km_end, :start_time, :end_time, :on => :update
   
   before_create :copy_quote_removal_men
   

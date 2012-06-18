@@ -111,7 +111,10 @@ class Quote < ActiveRecord::Base
   end
   
   def removal_at_picker=(datetime)
-    self.removal_at = datetime[:date].blank? ? '' : Time.zone.parse("#{datetime[:date]} #{datetime[:hour]}:#{datetime[:minute]}")
+    date = datetime[:date]
+    date = Date.strptime(date, "%m-%d-%Y").strftime("%d/%m/%Y") if I18n.locale == :en && date =~ /\-/
+      
+    self.removal_at = datetime[:date].blank? ? '' : Time.zone.parse("#{date} #{datetime[:hour]}:#{datetime[:minute]}")
   end
   
   def conf_details

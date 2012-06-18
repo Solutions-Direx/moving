@@ -102,7 +102,10 @@ en:
   too_big: Oversize furniture
   broken: Furniture broken
   too_fragile: Furniture too fragile
+  quote_confirmation: Quote Confirmation
   error_msg: An Error occurred. Please contact system administrator.
+  please_confirm: Please confirm this action
+  rejected: "Rejected"
   activerecord:
     attributes:
       user:  

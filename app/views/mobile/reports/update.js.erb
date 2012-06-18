@@ -1,8 +1,12 @@
 <% if !@is_preview %>
-$('#report-form-container').html("<%= j render('form') %>");
-$('#msg').show().effect('highlight', {}, 3000, function() {
-  $(this).hide();
-});
+  $('#report-form-container').html("<%= j render('form') %>");
+  $('#msg').show().effect('highlight', {}, 3000, function() {
+    $(this).hide();
+  });
 <% else %>
-  window.location = "<%= mobile_quote_report_url(@quote) %>";
+  <% if @report.errors.present? %>
+    $('#report-form-container').html("<%= j render('form') %>");
+  <% else %>
+    window.location = "<%= mobile_quote_report_url(@quote) %>";
+  <% end %>  
 <% end %>
