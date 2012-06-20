@@ -10,9 +10,9 @@ $ ->
     $('#modal-form').find('form').submit()
     return false  
   
-  locale = $('meta[name=locale]').attr("content");
+  loc = $("meta[name='locale']").attr("content")
   
-  if locale == "fr"
+  if loc == "fr"
     $('.datepicker').each ->
       $(this).datepicker($.extend($.datepicker.regional["fr"], {altFormat: "yy/mm/dd", altField: $(this).next()}))
   else  
