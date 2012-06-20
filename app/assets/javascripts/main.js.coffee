@@ -12,6 +12,8 @@ $ ->
   
   locale = <%= I18n.locale.to_s %>
   if locale == "fr"
-    $('.datepicker').datepicker($.datepicker.regional["fr"]);
+    $('.datepicker').each ->
+      $(this).datepicker($.extend($.datepicker.regional["fr"], {altFormat: "yy/mm/dd", altField: $(this).next()}))
   else  
-    $('.datepicker').datepicker($.datepicker.regional["en-GB"]);
+    $('.datepicker').each ->
+      $(this).datepicker($.extend($.datepicker.regional["en-GB"], {altFormat: "yy/mm/dd", altField: $(this).next()}))

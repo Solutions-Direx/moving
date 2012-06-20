@@ -1,7 +1,8 @@
-$('<%= j(render :template => 'deposits/new', :formats => [:html]) %>').dialog2({
-  title: "<%= t('deposit') %>",
-  id: "new-quote-deposit"
-});
-$("#quote_deposit_date").click(function() { 
-  $(".datepicker").datepicker();
-});
+try {
+  $('<%= j(render :template => 'deposits/new', :formats => [:html]) %>').dialog2({
+    title: "<%= t('deposit', default: "Deposit") %>",
+    id: "new-quote-deposit"
+  });
+} catch(e) {
+  console.log(e);
+}
