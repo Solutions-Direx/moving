@@ -20,9 +20,9 @@ class DepositsController < ApplicationController
       if @deposit.save
         format.html { 
           if request.xhr?
-            render partial: "flash_modal_msg", :locals => { notice: "#{t 'deposit_is_confirmed'}", :close_dialog_id => "new-quote-deposit" }
+            render partial: "flash_modal_msg", :locals => { notice: "#{t 'deposit_is_confirmed', :default => 'Deposit confirmed'}", :close_dialog_id => "new-quote-deposit" }
           else
-            redirect_to @quote, notice: "#{t 'deposit_is_confirmed'}" 
+            redirect_to @quote, notice: "#{t 'deposit_is_confirmed', :default => 'Deposit confirmed'}" 
           end
         }
         format.json { render json: @deposit, status: :created, location: @deposit }

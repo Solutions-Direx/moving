@@ -9,7 +9,7 @@
   <%= f.input :credit_card_type, :collection => credit_card_type_options, :include_blank => true, :wrapper_html => {:id => "credit_card_type", :style => "display: none;"}  %>
   
   <div class="form-actions actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, :class => 'btn btn-success' %>
   </div>
 <% end %>
 
