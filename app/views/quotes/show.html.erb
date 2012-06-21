@@ -1,10 +1,10 @@
-<h2><%= @quote.client.name %> <%= content_tag(:span, @quote.rating, :class => "badge badge-#{@quote.rating.downcase}") %>
+<h2><%= @quote.client.name %> <%= content_tag(:span, @quote.rating, :class => "badge badge-#{@quote.rating.downcase}") %> <%= content_tag(:span, 'commercial', :class => 'badge') if @quote.client.commercial? %>
   <span class='submenu'>
     <div class="btn-toolbar">
       <div class="btn-group">
         <button class="btn btn-large dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
         <ul class="dropdown-menu" style="font-size:14px;">
-          <% if @quote.deposit.blank? %>
+          <% if @quote.deposit.blank? && @quote.confirmed? %>
             <li><%= icon_link_to "#{t 'deposit', default: 'Deposit'}", new_quote_deposit_path(@quote), icon: "download", remote: true %></li>
           <% end %>
           <% unless @quote.client.email.blank? %>
@@ -17,7 +17,7 @@
         </ul>
       </div>
       <% if @quote.rejected? %>
-        <%= link_to "#{t 'rejected', default: 'Rejected'}", '#', :class => 'btn btn-warning btn-large disabled', "data-original-title"=> t('reject', default: "Rejected"),
+        <%= link_to "#{t 'rejected', default: 'Rejected'}", '#', :class => 'btn btn-warning btn-large disabled', "data-original-title"=> t('rejected', default: "Rejected"),
         "data-content"=> "#{render(template: 'quotes/cancel_reject', locals: {quote: @quote}, formats: [:html])}", "data-placement" => "left", :id => "reject" %>
         <%= button_link_to "#{t 'edit'}", edit_quote_path(@quote), level: "inverse", large: true unless @quote.signed? %>
       <% else %>

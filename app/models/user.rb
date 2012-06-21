@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   # ASSOCIATIONS
   belongs_to :account
   has_many :quote_confirmations
+  has_many :quotes
   
   # ATTRIBUTES
   attr_accessible :login, :username, :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :role, :localization

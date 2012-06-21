@@ -42,12 +42,12 @@
 
   <% @client.quotes.each do |quote| %>
     <tr>
-      <td><%= link_to quote.code, quote %> <%= status_tag(t(quote.status)) %></td>
+      <td><%= link_to quote.code, quote %> <%= status_tag(t(quote.status), level: quote.rejected? ? 'warning' : (quote.confirmed? ? 'success' : '')) %></td>
       <td><%= l quote.removal_at, :format => :long %></td>
       <td><%= quote.creator.full_name %></td>
       <td><%= link_to Invoice.model_name.human, quote_invoice_path(quote) %></td>
-      <td><%= link_to "#{t 'edit'}", edit_quote_path(quote) %></td>
-      <td><%= link_to "#{t 'destroy'}", quote, confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to "#{t 'edit'}", edit_quote_path(quote) unless quote.signed? %></td>
+      <td><%= link_to "#{t 'destroy'}", quote, :data => { :confirm => "#{t 'are_you_sure'}" }, method: :delete unless quote.signed? %></td>
     </tr>
   <% end %>
   </table>

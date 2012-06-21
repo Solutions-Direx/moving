@@ -1,4 +1,5 @@
 <div class="tab-pane" id="lB">
+  <%= t 'rooms', :default => 'Rooms' %>
   <%= f.fields_for :rooms %>
   <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_room', default: 'Add room'}", :rooms, :class => "btn btn-primary add-link" %><br/>
   
@@ -21,7 +22,7 @@
           <tr>
             <td rowspan="3" style="text-align:right;"><b><%= t 'living_room' %></b></td>
             <td><%= content_tag :span, "#{t 'sofa_3pl', default: 'Sofa 3pl'}" %><%= ff.number_field :living_couch_3pl, :class => 'span1' %></td>
-            <td><%= content_tag :span, "#{t 'sofa_2pl', default: 'Sofa 3pl'}" %><%= ff.number_field :living_couch_2pl, :class => 'span1' %></td>
+            <td><%= content_tag :span, "#{t 'sofa_2pl', default: 'Sofa 2pl'}" %><%= ff.number_field :living_couch_2pl, :class => 'span1' %></td>
             <td><%= content_tag :span, "#{t 'armchair', default: 'Armchair'}" %><%= ff.number_field :living_armchair, :class => 'span1' %></td>
           </tr>
           <tr>

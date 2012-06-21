@@ -132,6 +132,8 @@ class QuotesController < ApplicationController
   
   def reject
     @quote.status = "rejected"
+    @quote.rejected_by = current_user.id
+    @quote.rejected_at = Time.zone.now
     
     respond_to do |format|
       if @quote.save
@@ -146,6 +148,8 @@ class QuotesController < ApplicationController
   
   def cancel_reject
     @quote.status = "pending"
+    @quote.rejected_by = nil
+    @quote.rejected_at = nil
     
     respond_to do |format|
       if @quote.save

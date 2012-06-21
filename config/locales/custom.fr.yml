@@ -37,6 +37,8 @@ fr:
   confirm: 'Confirmer'
   approved: 'Approuvée'
   approve: 'Approuver'
+  rejected: Rejetée
+  rejected_at: Rejetée le
   print: 'Imprimer'
   internal: 'Interne'
   not_internal: 'Externe'
@@ -125,6 +127,7 @@ fr:
   basement: 'Sous-sol'
   outside: Extérieur
   room: Pièce
+  rooms: Pièces
   add_room: 'Ajouter une pièce'
   comment: 'Commentaire'
   chair: 'Chaise'

@@ -1,1 +1,3 @@
-<p><%= link_to t('cancel_rejection', default:'Cancel quote rejection'), cancel_reject_quote_path(quote), :method => :put, :confirm => "#{t 'please_confirm'}" %></p>
+<p><%= t 'rejected_at' %> <%= l quote.rejected_at, :format => :long %> <%= t 'by' %> <%= quote.rejector.full_name %></p>
+
+<p style="margin-top: 10px;"><%= link_to t('cancel_rejection', default:'Cancel quote rejection'), cancel_reject_quote_path(quote), :method => :put, :confirm => "#{t 'please_confirm'}" %></p>

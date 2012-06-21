@@ -54,7 +54,7 @@
       
   update_room_number: ->
     $('#quote-form .room:visible').each (index, room) ->
-      $(room).find('.room-number').text("Room #{index + 1}")
+      $(room).find('.room-number').text("##{index + 1}")
       
   fill_client_info: (client) ->
     if client.commercial

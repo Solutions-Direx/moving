@@ -22,6 +22,7 @@ class Quote < ActiveRecord::Base
   belongs_to :account
   belongs_to :client
   belongs_to :creator, :class_name => "User", :foreign_key => "creator_id"
+  belongs_to :rejector, :class_name => "User", :foreign_key => "rejected_by"
   
   has_many :rooms, :dependent => :destroy
   accepts_nested_attributes_for :rooms, :reject_if => lambda {|room| room[:size].blank?}, :allow_destroy => true
@@ -65,7 +66,7 @@ class Quote < ActiveRecord::Base
   accepts_nested_attributes_for :deposit
   
   # ATTRIBUTES
-  attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, 
+  attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, :rejected_by, :rejected_at,
                   :materiel, :num_of_removal_man, :price, :rating, :removal_at, 
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
                   :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment, 
@@ -122,7 +123,7 @@ private
 
   def generate_code
     last_quote_id = Quote.last.present? ? Quote.last.id : 0
-    self.code = "%05d" % (last_quote_id + 1)
+    self.code = "%06d" % (last_quote_id + 1)
   end
   
   def ignore_blank_addresses

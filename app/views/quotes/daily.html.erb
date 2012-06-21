@@ -13,7 +13,7 @@
       <div class="well quote">
         <div class="clearfix">
           <p>
-            <b><%= quote.client.name %></b>
+            <b><%= quote.client.name %> <%= content_tag(:span, 'commercial', :class => 'badge') if quote.client.commercial? %></b>
             <% if quote.long_distance %> <%= content_tag(:span, "(#{t 'quotes.long_distance', default: 'Long distance'})", :class => 'label label-warning label_override') %><% end %>
             <% if quote.internal_address %><%= content_tag(:span, "(#{t 'quotes.internal', default: 'Internal'})", :class => 'label label-info label_override') %><% end %>
             <span class='floatr'><b><%= link_to "##{quote.code}", quote_path(quote) %></b></span>

@@ -12,7 +12,7 @@ account = Account.create!(company_name: "Déménagement Maximum",
                           tax2_label: "TVQ", 
                           tax2: 9.5,
                           compound: true,
-                          invoice_start_number: 10000
+                          invoice_start_number: 100000
                          )
 address = account.create_address!(address: "250 Blvd de l'aéroport", city: "Gatineau", province: "Québec", postal_code: "J8Z4P3", country: "Canada")
 owner = account.users.build(username: "super", 

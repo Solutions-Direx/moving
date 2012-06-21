@@ -30,7 +30,7 @@ class QuoteConfirmationsController < ApplicationController
   def create
     @quote_confirmation = @quote.create_quote_confirmation(params[:quote_confirmation])
     @quote_confirmation.approved_at = Time.zone.now
-    @quote_confirmation.user_id = current_user
+    @quote_confirmation.user_id = current_user.id
 
     respond_to do |format|
       if @quote_confirmation.save

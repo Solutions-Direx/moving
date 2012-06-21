@@ -12,5 +12,11 @@
 </head>
 <body>
   <%= render 'quotes/quote_table', absolute_path: false %>
+  
+  <% @quote.documents.each do |document| %>
+    <hr/>
+    <h3><%= document.name %></h3>
+    <%= simple_format(document.body) %>
+  <% end %>
 </body>
 </html>
