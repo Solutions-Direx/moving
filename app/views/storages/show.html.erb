@@ -31,7 +31,7 @@
     <% @storage.annexes.each do |annex| %>
     <tr>
       <td><%= link_to annex.name, storage_annex_path(@storage, annex) %> 
-          <span class='submenu'><%= link_to "#{t 'edit'}", edit_storage_annex_path(@storage, annex) %> | 
+          <span style='float:right;'><%= link_to "#{t 'edit'}", edit_storage_annex_path(@storage, annex) %> | 
           <%= link_to "#{t 'destroy'}", storage_annex_path(@storage, annex), confirm: 'Are you sure?', method: :delete %></td>
       </td>
     </tr>
