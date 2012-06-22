@@ -47,7 +47,7 @@
   </tr>
   <% end %>
   
-  <% if @invoice.gas > 0 %>
+  <% if (@invoice.try(:gas) || 0) > 0 %>
   <tr>
     <td><%= t 'gas' %></td>
     <td class="right"><%= number_to_currency(@invoice.gas) %></td>

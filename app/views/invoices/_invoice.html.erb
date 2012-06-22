@@ -27,7 +27,7 @@
   </div>
 <% end %>  
 
-<% if @invoice.gas > 0 %>
+<% if (@invoice.try(:gas) || 0) > 0 %>
   <div class="row">
     <div class="span4">Gas</div>
     <div class="span2 money"><%= number_to_currency(@invoice.gas) %></div>

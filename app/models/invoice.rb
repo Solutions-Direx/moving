@@ -44,7 +44,7 @@ class Invoice < ActiveRecord::Base
   # pass recalculate = true to recalculate
   def grand_total(recalculate = false)
     if @grand_total.nil? || recalculate
-      @grand_total = total_time_spent + gas + total_overtime + total_supplies + total_forfaits + total_franchise_cancellation + total_insurance_increase - total_discount
+      @grand_total = total_time_spent + (try(:gas) || 0) + total_overtime + total_supplies + total_forfaits + total_franchise_cancellation + total_insurance_increase - total_discount
       @grand_total = 0 if @grand_total < 0
     end
     @grand_total
