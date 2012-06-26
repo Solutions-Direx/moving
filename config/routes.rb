@@ -2,6 +2,7 @@ Moving::Application.routes.draw do
   
   # BACK OFFICE ROUTES
   # ==================
+  devise_for :users
   
   # match 'calendar' => 'calendar#show', :as => 'calendar'
   match 'schedule' => 'schedule#show', :as => 'schedule'
@@ -34,7 +35,6 @@ Moving::Application.routes.draw do
       get 'daily'
     end
   end
-  devise_for :users
   resources :clients do
     get 'cities', :on => :collection
   end

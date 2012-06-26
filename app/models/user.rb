@@ -48,12 +48,18 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
   
-  def self.find_for_database_authentication(warden_conditions)
+  def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
-    login = conditions.delete(:login)
-    where(conditions).where(active: true).where(["lower(username) = :value OR lower(email) = :value", { :value => login.strip.downcase }]).first
+    if reset_password_token = conditions[:reset_password_token]
+      where(conditions).where(["reset_password_token = ?", reset_password_token]).first
+    elsif confirmation_token = conditions[:confirmation_token]  
+      where(conditions).where(["confirmation_token = ?", confirmation_token]).first
+    else
+      login = conditions.delete(:login).downcase
+      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login ? login.downcase : "" }]).first
+    end
   end
-  
+ 
   def update_with_password(params={}) 
     if params[:password].blank? 
       params.delete(:password) 
