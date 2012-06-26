@@ -2,7 +2,7 @@
   <!-- CLIENT -->
   <%= f.input :client_id do %>
     <%= f.input_field :client_id, :collection => Client.order('name ASC').map{|c| [c.name, c.id]}, :selected => @client ? @client.id : nil, :class => "chzn", "data-placeholder" => "Select", :id => "select-clients" %> <%= t 'or' %> 
-    <%= icon_button_link_to "New Client", new_client_path, icon: 'plus', level: "inverse", white: true, remote: true %>
+    <%= icon_button_link_to "#{t 'new'} client", new_client_path, icon: 'plus', level: "inverse", white: true, remote: true %>
   <% end %>
 
   <!-- RATING -->
@@ -18,7 +18,7 @@
     </div>
   </div>
   
-  <%= f.input :contact, :wrapper_html => {:style => "display: #{@quote.client && @quote.client.commercial ? 'block' : 'none' };"} %>
+  <%= f.input :contact %>
   
   <!-- REMOVAL PICKER -->
   <div class="control-group datetime_picker">

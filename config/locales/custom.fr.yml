@@ -198,7 +198,7 @@ fr:
   clear: 'Effacer'
   discount: 'Remise'
   invoice_code: 'Numéro de facture'
-  no_pending_quotes: "Pas de citations en attente pour aujourd'hui"
+  no_pending_quotes: "Pas d'ententes en attente pour aujourd'hui"
   create_invoice: 'Créer une facture'
   view_invoice: Voir la facture
   scheduled_on: prévues le
@@ -245,6 +245,8 @@ fr:
   too_fragile: Meuble trop fragile
   report_details: Détails du rapport
   error_msg: Une erreur est survenue. Veuillez réessayer ou contacter l'administrateur du système.
+  billing_contact: Personne contact pour facturation
+  hourly: par heure
   activerecord:
     models:
       account: Compte

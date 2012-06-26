@@ -8,7 +8,7 @@ class Address < ActiveRecord::Base
   attr_accessible :address, :addressable_id, :addressable_type, :city, :country, :postal_code, :province, :bypass_validation
   
   # VALIDATIONS
-  validates :address, :city, :postal_code, :presence => true, :if => lambda {|a| a.bypass_validation.blank?}
+  validates :address, :city, :presence => true, :if => lambda {|a| a.bypass_validation.blank?}
   validates_presence_of :address, :if => lambda {|a| a.bypass_validation.blank?}
   
   PROVINCE = ['Québec', 'Ontario', 'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia',

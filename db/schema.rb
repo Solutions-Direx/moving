@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120621175424) do
+ActiveRecord::Schema.define(:version => 20120626025231) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company_name"
@@ -65,10 +65,11 @@ ActiveRecord::Schema.define(:version => 20120621175424) do
     t.string   "phone1"
     t.string   "phone2"
     t.string   "email"
-    t.boolean  "commercial", :default => false
+    t.boolean  "commercial",      :default => false
     t.integer  "account_id"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.string   "billing_contact"
   end
 
   add_index "clients", ["phone1"], :name => "index_clients_on_phone1"

@@ -1,4 +1,4 @@
-<% if quote.client.commercial? %>
+<% if quote.contact.present? %>
 <p>
   <b><%= Quote.human_attribute_name("contact") %>: <%= quote.contact %></b>
 </p>
@@ -7,7 +7,7 @@
 <p>
   <b><%= t 'removal_at' %>:</b>
   <%= l quote.removal_at, :format => :long %> || <%= quote.is_house? ? "#{t 'house'}" : "#{t 'apartment'}" %>
-  <span class='submenu'><b><%= t 'created_by', default: 'Created by' %>: </b><%= quote.creator.full_name %></span>
+  <span class='submenu'><b><%= t 'created_by', default: 'Created by' %>: </b><%= quote.creator.full_name %> - <%= l quote.created_at, :format => :short %></span>
 </p>
 
 <% if quote.pm? %>

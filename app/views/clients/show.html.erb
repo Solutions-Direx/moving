@@ -18,6 +18,13 @@
   <%= mail_to @client.email, @client.email %>
 </p>
 
+<% if @client.commercial? %>
+<p>
+  <b><%= t 'billing_contact', :default => 'Billing contact person' %>:</b>
+  <%= @client.billing_contact %>
+</p>
+<% end %>
+
 <br />
 
 <p>

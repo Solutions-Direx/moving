@@ -15,7 +15,7 @@
       <%= f.label :rate %>
       <div class="controls">
         <div class='input-append'>
-          <%= f.text_field :rate, :class => 'span1 input-append' %><span class="add-on">$</span> par heure
+          <%= f.text_field :rate, :class => 'span1 input-append' %><span class="add-on">$</span> <%= t 'hourly', :default => 'hourly' %>
         </div>
       </div>
     </div>

@@ -15,11 +15,11 @@ class Client < ActiveRecord::Base
   accepts_nested_attributes_for :address
   has_many :quotes, :dependent => :destroy
   
-  attr_accessible :email, :name, :phone1, :phone2, :account_id, :address_attributes, :commercial
+  attr_accessible :email, :name, :phone1, :phone2, :account_id, :address_attributes, :commercial, :billing_contact
   
   validates_presence_of :name, :phone1
-  validates_uniqueness_of :name
+  validates_uniqueness_of :phone1 
   
-  scope :commercial, where(commerical: true)
+  scope :commercial, where(commercial: true)
   
 end

@@ -7,12 +7,13 @@
     <%= f.input :phone2 %>
     <%= f.input :email %>
     <%= f.input :commercial, :as => :radio_buttons %>
+    <%= f.input :billing_contact, :wrapper_html => { :id => 'billing_contact', :style => "display: #{@client.commercial? ? 'block' : 'none'};"} %>
     
     <% @client.build_address unless @client.address %>
       <%= f.fields_for :address do |fa| %>
         <%= fa.input :address, :required => true %>
         <%= fa.input :city, :required => true %>
-        <%= fa.input :postal_code, :required => true %>
+        <%= fa.input :postal_code %>
         <%= fa.input :province, :collection => Address::PROVINCE %>
       <% end %>
   </div>
@@ -21,3 +22,12 @@
     <%= submit_or_cancel(f) %>
   </div>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $("#client_commercial_true").click(function () {
+    $("#billing_contact").show();
+  });
+  $("#client_commercial_false").click(function () {
+    $("#billing_contact").hide();
+  });
+</script>

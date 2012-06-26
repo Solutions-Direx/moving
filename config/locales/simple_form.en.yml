@@ -11,7 +11,9 @@ en:
     error_notification:
       default_message: "Some errors were found, please take a look:"
     # Labels and hints examples
-    # labels:
+    labels:
+      defaults:
+        billing_contact: Billing contact person
     #   password: 'Password'
     #   user:
     #     new:

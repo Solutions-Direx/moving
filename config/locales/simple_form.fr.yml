@@ -88,6 +88,7 @@ fr:
         too_big: Meuble hors dimension
         broken: Meuble déjà abîmé / brisé
         too_fragile: Meuble trop fragile
+        billing_contact: Personne contact pour facturation
     hints:
       defaults:
       user:

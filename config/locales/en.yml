@@ -108,6 +108,7 @@ en:
   error_msg: An Error occurred. Please contact system administrator.
   please_confirm: Please confirm this action
   rejected: "Rejected"
+  add_overtime: Add overtime
   activerecord:
     attributes:
       user:  
