@@ -16,7 +16,7 @@ class Invoice < ActiveRecord::Base
                   },
                   :ignoring => :accents
                   
-  belongs_to :quote, :touch => true
+  belongs_to :quote
   belongs_to :client
   
   has_many :invoice_forfaits, :dependent => :destroy
