@@ -11,15 +11,10 @@ class QuoteConfirmation < ActiveRecord::Base
   validates_inclusion_of :franchise_cancellation, :insurance_limit_enough, :in => [true,false]
   
   after_create :mark_quote_confirmed
-  after_destroy :mark_quote_pending
   
   def mark_quote_confirmed
     quote.status = "confirmed"
     quote.save
   end
   
-  def mark_quote_pending
-    quote.status = "pending"
-    quote.save
-  end
 end

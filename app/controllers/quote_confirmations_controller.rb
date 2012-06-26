@@ -73,6 +73,8 @@ class QuoteConfirmationsController < ApplicationController
     @quote_confirmation = @quote.quote_confirmation
     respond_to do |format|
       if @quote_confirmation.destroy
+        @quote.status = "pending"
+        @quote.save
         format.html { redirect_to quote_path(@quote), notice: "#{Quote.model_name.human} #{t 'revert_to_pending'}" }
       else
         format.html { redirect_to quote_path(@quote), alert: "#{t 'failed_to_deleted_confirmation'}" }
