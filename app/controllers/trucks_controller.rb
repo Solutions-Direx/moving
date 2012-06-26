@@ -40,7 +40,7 @@ class TrucksController < ApplicationController
   # POST /trucks
   # POST /trucks.json
   def create
-    @truck = Truck.new(params[:truck])
+    @truck = current_account.trucks.build(params[:truck])
 
     respond_to do |format|
       if @truck.save
