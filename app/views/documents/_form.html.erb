@@ -3,6 +3,7 @@
 
   <div class="form-inputs">
     <%= f.input :name, :label => false, :placeholder => "#{t 'title'}", :input_html => {:class => 'span10'} %>
+    <%= f.input :default, :as => :boolean, :wrapper => :checkbox, :label => "#{t 'add_by_default_to_quote', default: 'Check if this document should be attached to all new quotes by default' }" %>
     <%= render 'layouts/text_formatting' %>
     <%= f.input :body, :as => :text, :label => false, :input_html => {:id => "wysihtml5", :class => 'span10'} %>
   </div>

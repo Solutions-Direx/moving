@@ -15,7 +15,7 @@
 
 <% @documents.each do |document| %>
   <tr>
-    <td><%= link_to document.name, document %></td>
+    <td><%= link_to document.name, document %> <%= status_tag("#{t 'add_by_default', :default => 'Default'}") if document.default? %></td>
     <td><%= l document.updated_at.to_date %></td>
     <td><%= link_to "#{t 'edit'}", edit_document_path(document) %></td>
     <td><%= link_to "#{t 'print'}", print_document_path(document, :format => :pdf) %></td>

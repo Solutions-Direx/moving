@@ -89,6 +89,7 @@ fr:
         broken: Meuble déjà abîmé / brisé
         too_fragile: Meuble trop fragile
         billing_contact: Personne contact pour facturation
+        default: Attaché par défaut
     hints:
       defaults:
       user:

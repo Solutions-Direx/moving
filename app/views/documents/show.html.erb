@@ -1,5 +1,8 @@
-<h2><%= @document.name %>
-  <span class='submenu'><%= link_to 'Edit', edit_document_path(@document), :class => 'btn btn-large btn-inverse' %></span>
+<h2><%= @document.name %> <%= status_tag("#{t 'add_by_default', :default => 'Default'}") if @document.default? %>
+  <span class='submenu'>
+    <%= link_to "#{t 'edit'}", edit_document_path(@document), :class => 'btn btn-large btn-inverse' %>
+    <%= link_to "#{t 'print'}", print_document_path(@document, :format => :pdf), :class => 'btn btn-large btn-success' %>
+  </span>
 </h2>
 
 <div class='read'>

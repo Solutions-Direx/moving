@@ -47,3 +47,12 @@
     margin-bottom: 0;
   }
 }
+
+/* Checkbox with right label fix */
+label.checkbox {
+  text-align: left !important;
+  width: auto !important; 
+}
+input[type=checkbox] {
+  margin-right: 10px !important;
+}

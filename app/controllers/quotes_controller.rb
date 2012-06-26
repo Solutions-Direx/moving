@@ -30,6 +30,9 @@ class QuotesController < ApplicationController
     @quote.build_from_address.build_address
     @quote.to_addresses.build.build_address
     @client = Client.find(params[:client_id]) if params[:client_id].present?
+    Document.default.each do |document|
+      @quote.quote_documents.build(:document_id => document.id)
+    end  
 
     respond_to do |format|
       format.html # new.html.erb
