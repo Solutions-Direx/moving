@@ -11,6 +11,7 @@
     <th><%= t 'internal' %></th>
     <th><%= t 'price' %></th>
     <th>Annexes</th>
+    <th><%= t 'insurance' %></th>
     <th></th>
     <th></th>
   </tr>
@@ -22,6 +23,7 @@
     <td><%= storage.internal? ? "#{t 'internal'}" : "#{t 'external'}" %></td>
     <td><%= number_to_currency(storage.price) %></td>
     <td><%= storage.internal? ? pluralize(storage.annexes.size, "#{Annex.model_name.human}") : '' %></td>
+    <td><%= number_to_currency storage.insurance_amount %></td>
     <td><%= link_to "#{t 'edit'}", edit_storage_path(storage) %></td>
     <td><%= link_to "#{t 'destroy'}", storage, confirm: 'Are you sure?', method: :delete %></td>
   </tr>

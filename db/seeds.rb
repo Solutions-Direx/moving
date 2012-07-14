@@ -7,11 +7,6 @@ account = Account.create!(company_name: "Déménagement Maximum",
                           franchise_cancellation_amount: "20",
                           insurance_coverage_short_distance: "25000",
                           insurance_coverage_long_distance: "50000",
-                          tax1_label: "TPS", 
-                          tax1: 5, 
-                          tax2_label: "TVQ", 
-                          tax2: 9.5,
-                          compound: true,
                           invoice_start_number: 100000
                          )
 address = account.create_address!(address: "250 Blvd de l'aéroport", city: "Gatineau", province: "Québec", postal_code: "J8Z4P3", country: "Canada")
@@ -25,3 +20,8 @@ owner = account.users.build(username: "super",
                             )
 owner.account_owner = true
 owner.save!
+
+# default tax
+default_tax = account.taxes.build(tax_name: 'Default', tax_rate: 10)
+default_tax.is_default = true
+default_tax.save!

@@ -4,7 +4,7 @@ class Storage < ActiveRecord::Base
   belongs_to :account
   has_many :annexes, :dependent => :destroy
   
-  attr_accessible :account_id, :internal, :name, :price, :address_attributes
+  attr_accessible :account_id, :internal, :name, :price, :address_attributes, :insurance_amount
   
   validates :name, :presence => true, :uniqueness => true
   

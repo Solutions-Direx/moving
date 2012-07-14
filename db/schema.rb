@@ -11,16 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120626181541) do
+ActiveRecord::Schema.define(:version => 20120712091159) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company_name"
     t.string   "logo"
-    t.string   "tax1_label"
-    t.float    "tax1"
-    t.string   "tax2_label"
-    t.float    "tax2"
-    t.boolean  "compound"
     t.string   "phone"
     t.string   "website"
     t.string   "email"
@@ -323,11 +318,12 @@ ActiveRecord::Schema.define(:version => 20120626181541) do
 
   create_table "storages", :force => true do |t|
     t.string   "name"
-    t.boolean  "internal",   :default => false
+    t.boolean  "internal",         :default => false
     t.float    "price"
     t.integer  "account_id"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.float    "insurance_amount"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
   end
 
   create_table "supplies", :force => true do |t|
@@ -337,6 +333,16 @@ ActiveRecord::Schema.define(:version => 20120626181541) do
     t.integer  "account_id"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+  end
+
+  create_table "taxes", :force => true do |t|
+    t.integer  "account_id"
+    t.string   "province"
+    t.string   "tax_name"
+    t.float    "tax_rate"
+    t.boolean  "is_default", :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "trucks", :force => true do |t|

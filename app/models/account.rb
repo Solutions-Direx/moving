@@ -1,5 +1,4 @@
 class Account < ActiveRecord::Base
-  include Taxable
   
   has_attached_file :logo, 
                     :styles => { :thumb => "200x200>" },
@@ -18,11 +17,12 @@ class Account < ActiveRecord::Base
   has_many :trucks, :dependent => :destroy
   has_many :forfaits, :dependent => :destroy
   has_many :invoices, :through => :quotes
+  has_many :taxes, :dependent => :destroy
+  accepts_nested_attributes_for :taxes, :reject_if => Proc.new{|t| t['province'].blank? && t['tax_name'].blank? && t['tax_rate'].blank?}
   
   # ATTRIBUTES
-  attr_accessible :company_name, :logo, :email, :phone, :website, :tax1_label, :tax1, :tax2_label, :tax2, :compound, 
-                  :address_attributes, :franchise_cancellation_amount, :insurance_coverage_short_distance, :insurance_coverage_long_distance,
-                  :invoice_start_number
+  attr_accessible :company_name, :logo, :email, :phone, :website, :address_attributes, :franchise_cancellation_amount, 
+                  :insurance_coverage_short_distance, :insurance_coverage_long_distance, :invoice_start_number, :taxes_attributes
   
   # VALIDATIONS
   validates :company_name, :invoice_start_number, :presence => true, :uniqueness => true

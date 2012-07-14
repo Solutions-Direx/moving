@@ -12,6 +12,13 @@
         </div>
       </div>
     </div>
+
+    <%= f.input :insurance_amount do %>
+      <div class='input-append'>
+        <%= f.input_field :insurance_amount, :class => "span1" %>
+        <span class="add-on">$</span>
+      </div>
+    <% end -%>
     
     <% @storage.build_address unless @storage.address %>
     <%= f.fields_for :address do |fa| %>

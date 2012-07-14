@@ -1,0 +1,14 @@
+.mv-table {
+  width: 100%;
+  display: table;
+  margin-bottom: 20px;
+  
+  .tr, .fields {
+    display: table-row;
+  }
+  .th, .td {
+    display: table-cell;
+    padding: 5px 10px;
+    vertical-align: top;
+  }
+}

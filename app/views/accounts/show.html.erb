@@ -1,4 +1,4 @@
-<%= simple_form_for(@account, :url => account_url, :method => :put, :html => {:multipart => true} ) do |f| %>
+<%= simple_nested_form_for(@account, :url => account_url, :method => :put, :html => {:multipart => true} ) do |f| %>
   <%= f.error_notification %>
   <div class="form-inputs">
     <div class="tabbable tabs-left">
@@ -34,32 +34,26 @@
       </div>
           
       <div class="tab-pane" id="3">
-        <%= f.input :tax1_label %>
-        <div class="control-group float optional">
-          <%= f.label :tax1 %>
-          <div class="controls">
-            <div class='input-append'>
-              <%= f.text_field :tax1, :class => 'span1 input-append' %><span class="add-on">%</span>
+        <%= f.fields_for :taxes do |fa| %>
+          <%= fa.input :province, :label => fa.object.is_default ? 'Default Tax' : 'Tax', :required => false do %>
+            <%= fa.input_field :is_default, :as => :hidden %>
+            <% unless fa.object.is_default %>
+              <%= fa.input_field :province, :as => :select, :collection => Address::PROVINCE, :item_wrapper_class => 'inline', :prompt => "--Select Province--" %>
+            <% end -%>  
+            <%= fa.input_field :tax_name, :placeholder => "Tax Name", :class => 'span2' %>
+            <div class='input-append'> 
+              <%= fa.input_field :tax_rate, :placeholder => "Tax Rate", :class => 'span1' %>
+              <span class="add-on">%</span>
             </div>
-          </div>
-        </div>
-        <%= f.input :tax2_label %>
-        <div class="control-group float optional">
-          <%= f.label :tax2 %>
-          <div class="controls">
-            <div class='input-append'>
-              <%= f.text_field :tax2, :class => 'span1 input-append' %><span class="add-on">%</span>
-            </div>
-          </div>
-        </div>
-        <%= f.label :compound %>
-        <div class="controls">
-          <%= f.check_box :compound %>
-          <span class="help-inline">
-            <a href="#" rel="popover" data-content="<%= t '.compound_helper', default: 'Check if tax2 = (price + tax1) * tax2' %>" data-original-title="<%= t '.compound_tax', default: 'Compound Tax' %>">
-            <i class="icon-info-sign"></i></a>
-          </span>
-        </div>
+            
+            <% if fa.object.is_default %>
+              <span>(apply to all provinces that are not defined)</span>
+            <% else %>
+              <%= fa.link_to_remove "Remove" %>
+            <% end -%> 
+          <% end %>
+        <% end %>
+        <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_tax', default: 'Add Tax'}", :taxes, :class => "btn btn-primary add-link", :id => "add-tax" %>
       </div>
       
       <div class="tab-pane" id="4">

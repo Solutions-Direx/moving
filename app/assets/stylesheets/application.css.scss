@@ -14,9 +14,14 @@
 @import "main_search";
 @import "form";
 @import "wysihtml5";
+@import "table";
 @import "address_widget";
 @import "quotes";
 @import "documents";
 @import "calendar";
 @import "invoices";
 @import "dashboard";
+
+.input-append .add-on, .input-append .btn {
+  margin-left: -4px;
+}
