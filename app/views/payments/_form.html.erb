@@ -12,11 +12,8 @@
     <% end %>
     
     <%= f.input :payment_method, :as => :radio_buttons, :collection => payment_method_options, :item_wrapper_class => "inline", :wrapper_html => {:id => "payment_methods"} %>
-
-    <div id="card-info" style="display: <%= @payment.payment_method == 'credit' ? 'block' : 'none' %>;">
-      <%= f.input :credit_card_type, :collection => credit_card_type_options, :include_blank => true  %>
-      <%= f.input :transaction_number, label: t('transaction_number') %>
-    </div>
+    <%= f.input :credit_card_type, :collection => credit_card_type_options, :include_blank => true, :wrapper_html => {:id => "credit_card_type", :style => "display: #{@payment.payment_method == 'credit' ? 'block' : 'none'};"}  %>
+    <%= f.input :transaction_number, label: t('transaction_number'), :wrapper_html => {:id => "transaction_number", :style => "display: #{['credit', 'debit'].include?(@payment.payment_method) ? 'block' : 'none'};"} %>
 
   <div class="form-actions">
     <%= submit_or_cancel(f) %>
@@ -25,10 +22,17 @@
 
 <script type="text/javascript" charset="utf-8">
   $('#payment_methods input:radio').live('click', function() {
-    if ($(this).val() == "credit") {
-      $('#card-info').slideDown('fast');
+    if (($(this).val() == "credit") || ($(this).val() == "debit")) {
+      $('#transaction_number').show();
     } else {
-      $('#card-info').slideUp('fast');
+      $('#transaction_number').hide();
+      $('#transaction_number input').val('');
+    }
+    if ($(this).val() == "credit") {
+      $('#credit_card_type').show();
+    } else {
+      $('#credit_card_type').hide();
+      $('#credit_card_type select').val('');
     }
   });
 </script>
