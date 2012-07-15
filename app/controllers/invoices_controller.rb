@@ -26,7 +26,7 @@ class InvoicesController < ApplicationController
   def create
     @quote = Quote.find(params[:quote_id])
     @invoice = @quote.build_invoice(params[:invoice])
-    @invoice.copy_tax_setting_from(@quote.account)
+    @invoice.copy_tax_setting(@quote)
     @invoice.client_id = @quote.client_id
     if @invoice.save
       redirect_to quote_invoice_url(@quote), notice: "#{Invoice.model_name.human} #{t 'created'}."

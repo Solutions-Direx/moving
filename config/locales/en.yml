@@ -2,6 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  site_name: "Déménagement Maximum"
   cancel: 'Cancel'
   or: 'or'
   edit: 'Edit'
@@ -109,6 +110,9 @@ en:
   please_confirm: Please confirm this action
   rejected: "Rejected"
   add_overtime: Add overtime
+  small: Small
+  medium: Medium
+  large: Large
   activerecord:
     attributes:
       user:  

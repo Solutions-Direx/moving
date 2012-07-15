@@ -2,7 +2,17 @@
 require 'faker'
 
 puts "GENERATE SAMPLE DATA ..."
+
 account = Account.first
+
+company = account.companies.build(
+  company_name: "Déménagement Maximum 2",
+  website: "http://demenagementmaximum.com/",
+  phone: '(819) 777-9999'
+)
+
+company.build_address(address: "78 Blvd de l'aéroport", city: "Gatineau", province: "Ontario", postal_code: "SFDKL", country: "Canada")
+company.save!
 
 # generate 3 managers
 3.times do |x|
@@ -96,19 +106,21 @@ puts "Generated 3 sample supplies."
   print '.'
   count = x + 1
   client = Client.find(count)
-  quote = account.quotes.build(client_id: client.id, 
-                               creator_id: User.managers.all.sample.id, 
-                               removal_at: Time.now + [0,5,10,15,20].sample.days, 
-                               date: Time.now,
-                               phone1: client.phone1,
-                               phone2: client.phone2,
-                               is_house: [true, false].sample,
-                               num_of_removal_man: (2..5).to_a.sample,
-                               price: (100..500).to_a.sample,
-                               gas: (30..100).to_a.sample,
-                               rating: ['A', 'B', 'C'].sample,
-                               pm: [true, false].sample,
-                               )
+  c = Company.all.sample
+  quote = c.quotes.build(client_id: client.id, 
+                         creator_id: User.managers.all.sample.id, 
+                         removal_at: Time.now + [0,5,10,15,20].sample.days, 
+                         date: Time.now,
+                         phone1: client.phone1,
+                         phone2: client.phone2,
+                         is_house: [true, false].sample,
+                         num_of_removal_man: (2..5).to_a.sample,
+                         price: (100..500).to_a.sample,
+                         gas: (30..100).to_a.sample,
+                         rating: ['A', 'B', 'C'].sample,
+                         pm: [true, false].sample,
+                         )
+  quote.account_id = c.account_id
   # room
   quote.rooms.build(size: Room::SIZES.sample)
   # from address

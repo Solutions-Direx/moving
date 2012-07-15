@@ -1,0 +1,36 @@
+<h1><%= t('payment_of_invoice') %> <%= link_to @invoice.code, quote_invoice_path(@quote) %>
+  <span class="submenu">
+    <%= icon_button_link_to "#{t 'new_payment', default: 'New payment'}", new_quote_invoice_payment_path(@quote), icon: "plus", large: true, level: "primary", white: true %>
+  </span>
+</h1>
+
+<h3>Total: <%= number_to_currency @invoice.total %></h3>
+<br/>
+
+<table class="table table-striped">
+  <tr>
+    <th><%= t 'amount' %></th>
+    <th><%= t 'payment_date' %></th>
+    <th><%= t 'payment_method' %></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @payments.each do |payment| %>
+    <tr>
+      <td><%= number_to_currency(payment.amount) %></td>
+      <td><%= I18n.l(payment.date) %></td>
+      <td>
+        <%= t payment.payment_method %>
+        <% if payment.payment_method == 'credit' %>
+          <br/><%= Payment.human_attribute_name("credit_card_type") %>: <%= t payment.credit_card_type %>
+          <% if payment.transaction_number.present? %>
+          <br/><%= t('transaction_number') %>: <%= payment.transaction_number %>
+          <% end -%>
+        <% end -%>
+      </td>
+      <td><%= link_to "#{t 'edit'}", edit_quote_invoice_payment_path(@quote, payment) %></td>
+      <td><%= link_to "#{t 'destroy'}", quote_invoice_payment_path(@quote, payment), data: {confirm: "#{t 'are_you_sure'}"}, method: :delete %></td>
+    </tr>
+  <% end %>
+</table>

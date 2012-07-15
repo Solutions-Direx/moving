@@ -3,7 +3,6 @@ class AccountsController < ApplicationController
   
   def show
     @account = current_account
-    @account.build_address unless @account.address
   end
 
   def update

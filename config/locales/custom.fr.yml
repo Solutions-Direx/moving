@@ -1,4 +1,5 @@
 fr:
+  site_name: "Déménagement Maximum"
   today: "Aujourd'hui"
   monthly: "Vue mensuelle"
   settings: "Réglages"
@@ -57,6 +58,7 @@ fr:
   editing_supply: "Édition du matériel"
   editing_truck: "Édition du camion"
   editing_truck: "Édition de l'utilisateur"
+  editing_payment: "Édition de paiements"
   new: 'Nouveau'
   new_quote: 'Nouvelle entente'
   new_storage: 'Nouvel entrepôt'
@@ -251,6 +253,14 @@ fr:
   reset_pass_ignore: Si vous n'avez pas fait cette demande alors veuillez ignorer ce message
   reset_pass_nochange: Votre mot de passe ne sera pas changé tant que vous ne cliquerez pas sur le lien et que vous en choisissiez un autre
   add_by_default: Inclus pas défaut
+  companies: Entreprises
+  company: Entreprise
+  add_company: Ajouter entreprise
+  payments: Paiements
+  new_payment: Nouveau paiement
+  payment_of_invoice: Paiement de la facture
+  payment_date: Date de paiement
+  transaction_number: Numéro de transaction
   activerecord:   
     models:
       account: Compte
@@ -264,6 +274,7 @@ fr:
       supply: Matériel
       truck: Camion
       user: Utilisateur
+      payment: Paiement
     attributes:
       quote:
         rating: "Note"
@@ -277,6 +288,8 @@ fr:
         active: "Actif"
       user:
         login: Nom d'utilisateur ou email
+      payment:
+        credit_card_type: Type de carte  
   accounts:
     show:
       general: 'Général'

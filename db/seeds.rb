@@ -1,15 +1,21 @@
 # encoding: utf-8
 require 'faker'
 
-account = Account.create!(company_name: "Déménagement Maximum",
-                          website: "http://demenagementmaximum.com/",
-                          phone: '(819) 777-6683',
+account = Account.create!(
                           franchise_cancellation_amount: "20",
                           insurance_coverage_short_distance: "25000",
                           insurance_coverage_long_distance: "50000",
                           invoice_start_number: 100000
                          )
-address = account.create_address!(address: "250 Blvd de l'aéroport", city: "Gatineau", province: "Québec", postal_code: "J8Z4P3", country: "Canada")
+company = account.companies.build(
+  company_name: "Déménagement Maximum",
+  website: "http://demenagementmaximum.com/",
+  phone: '(819) 777-6683'
+)
+
+company.build_address(address: "250 Blvd de l'aéroport", city: "Gatineau", province: "Québec", postal_code: "J8Z4P3", country: "Canada")
+company.save!
+
 owner = account.users.build(username: "super", 
                             first_name: Faker::Name.first_name, 
                             last_name: Faker::Name.last_name, 
@@ -25,3 +31,6 @@ owner.save!
 default_tax = account.taxes.build(tax_name: 'Default', tax_rate: 10)
 default_tax.is_default = true
 default_tax.save!
+
+ontario_tax = account.taxes.build(tax_name: 'Ontario Tax', tax_rate: 13, province: "Ontario")
+ontario_tax.save!

@@ -1,5 +1,4 @@
 class Invoice < ActiveRecord::Base
-  include Taxable
   include Signable
   include PgSearch
   multisearchable :against => [:code]
@@ -21,6 +20,9 @@ class Invoice < ActiveRecord::Base
   
   has_many :invoice_forfaits, :dependent => :destroy
   has_many :forfaits, :through => :invoice_forfaits
+
+  has_many :payments, :dependent => :destroy
+  accepts_nested_attributes_for :payments, :allow_destroy => true, :reject_if => lambda {|p| p['amount'].blank? && p['date'].blank? && p['payment_method'].blank?}
   
   has_one :account, :through => :quote
   
@@ -49,9 +51,6 @@ class Invoice < ActiveRecord::Base
     end
     @grand_total
   end
-  
-  # alias subtotal for Taxable module
-  alias :subtotal :grand_total
   
   def total_discount
     number_or_zero(:discount).round(2)
@@ -100,10 +99,18 @@ class Invoice < ActiveRecord::Base
   end
   
   def total
-    t = total_with_taxes
+    t = total_with_tax + (try(:tip) || 0).round(2)
     t -= quote.deposit.amount if quote.deposit
     t = 0 if t < 0
     t
+  end
+
+  def total_with_tax
+    grand_total + tax_amount
+  end
+
+  def tax_amount
+    (grand_total * (tax_rate / 100)).round(2)
   end
   
   def copy_quote_info
@@ -116,15 +123,37 @@ class Invoice < ActiveRecord::Base
       self.invoice_forfaits.build(forfait_id: qf.forfait_id)
     end
     
-    # copy tax settings
-    copy_tax_setting_from(quote.account)
+    # get tax base on client province
+    copy_tax_setting(quote)
+  end
+
+  def copy_tax_setting(quote)
+    client_province = quote.client.address.province
+    if client_province.present?
+      # try to find tax setting from client province
+      province_tax = Tax.where(province: client_province, account_id: quote.account_id).first
+      if province_tax.present?
+        self.tax_name = province_tax.tax_name
+        self.tax_rate = province_tax.tax_rate
+      else
+        # use default tax
+        default_tax = Tax.default_tax
+        self.tax_name = default_tax.tax_name
+        self.tax_rate = default_tax.tax_rate
+      end
+    else
+      # use default tax
+      default_tax = Tax.default_tax
+      self.tax_name = default_tax.tax_name
+      self.tax_rate = default_tax.tax_rate
+    end
   end
   
 private
 
   def generate_code
     last_invoice = Invoice.last
-    account = quote.account
+    account = quote.company.account
     # force new invoice code
     if account.rebase_invoice_number
       last_code = account.invoice_start_number

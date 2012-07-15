@@ -11,23 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120712091159) do
+ActiveRecord::Schema.define(:version => 20120715105623) do
 
   create_table "accounts", :force => true do |t|
-    t.string   "company_name"
-    t.string   "logo"
-    t.string   "phone"
-    t.string   "website"
-    t.string   "email"
     t.float    "franchise_cancellation_amount"
     t.float    "insurance_coverage_short_distance"
     t.float    "insurance_coverage_long_distance"
     t.integer  "invoice_start_number"
     t.boolean  "rebase_invoice_number",             :default => false
-    t.string   "logo_file_name"
-    t.string   "logo_content_type"
-    t.integer  "logo_file_size"
-    t.datetime "logo_updated_at"
     t.datetime "created_at",                                           :null => false
     t.datetime "updated_at",                                           :null => false
   end
@@ -69,6 +60,21 @@ ActiveRecord::Schema.define(:version => 20120712091159) do
 
   add_index "clients", ["phone1"], :name => "index_clients_on_phone1"
   add_index "clients", ["phone2"], :name => "index_clients_on_phone2"
+
+  create_table "companies", :force => true do |t|
+    t.integer  "account_id"
+    t.string   "company_name"
+    t.string   "phone"
+    t.string   "website"
+    t.string   "email"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.boolean  "active",            :default => true
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
 
   create_table "documents", :force => true do |t|
     t.integer  "account_id"
@@ -142,11 +148,8 @@ ActiveRecord::Schema.define(:version => 20120712091159) do
     t.datetime "signed_at"
     t.float    "rate"
     t.float    "gas"
-    t.string   "tax1_label"
-    t.float    "tax1"
-    t.string   "tax2_label"
-    t.float    "tax2"
-    t.boolean  "compound"
+    t.string   "tax_name"
+    t.float    "tax_rate"
     t.text     "client_satisfaction"
     t.string   "payment_method"
     t.float    "discount"
@@ -170,6 +173,18 @@ ActiveRecord::Schema.define(:version => 20120712091159) do
     t.float    "rate"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "payments", :force => true do |t|
+    t.integer  "invoice_id"
+    t.float    "amount"
+    t.date     "date"
+    t.string   "payment_method"
+    t.string   "credit_card_type"
+    t.string   "transaction_number"
+    t.integer  "creator_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "pg_search_documents", :force => true do |t|
@@ -249,6 +264,7 @@ ActiveRecord::Schema.define(:version => 20120712091159) do
   create_table "quotes", :force => true do |t|
     t.string   "code"
     t.integer  "account_id"
+    t.integer  "company_id"
     t.integer  "client_id"
     t.string   "phone1"
     t.string   "phone2"

@@ -3,37 +3,42 @@
   <div class="form-inputs">
     <div class="tabbable tabs-left">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#1" data-toggle="tab"><%= t '.general', default: 'General' %></a></li>
-        <li><a href="#2" data-toggle="tab"><%= t '.address', default: 'Address' %></a></li>
-        <li><a href="#3" data-toggle="tab"><%= t '.taxes', default: 'Taxes' %></a></li>
-        <li><a href="#4" data-toggle="tab"><%= t '.insurance', default: 'Insurance' %></a></li>
-        <li><a href="#5" data-toggle="tab"><%= t 'settings', default: 'Settings' %></a></li>
+        <li class="active"><a href="#1" data-toggle="tab"><%= t 'companies', default: 'Companies' %></a></li>
+        <li><a href="#2" data-toggle="tab"><%= t '.taxes', default: 'Taxes' %></a></li>
+        <li><a href="#3" data-toggle="tab"><%= t '.insurance', default: 'Insurance' %></a></li>
+        <li><a href="#4" data-toggle="tab"><%= t 'settings', default: 'Settings' %></a></li>
       </ul>
     <div class="tab-content" style="width: auto;">
       <div class="tab-pane active" id="1">
-        <div class="span6">
-          <%= f.input :company_name %>
-          <%= f.input :email %>
-          <%= f.input :phone %>
-          <%= f.input :website %>
-          <%= f.input :logo %>
-        </div>
-        <div class="span4">
-          <span class='floatr' style='float:right;'><%= image_tag @account.logo.url(:thumb) if @account.logo? %></span>
-        </div>
-      </div>
-      
-      <div class="tab-pane" id="2">
-        <%= f.fields_for :address do |fa| %>
-          <%= fa.input :address, :required => true %>
-          <%= fa.input :city, :required => true %>
-          <%= fa.input :postal_code, :required => true %>
-          <%= fa.input :province, :collection => Address::PROVINCE %>
-          <%= fa.input :country, :collection => Address::COUNTRY %>
-        <% end %>
+        <%= f.fields_for :companies do |fc| %>
+          <div class="company">
+            <div class="span6">
+              <%= fc.input :company_name %>
+              <%= fc.input :active unless fc.object.new_record? %>
+              <%= fc.input :email %>
+              <%= fc.input :phone %>
+              <%= fc.input :website %>
+              <%= fc.input :logo %>
+              <%= fc.fields_for :address do |fa| %>
+                <%= fa.input :address, :required => true %>
+                <%= fa.input :city, :required => true %>
+                <%= fa.input :postal_code, :required => true %>
+                <%= fa.input :province, :collection => Address::PROVINCE %>
+                <%= fa.input :country, :collection => Address::COUNTRY %>
+              <% end %>
+              <% if fc.object.new_record? %>
+                <%= fc.link_to_remove "Remove" %> (once created, company cannot be deleted. Please use inactive instead)
+              <% end -%> 
+            </div>
+            <div class="span4">
+              <span class='floatr' style='float:right;'><%= image_tag fc.object.logo.url(:thumb) if fc.object.logo.present? %></span>
+            </div>
+          </div>
+        <% end -%>
+        <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_company', default: 'Add company'}", :companies, :class => "btn btn-primary add-link", :id => "add-company" %>
       </div>
           
-      <div class="tab-pane" id="3">
+      <div class="tab-pane" id="2">
         <%= f.fields_for :taxes do |fa| %>
           <%= fa.input :province, :label => fa.object.is_default ? 'Default Tax' : 'Tax', :required => false do %>
             <%= fa.input_field :is_default, :as => :hidden %>
@@ -56,7 +61,7 @@
         <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_tax', default: 'Add Tax'}", :taxes, :class => "btn btn-primary add-link", :id => "add-tax" %>
       </div>
       
-      <div class="tab-pane" id="4">
+      <div class="tab-pane" id="3">
         <div class="control-group float optional">
           <%= f.label :franchise_cancellation_amount %>
           <div class="controls">
@@ -83,7 +88,7 @@
         </div>
       </div>
     
-      <div class="tab-pane" id="5">
+      <div class="tab-pane" id="4">
         <div class="control-group float optional <%= 'error' unless @account.errors.messages[:invoice_start_number].blank? %>">
           <%= f.label :invoice_start_number %>
           <div class="controls">

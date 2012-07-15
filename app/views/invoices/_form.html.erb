@@ -1,4 +1,5 @@
-<%= simple_nested_form_for(@invoice, :url => quote_invoice_path(@quote), :html => {:id => "edit-invoice"}) do |f| %>
+<% url = mobile ? mobile_quote_invoice_path(@quote) : quote_invoice_path(@quote) %>
+<%= simple_nested_form_for(@invoice, :url => url, :remote => mobile, :html => {:id => "edit-invoice"}) do |f| %>
   <%= f.error_notification %>
   <%= locking_field_tag(f) %>
   

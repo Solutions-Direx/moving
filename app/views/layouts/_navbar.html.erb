@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <%= link_to(current_account.company_name.present? ? current_account.company_name : "Moving Company", root_path, :class => "brand") %>
+      <%= link_to(t("site_name"), root_path, :class => "brand") %>
       <div class="nav-collapse">
         <ul class="nav pull-right">
           <% if user_signed_in? %>

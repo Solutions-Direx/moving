@@ -1,25 +1,28 @@
 <h1>
-<% if @invoice.quote.account.logo.present? %>
+<% if @invoice.quote.company.logo.present? %>
   <% if absolute_path %>
-    <%= image_tag(Rails.root.join("public", "uploads", "account", @invoice.quote.account_id.to_s, "logo", "thumb", @invoice.quote.account.logo_file_name)) %>
+    <%= image_tag(Rails.root.join("public", "uploads", "company", @invoice.quote.company_id.to_s, "logo", "thumb", @invoice.quote.company.logo_file_name)) %>
   <% else %>
-    <%= image_tag(@invoice.quote.account.logo.url(:thumb)) %>
-  <% end %>    
+    <%= image_tag(@invoice.quote.company.logo.url(:thumb)) %>
+  <% end %>
+  
 <% end %>
   <span style='float:right; vertical-align:top;'><%= Invoice.model_name.human %> #<%= @invoice.code %></span>
 </h1>
 
+<h2 style="margin-top: 5px;"><%= @invoice.quote.company.company_name %></h2>
+
 <table>
   <tr>
     <td style="padding-left: 0;width: 55%">
-      <% if @invoice.quote.account.address.present? %>
+      <% if @invoice.quote.company.address.present? %>
       <table class="grey-box" width="100%">
         <tr>
           <td>
             <b><%= t 'address' %>:</b>
-            <%= address_for @invoice.quote.account.address, :p %>
-            <b><%= t 'phone' %>:</b> <%= @invoice.quote.account.phone %><br/><br/>
-            <b><%= t 'website' %>:</b> <%= @invoice.quote.account.website %>
+            <%= address_for @invoice.quote.company.address, :p %>
+            <b><%= t 'phone' %>:</b> <%= @invoice.quote.company.phone %><br/><br/>
+            <b><%= t 'website' %>:</b> <%= @invoice.quote.company.website %>
           </td>
         </tr>
       </table>
@@ -111,7 +114,7 @@
     <td class="right">- <%= number_to_currency(@invoice.total_discount) %></td>
   </tr>
   <% end %>
-  
+
   <tr>
     <td></td>
     <td><hr/></td>
@@ -122,18 +125,19 @@
     <td><h3>Grand Total</h3></td>
     <td class="right"><h3><%= number_to_currency(@invoice.grand_total) %></h3></td>
   </tr>
-  <!-- TAX 1 -->
-  <% if @invoice.tax1_amount > 0 %>
+
+  <!-- TAX -->
+  <% if @invoice.tax_amount > 0 %>
   <tr>
-    <td><h3 style="font-weight: normal;"><%= @invoice.tax1_name %></h3></td>
-    <td class="right"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax1_amount) %></h3></td>
+    <td><h3 style="font-weight: normal;"><%= @invoice.tax_name %></h3></td>
+    <td class="right"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax_amount) %></h3></td>
   </tr>
   <% end %>
-  <!-- TAX 2 -->
-  <% if @invoice.tax2_amount > 0 %>
+
+  <% if (@invoice.try(:tip) || 0) > 0 %>
   <tr>
-    <td><h3 style="font-weight: normal;"><%= @invoice.tax2_name %></h3></td>
-    <td class="right"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax2_amount) %></h3></td>
+    <td><h3 style="font-weight: normal;"><%= t 'tip' %></h3></td>
+    <td class="right"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tip) %></h3></td>
   </tr>
   <% end %>
   

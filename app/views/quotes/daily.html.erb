@@ -60,7 +60,7 @@
             <p>Augmentation de l'assurance: 
               <b><%= quote.quote_confirmation.insurance_limit_enough? ? "#{t 'nope'}" : number_to_currency(quote.quote_confirmation.insurance_increase) %></b></p>
               <p>Annulation de franchise: 
-              <b><%= quote.quote_confirmation.franchise_cancellation? ? "#{t 'yessai'} (frais de #{quote.account.franchise_cancellation_amount}$)" : "#{t 'nope'}" %></b></p>
+              <b><%= quote.quote_confirmation.franchise_cancellation? ? "#{t 'yessai'} (frais de #{quote.company.account.franchise_cancellation_amount}$)" : "#{t 'nope'}" %></b></p>
           </div>
           <div class='span6'>
             <%= simple_form_for(quote, :url => daily_update_quote_path(quote), :method => :put, :remote => true) do |f| %>

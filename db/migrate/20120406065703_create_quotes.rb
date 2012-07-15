@@ -3,6 +3,7 @@ class CreateQuotes < ActiveRecord::Migration
     create_table :quotes do |t|
       t.string :code
       t.integer :account_id
+      t.integer :company_id
       t.integer :client_id
       t.string :phone1
       t.string :phone2

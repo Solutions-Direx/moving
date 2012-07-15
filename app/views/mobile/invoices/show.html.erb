@@ -1,1 +1,14 @@
-<%= render 'invoices/invoice' %>
+<h2><%= Invoice.model_name.human %> <%= status_tag("#{ t 'signed'}", level: 'success') if @invoice.signed? %>
+  <span class='submenu'>
+    <% unless @quote.client.email.blank? %>
+      <%= icon_button_link_to "#{t 'email_to_client'}", email_mobile_quote_invoice_path(@quote), :method => :post, icon: "envelope", level: "success", large: true, white: true, disabled_with: "#{t 'email_to_client'}" %>
+    <% end %>
+    <% unless @invoice.signed? %>
+      <%= button_link_to "#{t 'edit'}", edit_mobile_quote_invoice_path(@quote), level: 'inverse', large: true %>
+      <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>
+    <% end %>
+  </span>
+</h2>
+
+
+<%= render 'invoices/invoice', mobile: true %>

@@ -4,4 +4,8 @@ class Tax < ActiveRecord::Base
 
   validates :tax_name, :tax_rate, :presence => true
   validates :province, :presence => true, :uniqueness => {:scope => :account_id}, :if => Proc.new{|t| !t.is_default}
+
+  def self.default_tax
+    where(is_default: true).first
+  end
 end

@@ -19,6 +19,7 @@ class Ability
       can :manage, Truck
       can :manage, Invoice
       can :manage, Report
+      can :manage, Payment
       can :sign, Quote
     elsif user.removal_man?
       can :read, :dashboard

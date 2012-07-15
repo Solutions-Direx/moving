@@ -7,9 +7,9 @@ GIT
 
 GIT
   remote: git://github.com/ryanb/nested_form.git
-  revision: 486e0f0e93f3ca455d5d0fc7869053257b6afce2
+  revision: ebe513b1a7e4a0f730040eb255bde8e5ec81ca5e
   specs:
-    nested_form (0.2.0)
+    nested_form (0.2.2)
 
 GIT
   remote: git://github.com/watu/table_builder.git

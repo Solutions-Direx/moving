@@ -1,0 +1,34 @@
+<%= simple_form_for([@quote, :invoice, @payment]) do |f| %>
+  <%= f.error_notification %>
+
+    <%= f.input :amount, :wrapper => :append do %>
+      <%= f.input_field :amount, :class => "span1 input-append" %>
+      <%= content_tag :span, '$', :class => "add-on" %>
+    <% end %>
+
+    <%= f.input :date do %>
+      <%= text_field_tag '', @payment.try(:date).try(:strftime, t('date.formats.default')), class: "datepicker" %>
+      <%= f.input_field :date, as: :hidden, :class => "datepicker-alt" %>
+    <% end %>
+    
+    <%= f.input :payment_method, :as => :radio_buttons, :collection => payment_method_options, :item_wrapper_class => "inline", :wrapper_html => {:id => "payment_methods"} %>
+
+    <div id="card-info" style="display: <%= @payment.payment_method == 'credit' ? 'block' : 'none' %>;">
+      <%= f.input :credit_card_type, :collection => credit_card_type_options, :include_blank => true  %>
+      <%= f.input :transaction_number, label: t('transaction_number') %>
+    </div>
+
+  <div class="form-actions">
+    <%= submit_or_cancel(f) %>
+  </div>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $('#payment_methods input:radio').live('click', function() {
+    if ($(this).val() == "credit") {
+      $('#card-info').slideDown('fast');
+    } else {
+      $('#card-info').slideUp('fast');
+    }
+  });
+</script>

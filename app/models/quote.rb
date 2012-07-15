@@ -20,6 +20,7 @@ class Quote < ActiveRecord::Base
   
   # ASSOCIATIONS
   belongs_to :account
+  belongs_to :company
   belongs_to :client
   belongs_to :creator, :class_name => "User", :foreign_key => "creator_id"
   belongs_to :rejector, :class_name => "User", :foreign_key => "rejected_by"
@@ -67,14 +68,14 @@ class Quote < ActiveRecord::Base
   
   # ATTRIBUTES
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, :rejected_by, :rejected_at,
-                  :materiel, :num_of_removal_man, :price, :rating, :removal_at, 
+                  :materiel, :num_of_removal_man, :price, :rating, :removal_at, :company_id,
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
                   :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment, 
                   :document_ids, :forfait_ids, :quote_supplies_attributes, :pm, :long_distance, :lock_version,
                   :removal_leader_id, :removal_man_ids, :internal_address, :invoice_attributes, :signer_name, :signature, :contact
   
   # VALIDATIONS
-  validates_presence_of :removal_at_picker, :removal_at, :account, :creator, :client
+  validates_presence_of :removal_at_picker, :removal_at, :company_id, :creator, :client
   validate :validate_addresses
   validates_uniqueness_of :code
   

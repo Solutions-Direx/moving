@@ -14,6 +14,7 @@
     <th><%= sortable 'clients.name', 'Client' %></th>
     <th><%= sortable "removal_at", t('removal_at', default: 'Removal at') %></th>
     <th><%= sortable 'users.first_name', t('creator', default: 'Creator') %></th>
+    <th><%= sortable 'companies.company_name', t('company') %></th>
     <th></th>
     <th></th>
   </tr>
@@ -25,6 +26,7 @@
     <td><%= l quote.removal_at, :format => :long %> 
         <%= quote.removal_at.future? ? "(#{t 'in'} #{distance_of_time_in_words_to_now(quote.removal_at)})" : '' %></td>
     <td><%= quote.creator.full_name %></td>
+    <td><%= quote.company.company_name %></td>
     <td><%= link_to "#{t 'edit'}", edit_quote_path(quote) unless quote.signed? %></td>
     <td><%= link_to "#{t 'destroy'}", quote, data: {confirm: "#{t 'are_you_sure'}"}, method: :delete %></td>
   </tr>

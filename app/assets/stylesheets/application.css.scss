@@ -25,3 +25,11 @@
 .input-append .add-on, .input-append .btn {
   margin-left: -4px;
 }
+.company {
+  overflow: hidden;
+  border: 1px solid #CCC;
+  @include border-radius(5px);
+  padding: 20px;
+  background: #f1f1f1;
+  margin-bottom: 20px;
+}

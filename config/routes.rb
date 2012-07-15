@@ -17,6 +17,8 @@ Moving::Application.routes.draw do
       post 'email'
       get 'print'
       post "sign"
+
+      resources :payments
     end
     
     resource :deposit, :only => [:new, :create]

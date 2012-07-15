@@ -1,16 +1,4 @@
-<h2><%= Invoice.model_name.human %> <%= status_tag("#{ t 'signed'}", level: 'success') if @invoice.signed? %>
-  <span class='submenu'>
-    <%= icon_button_link_to "#{t 'print', default: 'Print'}", print_quote_invoice_path(:format => :pdf), icon: "print", large: true, level: "primary", white: true unless mobile? %>
-    <% unless @quote.client.email.blank? %>
-      <%= icon_button_link_to "#{t 'email_to_client'}", email_quote_invoice_path(@quote), :method => :post, icon: "envelope", level: "success", large: true, white: true, disabled_with: "#{t 'email_to_client'}" %>
-    <% end %>
-    <% unless @invoice.signed? %>
-      <%= button_link_to "#{t 'edit'}", edit_quote_invoice_path(@quote), level: 'inverse', large: true %>
-      <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>
-    <% end %>
-  </span>
-</h2>
-
+<p><b><%= t('company') %>:</b> <%= @invoice.quote.company.company_name %></p>
 <p><b>Client:</b> <%= @invoice.client.name %></p>
 <% if @invoice.client.commercial? %>
 <p><b><%= t('billing_address', default: "Billing Address") %>:</b> <%= address_for @invoice.client.address %></p>
@@ -97,17 +85,17 @@
   <div class="span2 money"><h3><%= number_to_currency(@invoice.grand_total) %></h3></div>
 </div>
 <!-- TAX 1 -->
-<% if @invoice.tax1_amount > 0 %>
+<% if @invoice.tax_amount > 0 %>
 <div class="row">
-  <div class="span4"><h3 style="font-weight: normal;"><%= @invoice.tax1_name %></h3></div>
-  <div class="span2 money"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax1_amount) %></h3></div>
+  <div class="span4"><h3 style="font-weight: normal;"><%= @invoice.tax_name %></h3></div>
+  <div class="span2 money"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax_amount) %></h3></div>
 </div>
 <% end %>
-<!-- TAX 2 -->
-<% if @invoice.tax2_amount > 0 %>
+
+<% if (@invoice.try(:tip) || 0) > 0 %>
 <div class="row">
-  <div class="span4"><h3 style="font-weight: normal;"><%= @invoice.tax2_name %></h3></div>
-  <div class="span2 money"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax2_amount) %></h3></div>
+  <div class="span4"><h3 style="font-weight: normal;"><%= t 'tip' %></h3></div>
+  <div class="span2 money"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tip) %></h3></div>
 </div>
 <% end %>
 
@@ -193,7 +181,7 @@
   <%= t 'tip' %> <%= text_field_tag :tip, @invoice.tip, :class => "span1" %><br />
   <%= text_area_tag :client_satisfaction, @invoice.client_satisfaction, :class => "span6", :rows => 5 %>
 
-  <%= render 'invoices/signaturepad' %>
+  <%= render 'invoices/signaturepad', mobile: mobile %>
   <script type="text/javascript" charset="utf-8">
     $(function() {
       $('#submit-invoice').click(function() {

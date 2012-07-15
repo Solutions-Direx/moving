@@ -1,5 +1,5 @@
 <% if !@is_preview %>
-  $('#invoice-form-container').html("<%= j render('form') %>");
+  $('#invoice-form-container').html("<%= j render('invoices/form', mobile: true) %>");
   $('#msg').show().effect('highlight', {}, 3000, function() {
     $(this).hide();
   });
@@ -7,6 +7,6 @@
   <% if @invoice.errors.blank? %>
     window.location = "<%= mobile_quote_invoice_url(@quote) %>";
   <% else %>
-    $('#invoice-form-container').html("<%= j render('form') %>");
+    $('#invoice-form-container').html("<%= j render('invoices/form', mobile: true) %>");
   <% end %>    
 <% end %>  
