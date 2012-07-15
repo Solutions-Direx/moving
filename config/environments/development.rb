@@ -38,7 +38,7 @@ Moving::Application.configure do
   config.action_mailer.default_url_options = { host: "localhost", port: '3000' }
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.asset_host = 'http://localhost:3000'
-  ActionMailer::Base.default :from => 'Déménagement Maximum <app@demenagementmaximum.com>'
+  ActionMailer::Base.default :from => 'app@demenagementmaximum.com'
   
   #config.action_mailer.default_url_options = { host: "demmax.com" }
   #config.action_mailer.raise_delivery_errors = true

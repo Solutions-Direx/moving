@@ -1,6 +1,6 @@
 <div class="tab-pane active" id="lA">
   <!-- CLIENT -->
-  <%= f.association :company, label_method: lambda {|c| c.company_name} %>
+  <%= f.association :company, :collection => Company.active.map{|c| [c.company_name, c.id]} %>
 
   <!-- CLIENT -->
   <%= f.input :client_id do %>
