@@ -24,14 +24,15 @@
   <%= f.input :contact %>
   
   <!-- REMOVAL PICKER -->
-  <div class="control-group datetime_picker">
-    <label class="control-label"><%= Quote.human_attribute_name(:removal_at) %></label>
+  <div class="control-group datetime_picker <%= 'error' if @quote.errors[:removal_at].present? %>">
+    <label class="control-label"><abbr title="requis">*</abbr> <%= Quote.human_attribute_name(:removal_at) %></label>
     <div class="controls">
       <%= f.input_field :removal_at_picker, :label => "Removal at", :as => :datetime_picker %>
       <label class="checkbox inline">
         <%= f.check_box :pm %> PM
       </label>
       <p id="removal_at_comment" style="display: <%= @quote.pm ? 'block' : 'none' %>"><%= f.input_field :removal_at_comment, :label => false, :placeholder => "Comment", :class => "comment_one_liner" %></p>
+      <%= f.error :removal_at %>
     </div>
   </div>
   
