@@ -6,9 +6,9 @@
     "#{t 'payment_method'}", 
     "#{t 'deposit_name'}", 
     'Grand Total', 
-    'Tax1', 
-    'Tax2', 
-    'Tip', 
+    "#{t 'tax'}1", 
+    "#{t 'tax'}2", 
+    "#{t 'tip'}", 
     'Total'] -%>
 <%= CSV.generate_line headers -%>
 <%- @invoices.order('created_at DESC').each do |invoice| -%>

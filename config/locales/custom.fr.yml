@@ -270,6 +270,7 @@ fr:
   select_province: Sélectionnez une province
   insurance_amount: Montant de l'assurance
   tax: Taxe
+  supplies: Matériels
   activerecord:   
     models:
       account: Compte

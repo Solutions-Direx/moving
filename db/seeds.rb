@@ -28,13 +28,9 @@ owner.account_owner = true
 owner.save!
 
 # default tax
-default_tax = account.taxes.build(tax1_label: 'TPS', tax1: 5,tax2_label: "TVQ", tax2: 9.5, compound: true)
+default_tax = account.taxes.build(tax1_label: 'TPS', tax1: 5, tax2_label: "TVQ", tax2: 9.5, compound: true)
 default_tax.is_default = true
 default_tax.save!
 
-ontario_tax = account.taxes.build(tax_name: 'Ontario Tax', tax_rate: 13, province: "Ontario")
+ontario_tax = account.taxes.build(tax1_label: 'GST', tax1: 13, compound: false, province: "Ontario")
 ontario_tax.save!
-tps_tax = account.taxes.build(tax_name: 'TPS', tax_rate: 5, province: "Québec")
-tps_tax.save!
-tvq_tax = account.taxes.build(tax_name: 'TVQ', tax_rate: '9.5', province: "Québec")
-tvq_tax.save!

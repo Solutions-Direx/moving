@@ -46,14 +46,14 @@
             <% unless fa.object.is_default %>
               <%= fa.input_field :province, :as => :select, :collection => Address::PROVINCE, :item_wrapper_class => 'inline', :prompt => "#{t 'select_province', default: 'Select Province'}" %>
             <% end -%>  
-            <%= fa.input_field :tax_name, :placeholder => "#{t 'tax_name', default: 'Tax Name'}", :class => 'span2' %>
+            <%= fa.input_field :tax1_label, :placeholder => "#{t 'tax_name'}", :class => 'span1' %>
             <div class='input-append'> 
-              <%= fa.input_field :tax_rate, :placeholder => "#{t 'tax_rate', default: 'Tax Rate'}", :class => 'span1' %>
+              <%= fa.input_field :tax1, :placeholder => "#{t 'tax_rate'}", :class => 'span1' %>
               <span class="add-on">%</span>
             </div>
-            <%= fa.input_field :tax2_label, :placeholder => "Tax2 Name", :class => 'span1' %>
+            <%= fa.input_field :tax2_label, :placeholder => "#{t 'tax_name'}", :class => 'span1' %>
             <div class='input-append'> 
-              <%= fa.input_field :tax2, :placeholder => "Tax2 Rate", :class => 'span1' %>
+              <%= fa.input_field :tax2, :placeholder => "#{t 'tax_rate'}", :class => 'span1' %>
               <span class="add-on">%</span>
             </div>
             <span><%= t '.compound_tax' %></span>

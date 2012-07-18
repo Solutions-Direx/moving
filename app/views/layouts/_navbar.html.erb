@@ -20,7 +20,7 @@
         		    <li><%= link_to User.model_name.human + 's', users_path %></li>
         		    <li class="divider"></li>
         		    <li><%= link_to 'Documents', documents_path %></li>
-        		    <li><%= link_to Supply.model_name.human + 's', supplies_path %></li>
+        		    <li><%= link_to "#{t 'supplies', default: 'Supplies'}", supplies_path %></li>
         		    <li><%= link_to Storage.model_name.human + 's', storages_path %></li>
         		    <li><%= link_to 'Forfaits', forfaits_path %></li>
         		    <li><%= link_to Truck.model_name.human + 's', trucks_path %></li>

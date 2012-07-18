@@ -114,6 +114,9 @@ en:
   medium: Medium
   large: Large
   tax: Tax
+  tax_name: Tax
+  tax_rate: Rate
+  tip: Tip
   settings: Settings
   activerecord:
     attributes:
