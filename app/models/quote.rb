@@ -119,6 +119,18 @@ class Quote < ActiveRecord::Base
   def conf_details
     "#{I18n.t 'approved_on'} #{I18n.l(quote_confirmation.approved_at, :format => :long)} #{I18n.t 'by'} #{quote_confirmation.user.full_name}"
   end
+
+  def tax
+    tax = Tax.default_tax
+    client_province = client.address.province
+    if client_province.present?
+      province_tax = Tax.find_by_province(client_province)
+      if province_tax.present?
+        tax = province_tax
+      end
+    end
+    tax
+  end
   
 private
 

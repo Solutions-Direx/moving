@@ -39,20 +39,27 @@
       </div>
           
       <div class="tab-pane" id="2">
+        <p><%= t '.compound_helper' %></p>
         <%= f.fields_for :taxes do |fa| %>
           <%= fa.input :province, :label => fa.object.is_default ? 'Default Tax' : 'Tax', :required => false do %>
             <%= fa.input_field :is_default, :as => :hidden %>
             <% unless fa.object.is_default %>
               <%= fa.input_field :province, :as => :select, :collection => Address::PROVINCE, :item_wrapper_class => 'inline', :prompt => "--Select Province--" %>
             <% end -%>  
-            <%= fa.input_field :tax_name, :placeholder => "Tax Name", :class => 'span2' %>
+            <%= fa.input_field :tax1_label, :placeholder => "Tax1 Name", :class => 'span1' %>
             <div class='input-append'> 
-              <%= fa.input_field :tax_rate, :placeholder => "Tax Rate", :class => 'span1' %>
+              <%= fa.input_field :tax1, :placeholder => "Tax1 Rate", :class => 'span1' %>
               <span class="add-on">%</span>
             </div>
-            
+            <%= fa.input_field :tax2_label, :placeholder => "Tax2 Name", :class => 'span1' %>
+            <div class='input-append'> 
+              <%= fa.input_field :tax2, :placeholder => "Tax2 Rate", :class => 'span1' %>
+              <span class="add-on">%</span>
+            </div>
+            <span><%= t '.compound_tax' %></span>
+            <%= fa.check_box :compound %>
             <% if fa.object.is_default %>
-              <span>(apply to all provinces that are not defined)</span>
+              <p style="margin-top: 3px;"><i>(apply to all provinces that are not defined)</i></p>
             <% else %>
               <%= fa.link_to_remove "Remove" %>
             <% end -%> 

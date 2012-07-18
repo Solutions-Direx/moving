@@ -148,8 +148,11 @@ ActiveRecord::Schema.define(:version => 20120715105623) do
     t.datetime "signed_at"
     t.float    "rate"
     t.float    "gas"
-    t.string   "tax_name"
-    t.float    "tax_rate"
+    t.string   "tax1_label"
+    t.float    "tax1"
+    t.string   "tax2_label"
+    t.float    "tax2"
+    t.boolean  "compound"
     t.text     "client_satisfaction"
     t.string   "payment_method"
     t.float    "discount"
@@ -163,6 +166,7 @@ ActiveRecord::Schema.define(:version => 20120715105623) do
     t.boolean  "too_big"
     t.boolean  "broken"
     t.boolean  "too_fragile"
+    t.integer  "tax_id"
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
   end
@@ -354,8 +358,11 @@ ActiveRecord::Schema.define(:version => 20120715105623) do
   create_table "taxes", :force => true do |t|
     t.integer  "account_id"
     t.string   "province"
-    t.string   "tax_name"
-    t.float    "tax_rate"
+    t.string   "tax1_label"
+    t.float    "tax1"
+    t.string   "tax2_label"
+    t.float    "tax2"
+    t.boolean  "compound"
     t.boolean  "is_default", :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false

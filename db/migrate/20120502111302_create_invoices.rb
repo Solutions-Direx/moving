@@ -11,8 +11,11 @@ class CreateInvoices < ActiveRecord::Migration
       t.datetime :signed_at
       t.float :rate
       t.float :gas
-      t.string :tax_name
-      t.float :tax_rate
+      t.string :tax1_label
+      t.float :tax1
+      t.string :tax2_label
+      t.float :tax2
+      t.boolean :compound
       t.text :client_satisfaction
       t.string :payment_method
       t.float :discount
@@ -25,6 +28,7 @@ class CreateInvoices < ActiveRecord::Migration
       t.boolean :too_big
       t.boolean :broken
       t.boolean :too_fragile
+      t.integer :tax_id
       
       t.timestamps
     end

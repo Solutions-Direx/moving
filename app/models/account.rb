@@ -14,7 +14,7 @@ class Account < ActiveRecord::Base
   has_many :invoices, :through => :quotes
 
   has_many :taxes, :dependent => :destroy
-  accepts_nested_attributes_for :taxes, :reject_if => Proc.new{|t| t['province'].blank? && t['tax_name'].blank? && t['tax_rate'].blank?}
+  accepts_nested_attributes_for :taxes, :reject_if => Proc.new{|t| t['province'].blank? && t['tax1_label'].blank? && t['tax1'].blank? && t['tax2_label'].blank? && t['tax2'].blank? }
   
   # ATTRIBUTES
   attr_accessible :franchise_cancellation_amount, :companies_attributes,
