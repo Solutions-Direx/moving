@@ -124,9 +124,6 @@ class Invoice < ActiveRecord::Base
     # get tax base on client province
     tax = quote.tax
     copy_tax_setting_from(tax)
-
-    # cache tax_id
-    self.tax_id = tax.id
   end
   
 private

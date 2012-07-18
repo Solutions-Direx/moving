@@ -14,7 +14,7 @@
           <div class="company">
             <div class="span6">
               <%= fc.input :company_name %>
-              <%= fc.input :active unless fc.object.new_record? %>
+              <%= fc.input :active, disabled: fc.object.is_default unless fc.object.new_record? %>
               <%= fc.input :email %>
               <%= fc.input :phone %>
               <%= fc.input :website %>

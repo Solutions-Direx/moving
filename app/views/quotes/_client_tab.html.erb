@@ -1,6 +1,10 @@
 <div class="tab-pane active" id="lA">
   <!-- CLIENT -->
-  <%= f.association :company, :collection => Company.active.map{|c| [c.company_name, c.id]} %>
+  <% if f.object.new_record? %>
+    <%= f.association :company, :collection => Company.active.map{|c| [c.company_name, c.id]} %>
+  <% else %>
+    <%= f.association :company, :collection => Company.all.map{|c| [c.company_name, c.id]} %>
+  <% end -%>
 
   <!-- CLIENT -->
   <%= f.input :client_id do %>

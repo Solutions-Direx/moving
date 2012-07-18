@@ -28,7 +28,6 @@ class CreateInvoices < ActiveRecord::Migration
       t.boolean :too_big
       t.boolean :broken
       t.boolean :too_fragile
-      t.integer :tax_id
       
       t.timestamps
     end

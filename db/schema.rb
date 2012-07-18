@@ -72,8 +72,9 @@ ActiveRecord::Schema.define(:version => 20120715105623) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.boolean  "active",            :default => true
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.boolean  "is_default",        :default => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
   end
 
   create_table "documents", :force => true do |t|
@@ -166,7 +167,6 @@ ActiveRecord::Schema.define(:version => 20120715105623) do
     t.boolean  "too_big"
     t.boolean  "broken"
     t.boolean  "too_fragile"
-    t.integer  "tax_id"
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
   end

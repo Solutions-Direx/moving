@@ -32,6 +32,11 @@ class QuotesController < ApplicationController
     @client = Client.find(params[:client_id]) if params[:client_id].present?
     @quote.documents = Document.default
 
+    companies = Company.active
+    if companies.size == 1
+      @quote.company_id = companies.first
+    end
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @quote }

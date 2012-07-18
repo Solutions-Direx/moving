@@ -8,6 +8,7 @@ class CreateCompanies < ActiveRecord::Migration
       t.string :email
       t.has_attached_file :logo
       t.boolean :active, :default => true
+      t.boolean :is_default, :default => false
 
       t.timestamps
     end

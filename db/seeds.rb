@@ -14,6 +14,7 @@ company = account.companies.build(
 )
 
 company.build_address(address: "250 Blvd de l'aéroport", city: "Gatineau", province: "Québec", postal_code: "J8Z4P3", country: "Canada")
+company.is_default = true
 company.save!
 
 owner = account.users.build(username: "super", 
