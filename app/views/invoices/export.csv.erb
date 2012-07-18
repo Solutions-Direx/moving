@@ -6,8 +6,9 @@
     "#{t 'payment_method'}", 
     "#{t 'deposit_name'}", 
     'Grand Total', 
-    current_account.tax1_label.present? ? current_account.tax1_label : 'Tax1', 
-    current_account.tax2_label.present? ? current_account.tax2_label : 'Tax2', 
+    'Tax1', 
+    'Tax2', 
+    'Tip', 
     'Total'] -%>
 <%= CSV.generate_line headers -%>
 <%- @invoices.order('created_at DESC').each do |invoice| -%>
@@ -20,7 +21,8 @@
     invoice.quote.deposit.present? ? invoice.quote.deposit.amount : '',
     invoice.grand_total, 
     invoice.tax1_amount, 
-    invoice.tax2_amount, 
+    invoice.tax2_amount,
+    invoice.try(:tip) || 0,
     invoice.total] -%>
 <%= CSV.generate_line(row).html_safe -%>
 <%- end -%>
