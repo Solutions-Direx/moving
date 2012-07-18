@@ -6,7 +6,7 @@ puts "GENERATE SAMPLE DATA ..."
 account = Account.first
 
 company = account.companies.build(
-  company_name: "Déménagement Maximum 2",
+  company_name: "Déménagement Minimum",
   website: "http://demenagementmaximum.com/",
   phone: '(819) 777-9999'
 )
@@ -66,7 +66,7 @@ puts "Generated 10 sample trucks."
 10.times do |x|
   print '.'
   count = x + 1
-  account.documents.create!(name: Faker::Lorem.words(5).join(' ').titleize, body: Faker::Lorem.paragraphs(3).join("<br/>"))
+  account.documents.create!(name: Faker::Lorem.words(5).join(' ').titleize, body: Faker::Lorem.paragraphs(3).join("<br/>"), default: [true, false].sample)
 end
 print "\n"
 puts "Generated 10 sample documents."

@@ -13,8 +13,7 @@ company = account.companies.build(
   phone: '(819) 777-6683'
 )
 
-company.build_address(address: "250 Blvd de l'aéroport", city: "Gatineau", province: "Québec", postal_code: "J8Z4P3", country: "Canada")
-company.is_default = true
+company.build_address(address: "266 St-Louis - Unité 9", city: "Gatineau", province: "Québec", postal_code: "J8P 8B3", country: "Canada")
 company.save!
 
 owner = account.users.build(username: "super", 
@@ -33,5 +32,9 @@ default_tax = account.taxes.build(tax1_label: 'TPS', tax1: 5,tax2_label: "TVQ", 
 default_tax.is_default = true
 default_tax.save!
 
-ontario_tax = account.taxes.build(tax1_label: 'Ontario Tax', tax1: 13, province: "Ontario")
+ontario_tax = account.taxes.build(tax_name: 'Ontario Tax', tax_rate: 13, province: "Ontario")
 ontario_tax.save!
+tps_tax = account.taxes.build(tax_name: 'TPS', tax_rate: 5, province: "Québec")
+tps_tax.save!
+tvq_tax = account.taxes.build(tax_name: 'TVQ', tax_rate: '9.5', province: "Québec")
+tvq_tax.save!

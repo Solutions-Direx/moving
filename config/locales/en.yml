@@ -113,6 +113,8 @@ en:
   small: Small
   medium: Medium
   large: Large
+  tax: Tax
+  settings: Settings
   activerecord:
     attributes:
       user:  

@@ -255,18 +255,28 @@ fr:
   add_by_default: Inclus pas défaut
   companies: Entreprises
   company: Entreprise
-  add_company: Ajouter entreprise
+  add_company: Ajouter une entreprise
+  add_tax: Ajouter une taxe
   payments: Paiements
   new_payment: Nouveau paiement
   payment_of_invoice: Paiement de la facture
   payment_date: Date de paiement
   transaction_number: Numéro de transaction
+  remove_company_warning: Une entreprise ne peut être supprimée une fois créée. Veuillez la marquer comme inactive à la place
+  default_tax_helper: S'applique à toutes les provinces non définies
+  tax_name: Nom de la taxe
+  tax_rate: Taux
+  default_tax: Taxe par défaut
+  select_province: Sélectionnez une province
+  insurance_amount: Montant de l'assurance
+  tax: Taxe
   activerecord:   
     models:
       account: Compte
       annex: Annexe
       calendar: Calendrier
       invoice: Facture
+      payment: Paiement
       quote: Entente
       quote_confirmation: Confirmation de l'entente
       report: Rapport
@@ -274,7 +284,6 @@ fr:
       supply: Matériel
       truck: Camion
       user: Utilisateur
-      payment: Paiement
     attributes:
       quote:
         rating: "Note"

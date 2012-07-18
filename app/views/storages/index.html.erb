@@ -8,22 +8,20 @@
   <tr>
     <th><%= sortable "#{t 'name'}" %></th>
     <th><%= t 'address' %></th>
-    <th><%= t 'internal' %></th>
     <th><%= t 'price' %></th>
-    <th>Annexes</th>
     <th><%= t 'insurance' %></th>
+    <th>Annexes</th>
     <th></th>
     <th></th>
   </tr>
 
 <% @storages.each do |storage| %>
   <tr>
-    <td><%= link_to storage.name, storage %></td>
+    <td><%= link_to storage.name, storage %> <%= status_tag("#{t 'internal'}") if storage.internal? %></td>
     <td><%= address_for(storage.address) %></td>
-    <td><%= storage.internal? ? "#{t 'internal'}" : "#{t 'external'}" %></td>
     <td><%= number_to_currency(storage.price) %></td>
-    <td><%= storage.internal? ? pluralize(storage.annexes.size, "#{Annex.model_name.human}") : '' %></td>
     <td><%= number_to_currency storage.insurance_amount %></td>
+    <td><%= storage.internal? ? pluralize(storage.annexes.size, "#{Annex.model_name.human}") : '' %></td>
     <td><%= link_to "#{t 'edit'}", edit_storage_path(storage) %></td>
     <td><%= link_to "#{t 'destroy'}", storage, confirm: 'Are you sure?', method: :delete %></td>
   </tr>

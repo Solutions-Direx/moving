@@ -90,6 +90,8 @@ fr:
         too_fragile: Meuble trop fragile
         billing_contact: Personne contact pour facturation
         default: Attaché par défaut
+        active: Actif
+        insurance_amount: Montant de l'assurance
     hints:
       defaults:
       user:
@@ -108,6 +110,9 @@ fr:
       forfait:
         create: Créer ce forfait
         update: Modifier ce forfait
+      payment:
+        create: "Ajouter un paiement"
+        update: "Modifier ce paiement"
       profile:
         create: "Créer %{model}"
         update: "Mettre à jour"

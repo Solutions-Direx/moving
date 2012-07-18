@@ -8,9 +8,14 @@
     <%= number_to_currency(@storage.price) %> <%= t 'per_month' %>
   <% end %>
 </p> 
+
+<p>
+  <b><%= t 'insurance_amount', default: 'Insurance amount' %>:</b>
+  <%= number_to_currency(@storage.insurance_amount) %>
+</p>
  
 <p>
-  <b><%= t 'address' %></b>
+  <b><%= t 'address' %>:</b>
   <%= address_for(@storage.address) %>
 </p>
 <br />
