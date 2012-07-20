@@ -1,0 +1,16 @@
+<%= simple_form_for(@billing_address, html: {class: @ajax ? 'ajax' : ''}) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.fields_for :address do |fa| %>
+      <%= fa.input :address, :required => true %>
+      <%= fa.input :city, :required => true %>
+      <%= fa.input :postal_code %>
+      <%= fa.input :province, :collection => Address::PROVINCE %>
+    <% end %>
+  </div>
+  
+  <div class="form-actions actions">
+    <%= submit_or_cancel(f) %>
+  </div>
+<% end %>

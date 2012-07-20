@@ -37,5 +37,13 @@ class Address < ActiveRecord::Base
   def to_s
     "#{address}, #{city}, #{province}, #{postal_code}"
   end
-  
+
+  def copy_from_address(address)
+    self.address = address.address
+    self.city = address.city
+    self.province = address.province
+    self.postal_code = address.postal_code
+    self.country = address.country
+  end
+
 end

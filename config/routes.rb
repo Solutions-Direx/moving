@@ -22,6 +22,7 @@ Moving::Application.routes.draw do
     end
     
     resource :deposit, :only => [:new, :create]
+    resource :billing_address, :only => [:edit, :update]
     member do
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'
       put 'daily_update'

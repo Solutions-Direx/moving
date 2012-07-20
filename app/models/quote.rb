@@ -39,6 +39,9 @@ class Quote < ActiveRecord::Base
   
   has_many :quote_forfaits, :dependent => :destroy
   has_many :forfaits, :through => :quote_forfaits
+
+  has_one :billing_address, :class_name => "QuoteBillingAddress", :foreign_key => "quote_id", :dependent => :destroy
+  accepts_nested_attributes_for :billing_address
   
   has_one :from_address, :class_name => "QuoteFromAddress", :foreign_key => "quote_id", :dependent => :destroy
   accepts_nested_attributes_for :from_address
@@ -80,7 +83,7 @@ class Quote < ActiveRecord::Base
   validates_uniqueness_of :code
   
   # CALLBACKS
-  before_create :generate_code
+  before_create :generate_code, :copy_billing_address
   before_save :ignore_blank_addresses, :ignore_blank_rooms
   
   # SCOPES
@@ -137,6 +140,18 @@ private
   def generate_code
     last_quote_id = Quote.last.present? ? Quote.last.id : 0
     self.code = "%06d" % (last_quote_id + 1)
+  end
+
+  def copy_billing_address
+    client_address = client.address
+    ba = self.build_billing_address
+    ba.build_address({
+      address: client_address.address,
+      city: client_address.city,
+      province: client_address.province,
+      postal_code: client_address.postal_code,
+      country: client_address.country
+    })
   end
   
   def ignore_blank_addresses
