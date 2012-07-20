@@ -34,7 +34,7 @@ class QuotesController < ApplicationController
 
     companies = Company.active
     if companies.size == 1
-      @quote.company_id = companies.first
+      @quote.company_id = companies.first.id
     end
 
     respond_to do |format|
