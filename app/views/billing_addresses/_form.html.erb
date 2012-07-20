@@ -1,4 +1,4 @@
-<%= simple_form_for(@billing_address, html: {class: @ajax ? 'ajax' : ''}) do |f| %>
+<%= simple_form_for(@billing_address, url: quote_billing_address_path(@quote), html: {class: @ajax ? 'ajax' : ''}) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
