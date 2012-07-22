@@ -49,7 +49,7 @@ class Invoice < ActiveRecord::Base
   # pass recalculate = true to recalculate
   def grand_total(recalculate = false)
     if @grand_total.nil? || recalculate
-      @grand_total = total_time_spent + (try(:gas) || 0) + total_overtime + total_supplies + total_forfaits + total_franchise_cancellation + total_insurance_increase - total_discount
+      @grand_total = total_time_spent + (try(:gas) || 0) + total_overtime + total_supplies + total_forfaits + total_franchise_cancellation + total_insurance_increase + storages_amount - total_discount
       @grand_total = 0 if @grand_total < 0
     end
     @grand_total
@@ -103,7 +103,19 @@ class Invoice < ActiveRecord::Base
   def total_insurance_increase
     quote.quote_confirmation.insurance_limit_enough ? 0 : (quote.quote_confirmation.try(:insurance_increase) || 0).round(2)
   end
-  
+
+  def storages_amount
+    t = 0
+    if quote.to_addresses.present?
+      quote.to_addresses.each do |to_address|
+        if to_address.storage_id && to_address.storage.internal?
+          t += to_address.try(:insurance) || 0
+        end
+      end
+    end
+    t
+  end
+
   def total
     t = total_with_taxes + (try(:tip) || 0).round(2)
     t -= quote.deposit.amount if quote.deposit

@@ -27,8 +27,10 @@
     
     $('#quote-form').on "nested:fieldAdded:quote_supplies", (e) ->
       $(e.field).find(".chzn").chosen()
+
+    storages = $('#storages').data('url')
     
-    AddressWidget.init()
+    AddressWidget.init(storages)
     
     # RATING
     $('.rating').click ->

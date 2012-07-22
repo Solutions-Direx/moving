@@ -57,7 +57,10 @@
     <% for to_address in @quote.to_addresses %>
       <div class="storage">
       <% if to_address.has_storage? %>
-        <h6><%= t 'storage' %>: <%= to_address.storage.name %></h6>
+        <h6><%= t 'storage' %>: <%= to_address.storage.name %> <%= status_tag("#{t 'internal'}") if to_address.storage_id && to_address.storage.internal? %></h6>
+        <% if to_address.storage_id && to_address.storage.internal? %>        
+          <p><%= number_to_currency(to_address.insurance) %> <%= t('per_month', default: 'per month') %></p>
+        <% end -%>
         <%= address_for(to_address.storage.address) %>
       <% else %>
         <h6><%= t 'address' %></h6>

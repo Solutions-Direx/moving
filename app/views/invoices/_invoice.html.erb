@@ -68,6 +68,19 @@
 </div>
 <% end %>
 
+<!-- STORAGES -->
+<% if @invoice.quote.to_addresses.present? %>
+  <% @invoice.quote.to_addresses.each do |to_address| %>
+    <% if to_address.storage_id && to_address.storage.internal? %>
+    <div class="row">
+      <div class="span4"><%= t('storage') %>: <%= to_address.storage.name %></div>
+      <div class="span2 money"><%= number_to_currency(to_address.insurance) %></div>
+    </div>
+    <% end -%>
+  <% end -%>
+<% end -%>
+
+<!-- DISCOUNT -->
 <% if @invoice.total_discount > 0 %>
 <div class="row">
   <div class="span4"><%= t 'discount' %></div>
