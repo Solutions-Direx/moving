@@ -100,6 +100,10 @@ class Quote < ActiveRecord::Base
       self.status == method
    end
   end
+
+  def to_param
+    code
+  end
   
   def bypass_validations
     to_addresses.each do |to_address|
