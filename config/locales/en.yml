@@ -118,6 +118,11 @@ en:
   tax_rate: Rate
   tip: Tip
   settings: Settings
+  billing_address: Billing address
+  comptant: "Cash"
+  debit: "Debit"
+  credit: "Credit"
+  cheque: "Cheque"
   activerecord:
     attributes:
       user:  
@@ -126,3 +131,6 @@ en:
     js_format: "mm-dd-yyyy"
     formats:
       default: ! "%m-%d-%Y"
+  accounts:
+    show:
+      compound_helper: 'Compound tax: tax 2 = (price + tax 1) * tax 2'

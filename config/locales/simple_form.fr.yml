@@ -119,6 +119,8 @@ fr:
       quote:
         create: Créer cette entente
         update: Modifier cette entente
+      quote_billing_address:
+        update: Modifier l'adresse de facturation
       quote_confirmation:
         create: Confirmer cette entente
         update: Modifier cette entente

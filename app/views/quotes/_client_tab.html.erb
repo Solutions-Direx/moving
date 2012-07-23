@@ -1,6 +1,6 @@
 <div class="tab-pane active" id="lA">
   <!-- CLIENT -->
-  <% if Company.count > 1 %>
+  <% if current_account.companies.active.count > 1 %>
     <% if f.object.new_record? %>
       <%= f.association :company, :collection => Company.active.map{|c| [c.company_name, c.id]} %>
     <% else %>

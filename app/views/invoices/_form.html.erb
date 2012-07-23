@@ -91,10 +91,10 @@
   </div>
   
   <%= section %>
-  <h3><%= Supply.model_name.human + 's' %></h3>
+  <h3><%= t 'supplies' %></h3>
   <%= content_tag "div", id: "supply-list", data: {supplies: current_account.supplies.all } do %>
     <%= f.fields_for :invoice_supplies %>
-    <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_supply'}", :invoice_supplies, :class => "btn btn-primary add-link", :id => "add-supply" %>
+    <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_supply', default: 'Add supply'}", :invoice_supplies, :class => "btn btn-primary add-link", :id => "add-supply" %>
   <% end %>
   
   <%= section %>
@@ -114,7 +114,7 @@
     <% end %>
   
   <%= section %>
-  <h3>Taxe</h3>
+  <h3><%= t 'taxe' %></h3>
   <% if @invoice.tax1.present? %>
     <div class="control-group">
       <div class="controls">

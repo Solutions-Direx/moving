@@ -1,7 +1,7 @@
 <p><b><%= t('company') %>:</b> <%= @invoice.quote.company.company_name %></p>
 <p><b>Client:</b> <%= @invoice.client.name %></p>
 <% if @invoice.client.commercial? %>
-<p><b><%= t('billing_address', default: "Billing Address") %>:</b> <%= address_for @invoice.quote.billing_address.address %></p>
+  <p><b><%= t 'billing_address' %>:</b> <%= address_for @invoice.quote.billing_address.address %></p>
 <% end %>
 <p><b><%= t "removal_at" %>:</b> <%= l @invoice.quote.removal_at.to_date %></p>
 <%= section %>
