@@ -41,7 +41,9 @@
       if s && s.internal
         widget.find('.insurance-container').show()
         widget.find('.insurance').val(s.insurance_amount)
+        widget.find('.price').val(s.price)
       else
         widget.find('.insurance-container').hide()
         widget.find('.insurance').val('')
+        widget.find('.price').val('')
 

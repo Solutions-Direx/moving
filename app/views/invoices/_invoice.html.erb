@@ -72,8 +72,16 @@
 <% if @invoice.quote.to_addresses.present? %>
   <% @invoice.quote.to_addresses.each do |to_address| %>
     <% if to_address.storage_id && to_address.storage.internal? %>
+    <div class="row" style="margin-top: 10px;">
+      <div class="span4"><strong><%= t('storage') %>: <%= to_address.storage.name %></strong></div>
+      <div class="span2 money"></div>
+    </div>
     <div class="row">
-      <div class="span4"><%= t('storage') %>: <%= to_address.storage.name %></div>
+      <div class="span4"><%= t('price') %></div>
+      <div class="span2 money"><%= number_to_currency(to_address.price) %></div>
+    </div>
+    <div class="row">
+      <div class="span4"><%= t('insurance') %></div>
       <div class="span2 money"><%= number_to_currency(to_address.insurance) %></div>
     </div>
     <% end -%>

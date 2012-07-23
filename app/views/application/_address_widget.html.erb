@@ -29,6 +29,7 @@
     <div class="storage-field <%= has_storage ? 'show' : 'hide' %>">
       <%= quote_address_form.association :storage, label: "#{t 'storage'}", :input_html => {:class => "chzn-deselectable storages-list", "data-placeholder" => "Select"} %>
       <div class="insurance-container" style="display: <%= quote_address_form.object.storage && quote_address_form.object.storage.internal? ? 'block' : 'none' %>;">
+        <%= quote_address_form.input :price, input_html: {class: 'price'} %>
         <%= quote_address_form.input :insurance, input_html: {class: 'insurance'} %>
       </div>
     </div>

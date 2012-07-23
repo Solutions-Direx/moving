@@ -109,7 +109,7 @@ class Invoice < ActiveRecord::Base
     if quote.to_addresses.present?
       quote.to_addresses.each do |to_address|
         if to_address.storage_id && to_address.storage.internal?
-          t += to_address.try(:insurance) || 0
+          t += (to_address.try(:insurance) || 0) + (to_address.try(:price) || 0)
         end
       end
     end
