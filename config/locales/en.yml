@@ -43,6 +43,7 @@ en:
   comment: 'Comment'
   other: 'Other'
   internal: 'Internal'
+  external: External
   from: 'From'
   to: 'To'
   email_to_client: 'Send'
@@ -84,6 +85,9 @@ en:
   standard: "Standard"
   deposit_received: Deposit received
   deposit_name: Deposit
+  visa: "Visa"
+  mastercard: "Master Card"
+  amex: "American Express"
   cannot_be_saved: can not be saved. Please contact system administrator.
   successfully_rejected: was successfully rejected.
   can_no_longer_be_edited: Quote can no longer be edited once invoice has been signed by client.
@@ -123,6 +127,8 @@ en:
   debit: "Debit"
   credit: "Credit"
   cheque: "Cheque"
+  name: Name
+  company: Company
   activerecord:
     attributes:
       user:  

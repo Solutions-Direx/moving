@@ -54,18 +54,18 @@
 
 <!-- FRANCHISE CANCELLATION -->
 <% if @invoice.quote.quote_confirmation.franchise_cancellation %>
-<div class="row">
-  <div class="span4"><%= t 'franchise_cancelation' %></div>
-  <div class="span2 money"><%= number_to_currency(current_account.franchise_cancellation_amount) %></div>
-</div>
+  <div class="row">
+    <div class="span4"><%= t 'franchise_cancelation' %></div>
+    <div class="span2 money"><%= number_to_currency(current_account.franchise_cancellation_amount) %></div>
+  </div>
 <% end %>
 
 <!-- INSURANCE -->
 <% if @invoice.total_insurance_increase > 0 %>
-<div class="row">
-  <div class="span4"><%= t 'insurance_increase' %></div>
-  <div class="span2 money"><%= number_to_currency(@invoice.total_insurance_increase) %></div>
-</div>
+  <div class="row">
+    <div class="span4"><%= t 'insurance_increase' %></div>
+    <div class="span2 money"><%= number_to_currency(@invoice.total_insurance_increase) %></div>
+  </div>
 <% end %>
 
 <!-- STORAGES -->
@@ -77,23 +77,23 @@
       <div class="span2 money"></div>
     </div>
     <div class="row">
-      <div class="span4"><%= t('price') %></div>
+      <div class="span4"><%= t('price') %> <%= t 'per_month' %></div>
       <div class="span2 money"><%= number_to_currency(to_address.price) %></div>
     </div>
     <div class="row">
       <div class="span4"><%= t('insurance') %></div>
       <div class="span2 money"><%= number_to_currency(to_address.insurance) %></div>
     </div>
-    <% end -%>
-  <% end -%>
-<% end -%>
+    <% end %>
+  <% end %>
+<% end %>
 
 <!-- DISCOUNT -->
 <% if @invoice.total_discount > 0 %>
-<div class="row">
-  <div class="span4"><%= t 'discount' %></div>
-  <div class="span2 money">- <%= number_to_currency(@invoice.total_discount) %></div>
-</div>
+  <div class="row">
+    <div class="span4"><%= t 'discount' %></div>
+    <div class="span2 money">- <%= number_to_currency(@invoice.total_discount) %></div>
+  </div>
 <% end %>
 
 <div class="row">

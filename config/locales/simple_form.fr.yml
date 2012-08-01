@@ -42,6 +42,7 @@ fr:
         province: "Province"
         postal_code: "Code postal"
         country: "Pays"
+        company: Entreprise
         tax1: "Taxe 1"
         tax1_label: "Taxe 1 - Nom"
         tax2: "Taxe 2"

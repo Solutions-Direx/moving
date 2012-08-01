@@ -32,10 +32,8 @@ class QuotesController < ApplicationController
     @client = Client.find(params[:client_id]) if params[:client_id].present?
     @quote.documents = Document.default
 
-    companies = Company.active
-    if companies.size == 1
-      @quote.company_id = companies.first.id
-    end
+    companies = current_account.companies.active
+    @quote.company_id = companies.first.id
 
     respond_to do |format|
       format.html # new.html.erb

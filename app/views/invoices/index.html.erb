@@ -21,6 +21,7 @@
     <th><%= Quote.model_name.human %></th>
     <th>Grand Total</th>
     <th>Total</th>
+    <th><%= t 'payments_received', default: 'Payments received' %></th>
   </tr>
 
 <% @invoices.each do |invoice| %>
@@ -28,10 +29,11 @@
     <td><%= check_box_tag 'invoices[]', invoice.id, false, class: "invoice", id: "invoice_#{invoice.id}" %></td>
     <td><%= l invoice.quote.removal_at.to_date %> <%= status_tag("#{ t 'signed'}", level: 'success') if invoice.signed? %></td>
     <td><%= link_to "##{invoice.code}", quote_invoice_path(invoice.quote_id) %></td>
-    <td><%= link_to invoice.client.name, client_path(invoice.client) %></td>
+    <td><%= link_to "#{invoice.client.name} (#{invoice.client.code})", client_path(invoice.client) %></td>
     <td><%= link_to "##{invoice.quote.code}", quote_path(invoice.quote) %></td>
     <td><%= number_to_currency(invoice.grand_total) %></td>
     <td><%= link_to number_to_currency(invoice.total), quote_invoice_path(invoice.quote) %></td>
+    <td><%= number_to_currency(invoice.payments.sum(:amount)) %></td>
   </tr>
 <% end %>
 </table>

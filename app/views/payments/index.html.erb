@@ -4,9 +4,10 @@
   </span>
 </h1>
 
-<h3>Total: <%= number_to_currency @invoice.total %></h3>
+<h3>Total: <%= number_to_currency @invoice.total %> || <%= t 'amount_left', default: 'Amount remaining:' %> <%= number_to_currency(@invoice.amount_left) %></h3>
 <br/>
 
+<% if @payments.any? %>
 <table class="table table-striped">
   <tr>
     <th><%= t 'amount' %></th>
@@ -34,3 +35,4 @@
     </tr>
   <% end %>
 </table>
+<% end %>

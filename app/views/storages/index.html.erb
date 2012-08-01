@@ -1,5 +1,5 @@
 <h1><%= Storage.model_name.human + 's' %>
-  <span class='submenu'><%= icon_button_link_to "#{t 'new_storage'}", new_storage_path, icon: "plus", level: "inverse", large: true, white: true %></span>
+  <span class='submenu'><%= icon_button_link_to "#{t 'new_storage', default: 'New storage'}", new_storage_path, icon: "plus", level: "inverse", large: true, white: true %></span>
 </h1>
 
 <%#= paginate @storages %>
@@ -8,7 +8,7 @@
   <tr>
     <th><%= sortable "#{t 'name'}" %></th>
     <th><%= t 'address' %></th>
-    <th><%= t 'price' %></th>
+    <th><%= t 'price' + " " + 'per_month' %></th>
     <th><%= t 'insurance' %></th>
     <th>Annexes</th>
     <th></th>

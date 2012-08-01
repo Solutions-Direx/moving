@@ -22,7 +22,7 @@
 
 <% if @storage.internal? %>
 <h3><%= Annex.model_name.human + 's' %>
-  <span class='submenu'><%= icon_button_link_to "#{t 'new_annex'}", new_storage_annex_path(@storage), icon: "plus", level: "inverse", medium: true, white: true %></span>
+  <span class='submenu'><%= icon_button_link_to "#{t 'new_annex', default: 'New annex'}", new_storage_annex_path(@storage), icon: "plus", level: "inverse", medium: true, white: true %></span>
 </h3>
 
 <% if @storage.annexes.any?  %>

@@ -138,6 +138,10 @@ class Invoice < ActiveRecord::Base
     copy_tax_setting_from(tax)
   end
   
+  def amount_left
+    total - payments.sum(:amount)
+  end
+  
 private
 
   def generate_code

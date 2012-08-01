@@ -2,9 +2,9 @@
   <!-- CLIENT -->
   <% if current_account.companies.active.count > 1 %>
     <% if f.object.new_record? %>
-      <%= f.association :company, :collection => Company.active.map{|c| [c.company_name, c.id]} %>
+      <%= f.association :company, :collection => Company.active.map{|c| [c.company_name, c.id]}, :label => "#{t 'company'}" %>
     <% else %>
-      <%= f.association :company, :collection => Company.all.map{|c| [c.company_name, c.id]} %>
+      <%= f.association :company, :collection => Company.all.map{|c| [c.company_name, c.id]}, :label => "#{t 'company'}" %>
     <% end -%>
   <% else %>
     <%= f.input :company_id, :as => :hidden  %>
