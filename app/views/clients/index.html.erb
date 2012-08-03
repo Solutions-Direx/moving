@@ -31,7 +31,7 @@
     <td><%= address_for(client.address) %></td>
     <td><%= mail_to client.email, client.email %></td>
     <td><%= link_to "#{t 'edit'}", edit_client_path(client) %></td>
-    <td><%= link_to "#{t 'destroy'}", client, confirm: "#{t 'are_you_sure'}", method: :delete %></td>
+    <td><%= link_to "#{t 'destroy'}", client, :data => { confirm: "#{t 'are_you_sure'}"}, method: :delete %></td>
   </tr>
 <% end %>
 </table>
