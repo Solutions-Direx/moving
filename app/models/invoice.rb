@@ -133,7 +133,7 @@ class Invoice < ActiveRecord::Base
       self.invoice_forfaits.build(forfait_id: qf.forfait_id)
     end
     
-    # get tax base on client province
+    # get tax base on delivery province
     tax = quote.tax
     copy_tax_setting_from(tax)
   end

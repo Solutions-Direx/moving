@@ -15,6 +15,7 @@ class Company < ActiveRecord::Base
   validates :company_name, :presence => true, :uniqueness => true
 
   scope :active, where(active: true)
+  default_scope order('id')
 
   after_initialize do |company|
     company.build_address if company.address.blank?

@@ -37,6 +37,10 @@ namespace :deploy do
 
   task :symlink_config, roles: :app do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    # LINK UPLOADS DIR
+    puts "Link uploads dir"
+    run "rm -rf #{release_path}/public/uploads"
+    run "ln -s  #{shared_path}/uploads #{release_path}/public/uploads"
   end
   after "deploy:finalize_update", "deploy:symlink_config"
 

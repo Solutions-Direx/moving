@@ -129,9 +129,13 @@ class Quote < ActiveRecord::Base
 
   def tax
     tax = Tax.default_tax
-    client_province = billing_address.address.province
-    if client_province.present?
-      province_tax = Tax.find_by_province(client_province)
+    if to_addresses.blank?
+      delivery_province = from_address.address.province  
+    else
+      delivery_province = to_addresses.last.address.province  
+    end
+    if delivery_province.present?
+      province_tax = Tax.find_by_province(delivery_province)
       if province_tax.present?
         tax = province_tax
       end

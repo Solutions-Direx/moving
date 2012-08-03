@@ -2,7 +2,7 @@ class Client < ActiveRecord::Base
   include PgSearch
   multisearchable :against => [:name, :phone1, :phone2, :code]
   pg_search_scope :search_by_keyword, 
-                  :against => :name, 
+                  :against => [:name, :phone1, :phone2, :code], 
                   :using => { 
                     :tsearch => {
                       :prefix => true # match any characters
