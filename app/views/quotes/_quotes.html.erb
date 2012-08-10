@@ -25,7 +25,7 @@
     <td><%= link_to quote.client.name, client_path(quote.client) %> <%= status_tag('comm.') if quote.client.commercial? %></td>
     <td><%= l quote.removal_at, :format => :long %> 
         <%= quote.removal_at.future? ? "(#{t 'in'} #{distance_of_time_in_words_to_now(quote.removal_at)})" : '' %></td>
-    <td><%= quote.creator.full_name %></td>
+    <td><%= quote.creator.first_name %></td>
     <td><%= quote.company.company_name %></td>
     <td><%= link_to "#{t 'edit'}", edit_quote_path(quote) unless quote.signed? %></td>
     <td><%= link_to "#{t 'destroy'}", quote, data: {confirm: "#{t 'are_you_sure'}"}, method: :delete %></td>
