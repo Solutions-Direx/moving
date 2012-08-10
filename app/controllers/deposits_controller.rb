@@ -2,7 +2,7 @@ class DepositsController < ApplicationController
   before_filter :authenticate_user!
   
   def new
-    @quote = Quote.find(params[:quote_id])
+    @quote = Quote.find_by_code(params[:quote_id])
     @deposit = @quote.build_deposit
     
     respond_to do |format|
@@ -13,7 +13,7 @@ class DepositsController < ApplicationController
   end
   
   def create
-    @quote = Quote.find(params[:quote_id])
+    @quote = Quote.find_by_code(params[:quote_id])
     @deposit = @quote.create_deposit(params[:quote_deposit])
 
     respond_to do |format|

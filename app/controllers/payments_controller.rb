@@ -57,7 +57,7 @@ class PaymentsController < ApplicationController
   private
 
   def load_quote_and_invoice
-    @quote = Quote.find(params[:quote_id])
+    @quote = Quote.find_by_code(params[:quote_id])
     @invoice = @quote.invoice
   end
 end

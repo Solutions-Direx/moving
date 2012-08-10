@@ -85,7 +85,7 @@ class QuoteConfirmationsController < ApplicationController
 private
   
   def load_quote
-    @quote = Quote.find(params[:quote_id])
+    @quote = Quote.find_by_code(params[:quote_id])
   end
 
 end

@@ -35,7 +35,7 @@ module Mobile
 private
 
     def load_quote
-      @quote = Quote.find(params[:id])
+      @quote = Quote.find_by_code(params[:id])
     end
       
     def correct_stale_record_version

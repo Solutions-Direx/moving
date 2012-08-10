@@ -18,13 +18,13 @@ class InvoicesController < ApplicationController
   end
   
   def new
-    @quote = Quote.find(params[:quote_id])
+    @quote = Quote.find_by_code(params[:quote_id])
     @invoice = @quote.build_invoice(payment_method: @quote.quote_confirmation.payment_method)
     @invoice.copy_quote_info
   end
   
   def create
-    @quote = Quote.find(params[:quote_id])
+    @quote = Quote.find_by_code(params[:quote_id])
     @invoice = @quote.build_invoice(params[:invoice])
 
     @invoice.copy_tax_setting_from(@quote.tax)
@@ -91,7 +91,7 @@ class InvoicesController < ApplicationController
 protected
   
   def load_quote_and_invoice
-    @quote = Quote.find(params[:quote_id])
+    @quote = Quote.find_by_code(params[:quote_id])
     @invoice = @quote.invoice
   end
   
