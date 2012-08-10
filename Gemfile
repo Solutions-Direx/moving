@@ -21,7 +21,7 @@ gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
 gem 'roadie'
 gem 'pg_search'
 gem 'pdfkit'
-gem "paperclip", "~> 3.0.3"
+gem "paperclip"
 gem 'capistrano'
 gem 'unicorn'
 
