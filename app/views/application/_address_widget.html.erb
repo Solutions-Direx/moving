@@ -22,7 +22,7 @@
       <%= address_form.input :address, :required => true %>
       <%= address_form.input :city, :required => true, :input_html => { data: {autocomplete_source: cities_clients_path(:format => :json)}} %>
       <%= address_form.input :postal_code, :required => true %>
-      <%= address_form.input :province, :collection => Address::PROVINCE %>
+      <%= address_form.input :province, :collection => Address::PROVINCE, :required => true %>
       <%= address_form.input :country, :collection => Address::COUNTRY %>
     </div>
     <!-- add storage button -->

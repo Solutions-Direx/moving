@@ -27,7 +27,7 @@
       <%= fa.input :address, :required => true %>
       <%= fa.input :city, :required => true %>
       <%= fa.input :postal_code, :required => true %>
-      <%= fa.input :province, :collection => Address::PROVINCE %>
+      <%= fa.input :province, :collection => Address::PROVINCE, :required => true %>
       <%= fa.input :country, :collection => Address::COUNTRY %>
     <% end %>
   </div>
