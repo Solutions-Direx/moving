@@ -191,7 +191,7 @@ fr:
   confirmed_quote: 'Entente confirmée'
   pending_quote: 'Entente en attente'
   current_month: 'Mois en cours'
-  removal_time_confirmation: "L'heure exacte sera confirmée le jour même"
+  removal_time_confirmation: "L'heure exacte sera confirmée le jour même."
   i_approve: J'approuve
   approved_on: 'Approuvée le'
   next: 'Suivant'
