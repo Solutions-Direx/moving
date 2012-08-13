@@ -21,7 +21,9 @@
           <p><b><%= quote.phone1 %></b>
              <span class='floatr'><%= quote.creator.full_name %></span>
           </p>
-
+          <%= content_tag(:p, quote.comment, class: "alert alert-info") if quote.comment.present? %>
+          <%= content_tag(:p, "#{t 'removal_time_confirmation'} #{quote.removal_at_comment}", class: "alert alert-info") if quote.pm? %>
+          
           <div class="span4 from cal_address">
             <h3><%= t 'from' %> <%= "#{t 'internal'}" if quote.internal_address %></h3>
             <div class="storage" >
@@ -54,7 +56,6 @@
           <% end %>
           
           <div class='span4 from cal_additional' id='cal_price'>
-            <% if quote.comment.present? %><p id='cal_comment'><%= quote.comment %></p><% end %>
             <p><%= Quote.human_attribute_name(:price) %>: <b><%= number_to_currency(quote.price) %></b> par heure</p>
             <p><%= Quote.human_attribute_name(:payment_method) %>: <b><%= quote.quote_confirmation.payment_method %></b></p>
             <p>Augmentation de l'assurance: 

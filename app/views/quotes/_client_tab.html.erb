@@ -39,7 +39,7 @@
       <label class="checkbox inline">
         <%= f.check_box :pm %> PM
       </label>
-      <p id="removal_at_comment" style="display: <%= @quote.pm ? 'block' : 'none' %>"><%= f.input_field :removal_at_comment, :label => false, :placeholder => "Comment", :class => "comment_one_liner" %></p>
+      <p id="removal_at_comment" style="display: <%= @quote.pm ? 'block' : 'none' %>"><%= f.input_field :removal_at_comment, :label => false, :placeholder => "#{t 'comment'}", :class => "comment_one_liner" %></p>
       <%= f.error :removal_at %>
     </div>
   </div>

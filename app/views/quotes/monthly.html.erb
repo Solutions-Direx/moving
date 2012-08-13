@@ -15,7 +15,7 @@
       <%= link_to day, daily_quotes_path(:day => day), :style => "display: none;", :class => "daily" %>
       <ul>
       <% quotes.each do |quote| %>
-        <li><%= content_tag :span, quote.removal_at.strftime("%H:%M"), :class => "time" %> <%= status_tag "#{quote.long_distance? ? '** ' : ''}" + quote.client.name, :level => quote.confirmed? ? 'success' : '', :class => "client", "data-content" => "#{render('monthly_popover', quote: quote)}", "data-original-title" => "#{quote.removal_at.strftime('%H:%M')} #{quote.client.name}", :style => "position: relative;" %></li>
+        <li><%= content_tag :span, quote.removal_at.strftime("%H:%M"), :class => "time" %> <%= status_tag "#{quote.long_distance? ? '** ' : ''}" + quote.client.name, :level => quote.confirmed? ? 'success' : '', :class => "client", "data-content" => "#{render('monthly_popover', quote: quote)}", "data-original-title" => "#{quote.removal_at.strftime('%H:%M')} #{'(PM)' if quote.pm.present?} #{quote.client.name}", :style => "position: relative;" %></li>
       <% end %>
       </ul>
     <% end %>

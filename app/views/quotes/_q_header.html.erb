@@ -2,9 +2,9 @@
   <b><%= t('company') %>: <%= quote.company.company_name %></b>
 </p>
 <% if quote.contact.present? %>
-<p>
-  <b><%= Quote.human_attribute_name("contact") %>: <%= quote.contact %></b>
-</p>
+  <p>
+    <b><%= Quote.human_attribute_name("contact") %>: <%= quote.contact %></b>
+  </p>
 <% end %>
 
 <p>
@@ -13,9 +13,4 @@
   <span class='submenu'><b><%= t 'created_by', default: 'Created by' %>: </b><%= quote.creator.full_name %> - <%= l quote.created_at, :format => :short %></span>
 </p>
 
-<% if quote.pm? %>
-  <p>
-    <span class='label label-danger label_override'><%= t 'removal_time_confirmation' %></span>
-    <% if quote.removal_at_comment.present? %><%= quote.removal_at_comment %><% end %>
-  </p>
-<% end %>
+<%= content_tag(:p, "#{t 'removal_time_confirmation'} #{quote.removal_at_comment}", class: "alert alert-info") if quote.pm? %>
