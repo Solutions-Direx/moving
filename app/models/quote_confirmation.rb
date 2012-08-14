@@ -11,10 +11,18 @@ class QuoteConfirmation < ActiveRecord::Base
   validates_inclusion_of :franchise_cancellation, :insurance_limit_enough, :in => [true,false]
   
   after_create :mark_quote_confirmed
-  
+  after_destroy :delete_quote_confirmation_and_report
+
+  private
+
   def mark_quote_confirmed
     quote.status = "confirmed"
     quote.save
+  end
+
+  def delete_quote_confirmation_and_report
+    quote.invoice.destroy if quote.invoice
+    quote.deposit.destroy if quote.deposit
   end
   
 end
