@@ -1,7 +1,7 @@
 <p><%= t 'approved_on' %> <%= I18n.l(quote_confirmation.approved_at, :format => :long) %> <%= t 'by' %> <%= quote_confirmation.user.full_name %></p>
 <p style="margin-top: 10px;">
-  <%= link_to "#{t 'edit'}", edit_quote_quote_confirmation_path(quote_confirmation.quote_id), :remote => true %>
+  <%= link_to "#{t 'edit'}", edit_quote_quote_confirmation_path(quote_confirmation.quote), :remote => true %>
   <% unless quote_confirmation.quote.signed? %>
-    <%= link_to t('cancel_confirmation', default: 'Cancel quote confirmation'), quote_quote_confirmation_path(quote_confirmation.quote_id), method: "delete", :data => { :confirm => "#{t 'please_confirm'}" }, style: "margin-left: 6px;" %>
+    <%= link_to t('cancel_confirmation', default: 'Cancel quote confirmation'), quote_quote_confirmation_path(quote_confirmation.quote), method: "delete", :data => { :confirm => "#{t 'please_confirm'}" }, style: "margin-left: 6px;" %>
   <% end %>
 </p>

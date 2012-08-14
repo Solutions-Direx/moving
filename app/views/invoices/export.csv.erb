@@ -11,7 +11,7 @@
     "#{t 'tip'}", 
     'Total'] -%>
 <%= CSV.generate_line headers -%>
-<%- @invoices.order('created_at DESC').each do |invoice| -%>
+<%- @invoices.order('orders.created_at DESC').each do |invoice| -%>
 <%- row = [
     invoice.code, 
     l(invoice.updated_at.to_date, :format => :long), 
