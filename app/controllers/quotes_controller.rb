@@ -94,10 +94,10 @@ class QuotesController < ApplicationController
   def pending
     if params[:day]
       @day = Time.zone.parse(params[:day]).to_date
-      @quotes = current_account.quotes.by_day(@day).pending.order('removal_at ASC').order(sort_column + " " + sort_direction).page(params[:page])
+      @quotes = current_account.quotes.by_day(@day).pending.order(sort_column + " " + sort_direction).page(params[:page])
     else
       @day = Time.zone.today
-      @quotes = current_account.quotes.today.pending.order('removal_at ASC').order(sort_column + " " + sort_direction).page(params[:page])
+      @quotes = current_account.quotes.today.pending.order(sort_column + " " + sort_direction).page(params[:page])
     end
 
     respond_to do |format|
