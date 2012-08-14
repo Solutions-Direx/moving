@@ -68,6 +68,7 @@ fr:
   external: 'Externe'
   name: 'Nom'
   role: "Rôle"
+  email: 'Courriel'
   username: "Nom d'utilisateur"
   password: Mot de passe
   title: 'Titre'
@@ -106,7 +107,7 @@ fr:
   km_total: "KM au total"
   start_time: "Horaire de départ"
   end_time: "Horaire à l'arrivée"
-  gas: 'Fuel'
+  gas: 'Diesel'
   gas_helper: 'Fuel (litres)'
   distance_in_qc: 'KM parcourus au Québec'
   distance_in_on: 'KM parcourus en Ontario'
@@ -274,6 +275,14 @@ fr:
   supplies: Matériels
   amount_left: Montant à payer
   payments_received: Paiements reçus
+  mon: Lun
+  tue: Mar
+  wed: Mer
+  thu: Jeu
+  fri: Ven
+  sat: Sam
+  sun: Dim
+  price_per_month: Prix par mois
   activerecord:   
     models:
       account: Compte
@@ -300,7 +309,7 @@ fr:
       supply:
         active: "Actif"
       user:
-        login: Nom d'utilisateur ou email
+        login: Nom d'utilisateur ou courriel
       payment:
         credit_card_type: Type de carte  
   accounts:
@@ -330,4 +339,4 @@ fr:
       error_update: "Une erreur est survenue. Veuillez réessayer ou contacter l'administrateur du système."
   users:
     form:
-      intro: "Un email avec un mot de passe par défaut sera envoyé à chaque nouvel utilisateur inscrit."
+      intro: "Un courriel avec un mot de passe par défaut sera envoyé à chaque nouvel utilisateur inscrit."

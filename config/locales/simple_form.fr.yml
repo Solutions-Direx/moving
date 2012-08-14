@@ -23,6 +23,7 @@ fr:
     #   password: 'No special characters, please.'
     labels:
       defaults:
+        email: "Courriel"
         username: "Nom d'utilisateur"
         password: "Mot de passe"
         password_confirmation: "Confirmer votre mot de passe"
@@ -52,6 +53,7 @@ fr:
         insurance_coverage_short_distance: "Montant assuré pour petit trajet"
         insurance_coverage_long_distance: "Montant assuré pour long trajet"
         price: "Prix"
+        gas: 'Diesel'
         payment_method: "Méthode de paiement"
         franchise_cancellation: 'Annulation de la franchise'
         insurance_increase: "Augmentation de l'assurance"

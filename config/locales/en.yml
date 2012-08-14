@@ -97,6 +97,7 @@ en:
   failed_to_delete_confirmation: Failed to delete quote confirmation. Please contact system administrator.
   sign_up: Sign up
   sign_in: Sign in
+  email: Email
   username: Username
   password: Password
   forgot_password: Forgot your password?
@@ -129,6 +130,8 @@ en:
   cheque: "Cheque"
   name: Name
   company: Company
+  gas: Gas
+  price_per_month: Price per month
   activerecord:
     attributes:
       user:  

@@ -6,10 +6,10 @@
   <%= calendar_for(@quotes, :year => @date.year, :month => @date.month, :html => {:class => 'monthly'}) do |t| %>
     <h2 id="month">
       <%= link_to '&#x2190;'.html_safe, :month => (@date.beginning_of_month-1).strftime("%Y-%m") %>
-      <%= @date.strftime("%B %Y") %>
+      <%= I18n.localize(@date, :format => '%B %Y') %>
       <%= link_to "&#x2192;".html_safe, :month => (@date.end_of_month+1).strftime("%Y-%m") %>
     </h2>
-    <%= t.head('mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun') %>
+    <%= t.head("#{t 'mon'}", "#{t 'tue'}", "#{t 'wed'}", "#{t 'thu'}", "#{t 'fri'}", "#{t 'sat'}", "#{t 'sun'}") %>
     <%= t.day(:day_method => :removal_at) do |day, quotes| %>
       <%= day.day %>
       <%= link_to day, daily_quotes_path(:day => day), :style => "display: none;", :class => "daily" %>
