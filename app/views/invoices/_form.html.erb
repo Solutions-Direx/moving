@@ -28,9 +28,9 @@
         </div>
       </div>
     </div>
-    <%= content_tag "div", id: "overtimes" do %>
-      <%= f.fields_for :overtimes %>
-      <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_overtime'}", :overtimes, :class => "btn btn-primary add-link", :id => "add-overtime" %>
+    <%= content_tag "div", id: "surchages" do %>
+      <%= f.fields_for :surcharges %>
+      <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_surcharge'}", :surcharges, :class => "btn btn-primary add-link", :id => "add-surcharge" %>
     <% end %>
     
     <% unless @invoice.quote.client.commercial? %>

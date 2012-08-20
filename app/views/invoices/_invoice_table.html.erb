@@ -57,11 +57,11 @@
   </tr>
   <% end %>
   
-  <% if @invoice.total_overtime > 0 %>
-    <% @invoice.overtimes.each do |overtime| %>
+  <% if @invoice.total_surcharges > 0 %>
+    <% @invoice.surcharges.each do |surcharge| %>
     <tr>
-      <td><%= t 'overtime' %> (<%= overtime.duration %> * <%= number_to_currency(overtime.rate) %>)</td>
-      <td class="right"><%= number_to_currency(overtime.amount) %></td>
+      <td><%= surcharge.label %></td>
+      <td class="right"><%= number_to_currency(surcharge.price) %></td>
     </tr>
     <% end %>
   <% end %>

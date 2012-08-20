@@ -47,13 +47,12 @@
     
     gas = Invoices.Form.to_f($('#invoice_gas').val())
     
-    # overtime
-    total_overtime = 0
-    $.each $('#overtimes .overtime:visible'), (index, item) ->
-      duration = Invoices.Form.to_f($(item).find('.duration').val())
-      rate = Invoices.Form.to_f($(item).find('.rate').val())
-      total_overtime = total_overtime + duration * rate
-    total_overtime = Invoices.Form.roundup(total_overtime)
+    # surcharge
+    total_surcharges = 0
+    $.each $('#surcharges .surcharge:visible'), (index, item) ->
+      price = Invoices.Form.to_f($(item).find('.price').val())
+      total_surcharges += price
+    total_surcharges = Invoices.Form.roundup(total_surcharges)
     
     # supplies
     supply_list = $('#supply-list').data('supplies')
@@ -86,7 +85,7 @@
     
     # grand total
     console.log Invoices.Form.roundup(total_supplies)
-    grand_total = total_time_spent + gas + total_overtime + Invoices.Form.roundup(total_cancellation) + Invoices.Form.roundup(total_insurance) + Invoices.Form.roundup(total_forfaits) + Invoices.Form.roundup(total_supplies) - Invoices.Form.roundup(total_discount)
+    grand_total = total_time_spent + gas + total_surcharges + Invoices.Form.roundup(total_cancellation) + Invoices.Form.roundup(total_insurance) + Invoices.Form.roundup(total_forfaits) + Invoices.Form.roundup(total_supplies) - Invoices.Form.roundup(total_discount)
     grand_total = 0 if grand_total < 0
     $('#grand-total').text(Invoices.Form.roundup(grand_total) + " <%= I18n.t 'number.currency.format.unit' %>")
     

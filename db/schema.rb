@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731232433) do
+ActiveRecord::Schema.define(:version => 20120820132215) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
@@ -172,14 +172,6 @@ ActiveRecord::Schema.define(:version => 20120731232433) do
     t.datetime "updated_at",                          :null => false
   end
 
-  create_table "overtimes", :force => true do |t|
-    t.integer  "invoice_id"
-    t.float    "duration"
-    t.float    "rate"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "payments", :force => true do |t|
     t.integer  "invoice_id"
     t.float    "amount"
@@ -220,6 +212,13 @@ ActiveRecord::Schema.define(:version => 20120731232433) do
     t.float    "insurance_increase"
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
+  end
+
+  create_table "quote_daily_trucks", :force => true do |t|
+    t.integer  "quote_id"
+    t.integer  "truck_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "quote_deposits", :force => true do |t|
@@ -356,6 +355,14 @@ ActiveRecord::Schema.define(:version => 20120731232433) do
     t.integer  "account_id"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+  end
+
+  create_table "surcharges", :force => true do |t|
+    t.integer  "invoice_id"
+    t.string   "label"
+    t.float    "price"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "taxes", :force => true do |t|

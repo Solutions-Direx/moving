@@ -21,11 +21,11 @@
   </div>
 <% end %>
 
-<% if @invoice.total_overtime > 0 %>
-  <% @invoice.overtimes.each do |overtime| %>
+<% if @invoice.total_surcharges > 0 %>
+  <% @invoice.surcharges.each do |surcharge| %>
   <div class="row">
-    <div class="span4">Overtime (<%= overtime.duration %> * <%= number_to_currency(overtime.rate) %>)</div>
-    <div class="span2 money"><%= number_to_currency(overtime.amount) %></div>
+    <div class="span4"><%= surcharge.label %></div>
+    <div class="span2 money"><%= number_to_currency(surcharge.price) %></div>
   </div>
   <% end %>
 <% end %>

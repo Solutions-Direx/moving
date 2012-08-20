@@ -31,8 +31,11 @@ class Quote < ActiveRecord::Base
   has_one :furniture, :dependent => :destroy
   accepts_nested_attributes_for :furniture
   
-  has_many :quote_trucks, :dependent => :destroy
+  has_many :quote_trucks, :class_name => "QuoteTruck", :dependent => :destroy
   has_many :trucks, :through => :quote_trucks
+
+  has_many :quote_daily_trucks, :class_name => "QuoteDailyTruck", :dependent => :destroy
+  has_many :daily_trucks, :through => :quote_daily_trucks, :source => :truck
   
   has_many :quote_documents, :dependent => :destroy
   has_many :documents, :through => :quote_documents
@@ -72,7 +75,7 @@ class Quote < ActiveRecord::Base
   # ATTRIBUTES
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, :rejected_by, :rejected_at,
                   :materiel, :num_of_removal_man, :price, :rating, :removal_at, :company_id,
-                  :transport_time, :rooms_attributes, :comment, :truck_ids, :from_address_attributes, :phone1, :phone2, 
+                  :transport_time, :rooms_attributes, :comment, :truck_ids, :daily_truck_ids, :from_address_attributes, :phone1, :phone2, 
                   :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment, 
                   :document_ids, :forfait_ids, :quote_supplies_attributes, :pm, :long_distance, :lock_version,
                   :removal_leader_id, :removal_man_ids, :internal_address, :invoice_attributes, :signer_name, :signature, :contact

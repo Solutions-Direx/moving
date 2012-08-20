@@ -32,12 +32,12 @@ class Invoice < ActiveRecord::Base
   has_many :supplies, :through => :invoice_supplies
   accepts_nested_attributes_for :invoice_supplies, :allow_destroy => true, :reject_if => lambda {|qs| qs[:quantity].blank? || qs[:supply_id].blank?}
   
-  has_many :overtimes, :dependent => :destroy
-  accepts_nested_attributes_for :overtimes, :allow_destroy => true, :reject_if => :all_blank
+  has_many :surcharges, :dependent => :destroy
+  accepts_nested_attributes_for :surcharges, :allow_destroy => true, :reject_if => :all_blank
   
-  attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :gas, :rate, :overtime, :overtime_rate,
+  attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :gas, :rate,
                   :invoice_supplies_attributes, :forfait_ids, :client_satisfaction,
-                  :payment_method, :discount, :credit_card_type, :overtimes_attributes, :lock_version,
+                  :payment_method, :discount, :credit_card_type, :surcharges_attributes, :lock_version,
                   :too_big_for_stairway, :too_big_for_hallway, :too_big, :broken, :too_fragile, :furnitures, :tip,
                   :tax1, :tax1_label, :tax2, :tax2_label, :compound
   
@@ -49,7 +49,7 @@ class Invoice < ActiveRecord::Base
   # pass recalculate = true to recalculate
   def grand_total(recalculate = false)
     if @grand_total.nil? || recalculate
-      @grand_total = total_time_spent + (try(:gas) || 0) + total_overtime + total_supplies + total_forfaits + total_franchise_cancellation + total_insurance_increase + storages_amount - total_discount
+      @grand_total = total_time_spent + (try(:gas) || 0) + total_surcharges + total_supplies + total_forfaits + total_franchise_cancellation + total_insurance_increase + storages_amount - total_discount
       @grand_total = 0 if @grand_total < 0
     end
     @grand_total
@@ -62,11 +62,11 @@ class Invoice < ActiveRecord::Base
     number_or_zero(:discount).round(2)
   end
   
-  def total_overtime
+  def total_surcharges
     sum = 0
-    if overtimes.any?
-      overtimes.each do |overtime|
-        sum += ((overtime.try(:rate) || 0) * (overtime.try(:duration) || 0)).round(2)
+    if surcharges.any?
+      surcharges.each do |surcharge|
+        sum += (surcharge.try(:price) || 0)
       end
     end
     sum.round(2)

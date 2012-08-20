@@ -180,7 +180,7 @@ fr:
   visa: "Visa"
   mastercard: "Master Card"
   amex: "American Express"
-  add_overtime: 'Ajouter des heures supplémentaires'
+  add_surcharge: 'Ajouter la surcharge'
   quote_confirmation: Confirmation de l'entente
   quote_is_confirmed: L'entente est confirmée.
   deposit_is_confirmed: Dépôt est créé.
