@@ -132,6 +132,9 @@ en:
   company: Company
   gas: Gas
   price_per_month: Price per month
+  ID: ID
+  label: Label
+  amount: Amount
   activerecord:
     attributes:
       user:  

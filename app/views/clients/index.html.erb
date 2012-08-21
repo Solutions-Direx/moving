@@ -15,6 +15,7 @@
 <table class="table table-striped">
   <tr>
     <th><%= sortable "name", "#{t 'name', default: 'Name'}" %></th>
+    <th><%= sortable "code", "#{t 'ID'}" %></th>
     <th><%= t 'phone' %>1</th>
     <th><%= t 'phone' %>2</th>
     <th><%= t 'billing_address' %></th>
@@ -25,7 +26,8 @@
 
 <% @clients.each do |client| %>
   <tr>
-    <td><%= link_to client.name, client %> <%= status_tag('comm.') if client.commercial? %> (<%= client.code %>)</td>
+    <td><%= link_to client.name, client %> <%= status_tag('comm.') if client.commercial? %></td>
+    <td><%= client.code %></td>
     <td><%= client.phone1 %></td>
     <td><%= client.phone2 %></td>
     <td><%= address_for(client.address) %></td>

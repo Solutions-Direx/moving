@@ -10,7 +10,7 @@
 
 <table class="table table-striped">
   <tr>
-    <th><%= sortable 'code', "ID" %></th>
+    <th><%= sortable 'code', "#{t 'ID'}" %></th>
     <th><%= sortable 'clients.name', 'Client' %></th>
     <th><%= sortable "removal_at", t('removal_at', default: 'Removal at') %></th>
     <th><%= sortable 'users.first_name', t('creator', default: 'Creator') %></th>

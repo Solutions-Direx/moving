@@ -115,6 +115,7 @@ fr:
   distance_other: 'Autres KM parcourus'
   comment_from_team_lead: Commentaire du déménageur en chef
   reports: Rapports
+  label: Libellé
   amount: Montant
   removal_control: Contrôle des contrats de déménagements
   per_hour: 'par heure'
@@ -180,7 +181,7 @@ fr:
   visa: "Visa"
   mastercard: "Master Card"
   amex: "American Express"
-  add_surcharge: 'Ajouter une frais supplémentaire'
+  add_surcharge: 'Ajouter un frais supplémentaire'
   quote_confirmation: Confirmation de l'entente
   quote_is_confirmed: L'entente est confirmée.
   deposit_is_confirmed: Dépôt est créé.
@@ -283,6 +284,7 @@ fr:
   sat: Sam
   sun: Dim
   price_per_month: Prix par mois
+  ID: Numéro
   activerecord:   
     models:
       account: Compte
