@@ -186,6 +186,7 @@ fr:
   quote_is_confirmed: L'entente est confirmée.
   deposit_is_confirmed: Dépôt est créé.
   approved_on: 'Approuvée le'
+  reserved_on: Réservée le
   legend: Légende
   confirmed: Confirmée
   pending: En atttente
@@ -207,6 +208,8 @@ fr:
   create_invoice: 'Créer une facture'
   view_invoice: Voir la facture
   scheduled_on: prévues le
+  select: 'Sélectionner'
+  change: Changer
   print: 'Imprimer'
   overtime: Heures supplémentaires
   website: Web
@@ -285,6 +288,10 @@ fr:
   sun: Dim
   price_per_month: Prix par mois
   ID: Numéro
+  sale_representative: Vendeur
+  get_directions: Voir l'itinéraire
+  invoice_date: Date de facturation
+  purchase_order: Bon de commande
   activerecord:   
     models:
       account: Compte

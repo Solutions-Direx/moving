@@ -1,4 +1,4 @@
-<h2><%= Invoice.model_name.human %> <%= status_tag("#{ t 'signed'}", level: 'success') if @invoice.signed? %>
+<h2><%= Invoice.model_name.human %> (<%= @invoice.code %>) <%= status_tag("#{ t 'signed'}", level: 'success') if @invoice.signed? %>
   <span class='submenu'>
     <% unless @quote.client.email.blank? %>
       <%= icon_button_link_to "#{t 'email_to_client'}", email_mobile_quote_invoice_path(@quote), :method => :post, icon: "envelope", level: "success", large: true, white: true, disabled_with: "#{t 'email_to_client'}" %>

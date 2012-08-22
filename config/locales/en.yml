@@ -19,6 +19,8 @@ en:
   rejected: Rejected
   rejected_at: Rejected on
   print: 'Print'
+  select: Select
+  change: Change
   signed: 'Signed'
   preview: Preview
   view: View
@@ -70,6 +72,7 @@ en:
   select_team_lead: Select team lead
   quote_is_confirmed: 'Quote was successfully confirmed.'
   approved_on: 'Approved on'
+  reserved_on: Reserved on
   removal_man: Removal man
   are_you_sure: "Are sure sure?"
   removal_time_confirmation: 'The exact time will be confirmed the same day.'
@@ -133,8 +136,11 @@ en:
   gas: Gas
   price_per_month: Price per month
   ID: ID
+  sale_representative: Sale rep.
   label: Label
   amount: Amount
+  invoice_date: Invoice date
+  purchase_order: Purchase Order
   activerecord:
     attributes:
       user:  

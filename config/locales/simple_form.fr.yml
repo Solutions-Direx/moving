@@ -95,6 +95,9 @@ fr:
         default: Attaché par défaut
         active: Actif
         insurance_amount: Montant de l'assurance
+        sale_representative_id: Vendeur
+        amount: Montant
+        purchase_order: Bon de commande
     hints:
       defaults:
       user:

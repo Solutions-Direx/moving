@@ -1,4 +1,4 @@
-<h2><%= Invoice.model_name.human %> <%= status_tag("#{ t 'signed'}", level: 'success') if @invoice.signed? %>
+<h2><%= Invoice.model_name.human %> (<%= @invoice.code %>) <%= status_tag("#{ t 'signed'}", level: 'success') if @invoice.signed? %>
   <span class='submenu'>
     <%= icon_button_link_to "#{t 'payments', default: 'Payments'}", quote_invoice_payments_path, icon: "list-alt", large: true, level: "primary", white: true %>
     <%= icon_button_link_to "#{t 'print', default: 'Print'}", print_quote_invoice_path(:format => :pdf), icon: "print", large: true, level: "primary", white: true, target: "_blank" %>

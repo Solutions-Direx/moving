@@ -18,7 +18,8 @@
 
   <!-- SALE REPRESENTATIVE -->
   <%= f.input :sale_representative_id do %>
-    <%= f.input_field :sale_representative_id, :collection => User.all.map{|c| [c.full_name, c.id]}, :class => "chzn", "data-placeholder" => "Select", :id => "select-sale-representative" %>
+    <span id="change-sale-representative"><%= current_user.full_name %> <%= link_to "#{t 'change'}", "#" %></span>
+    <%= f.input_field :sale_representative_id, :collection => User.all.map{|c| [c.full_name, c.id]}, :class => "chzn", "data-placeholder" => "#{t'select'}", :id => "select-sale-representative", style: 'display:none;' %>
   <% end %>
 
   <!-- RATING -->

@@ -230,7 +230,7 @@
       <img src="<%= QuoteAddress.static_map_link(@quote.from_address, to_address, options={size: '700x400'}) %>"/>
       <br/>
       <br/>
-      <%= link_to 'Get Direction', QuoteAddress.driving_direction_link(@quote.from_address, to_address) %>
+      <%= link_to "#{t 'get_directions', default: 'Get Directions'}", QuoteAddress.driving_direction_link(@quote.from_address, to_address) %>
     </p>
   <% end %>  
 <% end %>

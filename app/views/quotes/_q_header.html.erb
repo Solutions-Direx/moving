@@ -15,7 +15,7 @@
 
 <p>
   <b><%= t 'sale_representative', default: "Sale Representative" %>:</b>
-  <%= quote.sale_representative.full_name %>
+  <%#= quote.sale_representative.full_name %>
 </p>
 
 <%= content_tag(:p, "#{t 'removal_time_confirmation'} #{quote.removal_at_comment}", class: "alert alert-info") if quote.pm? %>
