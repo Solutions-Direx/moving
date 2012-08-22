@@ -31,6 +31,7 @@ class QuotesController < ApplicationController
     @quote.to_addresses.build.build_address
     @quote.client_id = params[:client_id]
     @quote.documents = Document.default
+    @quote.sale_representative_id = current_user.id
 
     companies = current_account.companies.active
     @quote.company_id = companies.first.id

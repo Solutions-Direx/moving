@@ -16,6 +16,11 @@
     <%= icon_button_link_to "#{t 'new'} client", new_client_path, icon: 'plus', level: "inverse", white: true, remote: true %>
   <% end %>
 
+  <!-- SALE REPRESENTATIVE -->
+  <%= f.input :sale_representative_id do %>
+    <%= f.input_field :sale_representative_id, :collection => User.all.map{|c| [c.full_name, c.id]}, :class => "chzn", "data-placeholder" => "Select", :id => "select-sale-representative" %>
+  <% end %>
+
   <!-- RATING -->
   <div class="control-group">
     <label class="control-label"><%= Quote.human_attribute_name(:rating) %></label>

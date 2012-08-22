@@ -13,4 +13,9 @@
   <span class='submenu'><b><%= t 'created_by', default: 'Created by' %>: </b><%= quote.creator.full_name %> - <%= l quote.created_at, :format => :short %></span>
 </p>
 
+<p>
+  <b><%= t 'sale_representative', default: "Sale Representative" %>:</b>
+  <%= quote.sale_representative.full_name %>
+</p>
+
 <%= content_tag(:p, "#{t 'removal_time_confirmation'} #{quote.removal_at_comment}", class: "alert alert-info") if quote.pm? %>

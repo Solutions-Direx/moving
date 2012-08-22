@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120820132215) do
+ActiveRecord::Schema.define(:version => 20120822091958) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
@@ -277,31 +277,32 @@ ActiveRecord::Schema.define(:version => 20120820132215) do
     t.datetime "removal_at"
     t.string   "removal_at_comment"
     t.datetime "date"
-    t.boolean  "is_house",           :default => true
+    t.boolean  "is_house",               :default => true
     t.boolean  "materiel"
     t.integer  "num_of_removal_man"
     t.float    "price"
     t.float    "gas"
     t.string   "transport_time"
     t.boolean  "insurance"
-    t.string   "rating",             :default => "A"
+    t.string   "rating",                 :default => "A"
     t.integer  "creator_id"
-    t.string   "status",             :default => "pending"
+    t.string   "status",                 :default => "pending"
     t.text     "comment"
-    t.boolean  "pm",                 :default => false
-    t.boolean  "long_distance",      :default => false
+    t.boolean  "pm",                     :default => false
+    t.boolean  "long_distance",          :default => false
     t.integer  "removal_leader_id"
-    t.boolean  "internal_address",   :default => false
+    t.boolean  "internal_address",       :default => false
     t.string   "signer_name"
     t.text     "signature"
     t.datetime "signed_at"
-    t.integer  "lock_version",       :default => 0
-    t.integer  "integer",            :default => 0
+    t.integer  "lock_version",           :default => 0
+    t.integer  "integer",                :default => 0
     t.string   "contact"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
     t.integer  "rejected_by"
     t.datetime "rejected_at"
+    t.integer  "sale_representative_id"
   end
 
   create_table "report_removal_men", :force => true do |t|
