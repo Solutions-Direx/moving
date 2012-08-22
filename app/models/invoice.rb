@@ -32,7 +32,7 @@ class Invoice < ActiveRecord::Base
   has_many :supplies, :through => :invoice_supplies
   accepts_nested_attributes_for :invoice_supplies, :allow_destroy => true, :reject_if => lambda {|qs| qs[:quantity].blank? || qs[:supply_id].blank?}
   
-  has_many :surcharges, :dependent => :destroy
+  has_many :surcharges, :as => :surchargeable, :dependent => :destroy
   accepts_nested_attributes_for :surcharges, :allow_destroy => true, :reject_if => :all_blank
   
   attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :gas, :rate,
@@ -131,6 +131,9 @@ class Invoice < ActiveRecord::Base
     end
     quote.quote_forfaits.each do |qf|
       self.invoice_forfaits.build(forfait_id: qf.forfait_id)
+    end
+    quote.surcharges.each do |s|
+      self.surcharges.build(label: s.label, price: s.price)
     end
     
     # get tax base on delivery province

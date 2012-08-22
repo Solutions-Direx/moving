@@ -13,6 +13,15 @@
   <%= number_to_currency(@quote.gas) %>
 </p>
 
+<% if @quote.surcharges.any? %>
+  <% @quote.surcharges.each do |surcharge| %>
+    <p>
+      <b><%= surcharge.label %>:</b>
+      <%= number_to_currency(surcharge.price) %>
+    </p>
+  <% end -%>
+<% end -%>
+
 <p>
   <b><%= t 'transport_time', default: 'Transport time' %>:</b>
   <%= @quote.transport_time %><% if @quote.long_distance %> <%= content_tag(:span, "(#{t 'long_distance'})", :class => 'label label-warning label_override') %><% end %>

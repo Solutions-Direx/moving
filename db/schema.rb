@@ -358,11 +358,12 @@ ActiveRecord::Schema.define(:version => 20120820132215) do
   end
 
   create_table "surcharges", :force => true do |t|
-    t.integer  "invoice_id"
+    t.integer  "surchargeable_id"
+    t.string   "surchargeable_type"
     t.string   "label"
     t.float    "price"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "taxes", :force => true do |t|

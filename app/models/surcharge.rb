@@ -1,5 +1,5 @@
 class Surcharge < ActiveRecord::Base
-  belongs_to :invoice
+  belongs_to :surchargeable, :polymorphic => true
   attr_accessible :label, :price
 
   validates :label, :presence => true
