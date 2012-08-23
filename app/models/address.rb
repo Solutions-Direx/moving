@@ -31,11 +31,11 @@ class Address < ActiveRecord::Base
   end
   
   def map_location
-    "#{address},#{city},#{province},#{country}"
+    [address, city, province, country].select{|s| s.present?}.join(",")
   end
   
   def to_s
-    "#{address}, #{city}, #{province}, #{postal_code}"
+    [address, city, province, postal_code].select{|s| s.present?}.join(", ")
   end
   
   def street_and_city
