@@ -33,6 +33,9 @@
             <b>Client:</b> <%= @invoice.quote.client.name %> (<%= @invoice.quote.client.reference %>)<br/><br/>
             <b><%= t "removal_at" %>:</b> <%= l @invoice.quote.removal_at.to_date %><br /><br />
             <b><%= t "#{Quote.model_name.human}" %>:</b> <%= @invoice.quote.reference %><br /><br />
+            <% if @invoice.purchase_order.present? %>
+            <b><%= t "purchase_order" %>:</b> <%= @invoice.purchase_order %><br /><br />
+            <% end -%>
             <b><%= t 'reserved_on' %>:</b> <%= l @invoice.quote.created_at.to_date %><br /><br />
             <b> <%= t 'approved_on' %>:</b> <%= l @invoice.quote.quote_confirmation.approved_at.to_date %><br /><br />
             <b> <%= t 'invoice_date' %>:</b> <%= l @invoice.created_at.to_date %>
