@@ -17,7 +17,7 @@ class Account < ActiveRecord::Base
   accepts_nested_attributes_for :taxes, :reject_if => Proc.new{|t| t['province'].blank? && t['tax1_label'].blank? && t['tax1'].blank? && t['tax2_label'].blank? && t['tax2'].blank? }
   
   # ATTRIBUTES
-  attr_accessible :franchise_cancellation_amount, :companies_attributes,
+  attr_accessible :franchise_cancellation_amount, :companies_attributes, :invoice_header,
                   :insurance_coverage_short_distance, :insurance_coverage_long_distance, :invoice_start_number, :taxes_attributes
   
   # VALIDATIONS

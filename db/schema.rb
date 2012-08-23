@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120822091958) do
+ActiveRecord::Schema.define(:version => 20120823035840) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20120822091958) do
     t.boolean  "is_default",        :default => false
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
+    t.string   "invoice_header"
   end
 
   create_table "documents", :force => true do |t|

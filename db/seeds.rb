@@ -10,7 +10,8 @@ account = Account.create!(
 company = account.companies.build(
   company_name: "Déménagement Maximum",
   website: "http://demenagementmaximum.com/",
-  phone: '(819) 777-6683'
+  phone: '(819) 777-6683',
+  invoice_header: "Company Number: 1234567890"
 )
 
 company.build_address(address: "266 St-Louis - Unité 9", city: "Gatineau", province: "Québec", postal_code: "J8P 8B3", country: "Canada")

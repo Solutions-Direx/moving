@@ -26,6 +26,7 @@
                 <%= fa.input :province, :collection => Address::PROVINCE %>
                 <%= fa.input :country, :collection => Address::COUNTRY %>
               <% end %>
+              <%= fc.input :invoice_header %>
               <% if fc.object.new_record? %>
                 <%= fc.link_to_remove "#{t 'remove'}" %> (<%= t 'remove_company_warning', default: 'once created, company cannot be deleted. Please use inactive instead' %>.)
               <% end -%> 

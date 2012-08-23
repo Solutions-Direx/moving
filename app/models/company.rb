@@ -11,7 +11,7 @@ class Company < ActiveRecord::Base
   has_one :address, :as => :addressable, :dependent => :destroy
   accepts_nested_attributes_for :address, :reject_if => :all_blank
 
-  attr_accessible :company_name, :logo, :email, :phone, :website, :address_attributes, :active
+  attr_accessible :company_name, :logo, :email, :phone, :website, :address_attributes, :active, :invoice_header
   validates :company_name, :presence => true, :uniqueness => true
 
   scope :active, where(active: true)
