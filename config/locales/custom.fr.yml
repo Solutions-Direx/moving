@@ -328,7 +328,7 @@ fr:
       insurance: 'Assurance'
       taxes: 'Taxes'
       compound_tax: 'Taxe composée'
-      compound_helper: 'Mode de calcul: taxe 2 = (prix + taxe 1) * taxe 2'
+      compound_helper: 'Mode de calcul des taxes composées: taxe 2 = (prix + taxe 1) * taxe 2'
   profiles:
     show:
       title: 'Modifier votre profil'
