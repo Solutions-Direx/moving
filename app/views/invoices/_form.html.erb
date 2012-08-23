@@ -90,9 +90,9 @@
     </div>
   </div>
 
-  <% if f.object.client.commercial? %>
+  <% if @invoice.quote.client.commercial? %>
     <%= f.input :purchase_order %>
-  <% end -%>
+  <% end %>
   
   <%= section %>
   <h3><%= t 'supplies' %></h3>

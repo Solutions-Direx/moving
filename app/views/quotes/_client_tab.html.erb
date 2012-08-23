@@ -12,7 +12,7 @@
 
   <!-- CLIENT -->
   <%= f.input :client_id do %>
-    <%= f.input_field :client_id, :collection => Client.order('name ASC').map{|c| [c.name, c.id]}, :class => "chzn", "data-placeholder" => "Select", :id => "select-clients" %> <%= t 'or' %> 
+    <%= f.input_field :client_id, :collection => Client.order('name ASC').map{|c| [c.name, c.id]}, :class => "chzn", "data-placeholder" => "#{t 'select'}", :id => "select-clients" %> <%= t 'or' %> 
     <%= icon_button_link_to "#{t 'new'} client", new_client_path, icon: 'plus', level: "inverse", white: true, remote: true %>
   <% end %>
 
