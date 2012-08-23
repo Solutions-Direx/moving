@@ -21,8 +21,13 @@ class Client < ActiveRecord::Base
   validates_uniqueness_of :phone1 
   
   scope :commercial, where(commercial: true)
+  scope :residential, where(commercial: false)
   
   before_create :generate_code
+  
+  def reference
+    commercial? ? "C#{code}" : "R#{code}"
+  end
   
 private
   

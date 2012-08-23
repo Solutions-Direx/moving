@@ -33,7 +33,11 @@
         <tr>
           <td>
             <b>Client:</b> <%= @invoice.quote.client.name %><br/><br/>
-            <b><%= t "removal_at" %>:</b> <%= l @invoice.quote.removal_at.to_date %>
+            <b><%= t "removal_at" %>:</b> <%= l @invoice.quote.removal_at.to_date %><br /><br />
+            <b><%= t "#{Quote.model_name.human}" %>:</b> <%= @invoice.quote.reference %><br /><br />
+            <b><%= t 'reserved_on' %>:</b> <%= l @invoice.quote.created_at.to_date %><br /><br />
+            <b> <%= t 'approved_on' %>:</b> <%= l @invoice.quote.quote_confirmation.approved_at.to_date %><br /><br />
+            <b> <%= t 'invoice_date' %>:</b> <%= l @invoice.created_at.to_date %>
           </td>
         </tr>
       </table>

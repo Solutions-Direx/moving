@@ -156,6 +156,10 @@ class Quote < ActiveRecord::Base
     end
   end
   
+  def reference
+    client.commercial? ? "C#{code}" : "R#{code}"
+  end
+  
 private
 
   def generate_code

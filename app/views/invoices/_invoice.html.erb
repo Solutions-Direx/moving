@@ -1,6 +1,6 @@
 <p>
   <b><%= t('company') %>:</b> <%= @invoice.quote.company.company_name %>
-  <span class='floatr'><b><%= t "#{Quote.model_name.human}" %>:</b> <%= @invoice.quote.code %></span>
+  <span class='floatr'><b><%= t "#{Quote.model_name.human}" %>:</b> <%= @invoice.quote.reference %></span>
 </p>
 <p>
   <b>Client:</b> <%= @invoice.client.name %> (<%= @invoice.client.code %>)
