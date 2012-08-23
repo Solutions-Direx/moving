@@ -270,7 +270,7 @@ fr:
   transaction_number: Numéro de transaction
   remove_company_warning: Une entreprise ne peut être supprimée une fois créée. Veuillez la marquer comme inactive à la place
   default_tax_helper: S'applique à toutes les provinces non définies
-  tax_name: Nom de la taxe
+  tax_name: Taxe
   tax_rate: Taux
   default_tax: Taxe par défaut
   select_province: Sélectionnez une province
@@ -292,6 +292,8 @@ fr:
   get_directions: Voir l'itinéraire
   invoice_date: Date de facturation
   purchase_order: Bon de commande
+  quote_details: Détails de l'entente
+  invoice_header_hint: "Test"
   activerecord:   
     models:
       account: Compte

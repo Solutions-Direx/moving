@@ -7,8 +7,9 @@
     <% end %>
   <% else %>
     <%= @invoice.quote.company.company_name %>
-  <% end %>  
-  <span style='float:right;'><%= Invoice.model_name.human %> #<%= @invoice.code %></span>
+  <% end %>
+  <span style='float:right; vertical-align:top;'><%= Invoice.model_name.human %> #<%= @invoice.code %></span>
+  <%= simple_format(@invoice.quote.company.invoice_header, style: "font-size:10px;") if @invoice.quote.company.invoice_header.present? %>
 </h1>
 
 <table>
@@ -18,7 +19,6 @@
         <tr>
           <td>
             <b><%= @invoice.quote.company.company_name %></b>
-            <%= content_tag :p, @invoice.quote.company.invoice_header if @invoice.quote.company.invoice_header.present? %>
             <%= address_for @invoice.quote.company.address, :p if @invoice.quote.company.address.present? %>
             <b><%= t 'phone' %>:</b> <%= @invoice.quote.company.phone %><br/><br/>
             <b><%= t 'website' %>:</b> <%= @invoice.quote.company.website %>
@@ -185,5 +185,14 @@
 </table>
 <br />
 <% unless @invoice.client.commercial? %>
-<h3><%= t 'payment_method' %>: <%= t @invoice.payment_method %> <%= "(#{t @invoice.credit_card_type})" if @invoice.payment_method == "credit" %></h3>
+  <h3><%= t 'payment_method' %>: <%= t @invoice.payment_method %> <%= "(#{t @invoice.credit_card_type})" if @invoice.payment_method == "credit" %></h3>
 <% end %>
+<br />
+<br />
+<hr/>
+<!-- QUOTE -->
+<h2><%= t 'quote_details', default: 'Quote Details' %></h2>
+<%= render 'quotes/price' %>
+<%= render 'quotes/optional' %>
+<%= render 'quotes/documents' %>
+<%= render 'quotes/confirmation' %>

@@ -9,7 +9,9 @@ company = account.companies.build(
   company_name: "Déménagement Minimum",
   website: "http://demenagementmaximum.com/",
   phone: '(819) 777-9999',
-  invoice_header: "Company Fiscal Number: 12345"
+  invoice_header: "6145515 Canada Inc.
+                   TPS: 875254302RT
+                   TVQ: 1205180652"
 )
 
 company.build_address(address: "78 Blvd de l'aéroport", city: "Gatineau", province: "Ontario", postal_code: "SFDKL", country: "Canada")

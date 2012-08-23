@@ -24,6 +24,8 @@ en:
       user:
         password: "(leave blank if you don't want to change it)"
         role: 'Manager has full access. Standard users can not edit settings. Removal men have access to mobile reporting and invoicing.'
+      companies:
+        invoice_header: Add company registration number for example
     helpers:
       submit:
         quote_billing_address:

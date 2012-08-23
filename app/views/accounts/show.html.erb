@@ -10,63 +10,11 @@
       </ul>
     <div class="tab-content" style="width: auto;">
       <div class="tab-pane active" id="1">
-        <%= f.fields_for :companies do |fc| %>
-          <div class="company">
-            <div class="span6">
-              <%= fc.input :company_name %>
-              <%= fc.input :active, disabled: fc.object.is_default unless fc.object.new_record? %>
-              <%= fc.input :email %>
-              <%= fc.input :phone %>
-              <%= fc.input :website %>
-              <%= fc.input :logo %>
-              <%= fc.fields_for :address do |fa| %>
-                <%= fa.input :address, :required => true %>
-                <%= fa.input :city, :required => true %>
-                <%= fa.input :postal_code, :required => true %>
-                <%= fa.input :province, :collection => Address::PROVINCE %>
-                <%= fa.input :country, :collection => Address::COUNTRY %>
-              <% end %>
-              <%= fc.input :invoice_header %>
-              <% if fc.object.new_record? %>
-                <%= fc.link_to_remove "#{t 'remove'}" %> (<%= t 'remove_company_warning', default: 'once created, company cannot be deleted. Please use inactive instead' %>.)
-              <% end -%> 
-            </div>
-            <div class="span4">
-              <span class='floatr' style='float:right;'><%= image_tag fc.object.logo.url(:thumb) if fc.object.logo.present? %></span>
-            </div>
-          </div>
-        <% end -%>
-        <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_company', default: 'Add company'}", :companies, :class => "btn btn-primary add-link", :id => "add-company" %>
+        <%= render 'companies', :f => f %>
       </div>
           
       <div class="tab-pane" id="2">
-        <p class="alert alert-info"><%= t '.compound_helper' %></p>
-        <%= f.fields_for :taxes do |fa| %>
-          <%= fa.input :province, :label => fa.object.is_default ? "#{t 'default_tax', default: 'Default Tax'}" : "#{t 'tax'}", :required => false do %>
-            <%= fa.input_field :is_default, :as => :hidden %>
-            <% unless fa.object.is_default %>
-              <%= fa.input_field :province, :as => :select, :collection => Address::PROVINCE, :item_wrapper_class => 'inline', :prompt => "#{t 'select_province', default: 'Select Province'}" %>
-            <% end %>  
-            <%= fa.input_field :tax1_label, :placeholder => "#{t 'tax_name'}", :class => 'span1' %>
-              <div class='input-append'> 
-                <%= fa.input_field :tax1, :placeholder => "#{t 'tax_rate'}", :class => 'span1' %>
-                <span class="add-on">%</span>
-              </div>
-            <%= fa.input_field :tax2_label, :placeholder => "#{t 'tax_name'}", :class => 'span1' %>
-              <div class='input-append'> 
-                <%= fa.input_field :tax2, :placeholder => "#{t 'tax_rate'}", :class => 'span1' %>
-                <span class="add-on">%</span>
-              </div>
-              <span><%= t '.compound_tax' %></span>
-            <%= fa.check_box :compound %>
-            <% if fa.object.is_default %>
-              <span>(<%= t 'default_tax_helper', default: 'apply to all provinces not defined' %>)</span>
-            <% else %>
-              <%= fa.link_to_remove "#{t 'remove'}" %>
-            <% end %> 
-          <% end %>
-        <% end %>
-        <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_tax', default: 'Add Tax'}", :taxes, :class => "btn btn-primary add-link", :id => "add-tax" %>
+        <%= render 'tax', :f => f %>
       </div>
       
       <div class="tab-pane" id="3">

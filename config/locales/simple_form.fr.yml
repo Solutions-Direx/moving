@@ -104,6 +104,8 @@ fr:
       user:
         password: "(Laisser vide si vous ne souhaitez pas le modifier)"
         role: 'Le manager a un accès complet. Les utilisateurs standard ne peuvent pas changer les réglages. Les déménageurs ont un accès mobile aux rapports et à la facturation.'
+      companies:
+        invoice_header: Ajouter vos numéros d'identification d'entreprise par exemple
   helpers:
     submit:
       account:

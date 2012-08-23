@@ -1,6 +1,6 @@
 <% if @quote.confirmed? %>
   <%= section %>
-  <h3 class='with_margin'><%= t 'confirmation_details', default: 'Confirmation Details' %></h3>
+  <h3 class='with_margin'><%= t 'quote_confirmation', default: 'Quote confirmation' %></h3>
   
   <p><%= t 'insurance_increase' %>: 
   <%= @quote.quote_confirmation.insurance_limit_enough? ? "#{t 'nope'}" : number_to_currency(@quote.quote_confirmation.insurance_increase) %>

@@ -1,9 +1,9 @@
 <p>
   <b><%= t('company') %>:</b> <%= @invoice.quote.company.company_name %>
-  <span class='floatr'><b><%= t "#{Quote.model_name.human}" %>:</b> <%= @invoice.quote.reference %></span>
+  <span class='floatr'><b><%= t "#{Quote.model_name.human}" %>:</b> <%= link_to @invoice.quote.reference, quote_path(@invoice.quote) %></span>
 </p>
 <p>
-  <b>Client:</b> <%= @invoice.client.name %> (<%= @invoice.client.reference %>)
+  <b>Client:</b> <%= @invoice.client.name %> (<%= link_to @invoice.client.reference, client_path(@invoice.quote) %>)
   <span class='floatr'><b> <%= t 'reserved_on' %>:</b> <%= l @invoice.quote.created_at, format: :long %></span>
 </p>
 <p>
