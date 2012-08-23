@@ -1,3 +1,13 @@
 <h1><%= t 'editing_quote' %></h1>
 
 <%= render 'form' %>
+
+<script type="text/javascript">
+$(function() {
+  $('#change-rp').click(function(e) {
+    e.preventDefault();
+    $('#select-sale-representative').show();
+    $('#change-sale-representative').hide();
+  });
+});
+</script>

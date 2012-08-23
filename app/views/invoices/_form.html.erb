@@ -89,6 +89,10 @@
       </div>
     </div>
   </div>
+
+  <% if f.object.client.commercial? %>
+    <%= f.input :purchase_order %>
+  <% end -%>
   
   <%= section %>
   <h3><%= t 'supplies' %></h3>
