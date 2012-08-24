@@ -1,4 +1,4 @@
-<p class="alert alert-info"><%= t '.compound_helper' %></p>
+<p class="alert alert-info"><%= t "accounts.show.compound_helper" %></p>
 
 <%= f.fields_for :taxes do |fa| %>
   <%= fa.input :province, :label => fa.object.is_default ? "#{t 'default_tax', default: 'Default Tax'}" : "#{t 'tax'}", :required => false do %>
@@ -16,7 +16,7 @@
       <%= fa.input_field :tax2, :placeholder => "#{t 'tax_rate'}", :class => 'span1' %>
       <span class="add-on">%</span>
     </div>
-    <span><%= t '.compound_tax' %></span>
+    <span><%= t 'accounts.show.compound_tax' %></span>
     <%= fa.check_box :compound %>
     <% if fa.object.is_default %>
       <span>(<%= t 'default_tax_helper', default: 'apply to all provinces not defined' %>)</span>
