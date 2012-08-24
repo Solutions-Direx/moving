@@ -1,0 +1,14 @@
+try {
+  <% if @payment.errors.any? %>
+    $('#new-payment-section').replaceWith('<%= j(render("payments/form", payment: @payment)) %>');
+  <% else %>
+    $('#payments').append('<%= j(render("payment", payment: @payment)) %>');
+    $('#new-payment-section').replaceWith('<%= j(render("payments/form", payment: @invoice.payments.build)) %>');
+    $('#amount_left').text('<%= number_to_currency @invoice.amount_left %>');
+    $('#amount_received').text('<%= number_to_currency @invoice.amount_received %>');
+    $('#payments-container').show();
+    $('#amount_remaining').css('display', 'inline-block');
+  <% end %>
+} catch (err) {
+  console.log(err);
+}

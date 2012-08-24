@@ -1,0 +1,14 @@
+<tr>
+  <td><%= payment.date %></td>
+  <td><%= number_to_currency payment.amount %></td>
+  <td><%= number_to_currency(payment.tip) if payment.tip.present? %></td>
+  <td>
+    <%= t payment.payment_method %> 
+    <% if payment.payment_method == 'credit' && payment.credit_card_type.present? %>
+      - <%= t payment.credit_card_type %>
+    <% end -%>
+    <% if ['credit', 'debit'].include?(payment.payment_method) && payment.transaction_number.present? %>
+      (#<%= payment.transaction_number %>)
+    <% end -%>
+  </td>
+</tr>

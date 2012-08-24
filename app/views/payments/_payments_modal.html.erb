@@ -1,0 +1,64 @@
+<div id="payments-modal" class="modal">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3><%= t 'payments' %></h3>
+  </div>
+  <div class="modal-body">
+    <h3 style="margin-bottom: 10px;">Total: <%= number_to_currency @invoice.total %> || 
+      <span id="amount_remaining" style="display: <%= @payments.any? ? 'inline-block' : 'none' %>;"><%= t 'amount_left', default: 'Amount remaining:' %> <span id="amount_left"><%= number_to_currency(@invoice.amount_left) %></span> ||</span>
+      <%= t 'amount_received', default: 'Amount received:' %> <span id="amount_received"><%= number_to_currency(@invoice.amount_received) %></span>
+    </h3>
+    <div id="payments-container" style="display: <%= @payments.any? ? 'block' : 'none' %>">
+      <table class="table table-condensed table-bordered" id="payments">
+        <tr>
+          <th width="20%">Date</th>
+          <th width="25%"><%= t 'amount' %></th>
+          <th width="15%"><%= t 'tip' %></th>
+          <th><%= t 'payment_method' %></th>
+        </tr>
+        <% @payments.each do |payment| %>
+          <%= render 'payments/payment', payment: payment %>
+        <% end -%>
+      </table>
+    </div>
+
+    <%= render 'payments/form', payment: @invoice.payments.build %>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><%= t 'close' %></a>
+    <a href="#" class="btn btn-primary" id="submit-payment"><%= t 'save' %></a>
+  </div>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $('#payment_methods input:radio').live('click', function() {
+    if (($(this).val() == "credit") || ($(this).val() == "debit")) {
+      $('#transaction_number').show();
+    } else {
+      $('#transaction_number').hide();
+      $('#transaction_number input').val('');
+    }
+    if ($(this).val() == "credit") {
+      $('#credit_card_type').show();
+    } else {
+      $('#credit_card_type').hide();
+      $('#credit_card_type select').val('');
+    }
+  });
+  $("#submit-payment").click(function(e) {
+    e.preventDefault();
+    $('#payment-form').submit();
+  });
+  $('.datepicker').live('click', function () {
+    <% if I18n.locale == :fr %>
+    $(this).datepicker('destroy').datepicker($.extend($.datepicker.regional["fr"], {altFormat: "yy/mm/dd", altField: $(this).next()})).focus();
+    <% else %>
+    $(this).datepicker('destroy').datepicker($.extend($.datepicker.regional["en-GB"], {altFormat: "yy/mm/dd", altField: $(this).next()})).focus();
+    <% end %>  
+  });
+  $('#show-form').live('click', function(e) {
+    e.preventDefault();
+    $("#new-payment-containter").show();
+    $('#legend').hide();
+  });
+</script>

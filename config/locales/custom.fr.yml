@@ -294,6 +294,7 @@ fr:
   purchase_order: Bon de commande
   quote_details: Détails de l'entente
   invoice_header_hint: "Test"
+  save: 'Sauver'
   activerecord:   
     models:
       account: Compte

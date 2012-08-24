@@ -35,6 +35,7 @@ class Invoice < ActiveRecord::Base
   has_many :surcharges, :as => :surchargeable, :dependent => :destroy
   accepts_nested_attributes_for :surcharges, :allow_destroy => true, :reject_if => :all_blank
   
+  attr_accessor :amount_received
   attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :gas, :rate,
                   :invoice_supplies_attributes, :forfait_ids, :client_satisfaction,
                   :payment_method, :discount, :credit_card_type, :surcharges_attributes, :lock_version,
@@ -140,9 +141,22 @@ class Invoice < ActiveRecord::Base
     tax = quote.tax
     copy_tax_setting_from(tax)
   end
+
+  def amount_received
+    unless @amount_received
+      t = 0
+      payments.select{|p| !p.new_record?}.each do |payment|
+        t += (payment.amount + (payment.try(:tip) || 0))
+      end
+      @amount_received = t.round(2)
+    end
+    @amount_received
+  end
   
   def amount_left
-    total - payments.sum(:amount)
+    t = (total - amount_received).round(2)
+    t = 0 if t < 0
+    t
   end
   
 private

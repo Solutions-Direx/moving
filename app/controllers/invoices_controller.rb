@@ -37,6 +37,7 @@ class InvoicesController < ApplicationController
   end
   
   def show
+    @payments = @invoice.payments.order("date ASC")
   end
   
   def edit

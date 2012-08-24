@@ -1,6 +1,6 @@
 <h2><%= Invoice.model_name.human %> (<%= @invoice.code %>) <%= status_tag("#{ t 'signed'}", level: 'success') if @invoice.signed? %>
   <span class='submenu'>
-    <%= icon_button_link_to "#{t 'payments', default: 'Payments'}", quote_invoice_payments_path, icon: "list-alt", large: true, level: "primary", white: true %>
+    <%= icon_button_link_to "#{t 'payments', default: 'Payments'}", '#payments-modal', icon: "list-alt", large: true, level: "primary", white: true, "data-toggle" => "modal" %>
     <%= icon_button_link_to "#{t 'print', default: 'Print'}", print_quote_invoice_path(:format => :pdf), icon: "print", large: true, level: "primary", white: true, target: "_blank" %>
     <% unless @quote.client.email.blank? %>
       <%= icon_button_link_to "#{t 'email_to_client'}", email_quote_invoice_path(@quote), :method => :post, icon: "envelope", level: "success", large: true, white: true, disabled_with: "#{t 'email_to_client'}" %>
@@ -13,3 +13,5 @@
 </h2>
 
 <%= render 'invoice', mobile: false %>
+
+<%= render 'payments/payments_modal' %>

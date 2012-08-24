@@ -18,10 +18,10 @@ class PaymentsController < ApplicationController
     respond_to do |format|
       if @payment.save
         format.html { redirect_to quote_invoice_payments_url(@quote), notice: "#{Payment.model_name.human} #{t 'is_created'}" }
-        format.json { render json: @payment, status: :created, location: @truck }
+        format.js
       else
         format.html { render action: "new" }
-        format.json { render json: @payment.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
