@@ -110,8 +110,10 @@ puts "Generated 3 sample supplies."
   count = x + 1
   client = Client.find(count)
   c = Company.all.sample
+  creator_id = User.managers.all.sample.id
   quote = c.quotes.build(client_id: client.id, 
-                         creator_id: User.managers.all.sample.id, 
+                         creator_id: creator_id, 
+                         sale_representative_id: creator_id, 
                          removal_at: Time.now + [0,5,10,15,20].sample.days, 
                          date: Time.now,
                          phone1: client.phone1,
