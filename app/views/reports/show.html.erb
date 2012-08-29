@@ -1,8 +1,4 @@
 <div>
-  <% if @invoice.tip.present? %>
-    <p><strong><%= t 'tip' %>:</strong> <%= number_to_currency(@invoice.tip) %></p>
-  <% end %>
-  
   <% if @invoice.quote.deposit.present? %>
     <p><strong><%= t('deposit_received') %>:</strong> <%= number_to_currency(@invoice.quote.deposit.amount) %></p>
   <% end %>

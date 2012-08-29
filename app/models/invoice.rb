@@ -39,7 +39,7 @@ class Invoice < ActiveRecord::Base
   attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :gas, :rate,
                   :invoice_supplies_attributes, :forfait_ids, :client_satisfaction,
                   :payment_method, :discount, :credit_card_type, :surcharges_attributes, :lock_version,
-                  :too_big_for_stairway, :too_big_for_hallway, :too_big, :broken, :too_fragile, :furnitures, :tip,
+                  :too_big_for_stairway, :too_big_for_hallway, :too_big, :broken, :too_fragile, :furnitures,
                   :tax1, :tax1_label, :tax2, :tax2_label, :compound, :purchase_order
   
   before_create :generate_code
@@ -118,7 +118,7 @@ class Invoice < ActiveRecord::Base
   end
 
   def total
-    t = total_with_taxes + (try(:tip) || 0).round(2)
+    t = total_with_taxes
     t -= quote.deposit.amount if quote.deposit
     t = 0 if t < 0
     t

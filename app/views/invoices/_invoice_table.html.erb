@@ -165,14 +165,6 @@
     <td class="right"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax2_amount) %></h3></td>
   </tr>
   <% end %>
-
-  <% if (@invoice.try(:tip) || 0) > 0 %>
-  <tr>
-    <td><h3 style="font-weight: normal;"><%= t 'tip' %></h3></td>
-    <td class="right"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tip) %></h3></td>
-  </tr>
-  <% end %>
-  
   <tr>
     <td></td>
     <td><hr/></td>

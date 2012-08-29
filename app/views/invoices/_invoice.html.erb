@@ -136,13 +136,6 @@
 </div>
 <% end %>
 
-<% if (@invoice.try(:tip) || 0) > 0 %>
-<div class="row">
-  <div class="span4"><h3 style="font-weight: normal;"><%= t 'tip' %></h3></div>
-  <div class="span2 money"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tip) %></h3></div>
-</div>
-<% end %>
-
 <% if @invoice.quote.deposit %>
 <div class="row">
   <div class="span4"><h3 style="font-weight: normal;"><%= t('deposit_received') %></h3></div>
@@ -197,9 +190,6 @@
   <%= section %>
   <br />
   <h3><%= t 'client_satisfaction' %></h3>
-  <% unless @invoice.tip.blank? %>
-    <p><%= t 'tip' %>: <%= number_to_currency(@invoice.tip) %></p>
-  <% end %>
   <% unless @invoice.client_satisfaction.blank? %>
     <p><i><%= simple_format(@invoice.client_satisfaction) %></i></p>
   <% end %>
@@ -222,7 +212,6 @@
 <% else %>
   <br />
   <h3><%= t 'client_satisfaction' %></h3> <br />
-  <%= t 'tip' %> <%= text_field_tag :tip, @invoice.tip, :class => "span1" %><br />
   <%= text_area_tag :client_satisfaction, @invoice.client_satisfaction, :class => "span6", :rows => 5 %>
 
   <%= render 'invoices/signaturepad', mobile: mobile %>

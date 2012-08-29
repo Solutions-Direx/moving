@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120824024135) do
+ActiveRecord::Schema.define(:version => 20120829102706) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
@@ -162,7 +162,6 @@ ActiveRecord::Schema.define(:version => 20120824024135) do
     t.string   "credit_card_type"
     t.integer  "lock_version",         :default => 0
     t.integer  "integer",              :default => 0
-    t.float    "tip"
     t.string   "furnitures"
     t.boolean  "too_big_for_stairway"
     t.boolean  "too_big_for_hallway"

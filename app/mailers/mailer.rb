@@ -1,6 +1,7 @@
 # coding: utf-8
 class Mailer < ActionMailer::Base
   add_template_helper(BootstrapHelper)
+  add_template_helper(ApplicationHelper)
   
   #default from: "from@example.com"
   

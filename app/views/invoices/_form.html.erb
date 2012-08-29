@@ -79,15 +79,6 @@
       </div>
     </div>
     <% end %>
-    
-    <div class="control-group float optional">
-      <%= f.label :tip, t('tip'), class: "float control-label" %>
-      <div class="controls">
-        <div class='input-append'>
-          <%= f.text_field :tip, :class => 'span1 input-append' %><span class="add-on">$</span>
-        </div>
-      </div>
-    </div>
   </div>
 
   <% if @invoice.quote.client.commercial? %>
