@@ -170,7 +170,7 @@ class QuotesController < ApplicationController
   def email
     Mailer.quote_email(@quote).deliver
     respond_to do |format|
-      format.html { redirect_to @quote, notice: "#{t 'email_notification', default: "Quote was successfully sent to "} #{@quote.client.email}" }
+      format.html { redirect_to @quote, notice: "#{t 'quote_email_notification', default: "Quote was successfully sent to "} #{@quote.client.email}" }
       format.json { render json: @quote }
     end
   end

@@ -141,6 +141,7 @@ en:
   amount: Amount
   invoice_date: Invoice date
   purchase_order: Purchase Order
+  here: here
   activerecord:
     attributes:
       user:  

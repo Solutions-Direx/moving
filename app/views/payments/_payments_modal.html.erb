@@ -4,10 +4,11 @@
     <h3><%= t 'payments' %></h3>
   </div>
   <div class="modal-body">
-    <h3 style="margin-bottom: 10px;">Total: <%= number_to_currency @invoice.total %> || 
-      <span id="amount_remaining" style="display: <%= @payments.any? ? 'inline-block' : 'none' %>;"><%= t 'amount_left', default: 'Amount remaining:' %> <span id="amount_left"><%= number_to_currency(@invoice.amount_left) %></span> ||</span>
-      <%= t 'amount_received', default: 'Amount received:' %> <span id="amount_received"><%= number_to_currency(@invoice.amount_received) %></span>
-    </h3>
+    <p style="margin-bottom: 20px;" class="alert alert-info">
+      <b><%= t 'amount_due', default: 'Amount due' %>:</b> <%= number_to_currency @invoice.total %> 
+      <span id="amount_remaining" style="display: <%= @payments.any? ? 'inline-block' : 'none' %>;">
+         || <b><%= t 'amount_left', default: 'Amount to receive' %>:</b> <span id="amount_left"><%= number_to_currency(@invoice.amount_left) %></span>
+    </p>
     <div id="payments-container" style="display: <%= @payments.any? ? 'block' : 'none' %>">
       <table class="table table-condensed table-bordered" id="payments">
         <tr>
@@ -18,7 +19,7 @@
         </tr>
         <% @payments.each do |payment| %>
           <%= render 'payments/payment', payment: payment %>
-        <% end -%>
+        <% end %>
       </table>
     </div>
 
@@ -58,7 +59,7 @@
   });
   $('#show-form').live('click', function(e) {
     e.preventDefault();
-    $("#new-payment-containter").show();
+    $("#new-payment-container").show();
     $('#legend').hide();
   });
 </script>

@@ -47,7 +47,7 @@ class InvoicesController < ApplicationController
   def email
     Mailer.invoice_email(@invoice).deliver
     respond_to do |format|
-      format.html { redirect_to quote_invoice_url(@quote), notice: "#{t 'email_notification', default: "Invoice was successfully sent to "} #{@quote.client.email}" }
+      format.html { redirect_to quote_invoice_url(@quote), notice: "#{t 'invoice_email_notification', default: "Invoice was successfully sent to "} #{@quote.client.email}" }
       format.json { render json: @invoice }
     end
   end

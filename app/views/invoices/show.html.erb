@@ -1,14 +1,21 @@
 <h2><%= Invoice.model_name.human %> (<%= @invoice.code %>) <%= status_tag("#{ t 'signed'}", level: 'success') if @invoice.signed? %>
-  <span class='submenu'>
-    <%= icon_button_link_to "#{t 'payments', default: 'Payments'}", '#payments-modal', icon: "list-alt", large: true, level: "primary", white: true, "data-toggle" => "modal" %>
-    <%= icon_button_link_to "#{t 'print', default: 'Print'}", print_quote_invoice_path(:format => :pdf), icon: "print", large: true, level: "primary", white: true, target: "_blank" %>
-    <% unless @quote.client.email.blank? %>
-      <%= icon_button_link_to "#{t 'email_to_client'}", email_quote_invoice_path(@quote), :method => :post, icon: "envelope", level: "success", large: true, white: true, disabled_with: "#{t 'email_to_client'}" %>
-    <% end %>
-    <% unless @invoice.signed? %>
-      <%= button_link_to "#{t 'edit'}", edit_quote_invoice_path(@quote), level: 'inverse', large: true %>
-      <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>
-    <% end %>
+  <span class='submenu'> 
+    <div class="btn-toolbar">
+      <div class="btn-group">
+        <button class="btn btn-large dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+        <ul class="dropdown-menu" style="font-size:14px;">
+          <li><%= icon_link_to "#{t 'print', default: 'Print'}", print_quote_invoice_path(:format => :pdf), icon: "print", large: true, level: "primary", target: "_blank" %></li>
+          <% unless @quote.client.email.blank? %>
+            <li><%= icon_link_to "#{t 'email_to_client'}", email_quote_invoice_path(@quote), :method => :post, icon: "envelope", level: "success", large: true, disabled_with: "#{t 'email_to_client'}" %></li>
+          <% end %>
+        </ul>
+      </div>
+      <%= icon_button_link_to "#{t 'payments', default: 'Payments'}", '#payments-modal', icon: "list-alt", large: true, level: "primary", white: true, "data-toggle" => "modal" %>
+      <% unless @invoice.signed? %>
+        <%= button_link_to "#{t 'edit'}", edit_quote_invoice_path(@quote), level: 'inverse', large: true %>
+        <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>
+      <% end %>
+     </div>
   </span>
 </h2>
 

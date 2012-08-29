@@ -1,6 +1,9 @@
 <div id="new-payment-section">
-  <p style="display: <%= (payment.errors.present? || @invoice.amount_left > 0) ? 'none' : 'block' %>;" id="legend">Looks like fully paid but click <%= link_to 'here', '#', id: 'show-form' %> to add new payment.</p>
-  <div id="new-payment-containter" style="display: <%= (payment.errors.present? || @invoice.amount_left > 0) ? 'block' : 'none' %>;">
+  <p style="display: <%= (payment.errors.present? || @invoice.amount_left > 0) ? 'none' : 'block' %>;" id="legend">
+    <%= t "invoice_fully_paid", default: 'Looks like invoice is fully paid but click' %> <%= link_to "#{t 'here'}", '#', id: 'show-form' %>
+    <%= t "add_new_payment", default: 'to add new payment' %>.
+  </p>
+  <div id="new-payment-container" style="display: <%= (payment.errors.present? || @invoice.amount_left > 0) ? 'block' : 'none' %>;">
     <h3><%= t 'new_payment' %></h3>
 
     <% payment.amount = @invoice.amount_left if payment.new_record? %>

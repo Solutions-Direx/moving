@@ -169,7 +169,8 @@ fr:
   transport_time: 'Temps de transport'
   nb_removal_men: Nombre de déménageurs
   supplies: 'Matériels'
-  email_notification: "L'entente a été envoyée avec succès à"
+  quote_email_notification: "L'entente a été envoyée avec succès à"
+  invoice_email_notification: "La facture a été envoyée avec succès à"
   report_for: Rapport du déménagement pour
   conflict: "Un autre utilisateur a apporté une modification à cet enregistrement depuis que vous y avez accédé. Veuillez vérifiez les informations puis mettre à jour."
   comptant: "Comptant"
@@ -277,8 +278,10 @@ fr:
   insurance_amount: Montant de l'assurance
   tax: Taxe
   supplies: Matériels
-  amount_left: Montant à payer
+  amount_due: Montant dû
+  amount_left: Solde
   payments_received: Paiements reçus
+  amount_received: Montant reçu
   mon: Lun
   tue: Mar
   wed: Mer
@@ -293,8 +296,10 @@ fr:
   invoice_date: Date de facturation
   purchase_order: Bon de commande
   quote_details: Détails de l'entente
-  invoice_header_hint: "Test"
-  save: 'Sauver'
+  save: 'Enregistrer'
+  here: ici
+  invoice_fully_paid: "Facture réglée en totalité. Cliquez"
+  add_new_payment: pour ajouter un nouveau paiement
   activerecord:   
     models:
       account: Compte
