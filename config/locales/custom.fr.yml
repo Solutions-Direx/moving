@@ -57,7 +57,7 @@ fr:
   editing_storage: "Édition de l'entrepôt"
   editing_supply: "Édition du matériel"
   editing_truck: "Édition du camion"
-  editing_truck: "Édition de l'utilisateur"
+  editing_user: "Édition de l'utilisateur"
   editing_payment: "Édition de paiements"
   new: 'Nouveau'
   new_quote: 'Nouvelle entente'
@@ -222,7 +222,7 @@ fr:
   sign_in: Se connecter
   sign_up: S'enregistrer
   admin: "Administrateur"
-  manager: "Manager"
+  manager: "Gestionnaire"
   removal_man: "Déménageur"
   removal_men: Déménageurs
   standard: "Standard"
