@@ -85,7 +85,7 @@ class Quote < ActiveRecord::Base
                   :removal_leader_id, :removal_man_ids, :internal_address, :invoice_attributes, :signer_name, :signature, :contact
   
   # VALIDATIONS
-  validates_presence_of :removal_at_picker, :removal_at, :company_id, :creator, :client
+  validates_presence_of :removal_at_picker, :removal_at, :company_id, :creator, :client_id, :phone1
   validate :validate_addresses
   validates_uniqueness_of :code
   

@@ -1,26 +1,29 @@
 <div class="tab-pane active" id="lA">
-  <!-- CLIENT -->
+  <!-- COMPANY -->
   <% if current_account.companies.active.count > 1 %>
     <% if f.object.new_record? %>
       <%= f.association :company, :collection => Company.active.map{|c| [c.company_name, c.id]}, :label => "#{t 'company'}" %>
     <% else %>
       <%= f.association :company, :collection => Company.all.map{|c| [c.company_name, c.id]}, :label => "#{t 'company'}" %>
-    <% end -%>
+    <% end %>
   <% else %>
     <%= f.input :company_id, :as => :hidden  %>
-  <% end -%>
+  <% end %>
+  
+  <!-- SALE REPRESENTATIVE -->
+    <%= f.input :sale_representative_id do %>
+      <div id="change-sale-representative"><%= f.object.sale_representative.full_name %> <%= link_to "#{t 'change'}", "#", id: "change-rp" %></div>
+      <div id="select-sale-representative" style="display: none;"><%= f.input_field :sale_representative_id, :collection => User.all.map{|c| [c.full_name, c.id]}, :class => "chzn", "data-placeholder" => "#{t'select'}" %></div>
+    <% end %>
 
   <!-- CLIENT -->
   <%= f.input :client_id do %>
     <%= f.input_field :client_id, :collection => Client.order('name ASC').map{|c| [c.name, c.id]}, :class => "chzn", "data-placeholder" => "#{t 'select'}", :id => "select-clients" %> <%= t 'or' %> 
     <%= icon_button_link_to "#{t 'new'} client", new_client_path, icon: 'plus', level: "inverse", white: true, remote: true %>
   <% end %>
-
-  <!-- SALE REPRESENTATIVE -->
-  <%= f.input :sale_representative_id do %>
-    <div id="change-sale-representative"><%= f.object.sale_representative.full_name %> <%= link_to "#{t 'change'}", "#", id: "change-rp" %></div>
-    <div id="select-sale-representative" style="display: none;"><%= f.input_field :sale_representative_id, :collection => User.all.map{|c| [c.full_name, c.id]}, :class => "chzn", "data-placeholder" => "#{t'select'}" %></div>
-  <% end %>
+  <%= f.input :phone1 %>
+  <%= f.input :phone2 %>
+  <%= f.input :contact %>
 
   <!-- RATING -->
   <div class="control-group">
@@ -34,8 +37,6 @@
       </div>
     </div>
   </div>
-  
-  <%= f.input :contact %>
   
   <!-- REMOVAL PICKER -->
   <div class="control-group datetime_picker <%= 'error' if @quote.errors[:removal_at].present? %>">
@@ -51,8 +52,6 @@
   </div>
   
   <%= f.input :is_house, :label => false, :as => :radio_buttons, :collection => [["#{t 'house', default: 'House'}", true],["#{t 'apartment', default: 'Apartment'}", false]], :item_wrapper_class => "inline" %>
-  <%= f.input :phone1 %>
-  <%= f.input :phone2 %>
   <%= f.input :internal_address, :as => :hidden %>
 
   <!-- ADRESS ERRORS -->
