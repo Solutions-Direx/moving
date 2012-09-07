@@ -1,4 +1,4 @@
-<h1>
+<h1 style="margin-top:15px;">
   <% if @invoice.quote.company.logo.present? %>
     <% if absolute_path %>
       <%= image_tag(Rails.root.join("public", "uploads", "company", @invoice.quote.company_id.to_s, "logo", "thumb", @invoice.quote.company.logo_file_name)) %>
@@ -30,24 +30,31 @@
       <table class="grey-box" width="100%">
         <tr>
           <td>
-            <b>Client:</b> <%= @invoice.quote.client.name %> (<%= @invoice.quote.client.reference %>)<br/><br/>
+            <b><%= @invoice.quote.client.name %> (<%= @invoice.quote.client.reference %>)</b><br/><br/>
+            <%= address_for @invoice.quote.billing_address.address %><br/>
             <b><%= t "removal_at" %>:</b> <%= l @invoice.quote.removal_at.to_date %><br /><br />
-            <b><%= t "#{Quote.model_name.human}" %>:</b> <%= @invoice.quote.reference %><br /><br />
             <% if @invoice.purchase_order.present? %>
-            <b><%= t "purchase_order" %>:</b> <%= @invoice.purchase_order %><br /><br />
+              <b><%= t "purchase_order" %>:</b> <%= @invoice.purchase_order %>
             <% end %>
-            <b><%= t 'reserved_on' %>:</b> <%= l @invoice.quote.created_at.to_date %><br /><br />
-            <b><%= t 'approved_on' %>:</b> <%= l @invoice.quote.quote_confirmation.approved_at.to_date %><br /><br />
-            <b><%= t 'invoice_date' %>:</b> <%= l @invoice.created_at.to_date %>
-            <b><%= t 'prepared_by' %>:</b> <%= @invoice.creator.full_name %>
           </td>
         </tr>
       </table>
     </td>
   </tr>
 </table>
-<br />
+
+<p>
+  <b><%= t "#{Quote.model_name.human}" %>:</b> <%= @invoice.quote.reference %>
+  <span style="float:right;"><b><%= t 'invoice_date' %>:</b> <%= l @invoice.created_at.to_date %></span>
+</p>
+<p>
+  <b><%= t 'reserved_on' %>:</b> <%= l @invoice.quote.created_at.to_date %>
+  <span style="float:right;"><b><%= t 'prepared_by' %>:</b> <%= @invoice.creator.full_name %></span>
+</p>
+<p><b><%= t 'approved_on' %>:</b> <%= l @invoice.quote.quote_confirmation.approved_at.to_date %></p>
+
 <hr/>
+
 <table>
   <% if @invoice.total_time_spent > 0 %>
   <tr>
