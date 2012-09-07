@@ -8,7 +8,6 @@
     'Grand Total', 
     "#{t 'tax'}1", 
     "#{t 'tax'}2", 
-    "#{t 'tip'}", 
     'Total'] -%>
 <%= CSV.generate_line headers -%>
 <%- @invoices.order('created_at DESC').each do |invoice| -%>
@@ -22,7 +21,6 @@
     invoice.grand_total, 
     invoice.tax1_amount, 
     invoice.tax2_amount,
-    invoice.try(:tip) || 0,
     invoice.total] -%>
 <%= CSV.generate_line(row).html_safe -%>
 <%- end -%>
