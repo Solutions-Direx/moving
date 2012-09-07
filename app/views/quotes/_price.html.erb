@@ -19,13 +19,38 @@
       <b><%= surcharge.label %>:</b>
       <%= number_to_currency(surcharge.price) %>
     </p>
-  <% end -%>
-<% end -%>
+  <% end %>
+<% end %>
 
 <p>
   <b><%= t 'transport_time', default: 'Transport time' %>:</b>
   <%= @quote.transport_time %><% if @quote.long_distance %> <%= content_tag(:span, "(#{t 'long_distance'})", :class => 'label label-warning label_override') %><% end %>
 </p>
+
+<% if @quote.from_address.has_storage? %>
+  <p><b><%= t "#{Storage.model_name.human}" %>:</b></p>
+  <h6><%= @quote.from_address.storage.name %></h6>
+  <p>
+    <b><%= t 'price_per_month' %>:</b> <%= number_to_currency(@quote.from_address.price) %>
+    <% if @quote.from_address.insurance.present? %>
+      + <%= t 'insurance' %>: <%= number_to_currency(@quote.from_address.insurance) %>
+    <% end %>
+  </p>
+<% end %>
+
+<% if !@quote.to_addresses.blank? %>
+  <% for to_address in @quote.to_addresses %>
+    <% if to_address.has_storage? %>
+      <h6><%= to_address.storage.name %></h6>
+      <p>
+        <b><%= t 'price_per_month' %>:</b> <%= number_to_currency(to_address.price) %>
+        <% if to_address.insurance.present? %>
+          + <%= t 'insurance' %>: <%= number_to_currency(to_address.insurance) %>
+        <% end %>
+      </p>        
+    <% end %>
+  <% end %>
+<% end %>
 
 <p>
   <b><%= t 'insurance' %>:</b>

@@ -146,6 +146,32 @@
   <%= number_to_currency(@quote.gas) %>
 </p>
 
+
+<% if @quote.from_address.has_storage? %>
+  <p style="margin-bottom:0;"><b><%= t "#{Storage.model_name.human}" %>:</b></p>
+  <h6 style="padding-left:0;"><%= @quote.from_address.storage.name %></h6>
+  <p style="margin-top:0; margin-bottom:0;">
+    <b><%= t 'price_per_month' %>:</b> <%= number_to_currency(@quote.from_address.price) %>
+    <% if @quote.from_address.insurance.present? %>
+      + <%= t 'insurance' %>: <%= number_to_currency(@quote.from_address.insurance) %>
+    <% end %>
+  </p>
+<% end %>
+<!-- STORAGES -->
+<% if !@quote.to_addresses.blank? %>
+  <% for to_address in @quote.to_addresses %>
+    <% if to_address.has_storage? %>
+      <h6 style="padding-left:0;"><%= to_address.storage.name %></h6>
+      <p style="margin-top:0;">
+        <b><%= t 'price_per_month' %>:</b> <%= number_to_currency(to_address.price) %>
+        <% if to_address.insurance.present? %>
+          + <%= t 'insurance' %>: <%= number_to_currency(to_address.insurance) %>
+        <% end %>
+      </p>        
+    <% end %>
+  <% end %>
+<% end %>
+
 <% if @quote.surcharges.any? %>
   <% @quote.surcharges.each do |surcharge| %>
     <p>

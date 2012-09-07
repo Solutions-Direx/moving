@@ -1,4 +1,4 @@
-<h1 style="margin-top:15px;">
+<h1>
   <% if @invoice.quote.company.logo.present? %>
     <% if absolute_path %>
       <%= image_tag(Rails.root.join("public", "uploads", "company", @invoice.quote.company_id.to_s, "logo", "thumb", @invoice.quote.company.logo_file_name)) %>
