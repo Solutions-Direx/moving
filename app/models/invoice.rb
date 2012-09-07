@@ -19,6 +19,7 @@ class Invoice < ActiveRecord::Base
   belongs_to :quote
   belongs_to :client
   belongs_to :tax
+  belongs_to :creator, :class_name => "User", :foreign_key => "creator_id"
   
   has_many :invoice_forfaits, :dependent => :destroy
   has_many :forfaits, :through => :invoice_forfaits
@@ -40,7 +41,7 @@ class Invoice < ActiveRecord::Base
                   :invoice_supplies_attributes, :forfait_ids, :client_satisfaction,
                   :payment_method, :discount, :credit_card_type, :surcharges_attributes, :lock_version,
                   :too_big_for_stairway, :too_big_for_hallway, :too_big, :broken, :too_fragile, :furnitures,
-                  :tax1, :tax1_label, :tax2, :tax2_label, :compound, :purchase_order
+                  :tax1, :tax1_label, :tax2, :tax2_label, :compound, :purchase_order, :creator_id
   
   before_create :generate_code
   

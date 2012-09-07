@@ -35,10 +35,11 @@
             <b><%= t "#{Quote.model_name.human}" %>:</b> <%= @invoice.quote.reference %><br /><br />
             <% if @invoice.purchase_order.present? %>
             <b><%= t "purchase_order" %>:</b> <%= @invoice.purchase_order %><br /><br />
-            <% end -%>
+            <% end %>
             <b><%= t 'reserved_on' %>:</b> <%= l @invoice.quote.created_at.to_date %><br /><br />
-            <b> <%= t 'approved_on' %>:</b> <%= l @invoice.quote.quote_confirmation.approved_at.to_date %><br /><br />
-            <b> <%= t 'invoice_date' %>:</b> <%= l @invoice.created_at.to_date %>
+            <b><%= t 'approved_on' %>:</b> <%= l @invoice.quote.quote_confirmation.approved_at.to_date %><br /><br />
+            <b><%= t 'invoice_date' %>:</b> <%= l @invoice.created_at.to_date %>
+            <b><%= t 'prepared_by' %>:</b> <%= @invoice.creator.full_name %>
           </td>
         </tr>
       </table>

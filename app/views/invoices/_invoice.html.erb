@@ -1,19 +1,21 @@
 <p>
-  <b><%= t('company') %>:</b> <%= @invoice.quote.company.company_name %>
-  <span class='floatr'><b><%= t "#{Quote.model_name.human}" %>:</b> <%= link_to @invoice.quote.reference, quote_path(@invoice.quote) %></span>
-</p>
-<p>
   <b>Client:</b> <%= @invoice.client.name %> (<%= link_to @invoice.client.reference, client_path(@invoice.quote) %>)
-  <span class='floatr'><b> <%= t 'reserved_on' %>:</b> <%= l @invoice.quote.created_at, format: :long %></span>
+  <span class='floatr'><b><%= t "#{Quote.model_name.human}" %>:</b> <%= link_to @invoice.quote.reference, quote_path(@invoice.quote) %> | <%= @invoice.quote.company.company_name %></span>
 </p>
 <p>
   <b><%= t "removal_at" %>:</b> <%= l @invoice.quote.removal_at.to_date %>
   <span class='floatr'><b> <%= t 'approved_on' %>:</b> <%= l @invoice.quote.quote_confirmation.approved_at, format: :long %></span>
 </p>
-
+<p>
+  <b><%= t 'prepared_by' %>:</b> <%= @invoice.creator.full_name %>
+  <span class='floatr'><b> <%= t 'reserved_on' %>:</b> <%= l @invoice.quote.created_at, format: :long %></span>
+</p>
 <p>
   <b><%= t 'billing_address' %>:</b> <span class='floatr'><b> <%= t 'invoice_date' %>:</b> <%= l @invoice.created_at, format: :long %></span>
   <%= address_for @invoice.quote.billing_address.address %>
+</p>
+<p>
+  
 </p>
 <% if @invoice.purchase_order.present? %>
   <p>

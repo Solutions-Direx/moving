@@ -161,6 +161,7 @@ fr:
   from: Départ
   to: Arrivée
   created_by: Créée par
+  prepared_by: Préparée par
   email_to_client: 'Envoyer'
   nb_appliances: "Nombre d'électroménagers"
   nb_boxes: Nombre de boites à transporter

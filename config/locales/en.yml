@@ -72,8 +72,9 @@ en:
   type_to_select_removal_men: Type to select teammates
   select_team_lead: Select team lead
   quote_is_confirmed: 'Quote was successfully confirmed.'
-  approved_on: 'Approved on'
+  approved_on: Approved on
   reserved_on: Reserved on
+  prepared_by: Prepared by
   removal_man: Removal man
   are_you_sure: "Are sure sure?"
   removal_time_confirmation: 'The exact time will be confirmed the same day.'
