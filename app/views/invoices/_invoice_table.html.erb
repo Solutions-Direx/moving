@@ -18,8 +18,8 @@
       <table class="grey-box" width="100%">
         <tr>
           <td>
-            <b><%= @invoice.quote.company.company_name %></b>
-            <%= address_for @invoice.quote.company.address, :p if @invoice.quote.company.address.present? %>
+            <b><%= @invoice.quote.company.company_name %></b><br/><br/>
+            <%= address_for @invoice.quote.company.address if @invoice.quote.company.address.present? %><br />
             <b><%= t 'phone' %>:</b> <%= @invoice.quote.company.phone %><br/><br/>
             <b><%= t 'website' %>:</b> <%= @invoice.quote.company.website %>
           </td>
@@ -191,7 +191,8 @@
 <br />
 <hr/>
 <!-- QUOTE -->
-<h2><%= t 'quote_details', default: 'Quote Details' %></h2>
+<h2 style="padding-left:0;"><%= t 'quote_details', default: 'Quote Details' %></h2>
+<%= render 'quotes/addresses' %>
 <%= render 'quotes/price' %>
 <%= render 'quotes/optional' %>
 <%= render 'quotes/documents' %>

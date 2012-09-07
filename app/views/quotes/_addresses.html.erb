@@ -1,0 +1,34 @@
+<div class="span6 well col2 odd">
+  <h3><%= t 'from' %> <%= "#{t 'internal'}" if @quote.internal_address %></h3>
+  <div class="storage">
+  <% if @quote.from_address.has_storage? %>
+    <h6><%= t 'storage' %>: <%= @quote.from_address.storage.name %></h6>
+    <%= address_for(@quote.from_address.storage.address) %>
+  <% else %>
+    <h6><%= t 'address' %></h6>
+    <%= address_for(@quote.from_address.address) %>        
+  <% end %>
+  </div>
+</div>
+
+<% unless @quote.internal_address? %>
+<div class="span6 well col2 even">
+  <h3><%= t 'to' %></h3>
+  <% if !@quote.to_addresses.blank? %>
+    <% for to_address in @quote.to_addresses %>
+      <div class="storage">
+      <% if to_address.has_storage? %>
+        <h6><%= t 'storage' %>: <%= to_address.storage.name %> <%= status_tag("#{t 'internal'}") if to_address.storage_id && to_address.storage.internal? %></h6>
+        <% if to_address.storage_id && to_address.storage.internal? %>        
+          <p><%= number_to_currency(to_address.insurance) %> <%= t('per_month', default: 'per month') %></p>
+        <% end -%>
+        <%= address_for(to_address.storage.address) %>
+      <% else %>
+        <h6><%= t 'address' %></h6>
+        <%= address_for(to_address.address) %>        
+      <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<% end %>
