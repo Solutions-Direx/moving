@@ -192,7 +192,7 @@ private
   end
   
   def sort_column
-    params[:sort].present? ? params[:sort] : "date"
+    params[:sort].present? ? params[:sort] : "created_at"
   end
   
   def correct_stale_record_version

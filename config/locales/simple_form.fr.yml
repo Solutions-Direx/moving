@@ -32,6 +32,7 @@ fr:
         role: "Rôle"
         localization: "Langue"
         num_appliances: "Nb d'électroménagers"
+        num_boxes: Nb de boites à transporter
         num_of_removal_man: "Nb de déménageurs"
         company_name: "Nom de société"
         phone: "Téléphone"

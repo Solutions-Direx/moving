@@ -6,11 +6,17 @@
   <% @quote.build_furniture unless @quote.furniture %>
     <%= f.fields_for :furniture do |ff| %>
       <div class="control-group integer optional">
-        <%= ff.label :num_appliances, :default => 'Number of appliances' %>
+        <%= ff.label :num_appliances %>
         <div class='controls'>
           <%= ff.number_field :num_appliances, :class => 'span1' %>
         </div>
       </div>
+      <div class="control-group integer optional">
+          <%= ff.label :num_boxes %>
+          <div class='controls'>
+            <%= ff.number_field :num_boxes, :class => 'span1' %>
+          </div>
+        </div>
       <table id="furnitures" class="table">
         <tbody>
           <tr>

@@ -14,6 +14,8 @@ en:
     labels:
       defaults:
         billing_contact: Billing contact person
+        num_appliances: Nb of appliances
+        num_boxes: Nb of boxes
     #   password: 'Password'
     #   user:
     #     new:

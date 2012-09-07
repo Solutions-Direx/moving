@@ -51,6 +51,7 @@ en:
   email_to_client: 'Send'
   room: Room
   nb_appliances: 'Number of appliances'
+  nb_boxes: 'Number of boxes'
   sofa: 'Sofa'
   chair: 'Chair'
   armchair: 'Armchair'

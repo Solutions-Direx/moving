@@ -163,6 +163,7 @@ fr:
   created_by: Créée par
   email_to_client: 'Envoyer'
   nb_appliances: "Nombre d'électroménagers"
+  nb_boxes: Nombre de boites à transporter
   included: 'Inclus'
   not_included: 'Non inclus'
   insurance: 'Assurance'
@@ -343,9 +344,6 @@ fr:
   dashboard:
     nothing_found_for_today: "Pas de déménagement prévu aujourd'hui."
   quotes:
-    form:
-      num_appliances: "Nombre d'électroménager"
-      num_of_removal_man: "Nombre de déménageurs"
     nothing_found_for_this_period: "Pas de déménagement trouvé pour cette période."
     long_distance: "Longue distance"
     internal: "Déménagement interne"

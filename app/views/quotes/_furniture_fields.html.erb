@@ -1,6 +1,7 @@
 <% @quote.build_furniture unless @quote.furniture %>
   <%= f.fields_for :furniture do |ff| %>
     <%= ff.input :num_appliances %>
+    <%= ff.input :num_boxes %>
     <%= ff.input :kitchen_table %>
     <%= ff.input :kitchen_chair %>
     <%= ff.input :kitchen_buffet %>
