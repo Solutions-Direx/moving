@@ -100,6 +100,10 @@ protected
   def sort_column
     params[:sort].present? ? params[:sort] : "signed_at"
   end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
   
   def correct_stale_record_version
     @quote.reload
