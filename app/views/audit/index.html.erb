@@ -1,0 +1,15 @@
+<h1>Audit</h1>
+
+<table class="table table-striped">
+  <tr>
+    <th style="width:220px;"><%= sortable "created_at", "Date" %></th>
+    <th>Message</th>
+  </tr>
+
+  <% @activities.each do |activity| %>
+    <tr>
+      <td><%= l activity.created_at %></td>
+      <td><%= activity.actor.present? ? activity.actor.first_name : 'System' %> <%= status_tag("#{activity.action}d", level: "#{activity.action}") %> <%= "#{activity.trackable_type} ##{activity.trackable_id}" %>. Related to <%= link_to "quote #{activity.quote_id}", quote_path(activity.quote_id) %></td>
+    </tr>
+  <% end %>
+</table>

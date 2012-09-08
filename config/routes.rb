@@ -1,5 +1,5 @@
 Moving::Application.routes.draw do
-  
+
   # BACK OFFICE ROUTES
   # ==================
   devise_for :users
@@ -7,6 +7,7 @@ Moving::Application.routes.draw do
   # match 'calendar' => 'calendar#show', :as => 'calendar'
   match 'schedule' => 'schedule#show', :as => 'schedule'
   get 'new_invoice' => "invoices#new", :as => "new_invoice"
+  get "audit" => "audit#index", :as => 'audit'
   resources :forfaits
   resources :supplies
   resources :trucks
