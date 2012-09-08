@@ -135,3 +135,10 @@ address {margin-bottom: 0;}
 	text-shadow: none;
 	vertical-align: top;
 }
+
+/* SMALL SCREENS */
+/* iPads (portrait) */
+@media (max-width: 1024px) {
+	#main_search { max-width: 720px; }
+    #main_search form #query { max-width: 480px; }
+}
