@@ -26,6 +26,8 @@ fr:
   srch_inpt_plcholder: "Client, Téléphone, Numéro d'entente..."
   signed: 'signée'
   is_signed: 'signé'
+  not_signed: 'Non signée'
+  signed_date: Date de signature
   sign: Signer
   logout: 'Déconnexion'
   login: 'Connexion'
@@ -267,6 +269,7 @@ fr:
   add_company: Ajouter une entreprise
   add_tax: Ajouter une taxe
   payments: Paiements
+  payments_received: Paiements reçus
   new_payment: Nouveau paiement
   payment_of_invoice: Paiement de la facture
   payment_date: Date de paiement

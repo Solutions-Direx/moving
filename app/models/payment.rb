@@ -19,4 +19,8 @@ class Payment < ActiveRecord::Base
       self.credit_card_type = ""
     end
   end
+  
+  def total
+    tip? ? amount + tip : amount
+  end
 end

@@ -39,7 +39,7 @@ class ReportsController < ApplicationController
     end
   end
   
-  protected
+protected
 
   def load_quote_and_report
     @quote = Quote.find_by_code(params[:quote_id])

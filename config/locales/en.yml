@@ -22,6 +22,7 @@ en:
   select: Select
   change: Change
   signed: 'Signed'
+  not_signed: Not signed
   preview: Preview
   view: View
   search: Rechercher
@@ -144,6 +145,7 @@ en:
   invoice_date: Invoice date
   purchase_order: Purchase Order
   here: here
+  details: Details
   activerecord:
     attributes:
       user:  

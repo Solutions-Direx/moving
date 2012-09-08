@@ -1,4 +1,5 @@
 namespace :schedule_jobs do
+  # rake schedule_jobs:generate_reports
   desc "Generate reports for confirmed quote if necessary"
   task :generate_reports => :environment do
     Quote.confirmed.each do |quote|
