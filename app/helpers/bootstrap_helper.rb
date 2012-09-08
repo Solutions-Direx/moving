@@ -13,9 +13,10 @@ module BootstrapHelper
   end
   
   def address_for(address, wrapper_tag = :address, separator_tag = :br)
+    optional_address = [address.city, address.province, address.postal_code].select{|s| s.present?}.join(", ")
+
     content_tag(wrapper_tag) do
-      safe_concat(address.address + tag(separator_tag) + 
-                  address.city + ", " + address.province + ", " + address.postal_code)
+      safe_concat(address.address + tag(separator_tag) + optional_address)
     end
   end
   
