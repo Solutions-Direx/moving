@@ -20,7 +20,13 @@ Moving::Application.routes.draw do
 
       resources :payments
     end
-    
+
+    resource :report, :only => [:show, :edit, :update] do
+      member do
+        get :quick_view
+        post :sign
+      end
+    end
     resource :deposit, :only => [:new, :create]
     resource :billing_address, :only => [:edit, :update]
     member do
@@ -45,7 +51,7 @@ Moving::Application.routes.draw do
     resources :annexes
   end
   
-  resources :reports, :only => [:index, :show]
+  resources :reports, :only => [:index]
   resources :invoices, :only => :index do
     collection do
       get 'export'

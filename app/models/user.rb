@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_many :quotes
   
   # ATTRIBUTES
+  cattr_accessor :current_user
   attr_accessible :login, :username, :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :role, :localization
   
   # Virtual attribute for authenticating by either username or email

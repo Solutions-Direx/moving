@@ -75,6 +75,8 @@ class Quote < ActiveRecord::Base
 
   has_many :surcharges, :as => :surchargeable, :dependent => :destroy
   accepts_nested_attributes_for :surcharges, :allow_destroy => true, :reject_if => :all_blank
+
+  has_many :activities, :dependent => :destroy
   
   # ATTRIBUTES
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, :rejected_by, :rejected_at,

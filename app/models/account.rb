@@ -12,6 +12,7 @@ class Account < ActiveRecord::Base
   accepts_nested_attributes_for :companies, :reject_if => Proc.new{|t| t['company_name'].blank? && t['email'].blank? && t['phone'].blank? && t['website'].blank?}
   has_many :quotes
   has_many :invoices, :through => :quotes
+  has_many :reports, :through => :quotes
 
   has_many :taxes, :dependent => :destroy
   accepts_nested_attributes_for :taxes, :reject_if => Proc.new{|t| t['province'].blank? && t['tax1_label'].blank? && t['tax1'].blank? && t['tax2_label'].blank? && t['tax2'].blank? }

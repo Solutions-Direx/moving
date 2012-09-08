@@ -23,6 +23,7 @@ module Mobile
           invoice = @quote.build_invoice(payment_method: @quote.quote_confirmation.payment_method) 
           invoice.copy_quote_info
           invoice.client_id = @quote.client_id
+          invoice.creator_id = current_user.id
           invoice.save!
         end
         @quote.create_report!(gas: @quote.gas, start_time: @quote.removal_at) if @quote.report.blank?

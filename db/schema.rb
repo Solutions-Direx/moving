@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120907043552) do
+ActiveRecord::Schema.define(:version => 20120908034608) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
@@ -21,6 +21,16 @@ ActiveRecord::Schema.define(:version => 20120907043552) do
     t.boolean  "rebase_invoice_number",             :default => false
     t.datetime "created_at",                                           :null => false
     t.datetime "updated_at",                                           :null => false
+  end
+
+  create_table "activities", :force => true do |t|
+    t.integer  "actor_id"
+    t.integer  "quote_id"
+    t.string   "action"
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "addresses", :force => true do |t|

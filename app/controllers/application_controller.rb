@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :define_current_user
   before_filter :authenticate_user!
   before_filter :set_locale
   before_filter :set_ajax
@@ -21,6 +22,10 @@ class ApplicationController < ActionController::Base
       format.js
     end
   end     
+
+  def define_current_user
+    User.current_user = current_user
+  end
   
   def current_account
     @current_account ||= Account.first

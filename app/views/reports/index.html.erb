@@ -1,6 +1,6 @@
 <h1><%= t 'removal_control', default: 'Removal internal control' %></h1>
 
-<%= paginate @invoices %>
+<%= paginate @reports %>
 
 <table class="table table-striped">
   <tr>
@@ -8,31 +8,44 @@
     <th><%= Quote.model_name.human %></th>
     <th><%= Truck.model_name.human %></th>
     <th><%= t 'removal_team_lead' %></th>
-    <th>Date</th>
-    <th><%= t 'payment_method' %></th>
+    <th>Signed Date</th>
+    <!-- <th><%#= t 'payment_method' %></th> -->
     <th><%= t 'amount', default: 'Amount' %></th>
     <th></th>
   </tr>
 
-<% @invoices.each do |invoice| %>
+<% @reports.each do |report| %>
   <tr>
-    <td><%= link_to invoice.quote.client.name, client_path(invoice.quote.client) %> <%= status_tag('comm.') if invoice.quote.client.commercial? %></td>
-    <td><%= link_to "##{invoice.quote.code}", quote_path(invoice.quote) %></td>
-    <td><%= invoice.quote.trucks.map(&:name_with_plate).to_sentence %></td>
-    <td><%= invoice.quote.removal_leader.full_name if invoice.quote.removal_leader_id.present? %></td>
-    <td><%= l invoice.signed_at.to_date %></td>
-    <td><%= invoice.payment_method %></td>
-    <td><%= link_to number_to_currency(invoice.total), quote_invoice_path(invoice.quote) %></td>
+    <td><%= link_to report.quote.client.name, client_path(report.quote.client) %> <%= status_tag('comm.') if report.quote.client.commercial? %></td>
+    <td><%= link_to "##{report.quote.code}", quote_path(report.quote) %></td>
+    <td><%= report.quote.trucks.map(&:name_with_plate).to_sentence %></td>
+    <td><%= report.quote.removal_leader.full_name if report.quote.removal_leader_id.present? %></td>
     <td>
-      <% if invoice.quote.report && invoice.quote.report.removal_men.any? %>
-        <%= icon_button_link_to t('details', default: 'Details'), report_path(invoice), icon: 'list-alt', remote: true, class: "details", :"data-type" => 'html' %>
+      <% if report.signed_at.present? %>
+        <%= l report.signed_at.to_date %>
+      <% else %>
+        <%= status_tag 'N/A' %>
+      <% end -%>
+    </td>
+    <!-- <td><%#= report.quote.invoice.payment_method if report.quote.invoice %></td> -->
+    <td>
+      <% if report.quote.invoice %>
+        <%= link_to number_to_currency(report.quote.invoice.total), quote_invoice_path(report.quote) %>
+      <% else %>
+        <%= status_tag 'N/A' %>
+      <% end -%>
+    </td>
+    <td>
+      <%= icon_button_link_to t('edit', default: 'Edit'), edit_quote_report_path(report.quote), icon: 'pencil' %>
+      <% if report && report.removal_men.any? %>
+        <%= icon_button_link_to t('details', default: 'Details'), quick_view_quote_report_path(report.quote), icon: 'list-alt', remote: true, class: "details", :"data-type" => 'html' %>
       <% end %>
     </td>
   </tr>
 <% end %>
 </table>
 
-<%= paginate @invoices %>
+<%= paginate @reports %>
 
 <script type="text/javascript">
   $(function() {

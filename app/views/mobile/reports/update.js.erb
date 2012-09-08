@@ -1,11 +1,11 @@
 <% if !@is_preview %>
-  $('#report-form-container').html("<%= j render('form') %>");
+  $('#report-form-container').html("<%= j render('reports/form', mobile: true) %>");
   $('#msg').show().effect('highlight', {}, 3000, function() {
     $(this).hide();
   });
 <% else %>
   <% if @report.errors.present? %>
-    $('#report-form-container').html("<%= j render('form') %>");
+    $('#report-form-container').html("<%= j render('reports/form', mobile: true) %>");
   <% else %>
     window.location = "<%= mobile_quote_report_url(@quote) %>";
   <% end %>  

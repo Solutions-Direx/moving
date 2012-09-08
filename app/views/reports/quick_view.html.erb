@@ -1,0 +1,14 @@
+<div>
+  <% if @quote.deposit.present? %>
+    <p><strong><%= t('deposit_received') %>:</strong> <%= number_to_currency(@quote.deposit.amount) %></p>
+  <% end %>
+  
+  <% unless @report.removal_men.blank?  %>
+    <h4><%= t 'removal_men', default: "Removal Men" %></h4>
+    <ul>
+      <% @report.removal_men.each do |removal_man| %>
+        <li><%= removal_man.full_name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
