@@ -10,7 +10,6 @@
     <th><%= Truck.model_name.human %></th>
     <th><%= t 'removal_team_lead' %></th>
     <th><%= t 'signed_date', default: 'Signed Date' %></th>
-    <!-- <th><%#= t 'payment_method' %></th> -->
     <th><%= t 'payments_received', default: 'Payments' %></th>
     <th></th>
   </tr>
@@ -23,12 +22,11 @@
     <td><%= report.quote.trucks.map(&:name_with_plate).to_sentence %></td>
     <td><%= report.quote.removal_leader.full_name if report.quote.removal_leader_id.present? %></td>
     <td><%= report.signed_at.present? ? (l report.signed_at.to_date) : (status_tag 'N/A') %></td>
-    <!-- <td><%#= report.quote.invoice.payment_method if report.quote.invoice %></td> -->
     <td>
-      <% if report.quote.invoice.payments.any? %>
+      <% if report.quote.invoice && report.quote.invoice.payments.any? %>
         <%= link_to number_to_currency(report.quote.invoice.payments.sum(&:total)), quote_invoice_path(report.quote) %>
       <% else %>
-        <%= status_tag 'N/A' %> <%= link_to "##{report.quote.invoice.code}", quote_invoice_path(report.quote) %>
+        <%= status_tag 'N/A' %> <%= link_to "##{report.quote.invoice.code}", quote_invoice_path(report.quote) unless !report.quote.invoice %>
       <% end %>
     </td>
     <td>
