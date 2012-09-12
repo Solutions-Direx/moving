@@ -1,9 +1,9 @@
-class AuditController < ApplicationController
-  # load_and_authorize_resource
+class ActivitiesController < ApplicationController
+  load_and_authorize_resource
   helper_method :sort_column
   
   def index
-    @activities = Activity.all
+    @activities = Activity.page(params[:page] || 1).per(50)
   end
   
 protected
