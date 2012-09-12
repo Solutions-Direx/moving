@@ -3,7 +3,7 @@ class ActivitiesController < ApplicationController
   helper_method :sort_column
   
   def index
-    @activities = Activity.page(params[:page] || 1).per(50)
+    @activities = Activity.order(sort_column + " " + sort_direction).page(params[:page] || 1).per(50)
   end
   
 protected
