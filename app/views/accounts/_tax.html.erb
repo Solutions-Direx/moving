@@ -8,13 +8,11 @@
     <% end %>  
     <%= fa.input_field :tax1_label, :placeholder => "#{t 'tax_name'}", :class => 'span1' %>
     <div class='input-append'> 
-      <%= fa.input_field :tax1, :placeholder => "#{t 'tax_rate'}", :class => 'span1' %>
-      <span class="add-on">%</span>
+      <%= fa.input_field :tax1, :placeholder => "#{t 'tax_rate'}", :class => 'span1' %><span class="add-on">%</span>
     </div>
     <%= fa.input_field :tax2_label, :placeholder => "#{t 'tax_name'}", :class => 'span1' %>
     <div class='input-append'> 
-      <%= fa.input_field :tax2, :placeholder => "#{t 'tax_rate'}", :class => 'span1' %>
-      <span class="add-on">%</span>
+      <%= fa.input_field :tax2, :placeholder => "#{t 'tax_rate'}", :class => 'span1' %><span class="add-on">%</span>
     </div>
     <span><%= t 'accounts.show.compound_tax' %></span>
     <%= fa.check_box :compound %>

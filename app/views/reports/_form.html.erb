@@ -4,18 +4,15 @@
   
   <div class="form-inputs">
     <%= f.input :km_start, :wrapper => :append do %>
-      <%= f.input_field :km_start, :class => "span1 input-append" %>
-      <%= content_tag :span, "km", :class => "add-on" %>
+      <%= f.input_field :km_start, :class => "span1 input-append" %><%= content_tag :span, "km", :class => "add-on" %>
     <% end %>
     
     <%= f.input :km_end, :wrapper => :append do %>
-      <%= f.input_field :km_end, :class => "span1 input-append" %>
-      <%= content_tag :span, "km", :class => "add-on" %>
+      <%= f.input_field :km_end, :class => "span1 input-append" %><%= content_tag :span, "km", :class => "add-on" %>
     <% end %>
     
     <%= f.input :gas, :wrapper => :append do %>
-      <%= f.input_field :gas, :class => "span1 input-append" %>
-      <%= content_tag :span, "$", :class => "add-on" %>
+      <%= f.input_field :gas, :class => "span1 input-append" %><%= content_tag :span, "$", :class => "add-on" %>
     <% end %>
     
     <div class="control-group float optional">
@@ -36,23 +33,19 @@
     </div>
     
     <%= f.input :distance_in_qc, :wrapper => :append do %>
-      <%= f.input_field :distance_in_qc, :class => "span1 input-append" %>
-      <%= content_tag :span, "km", :class => "add-on" %>
+      <%= f.input_field :distance_in_qc, :class => "span1 input-append" %><%= content_tag :span, "km", :class => "add-on" %>
     <% end %>
     
     <%= f.input :distance_in_on, :wrapper => :append do %>
-      <%= f.input_field :distance_in_on, :class => "span1 input-append" %>
-      <%= content_tag :span, "km", :class => "add-on" %>
+      <%= f.input_field :distance_in_on, :class => "span1 input-append" %><%= content_tag :span, "km", :class => "add-on" %>
     <% end %>
     
     <%= f.input :distance_in_nb, :wrapper => :append do %>
-      <%= f.input_field :distance_in_nb, :class => "span1 input-append" %>
-      <%= content_tag :span, "km", :class => "add-on" %>
+      <%= f.input_field :distance_in_nb, :class => "span1 input-append" %><%= content_tag :span, "km", :class => "add-on" %>
     <% end %>
     
     <%= f.input :distance_other, :wrapper => :append do %>
-      <%= f.input_field :distance_other, :class => "span1 input-append" %>
-      <%= content_tag :span, "km", :class => "add-on" %>
+      <%= f.input_field :distance_other, :class => "span1 input-append" %><%= content_tag :span, "km", :class => "add-on" %>
     <% end %>
     
     <%= f.association :removal_men, :label => "Déménageurs", :collection => current_account.users.removal_men.all.map{|s| [s.full_name, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "Type to select removal man", :id => "removal-men-#{@report.id}", :multiple => true, :style => "width: 360px;"} %>

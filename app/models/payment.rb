@@ -21,6 +21,6 @@ class Payment < ActiveRecord::Base
   end
   
   def total
-    tip? ? amount + tip : amount
+    amount + (try(:tip) || 0)
   end
 end
