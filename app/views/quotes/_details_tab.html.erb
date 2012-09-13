@@ -37,7 +37,6 @@
             <td><%= content_tag :span, 'TV' %><%= ff.number_field :living_tv, :class => 'span1' %></td>
           </tr>
           <tr>
-            <td colspan="3"><%= content_tag :span, "#{t 'other'}" %><%= ff.text_field :living_other, :class => 'comment_one_liner' %></td>
           </tr>
           <tr>
             <td rowspan="2" style="text-align:right;"><b><%= t 'basement' %></b></td>
@@ -46,9 +45,6 @@
             <td><%= content_tag :span, "#{t 'desk', default: 'Desk'}" %><%= ff.number_field :base_desk, :class => 'span1' %></td>
           </tr>
           <tr>
-            <td colspan="3"><%= content_tag :span, "#{t 'other'}" %><%= ff.text_field :base_other, :class => 'comment_one_liner' %></td>
-            <td></td>
-            <td></td>
           </tr>
           <tr>
             <td rowspan="3" style="text-align:right;"><b><%= t 'outside' %></b></td>
@@ -61,8 +57,10 @@
             <td><%= content_tag :span, 'BBQ' %><%= ff.number_field :outside_bbq, :class => 'span1' %></td>
             <td>&nbsp;</td>
           </tr>
+          <tr></tr>
           <tr>
-            <td colspan="3"><%= content_tag :span, "#{t 'other'}" %><%= ff.text_field :outside_other, :class => 'comment_one_liner' %></td>
+            <td rowspan="2" style="text-align:right;"><b><%= t 'other' %></b></td>
+            <td colspan="3"><%= content_tag :span, "#{t 'comment'}" %><%= ff.text_field :furniture_other, :class => 'comment_one_liner' %></td>
           </tr>
         </tbody>
       </table>

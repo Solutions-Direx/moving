@@ -24,7 +24,6 @@
     <%= content_tag(:li, pluralize(@quote.furniture.living_armchair, "#{t 'armchair'}")) if @quote.furniture.living_armchair.present? %>
     <%= content_tag(:li, pluralize(@quote.furniture.living_wall_unit, "#{t 'wall_unit'}", "#{t 'wall_units', default: 'Wall units'}")) if @quote.furniture.living_wall_unit.present? %>
     <%= content_tag(:li, pluralize(@quote.furniture.living_tv, 'TV')) if @quote.furniture.living_tv.present? %>
-    <%= content_tag(:li, @quote.furniture.living_other) if @quote.furniture.living_other.present? %>
   </ul>    
 </div>
 
@@ -35,7 +34,6 @@
     <%= content_tag(:li, pluralize(@quote.furniture.base_shelf, "#{t 'shelf'}")) if @quote.furniture.base_shelf.present? %>
     <%= content_tag(:li, pluralize(@quote.furniture.base_desk, "#{t 'desk'}", "#{t 'desks', default: 'Desks'}")) if @quote.furniture.base_desk.present? %>
     <%= content_tag(:li, pluralize(@quote.furniture.base_training, "#{t 'training_set'}", "#{t 'training_sets', default: 'Training sets'}")) if @quote.furniture.base_training.present? %>
-    <%= content_tag(:li, @quote.furniture.base_other) if @quote.furniture.base_other.present? %>
   </ul>
 </div>
 
@@ -47,7 +45,9 @@
     <%= content_tag(:li, pluralize(@quote.furniture.outside_bike, "#{t 'bike'}")) if @quote.furniture.outside_bike.present? %>
     <%= content_tag(:li, pluralize(@quote.furniture.outside_table, "#{t 'patio_table'}", "#{t 'patio_tables', default: 'Patio tables'}")) if @quote.furniture.outside_table.present? %>
     <%= content_tag(:li, pluralize(@quote.furniture.outside_bbq, 'BBQ')) if @quote.furniture.outside_bbq.present? %>
-    <%= content_tag(:li, @quote.furniture.outside_other) if @quote.furniture.outside_other.present? %>
   </ul>
 </div>
+
+<%= content_tag(:p, "#{t 'other'}: #{@quote.furniture.furniture_other}") if @quote.furniture.furniture_other.present? %>
+
 <% end %>

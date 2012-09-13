@@ -31,9 +31,9 @@ fr:
         last_name: "Nom de famille"
         role: "Rôle"
         localization: "Langue"
-        num_appliances: "Nb d'électroménagers"
-        num_boxes: Nb de boites à transporter
-        num_of_removal_man: "Nb de déménageurs"
+        num_appliances: "Nbre d'électroménagers"
+        num_boxes: Nbre de boites à transporter
+        num_of_removal_man: "Nbre de déménageurs"
         company_name: "Nom de société"
         phone: "Téléphone"
         phone1: "Téléphone1"
