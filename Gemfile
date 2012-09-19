@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.7'
+gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -14,7 +14,6 @@ gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
 gem 'kaminari'
 gem 'cancan'
 gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
-gem 'heroku'
 gem 'faker'
 gem "watu_table_builder", :require => "table_builder", :git => "git://github.com/watu/table_builder.git"
 gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
