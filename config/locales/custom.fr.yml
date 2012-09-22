@@ -260,9 +260,9 @@ fr:
   error_msg: Une erreur est survenue. Veuillez réessayer ou contacter l'administrateur du système.
   billing_contact: Personne contact pour facturation
   hourly: par heure
-  reset_pass_intro: Quelqu'un a demandé à changer son mot de passe et vous pouvez le faire en suivant le lient suivant
+  reset_pass_intro: Quelqu'un a demandé à changer son mot de passe et vous pouvez le faire en suivant le lien suivant
   reset_pass_ignore: Si vous n'avez pas fait cette demande alors veuillez ignorer ce message
-  reset_pass_nochange: Votre mot de passe ne sera pas changé tant que vous ne cliquerez pas sur le lien et que vous en choisissiez un autre
+  reset_pass_nochange: Votre mot de passe ne sera pas changé tant que vous ne cliquerez pas sur le lien et que vous n'en choisissez pas un autre
   add_by_default: Inclus pas défaut
   companies: Entreprises
   company: Entreprise
