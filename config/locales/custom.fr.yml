@@ -287,6 +287,8 @@ fr:
   amount_left: Solde
   payments_received: Paiements reçus
   amount_received: Montant reçu
+  no_payments_found: Aucun paiement trouvé
+  received_on: reçus le
   mon: Lun
   tue: Mar
   wed: Mer

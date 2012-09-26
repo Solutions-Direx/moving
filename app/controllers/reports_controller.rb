@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :load_quote_and_report, :except => [:index]
+  before_filter :load_quote_and_report, :except => [:index, :payments]
   helper_method :sort_column
   set_tab :reports
   
@@ -36,6 +36,20 @@ class ReportsController < ApplicationController
       render :nothing => true
     else
       redirect_to quote_report_url(@quote), notice: "#{Report.model_name.human} #{t 'is_signed'}"
+    end
+  end
+  
+  def payments
+    if params[:day].present?
+      @day = Time.zone.parse(params[:day]).to_date
+      @payments = Payment.includes(:client, :invoice).by_day(@day).order("date" + " " + sort_direction).page(params[:page])
+    else
+      @day = Time.zone.today
+      @payments = Payment.includes(:client, :invoice).today.order("date" + " " + sort_direction).page(params[:page])
+    end
+
+    respond_to do |format|
+      format.html
     end
   end
   

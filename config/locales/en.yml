@@ -91,6 +91,7 @@ en:
   standard: "Standard"
   deposit_received: Deposit received
   payments_received: Payments received
+  payments: Payments
   deposit_name: Deposit
   visa: "Visa"
   mastercard: "Master Card"

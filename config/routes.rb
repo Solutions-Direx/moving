@@ -52,7 +52,11 @@ Moving::Application.routes.draw do
     resources :annexes
   end
   
-  resources :reports, :only => [:index]
+  resources :reports, :only => :index do
+    collection do
+      get 'payments'
+    end
+  end
   resources :invoices, :only => :index do
     collection do
       get 'export'
