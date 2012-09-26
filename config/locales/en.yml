@@ -90,6 +90,7 @@ en:
   manager: "Manager"
   standard: "Standard"
   deposit_received: Deposit received
+  payments_received: Payments received
   deposit_name: Deposit
   visa: "Visa"
   mastercard: "Master Card"

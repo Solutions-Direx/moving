@@ -137,10 +137,11 @@
         <td><%= t('insurance') %></td>
         <td class="right"><%= number_to_currency(to_address.insurance) %></td>
       </tr>
-      <% end -%>
-    <% end -%>
-  <% end -%>
-
+      <% end %>
+    <% end %>
+  <% end %>
+  
+  <!-- DISCOUNT -->
   <% if @invoice.total_discount > 0 %>
   <tr>
     <td><%= t 'discount' %></td>
@@ -173,6 +174,14 @@
     <td class="right"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax2_amount) %></h3></td>
   </tr>
   <% end %>
+  <!-- DEPOSIT -->
+    <% if @invoice.quote.deposit %>
+      <% deposit = @invoice.quote.deposit %>
+      <tr>
+        <td><%= t('deposit_received') %> - <%= t(deposit.payment_method) %> <%= "(#{t deposit.credit_card_type})" if deposit.credit_card_type.present? %> - <%= l deposit.date %></td>
+        <td class="right"><h3 style="font-weight: normal;">- <%= number_to_currency(@invoice.quote.deposit.amount) %></h3></td>
+      </tr>
+    <% end %>
   <tr>
     <td></td>
     <td><hr/></td>
@@ -184,8 +193,13 @@
   </tr>
 </table>
 <br />
-<% unless @invoice.client.commercial? %>
-  <h3><%= t 'payment_method' %>: <%= t @invoice.payment_method %> <%= "(#{t @invoice.credit_card_type})" if @invoice.payment_method == "credit" %></h3>
+<% if @invoice.payments.any? %>
+  <h3><%= t 'payments_received' %></h3>
+  <ul>
+    <% @invoice.payments.each do |payment| %>
+      <li><%= l payment.date %>: <%= number_to_currency(payment.amount) %> - <%= t payment.payment_method %> <%= "(#{t payment.credit_card_type} - ID: #{payment.transaction_number})" if payment.credit_card_type.present? %> <%= "(ID:" && payment.transaction_number && ")" %></li>
+    <% end %>
+  </ul>
 <% end %>
 <br />
 <br />

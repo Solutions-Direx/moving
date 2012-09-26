@@ -23,4 +23,5 @@ class Payment < ActiveRecord::Base
   def total
     amount + (try(:tip) || 0)
   end
+  
 end

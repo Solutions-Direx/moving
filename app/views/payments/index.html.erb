@@ -28,7 +28,7 @@
         <% end -%>
         <% if payment.transaction_number.present? %>
           <br/><%= t('transaction_number') %>: <%= payment.transaction_number %>
-        <% end -%>
+        <% end %>
       </td>
       <td><%= link_to "#{t 'edit'}", edit_quote_invoice_payment_path(@quote, payment) %></td>
       <td><%= link_to "#{t 'destroy'}", quote_invoice_payment_path(@quote, payment), data: {confirm: "#{t 'are_you_sure'}"}, method: :delete %></td>
