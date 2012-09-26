@@ -197,7 +197,7 @@
   <h3><%= t 'payments_received' %></h3>
   <ul>
     <% @invoice.payments.each do |payment| %>
-      <li><%= l payment.date %>: <%= number_to_currency(payment.amount) %> - <%= t payment.payment_method %> <%= "(#{t payment.credit_card_type} - ID: #{payment.transaction_number})" if payment.credit_card_type.present? %> <%= "(ID:" && payment.transaction_number && ")" %></li>
+      <li><%= l payment.date %>: <%= number_to_currency(payment.amount) %> - <%= payment.payment_option_details %></li>
     <% end %>
   </ul>
 <% end %>
