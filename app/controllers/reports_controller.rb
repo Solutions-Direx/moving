@@ -39,6 +39,7 @@ class ReportsController < ApplicationController
     end
   end
   
+  # Payments report
   def payments
     if params[:day].present?
       @day = Time.zone.parse(params[:day]).to_date
@@ -50,6 +51,20 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       format.html
+    end
+  end
+  
+  def verify
+    @report.verify_report
+    
+    respond_to do |format|
+      if @report.update_attributes(params[:report])
+        format.html { redirect_to quote_report_url(@quote), notice: "#{Report.model_name.human} #{t 'is_verified'}" }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @report.errors, status: :unprocessable_entity }
+      end
     end
   end
   

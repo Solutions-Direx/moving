@@ -1,4 +1,10 @@
 <div>
+  <% if @report.verified? %>
+    <p class="alert alert-success"><%= Report.model_name.human %> <%= t 'verified_on' %> <%= I18n.l(@report.verified_at, :format => :long) %> <%= t 'by' %> <%= @report.verificator.full_name %></p>
+  <% else %>
+    <p class='alert alert-info'><%= t 'report_not_verified_yet', default: 'This report has not been verified yet' %>.</p>
+  <% end %>
+      
   <% if @quote.deposit.present? %>
     <p><strong><%= t('deposit_received') %>:</strong> <%= number_to_currency(@quote.deposit.amount) %></p>
   <% end %>

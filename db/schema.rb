@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120913041434) do
+ActiveRecord::Schema.define(:version => 20120926155530) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
@@ -339,8 +339,11 @@ ActiveRecord::Schema.define(:version => 20120913041434) do
     t.text     "signature"
     t.datetime "signed_at"
     t.text     "comment"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.boolean  "verified",       :default => false
+    t.datetime "verified_at"
+    t.integer  "verificator_id"
   end
 
   create_table "rooms", :force => true do |t|

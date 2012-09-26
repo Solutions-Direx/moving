@@ -9,6 +9,7 @@
 
 <table class="table table-striped">
   <tr>
+    <th></th>
     <th style="width: 80px;"><%= sortable 'removal_at', t('removal_at') %></th>
     <th>Client</th>
     <th><%= sortable "code", Quote.model_name.human %></th>
@@ -16,12 +17,13 @@
     <th><%= t 'removal_team_lead' %></th>
     <th><%= t 'signed_date', default: 'Signed Date' %></th>
     <th><%= t 'payments_received', default: 'Payments' %></th>
-    <th></th>
+    <th style="width: 80px;"></th>
   </tr>
 
 <% @reports.each do |report| %>
   <tr>
-    <td><%= l report.quote.removal_at.to_date %></td>
+    <td><%= report.verified? ? status_tag(t 'verified') : button_link_to("#{t 'verify', default: 'Verify'}", verify_quote_report_path(report.quote), method: :post, level: "success", data: {confirm: "#{t 'please_confirm'}"}) %></td>
+    <td><%= report && report.removal_men.any? ? link_to(l(report.quote.removal_at.to_date), quick_view_quote_report_path(report.quote), remote: true, class: "details", :"data-type" => 'html') : l(report.quote.removal_at.to_date) %></td>
     <td><%= link_to report.quote.client.name, client_path(report.quote.client) %> <%= status_tag('comm.') if report.quote.client.commercial? %></td>
     <td><%= link_to "##{report.quote.code}", quote_path(report.quote) %></td>
     <td><%= report.quote.trucks.map(&:name_with_plate).to_sentence %></td>
@@ -34,12 +36,7 @@
         <%= status_tag 'N/A' %> <%= link_to "##{report.quote.invoice.code}", quote_invoice_path(report.quote) unless !report.quote.invoice %>
       <% end %>
     </td>
-    <td>
-      <%= icon_button_link_to t('edit'), edit_quote_report_path(report.quote), icon: 'pencil' %>
-      <% if report && report.removal_men.any? %>
-        <%= icon_button_link_to t('details'), quick_view_quote_report_path(report.quote), icon: 'list-alt', remote: true, class: "details", :"data-type" => 'html' %>
-      <% end %>
-    </td>
+    <td><%= icon_button_link_to t('edit'), edit_quote_report_path(report.quote), icon: 'pencil' %></td>
   </tr>
 <% end %>
 </table>

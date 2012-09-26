@@ -4,7 +4,31 @@
     <% unless @report.signed? %>  
       <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>  
     <% end %>
+    <% if @report.verified? %>
+      <%= link_to "#{t 'verified', default: 'Verified'}", '#', :class => 'btn btn-success btn-large disabled', "data-original-title"=> t('report_verification'),"data-content"=> "#{render(template: 'reports/verification', locals: {report: @report}, formats: [:html])}", "data-placement" => "left", :id => "verify" %>
+    <% else %>
+      <%= button_link_to "#{t 'mark_as_verified', default: 'Mark as verified'}", verify_quote_report_path(@report.quote), method: :post, level: "success", large: true %>
+    <% end %>
   </span>
 </h2>
 
 <%= render 'reports/details', mobile: false %>
+
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $("#verify")
+      .popover({
+          // offset: 10,
+          trigger: 'manual',
+          animate: false,
+          html: true,
+          placement: 'top',
+          template: '<div class="popover" onmouseover="$(this).mouseleave(function() {$(this).hide(); });"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+      }).click(function(e) {
+          e.preventDefault() ;
+      }).mouseenter(function(e) {
+          $(this).popover('show');
+      });
+  });
+</script>

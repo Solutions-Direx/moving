@@ -148,6 +148,8 @@ en:
   purchase_order: Purchase Order
   here: here
   details: Details
+  verified_on: verified on
+  please_confirm: Please confirm
   activerecord:
     attributes:
       user:  

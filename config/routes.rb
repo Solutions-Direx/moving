@@ -24,8 +24,9 @@ Moving::Application.routes.draw do
 
     resource :report, :only => [:show, :edit, :update] do
       member do
-        get :quick_view
+        get  :quick_view
         post :sign
+        post :verify
       end
     end
     resource :deposit, :only => [:new, :create]

@@ -307,7 +307,11 @@ fr:
   here: ici
   invoice_fully_paid: "Facture réglée en totalité. Cliquez"
   add_new_payment: pour ajouter un nouveau paiement
-  activerecord:   
+  mark_as_verified: Marquer comme vérifié
+  is_verified: est vérifié
+  verified_on: vérifié le
+  please_confirm: Please confirm
+  activerecord:
     models:
       account: Compte
       annex: Annexe

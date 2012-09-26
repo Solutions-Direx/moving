@@ -1,0 +1,1 @@
+<%= Report.model_name.human %> <%= t 'verified_on' %> <%= I18n.l(@report.verified_at, :format => :long) %> <%= t 'by' %> <%= @report.verificator.full_name %>
