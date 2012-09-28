@@ -18,7 +18,8 @@ class Ability
       can :manage, Supply
       can :manage, Truck
       can :manage, Invoice
-      can :manage, Report
+      can [:index, :show, :edit, :update, :sign, :verify], Report
+      cannot [:payments], Report
       can :manage, Payment
       can :sign, Quote
     elsif user.removal_man?
@@ -32,7 +33,7 @@ class Ability
       can :read, Supply
       can :read, Truck
       can [:read, :edit, :new], Invoice
-      can [:read, :edit, :new], Report
+      can [:read, :edit, :new, :sign, :update], Report
       can :sign, Quote
     end
   end

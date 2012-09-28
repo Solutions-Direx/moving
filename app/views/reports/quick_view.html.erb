@@ -17,4 +17,11 @@
       <% end %>
     </ul>
   <% end %>
+
+  <p><b><%= t 'km_start', default: 'KM start' %>:</b> <%= number_with_precision(@report.km_start, precision: 0) %></p>
+  <p><b><%= t 'km_end', default: 'KM end' %>:</b> <%= number_with_precision(@report.km_end, precision: 0) %></p>
+  <p><b><%= t 'km_total', default: 'KM total' %>:</b> <%= number_with_precision(@report.total_km, precision: 0) %></p>
+  <p><b><%= t 'gas_helper', default: 'Gas (liters)' %>:</b> <%= number_with_precision(@report.gas, precision: 0) %></p>
+  <p><b><%= t 'start_time', default: 'Start time' %>:</b> <%= @report.start_time.strftime("%H:%M") unless @report.start_time.blank? %></p>
+  <p><b><%= t 'end_time', default: 'End time' %>:</b> <%= @report.end_time.strftime("%H:%M") unless @report.end_time.blank? %></p>
 </div>

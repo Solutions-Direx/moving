@@ -7,7 +7,7 @@
     <% if @report.verified? %>
       <%= link_to "#{t 'verified', default: 'Verified'}", '#', :class => 'btn btn-success btn-large disabled', "data-original-title"=> t('report_verification'),"data-content"=> "#{render(template: 'reports/verification', locals: {report: @report}, formats: [:html])}", "data-placement" => "left", :id => "verify" %>
     <% else %>
-      <%= button_link_to "#{t 'mark_as_verified', default: 'Mark as verified'}", verify_quote_report_path(@report.quote), method: :post, level: "success", large: true %>
+      <%= button_link_to "#{t 'mark_as_verified', default: 'Mark as verified'}", verify_quote_report_path(@report.quote), method: :post, level: "success", large: true, data: {confirm: "#{t 'please_confirm'}"} %>
     <% end %>
   </span>
 </h2>

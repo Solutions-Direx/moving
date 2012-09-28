@@ -310,8 +310,10 @@ fr:
   mark_as_verified: Marquer comme vérifié
   is_verified: est vérifié
   verified_on: vérifié le
-  please_confirm: Please confirm
-  report_verification: Report Verification
+  please_confirm: Veuillez confirmer
+  report_verification: Vérification du rapport
+  verify: Vérifier
+  verified: Vérifié
   activerecord:
     models:
       account: Compte
