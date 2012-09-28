@@ -11,5 +11,5 @@
       (#<%= payment.transaction_number %>)
     <% end -%>
   </td>
-  <td><%= button_link_to 'x', quote_invoice_payment_path(payment.invoice.quote, payment), level: 'danger', remote: true, method: :delete, data: {confirm: "Are you sure?"} %></td>
+  <td><%= button_link_to 'x', quote_invoice_payment_path(payment.invoice.quote, payment), level: 'danger', remote: true, method: :delete, data: {confirm: t("are_you_sure")} %></td>
 <% end -%>
