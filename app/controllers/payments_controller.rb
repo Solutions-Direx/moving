@@ -51,6 +51,7 @@ class PaymentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to quote_invoice_payments_url(@quote), notice: "#{Payment.model_name.human} #{t 'is_deleted'}" }
       format.json { head :no_content }
+      format.js
     end
   end
 

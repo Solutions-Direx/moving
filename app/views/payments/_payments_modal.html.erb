@@ -16,6 +16,7 @@
           <th width="25%"><%= t 'amount' %></th>
           <th width="15%"><%= t 'tip' %></th>
           <th><%= t 'payment_method' %></th>
+          <th></th>
         </tr>
         <% @payments.each do |payment| %>
           <%= render 'payments/payment', payment: payment %>

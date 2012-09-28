@@ -11,6 +11,14 @@ class QuotesController < ApplicationController
       @quotes = current_account.quotes.includes(:client, :creator, :company).order(sort_column + " " + sort_direction).page(params[:page])
     end
 
+    if params[:from].present? && params[:to].present?
+      @quotes = @quotes.within_period(params[:from].to_date, params[:to].to_date)
+    elsif params[:from].present?
+      @quotes = @quotes.from_date(Time.zone.parse(params[:from]))
+    elsif params[:to].present?
+      @quotes = @quotes.to_date(Time.zone.parse(params[:to]))      
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @quotes }

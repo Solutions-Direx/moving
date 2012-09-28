@@ -1,4 +1,4 @@
-<tr>
+<%= content_tag_for :tr, payment do %>
   <td><%= l payment.date %></td>
   <td><%= number_to_currency payment.amount %></td>
   <td><%= number_to_currency(payment.tip) if payment.tip.present? %></td>
@@ -11,4 +11,5 @@
       (#<%= payment.transaction_number %>)
     <% end -%>
   </td>
-</tr>
+  <td><%= button_link_to 'x', quote_invoice_payment_path(payment.invoice.quote, payment), level: 'danger', remote: true, method: :delete, data: {confirm: "Are you sure?"} %></td>
+<% end -%>

@@ -102,6 +102,10 @@ class Quote < ActiveRecord::Base
   scope :applicable, where(:status => ['pending', 'confirmed'])
   scope :today, lambda { where("removal_at BETWEEN '#{Date.today.beginning_of_day.utc}' AND '#{Date.today.end_of_day.utc}'") }
   scope :by_day, lambda { |day| where("removal_at BETWEEN '#{day.beginning_of_day.utc}' AND '#{day.end_of_day.utc}'") }
+  scope :within_period, lambda {|from, to| where(removal_at: (from..to))}  
+  scope :from_date, lambda {|from| where("removal_at >= ?", from)}  
+  scope :to_date, lambda {|to| where("removal_at <= ?", to)}  
+
   # define pending?, confirmed? and rejected?
   STATUSES.each do |method|
    define_method "#{method.downcase}?" do

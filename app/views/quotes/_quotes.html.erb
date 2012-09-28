@@ -3,6 +3,20 @@
     <%= hidden_field_tag 'sort', params[:sort] %>
     <%= hidden_field_tag 'direction', params[:direction] %>
     <%= text_field_tag 'search', params[:search] %>
+    <% if period_search %>
+      <%= label_tag 'from' %>
+      <div class="input-append">
+        <%= text_field_tag '', params[:from], class: 'datepicker' %>
+        <%= hidden_field_tag :from, params[:from], :class => "datepicker-alt" %>
+        <span class="add-on clear">×</span>
+      </div>
+      <%= label_tag 'to' %>
+      <div class="input-append">
+        <%= text_field_tag '', params[:to], class: 'datepicker' %>
+        <%= hidden_field_tag :to, params[:to], :class => "datepicker-alt" %>
+        <span class="add-on clear">×</span>
+      </div>
+    <% end -%>
     <%= submit_tag "#{t 'search'}", class: 'btn', name: nil %>
   <% end %>
   <%= paginate @quotes %>

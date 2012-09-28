@@ -9,7 +9,7 @@
 <% end %>
 
 <% if @quotes.any? %>
-  <%= render 'quotes' %>
+  <%= render 'quotes', period_search: false %>
 <% else %>
   <p class='alert alert-info'><%= t "no_pending_quotes", default: 'No pending quotes for today.' %></p>
 <% end %>  

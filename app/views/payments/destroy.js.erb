@@ -1,0 +1,11 @@
+try {
+  // $('#payments').append('<%= j(render("payment", payment: @payment)) %>');
+  $('#<%= dom_id(@payment) %>').remove();
+  $('#new-payment-section').replaceWith('<%= j(render("payments/form", payment: @invoice.payments.build)) %>');
+  $('#amount_left').text('<%= number_to_currency @invoice.amount_left %>');
+  $('#amount_received').text('<%= number_to_currency @invoice.amount_received %>');
+  $('#payments-container').show();
+  $('#amount_remaining').css('display', 'inline-block');
+} catch (err) {
+  console.log(err);
+}
