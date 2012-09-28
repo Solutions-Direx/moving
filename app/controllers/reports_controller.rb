@@ -43,10 +43,10 @@ class ReportsController < ApplicationController
   def payments
     if params[:day].present?
       @day = Time.zone.parse(params[:day]).to_date
-      @payments = Payment.includes(:client, :invoice).by_day(@day).order("date" + " " + sort_direction).page(params[:page])
+      @payments = Payment.includes(:client, :invoice).by_day(@day).order(sort_column + " " + sort_direction).page(params[:page])
     else
       @day = Time.zone.today
-      @payments = Payment.includes(:client, :invoice).today.order("date" + " " + sort_direction).page(params[:page])
+      @payments = Payment.includes(:client, :invoice).today.order(sort_column + " " + sort_direction).page(params[:page])
     end
 
     respond_to do |format|
@@ -76,7 +76,7 @@ protected
   end
   
   def sort_column
-    params[:sort].present? ? params[:sort] : "signed_at"
+    params[:sort].present? ? params[:sort] : "date"
   end
 
   def sort_direction

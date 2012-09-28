@@ -11,8 +11,8 @@ class Payment < ActiveRecord::Base
 
   before_save :cleanup
   
-  scope :today, lambda { where("date BETWEEN '#{Date.today.beginning_of_day.utc}' AND '#{Date.today.end_of_day.utc}'") }
-  scope :by_day, lambda { |day| where("date BETWEEN '#{day.beginning_of_day.utc}' AND '#{day.end_of_day.utc}'") }
+  scope :today, lambda { where(date: Date.today) }
+  scope :by_day, lambda { |day| where("date BETWEEN '#{day.beginning_of_day}' AND '#{day.end_of_day}'") }
 
   def cleanup
     # clear transaction number if not credit/debit
