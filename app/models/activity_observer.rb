@@ -21,7 +21,7 @@ class ActivityObserver < ActiveRecord::Observer
       act = Activity.new
       act.actor_id = User.current_user.present? ? User.current_user.id : nil
       act.trackable = trackable
-      act.action = trackable.respond_to?(:is_verify) && trackable.is_verify ? 'verifie' : 'update'
+      act.action = trackable.respond_to?(:is_verify) && trackable.is_verify ? 'verified' : 'updated'
       act.quote_id = trackable.quote_id
       act.save
     else

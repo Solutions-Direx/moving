@@ -23,7 +23,7 @@ fr:
   no_search_results_found: 'Aucun résultat trouvé'
   search_result: 'résultat'
   found: 'trouvé'
-  srch_inpt_plcholder: "Client, Téléphone, Numéro d'entente..."
+  srch_inpt_placeholder: "Client, Téléphone, Numéro d'entente..."
   signed: 'signée'
   is_signed: 'signé'
   not_signed: 'Non signée'
@@ -161,7 +161,9 @@ fr:
   medium: 'Moyenne'
   large: 'Large'
   from: Départ
+  from_date: Entre
   to: Arrivée
+  to_date: et
   created_by: Créée par
   prepared_by: Préparée par
   email_to_client: 'Envoyer'

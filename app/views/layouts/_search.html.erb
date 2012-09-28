@@ -1,6 +1,6 @@
 <div id="main_search">
   <%= form_tag search_path, :method => :get, :remote => true, :id => "search-form" do %>
-    <%= text_field_tag :query, params[:query], placeholder: t('srch_inpt_plcholder', default: 'Client, Phone, Quote ID...') %>
+    <%= text_field_tag :query, params[:query], placeholder: t('srch_inpt_placeholder', default: 'Client, Phone, Quote ID...') %>
     <%= submit_tag t('search'), class: "btn btn-search btn-xlarge" %>
   <% end %>
 </div>

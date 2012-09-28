@@ -55,7 +55,7 @@ class PaymentsController < ApplicationController
     end
   end
 
-  private
+private
 
   def load_quote_and_invoice
     @quote = Quote.find_by_code(params[:quote_id])

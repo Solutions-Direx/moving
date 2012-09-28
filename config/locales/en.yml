@@ -150,6 +150,7 @@ en:
   details: Details
   verified_on: verified on
   please_confirm: Please confirm
+  srch_inpt_placeholder: "Client, Phone, Quote ID..."
   activerecord:
     attributes:
       user:  
