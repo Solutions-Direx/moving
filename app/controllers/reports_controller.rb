@@ -60,7 +60,6 @@ class ReportsController < ApplicationController
     
     respond_to do |format|
       if @report.update_attributes(params[:report])
-        Activity.new(actor_id: current_user.id, trackable: 'Report', action: 'verified', quote_id: @report.quote.id)
         format.html { redirect_to quote_report_url(@quote), notice: "#{Report.model_name.human} #{t 'is_verified'}" }
         format.json { head :no_content }
       else
