@@ -2,20 +2,10 @@
   <td><%= l payment.date %></td>
   <td><%= number_to_currency payment.amount %></td>
   <td><%= number_to_currency(payment.tip) if payment.tip.present? %></td>
-<<<<<<< HEAD
-  <td>
-    <%= t payment.payment_method %> 
-    <% if payment.payment_method == 'credit' && payment.credit_card_type.present? %>
-      - <%= t payment.credit_card_type %>
-    <% end %>
-    <% if ['credit', 'debit'].include?(payment.payment_method) && payment.transaction_number.present? %>
-      (#<%= payment.transaction_number %>)
-    <% end -%>
-  </td>
+  <td><%= payment.payment_option_details %></td>
   <td><%= button_link_to 'x', quote_invoice_payment_path(payment.invoice.quote, payment), level: 'danger', remote: true, method: :delete, data: {confirm: t("are_you_sure")} %></td>
-<% end -%>
-=======
+<% end %>
+
   <td><%= payment.payment_option_details %></td>
   <td><%= button_link_to 'x', quote_invoice_payment_path(payment.invoice.quote, payment), level: 'danger', remote: true, method: :delete, data: {confirm: "Are you sure?"}, class: "#{!current_user.manager? ? 'disabled' : ''}" %></td>
 <% end %>
->>>>>>> Permissions, search & translation. related to #84 & #86
