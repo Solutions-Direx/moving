@@ -311,6 +311,7 @@ fr:
   is_verified: est vérifié
   verified_on: vérifié le
   please_confirm: Please confirm
+  report_verification: Report Verification
   activerecord:
     models:
       account: Compte
