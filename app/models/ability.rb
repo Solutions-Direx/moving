@@ -14,6 +14,7 @@ class Ability
       can :manage, Forfait
       can :manage, Furniture
       can :manage, Quote
+      cannot :destroy, Quote
       can :manage, Storage
       can :manage, Supply
       can :manage, Truck

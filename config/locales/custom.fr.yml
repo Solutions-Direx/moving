@@ -271,6 +271,7 @@ fr:
   add_company: Ajouter une entreprise
   add_tax: Ajouter une taxe
   payments: Paiements
+  payment: paiement
   payments_received: Paiements reçus
   new_payment: Nouveau paiement
   payment_of_invoice: Paiement de la facture

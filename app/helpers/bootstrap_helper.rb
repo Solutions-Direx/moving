@@ -25,7 +25,7 @@ module BootstrapHelper
     css_class = column == sort_column ? "current #{sort_direction}" : nil
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
     options = {:sort => column, :direction => direction}
-    options.merge!(params.slice(:search, :day))
+    options.merge!(params.slice(:search, :day, :from, :to))
     link_to title, options, {:class => css_class}
   end
   

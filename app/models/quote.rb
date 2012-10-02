@@ -94,6 +94,7 @@ class Quote < ActiveRecord::Base
   # CALLBACKS
   before_create :generate_code, :copy_billing_address
   before_save :ignore_blank_addresses, :ignore_blank_rooms
+  after_destroy :track_activity
   
   # SCOPES
   scope :pending, where(:status => 'pending')
@@ -212,6 +213,15 @@ private
     if from_address && from_address.address.all_blank?
       errors.add(:base, "#{I18n.t 'from_address_cannot_be_blank', default: 'From address cannot be blank'}")
     end
+  end
+
+  def track_activity
+    act = Activity.new
+    act.actor_id = User.current_user.present? ? User.current_user.id : nil
+    act.trackable = self
+    act.action = 'destroyed'
+    act.quote_id = nil
+    act.save
   end
   
 end

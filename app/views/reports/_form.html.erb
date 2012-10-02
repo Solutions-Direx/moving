@@ -64,5 +64,6 @@
 <script type="text/javascript" charset="utf-8">
   $(function() {
     $(".chzn").chosen();
+    Reports.Form.init(<%= @report.quote.invoice ? @report.quote.invoice.time_spent : 'null' %>);
   });
 </script>

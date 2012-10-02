@@ -9,7 +9,7 @@
   <% @activities.each do |activity| %>
     <tr>
       <td><%= l activity.created_at %></td>
-      <td><%= activity.actor.present? ? activity.actor.first_name : 'System' %> <%= status_tag("#{activity.action}d", level: "#{activity.action}") %> <%= "#{activity.trackable_type} ##{activity.trackable_id}" %>. Related to <%= link_to "quote #{activity.quote_id}", quote_path(activity.quote_id) %></td>
+      <td><%= activity.actor.present? ? activity.actor.first_name : 'System' %> <%= status_tag("#{activity.action}", level: "#{activity.action}") %> <%= "#{activity.trackable_type} ##{activity.trackable_id}" %>. <% if activity.quote_id %>Related to <%= link_to "quote #{activity.quote_id}", quote_path(activity.quote_id) %><% end -%></td>
     </tr>
   <% end %>
 </table>
