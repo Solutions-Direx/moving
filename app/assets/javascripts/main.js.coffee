@@ -20,5 +20,4 @@ $ ->
       $(this).datepicker($.extend($.datepicker.regional["en-GB"], {altFormat: "yy/mm/dd", altField: $(this).next()}))
 
   $('.clear').click -> 
-    console.log('voday');
     $(this).closest('.input-append').find('input').val('')
