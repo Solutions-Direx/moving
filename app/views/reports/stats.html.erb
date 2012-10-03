@@ -22,7 +22,7 @@
       <span class="add-on clear">×</span>
     </div>
     <%= select_tag :sale_representative_id, options_for_select(User.all.map{|c| [c.full_name, c.id]}, params[:sale_representative_id]), prompt: '-- Select --' %>
-    <%= submit_tag "#{t 'search'}", class: 'btn', name: nil %>
+    <%= submit_tag "#{t 'search'}", class: 'btn', name: nil, disable_with: 'Searching...' %>
   <% end -%>
 </div>
 
