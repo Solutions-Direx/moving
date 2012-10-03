@@ -38,6 +38,7 @@ Moving::Application.routes.draw do
       put 'cancel_reject'
       post 'email'
       get 'print'
+      get 'fullprint'
     end
     
     collection do

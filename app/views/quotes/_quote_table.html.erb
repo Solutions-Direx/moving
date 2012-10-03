@@ -5,10 +5,13 @@
   <% else %>
     <%= image_tag(@quote.company.logo.url(:thumb)) %>
   <% end %>
+<% else %>
+  <h2 style="margin-top: 5px; padding-left:0;"><%= @quote.company.company_name %></h2>
 <% end %>
   <span style='float:right; vertical-align:top;'><%= @quote.client.name_with_code %><br /><%= t "#{Quote.model_name.human}" %></b> #<%= @quote.code %></span>
+  <%= simple_format(@quote.company.invoice_header, style: "font-size:10px;") if @quote.company.invoice_header.present? %>
 </h1>
-<h2 style="margin-top: 5px;"><%= @quote.company.company_name %></h2>
+
 <p><b><%= t 'removal_at' %>:</b> <%= l @quote.removal_at, :format => :long %> <%= "(PM) #{t 'removal_time_confirmation'}" if @quote.pm? %>
       || <%= @quote.is_house? ? "#{t 'house'}" : "#{t 'apartment'}" %></p>
 <!-- ADDRESSES -->
@@ -241,7 +244,8 @@
 <!-- CONFIRMATION -->
 <% if @quote.confirmed? %>
   <hr/>
-  <h3><%= t 'confirmation_details', default: 'Confirmation Details' %></h3>
+  <h3><%= t 'quote_confirmation', default: 'Quote confirmation' %></h3>
+  <p><%= t 'approved_on' %> <%= I18n.l(@quote.quote_confirmation.approved_at, :format => :long) %> <%= t 'by' %> <%= @quote.quote_confirmation.user.full_name %></p>
   <p><%= t 'insurance_increase' %>: 
   <%= @quote.quote_confirmation.insurance_limit_enough? ? "#{t 'nope'}" : number_to_currency(@quote.quote_confirmation.insurance_increase) %>
   </p>

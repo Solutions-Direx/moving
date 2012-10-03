@@ -1,0 +1,42 @@
+<%= render 'quotes/quote_table', absolute_path: true %>
+
+<% if @quote.documents.any? %>
+  <hr/>
+  <% @quote.documents.each do |document| %>
+    <h3 style="padding-left:0;"><%= document.name %></h3>
+    <%= simple_format(document.body) %>
+  <% end %>
+<% end %>
+
+<hr />
+<h2 style="padding-left:0;"><%= t 'temp_invoice', default: 'Temporary Invoice' %></h2>
+<p>___ <%= label_tag "#{t 'billed_hours', default: 'Billed Hours'}" %> * <%= number_to_currency(@quote.price) %> = <%= text_field_tag 'Hours' %></p>
+<p><%= label_tag "", "TPS" %>: <%= text_field_tag 'tps' %></p>
+<p><%= label_tag "", "TVQ" %>: <%= text_field_tag 'tvq' %></p>
+<p><%= label_tag "", "TVH" %>: <%= text_field_tag 'tvh' %></p>
+<p>TOTAL: <%= text_field_tag 'Total' %></p>
+
+<h4 style="padding-left:0;"><%= t 'payments' %></h4>
+<p><%= label_tag "", "#{t 'cash'}" %>: <%= text_field_tag 'cash' %></p>
+<p><%= label_tag "", "#{t 'debit'}" %>: <%= text_field_tag 'debit' %></p>
+<p><%= label_tag "", "#{t 'credit'}" %>: <%= text_field_tag 'credit' %> <%= check_box_tag '' %> <%= label_tag 'Visa' %> <%= check_box_tag '' %> <%= label_tag 'Mastercard' %>
+</p>
+
+<table>
+  <tr style="height: 50px;">
+    <th></th>
+    <th>Client</th>
+    <th><%= t 'removal_team_lead' %></th>
+  </tr>
+  <tr style="text-align:center;">
+    <td style="text-align:right;">Date</td>
+    <td>____/____/____</td>
+    <td>____/____/____</td>
+  </tr>
+  <tr>
+    <td style="text-align:right;">Signature</td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+

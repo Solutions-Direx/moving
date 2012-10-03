@@ -43,6 +43,7 @@ fr:
   rejected: Rejetée
   rejected_at: Rejetée le
   print: 'Imprimer'
+  full_print: Imprimer la version complète
   internal: 'Interne'
   not_internal: 'Externe'
   terms: 'Termes'
@@ -319,6 +320,12 @@ fr:
   verified: Vérifié
   for_total_amount_of: pour un montant total de
   you_are_not_authorized_to_access_this_page: "Vous n'êtes pas autorisé à voir cette page."
+  billed_hours: heure(s) facturée(s)
+  cash: Comptant
+  debit: Débit
+  credit: Crédit
+  authorization: Autorisation
+  temp_invoice: Facture 
   activerecord:
     models:
       account: Compte
