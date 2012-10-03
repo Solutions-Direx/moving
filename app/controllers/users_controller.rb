@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
   helper_method :sort_column
-  
-  # GET /users
-  # GET /users.json
+
   def index
     @users = current_account.users.where("id != ?", current_user.id).order(sort_column + " " + sort_direction).page(params[:page])
     respond_to do |format|
@@ -12,8 +10,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/1
-  # GET /users/1.json
   def show
     @user = User.find(params[:id])
 
@@ -23,8 +19,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/new
-  # GET /users/new.json
   def new
     @user = User.new
 
@@ -34,13 +28,10 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
   end
 
-  # POST /users
-  # POST /users.json
   def create
     @user = current_account.users.new(params[:user])
     generated_password = Devise.friendly_token.first(6)
@@ -59,8 +50,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # PUT /users/1
-  # PUT /users/1.json
   def update
     @user = User.find(params[:id])
 
@@ -75,8 +64,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
     @user.destroy
@@ -84,6 +71,28 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_url, notice: "#{User.model_name.human} #{t 'is_deleted'}" }
       format.json { head :no_content }
+    end
+  end
+  
+  def deactivate
+    @user = User.find(params[:id])
+    @user.active = false
+
+    if @user.save
+      redirect_to users_url, notice: "#{@user.full_name} #{t 'is_now_deactivated', default: 'is deactivated'}."
+    else
+      redirect_to users_url, alert: "Cannot deactivate user #{@user.full_name}. Please contact system administrator."
+    end
+  end
+
+  def activate
+    @user = User.find(params[:id])
+    @user.active = true
+
+    if @user.save
+      redirect_to users_url, notice: "#{@user.full_name} #{t 'is_now_activated', default: 'is activated'}."
+    else
+      redirect_to users_url, alert: "Cannot activate user #{@user.full_name}. Please contact system administrator."
     end
   end
   

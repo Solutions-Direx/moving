@@ -11,10 +11,10 @@
   <% end %>
   
   <!-- SALE REPRESENTATIVE -->
-    <%= f.input :sale_representative_id do %>
-      <div id="change-sale-representative"><%= f.object.sale_representative.full_name %> <%= link_to "#{t 'change'}", "#", id: "change-rp" %></div>
-      <div id="select-sale-representative" style="display: none;"><%= f.input_field :sale_representative_id, :collection => User.all.map{|c| [c.full_name, c.id]}, :class => "chzn", "data-placeholder" => "#{t'select'}" %></div>
-    <% end %>
+  <%= f.input :sale_representative_id do %>
+    <div id="change-sale-representative"><%= f.object.sale_representative.full_name %> <%= link_to "#{t 'change'}", "#", id: "change-rp" %></div>
+    <div id="select-sale-representative" style="display: none;"><%= f.input_field :sale_representative_id, :collection => User.active.all.map{|c| [c.full_name, c.id]}, :class => "chzn", "data-placeholder" => "#{t'select'}" %></div>
+  <% end %>
 
   <!-- CLIENT -->
   <%= f.input :client_id do %>

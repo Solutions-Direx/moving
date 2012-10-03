@@ -66,8 +66,8 @@
           <div class='span6'>
             <% quote.copy_trucks_to_daily %>
             <%= simple_form_for(quote, :url => daily_update_quote_path(quote), :method => :put, :remote => true) do |f| %>
-              <%= f.association :removal_leader, :label => "#{t 'removal_team_lead'}", :collection => current_account.users.removal_men.all.map{|s| [s.full_name, s.id]}, :input_html => {:class => "chzn-deselectable", "data-placeholder" => "#{t 'select_team_lead'}", :id => "team-lead-#{quote.id}"} %>
-              <%= f.association :removal_men, :label => "#{t 'removal_men'}", :collection => current_account.users.removal_men.all.map{|s| [s.full_name, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "#{t 'type_to_select_removal_men'}", :id => "removal-men-#{quote.id}", :multiple => true, :style => "width: 360px;"} %>
+              <%= f.association :removal_leader, :label => "#{t 'removal_team_lead'}", :collection => current_account.users.active.removal_men.all.map{|s| [s.full_name, s.id]}, :input_html => {:class => "chzn-deselectable", "data-placeholder" => "#{t 'select_team_lead'}", :id => "team-lead-#{quote.id}"} %>
+              <%= f.association :removal_men, :label => "#{t 'removal_men'}", :collection => current_account.users.active.removal_men.all.map{|s| [s.full_name, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "#{t 'type_to_select_removal_men'}", :id => "removal-men-#{quote.id}", :multiple => true, :style => "width: 360px;"} %>
               <%= f.association :daily_trucks, :label => "#{Truck.model_name.human}", :collection => current_account.trucks.available.map{|s| [s.name_with_plate, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "#{t 'type_to_select_trucks'}", :multiple => true, :style => "width: 360px;", :id => "trucks-#{quote.id}"} %>
               <%= submit_tag "#{t 'update'}", :class => "btn btn-primary" %>
             <% end %>

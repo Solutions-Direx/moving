@@ -325,7 +325,11 @@ fr:
   debit: Débit
   credit: Crédit
   authorization: Autorisation
-  temp_invoice: Facture 
+  temp_invoice: Facture
+  activate: Activer
+  deactivate: Désactiver
+  is_now_activated: est activé
+  is_now_deactivated: est désactivé
   activerecord:
     models:
       account: Compte

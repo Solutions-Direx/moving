@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
   scope :standards, where(role: Role::STANDARD)
   scope :removal_men, where(role: Role::REMOVAL_MAN)
   default_scope :order => "first_name, last_name"
+  scope :active, where(active: true)
   
   # INSTANCE METHODS
   
@@ -60,7 +61,7 @@ class User < ActiveRecord::Base
       where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login ? login.downcase : "" }]).first
     end
   end
- 
+  
   def update_with_password(params={}) 
     if params[:password].blank? 
       params.delete(:password) 

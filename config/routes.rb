@@ -71,7 +71,12 @@ Moving::Application.routes.draw do
   end
   resource :account, :only => [:show, :update]
   resource :profile, :only => [:show, :update], :path => "users/profile"
-  resources :users
+  resources :users do
+    member do
+      post :activate
+      post :deactivate
+    end
+  end
   
   get 'search', :to => "dashboard#search"
   root :to => 'dashboard#show'
