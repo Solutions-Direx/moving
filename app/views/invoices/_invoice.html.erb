@@ -1,5 +1,5 @@
 <p>
-  <b>Client:</b> <%= @invoice.client.name %> (<%= link_to @invoice.client.reference, client_path(@invoice.quote) %>)
+  <b>Client:</b> <%= link_to @invoice.client.name_with_code, client_path(@invoice.quote) %>
   <span class='floatr'><b><%= t "#{Quote.model_name.human}" %>:</b> <%= link_to @invoice.quote.reference, quote_path(@invoice.quote) %> | <%= @invoice.quote.company.company_name %></span>
 </p>
 <p>

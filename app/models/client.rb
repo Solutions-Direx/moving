@@ -29,6 +29,10 @@ class Client < ActiveRecord::Base
     commercial? ? "C#{code}" : "R#{code}"
   end
   
+  def name_with_code
+    "#{name} (#{reference})"
+  end
+  
 private
   
   def generate_code

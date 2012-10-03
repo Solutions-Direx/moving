@@ -30,7 +30,7 @@
       <table class="grey-box" width="100%">
         <tr>
           <td>
-            <b><%= @invoice.quote.client.name %> (<%= @invoice.quote.client.reference %>)</b><br/><br/>
+            <b><%= @invoice.quote.client.name_with_code %></b><br/><br/>
             <%= address_for @invoice.quote.billing_address.address %><br/>
             <b><%= t "removal_at" %>:</b> <%= l @invoice.quote.removal_at.to_date %><br /><br />
             <% if @invoice.purchase_order.present? %>
