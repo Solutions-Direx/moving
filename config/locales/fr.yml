@@ -208,8 +208,8 @@ fr:
       <<: *errors
   views:
     pagination:
-      first: "&laquo; Début"
-      last: "Fin &raquo;"
-      previous: "&lsaquo; Précédent"
-      next: "Suivant &rsaquo;"
+      first: "&laquo;"
+      last: "&raquo;"
+      previous: "&lsaquo;"
+      next: "&rsaquo;"
       truncate: "..."

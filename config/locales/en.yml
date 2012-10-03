@@ -168,3 +168,10 @@ en:
   accounts:
     show:
       compound_helper: 'Compound Tax: tax 2 = (price + tax 1) * tax 2'
+  views:
+    pagination:
+      first: "&laquo;"
+      last: "&raquo;"
+      previous: "&lsaquo;"
+      next: "&rsaquo;"
+      truncate: "..."
