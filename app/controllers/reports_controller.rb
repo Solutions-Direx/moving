@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   load_and_authorize_resource
   before_filter :authenticate_user!
-  before_filter :load_quote_and_report, :except => [:index, :payments]
+  before_filter :load_quote_and_report, :except => [:index, :payments, :stats]
   helper_method :sort_column
   set_tab :reports
   
@@ -68,6 +68,21 @@ class ReportsController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def stats
+    if params[:searching].present?
+      @invoices = Invoice.joins(:quote, :client).page(params[:page]).order(sort_column + " " + sort_direction)
+      @invoices = @invoices.where('clients.commercial = ?', params[:client_type]) if params[:client_type].present?
+      if params[:from].present? && params[:to].present?
+        @invoices = @invoices.where('quotes.removal_at' => (params[:from].to_date..params[:to].to_date))
+      elsif params[:from].present?
+        @invoices = @invoices.where('quotes.removal_at >= ?', params[:from].to_date)
+      elsif params[:to].present?
+        @invoices = @invoices.where('quotes.removal_at <= ?', params[:to].to_date)
+      end
+      @invoices = @invoices.where('quotes.sale_representative_id = ?', params[:sale_representative_id]) if params[:sale_representative_id].present?
     end
   end
   

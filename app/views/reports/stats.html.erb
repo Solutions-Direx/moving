@@ -1,0 +1,58 @@
+<h1>
+  <%= t 'statistic', default: 'Statistic' %>
+</h1>
+
+<div class="well">
+  <%= form_tag stats_reports_path, method: :get, class: 'form-inline' do |f| %>
+    <%= hidden_field_tag 'searching', 1 %>
+    <%= hidden_field_tag 'sort', params[:sort] %>
+    <%= hidden_field_tag 'direction', params[:direction] %>
+    <%= t 'client_type', default: 'Client Type' %>
+    <%= select_tag :client_type, options_for_select([['Commercial', 1], ['Residential', 0]], params[:client_type]), prompt: 'Both' %>
+    <%= t 'from_date', default: 'From' %>
+    <div class="input-append">
+      <%= text_field_tag '', params[:from], class: 'datepicker', style: 'width: 100px;' %>
+      <%= hidden_field_tag :from, params[:from], :class => "datepicker-alt" %>
+      <span class="add-on clear">×</span>
+    </div>
+    <%= t 'to_date', default: 'And' %>
+    <div class="input-append">
+      <%= text_field_tag '', params[:to], class: 'datepicker', style: 'width: 100px;' %>
+      <%= hidden_field_tag :to, params[:to], :class => "datepicker-alt" %>
+      <span class="add-on clear">×</span>
+    </div>
+    <%= select_tag :sale_representative_id, options_for_select(User.all.map{|c| [c.full_name, c.id]}, params[:sale_representative_id]), prompt: '-- Select --' %>
+    <%= submit_tag "#{t 'search'}", class: 'btn', name: nil %>
+  <% end -%>
+</div>
+
+<% if params[:searching] %>
+  <% if @invoices.present? %>
+    <table class="table table-striped">
+      <tr>
+        <th><%= sortable 'clients.name', t('client_name', default: 'Client Name') %></th>
+        <th><%= sortable "invoices.code", t('invoice_number', default: 'Invoice Number') %></th>
+        <th>Grand Total</th>
+        <th>Total</th>
+      </tr>
+
+      <% @invoices.each do |invoice| %>
+        <tr>
+          <td><%= link_to invoice.client.name_with_code, invoice.client %></td>
+          <td><%= link_to invoice.code, quote_invoice_path(invoice.quote) %></td>
+          <td><%= number_to_currency invoice.grand_total %></td>
+          <td><%= number_to_currency invoice.total %></td>
+        </tr>
+      <% end -%>
+    </table>
+
+    <%= paginate @invoices %>
+
+    <div class='alert alert-success'>
+      <%= pluralize(@invoices.total_count, t('invoice', default: 'invoice')) %> pour un montant total de <%= number_to_currency(@invoices.map{|inv| inv.total}.sum) %>
+    </div>
+
+  <% else %>
+    <div class="alert alert-warning">No search results found.</div>
+  <% end -%>
+<% end -%>

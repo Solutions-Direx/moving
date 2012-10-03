@@ -28,6 +28,10 @@ class Client < ActiveRecord::Base
   def reference
     commercial? ? "C#{code}" : "R#{code}"
   end
+
+  def name_with_code
+    "#{name} (#{reference})"
+  end
   
   def name_with_code
     "#{name} (#{reference})"

@@ -57,6 +57,7 @@ Moving::Application.routes.draw do
   resources :reports, :only => :index do
     collection do
       get 'payments'
+      get :stats
     end
   end
   resources :invoices, :only => :index do
