@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   layout :set_layout
   
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
+    redirect_to root_url, :alert => t('you_are_not_authorized_to_access_this_page', default: 'You are not authorized to access this page.')
   end
   
   rescue_from ActiveRecord::StaleObjectError do |exception|
@@ -42,11 +42,11 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || (resource.removal_man? ? m_root_path : root_path)
   end
-
+  
 protected   
   
   def stale_record_recovery_action
-    flash.now[:alert] = t('conflict', default: "Another user has made a change to this record since you accessed the edit form. Please check information and update again.")
+    flash.now[:alert] = t('conflict', default: "Another user made a change to this record since you accessed the edit form. Please check information and update again.")
     render :edit, :status => :conflict
   end
   

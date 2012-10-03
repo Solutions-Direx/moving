@@ -30,11 +30,11 @@
     <th><%= sortable 'users.first_name', t('creator', default: 'Creator') %></th>
     <th><%= sortable 'companies.company_name', t('company') %></th>
     <% if can? :update, Quote %>
-    <th></th>
-    <% end -%>
+      <th></th>
+    <% end %>
     <% if can? :destroy, Quote %>
-    <th></th>
-    <% end -%>
+      <th></th>
+    <% end %>
   </tr>
 
 <% @quotes.each do |quote| %>
@@ -47,10 +47,10 @@
     <td><%= quote.company.company_name %></td>
     <% if can? :update, Quote %>
     <td><%= link_to "#{t 'edit'}", edit_quote_path(quote) unless quote.signed? %></td>
-    <% end -%>
+    <% end %>
     <% if can? :destroy, Quote %>
       <td><%= link_to "#{t 'destroy'}", quote, data: {confirm: "#{t 'are_you_sure'}"}, method: :delete %></td>
-    <% end -%>
+    <% end %>
   </tr>
 <% end %>
 </table>

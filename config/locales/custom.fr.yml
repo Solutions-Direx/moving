@@ -317,6 +317,8 @@ fr:
   report_verification: Vérification du rapport
   verify: Vérifier
   verified: Vérifié
+  for_total_amount_of: pour un montant total de
+  you_are_not_authorized_to_access_this_page: "Vous n'êtes pas autorisé à voir cette page."
   activerecord:
     models:
       account: Compte

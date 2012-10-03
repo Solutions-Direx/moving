@@ -8,7 +8,7 @@ class ActivityObserver < ActiveRecord::Observer
       act = Activity.new
       act.actor_id = User.current_user.present? ? User.current_user.id : nil
       act.trackable = trackable
-      act.action = 'create'
+      act.action = 'created'
       act.quote_id = trackable.quote_id
       act.save
     else
