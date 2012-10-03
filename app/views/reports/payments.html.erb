@@ -30,7 +30,7 @@
   <%= paginate @payments %>
 
   <div class='table_bottom'>
-    <%= pluralize(@payments.total_count, t('payment', default: 'payment')) %> <%= t 'for_total_amount_of', default: 'pour un montant total de' %> <%= number_to_currency(@total) %>
+    <%= pluralize(@payments.total_count, t('payment', default: 'payment')) %> <%= t 'for_total_amount_of' %> <%= number_to_currency(@total) %>
   </div>
 <% else %>
   <p class='alert alert-info'><%= t "no_payments_found", default: 'No payments received.' %></p>

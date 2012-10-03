@@ -1,9 +1,11 @@
 <h1>
   <%= t 'removal_control', default: 'Removal internal control' %>
-  <span class="submenu">
-    <%= button_link_to t('statistic', default: 'Statistic'), stats_reports_path, large: true, level: "default" %>
-    <%= button_link_to Payment.model_name.human + 's', payments_reports_path, large: true, level: "default" %>
-  </span>
+  <% if current_user.manager? %>
+    <span class="submenu">
+      <%= button_link_to t('stats'), stats_reports_path, large: true, level: "default" %>
+      <%= button_link_to Payment.model_name.human + 's', payments_reports_path, large: true, level: "default" %>
+    </span>
+  <% end %>
 </h1>
 
 <%= paginate @reports %>

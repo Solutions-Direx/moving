@@ -14,6 +14,7 @@ en:
   address: 'Address'
   storage: 'Storage'
   search: 'Search'
+  searching: 'Searching...'
   approved: 'Approved'
   approve: 'Approve'
   rejected: Rejected
@@ -151,6 +152,11 @@ en:
   verified_on: verified on
   please_confirm: Please confirm
   srch_inpt_placeholder: "Client, Phone, Quote ID..."
+  for_total_amount_of: for total amount of
+  both: Both
+  commercial: Commercial
+  residential: Résidentiel
+  no_search_results_found: No records found
   activerecord:
     attributes:
       user:  

@@ -330,6 +330,11 @@ fr:
   deactivate: Désactiver
   is_now_activated: est activé
   is_now_deactivated: est désactivé
+  stats: Statistiques
+  client_type: Type de client
+  both: Peu importe
+  commercial: Commercial
+  residential: Résidentiel
   activerecord:
     models:
       account: Compte

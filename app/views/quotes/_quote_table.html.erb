@@ -14,6 +14,9 @@
 
 <p><b><%= t 'removal_at' %>:</b> <%= l @quote.removal_at, :format => :long %> <%= "(PM) #{t 'removal_time_confirmation'}" if @quote.pm? %>
       || <%= @quote.is_house? ? "#{t 'house'}" : "#{t 'apartment'}" %></p>
+
+<%= content_tag(:p, @quote.comment, style: "background: rgb(204, 201, 201); padding: 4px;") if @quote.comment.present? %>
+
 <!-- ADDRESSES -->
 <table width="100%" id="background" border="0" cellpadding="0" cellspacing="0">
   <tr>

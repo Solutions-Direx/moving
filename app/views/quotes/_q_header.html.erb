@@ -19,3 +19,5 @@
 </p>
 
 <%= content_tag(:p, "#{t 'removal_time_confirmation'} #{quote.removal_at_comment}", class: "alert alert-info") if quote.pm? %>
+
+<%= content_tag(:p, quote.comment, class: "alert alert-warning") if quote.comment.present? %>
