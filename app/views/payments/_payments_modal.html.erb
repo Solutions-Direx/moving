@@ -4,6 +4,12 @@
     <h3><%= t 'payments' %></h3>
   </div>
   <div class="modal-body">
+    <% if @invoice.quote.deposit %>
+      <% deposit = @invoice.quote.deposit %>
+      <p class='alert alert-success'>
+        <b><%= t('deposit_received') %></b> - <%= t(deposit.payment_method) %> <%= "(#{t deposit.credit_card_type})" if deposit.credit_card_type.present? %> - <%= l deposit.date %> - <%= number_to_currency(deposit.amount) %>
+      </p>
+    <% end %>
     <p style="margin-bottom: 20px;" class="alert alert-info">
       <b><%= t 'amount_due', default: 'Amount due' %>:</b> <%= number_to_currency @invoice.total %> 
       <span id="amount_remaining" style="display: <%= @payments.any? ? 'inline-block' : 'none' %>;">

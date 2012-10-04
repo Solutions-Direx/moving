@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120926155530) do
+ActiveRecord::Schema.define(:version => 20121004145309) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
@@ -194,6 +194,9 @@ ActiveRecord::Schema.define(:version => 20120926155530) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.float    "tip"
+    t.boolean  "deposit"
+    t.integer  "paymentable_id"
+    t.string   "paymentable_type"
   end
 
   create_table "pg_search_documents", :force => true do |t|
@@ -241,6 +244,7 @@ ActiveRecord::Schema.define(:version => 20120926155530) do
     t.string   "credit_card_type"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.integer  "creator_id"
   end
 
   create_table "quote_documents", :force => true do |t|

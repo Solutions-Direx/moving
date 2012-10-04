@@ -55,6 +55,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'email_spec'
   gem 'simplecov', :require => false
+  gem 'hirb'
 end
 
 group :production do
