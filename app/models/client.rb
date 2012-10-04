@@ -33,10 +33,6 @@ class Client < ActiveRecord::Base
     "#{name} (#{reference})"
   end
   
-  def name_with_code
-    "#{name} (#{reference})"
-  end
-  
 private
   
   def generate_code

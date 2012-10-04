@@ -62,6 +62,7 @@ class InvoicesController < ApplicationController
   end
   
   def export
+    @payments = current_account.payments.includes({:invoice => [:quote, :client, :deposit]})
     @invoices = current_account.invoices.includes({:quote => [:client, :quote_confirmation, :deposit]}, :forfaits, :surcharges, :supplies)
     if params[:invoices].present?
       @invoices = @invoices.where(id: params[:invoices])

@@ -1,26 +1,64 @@
-<%- headers = [
-    Invoice.model_name.human, 
-    'Date', 
-    'Client', 
-    "#{t 'address'}", 
-    "#{t 'payment_method'}", 
-    "#{t 'deposit_name'}", 
-    'Grand Total', 
-    "#{t 'tax'}1", 
-    "#{t 'tax'}2", 
-    'Total'] -%>
-<%= CSV.generate_line headers -%>
-<%- @invoices.order('created_at DESC').each do |invoice| -%>
-<%- row = [
-    invoice.code, 
-    l(invoice.updated_at.to_date, :format => :long), 
-    invoice.quote.client.name, 
-    invoice.quote.client.address.to_s, 
-    invoice.payment_method.present? ? t(invoice.payment_method) : '',
-    invoice.quote.deposit.present? ? invoice.quote.deposit.amount : '',
-    invoice.grand_total, 
-    invoice.tax1_amount, 
-    invoice.tax2_amount,
-    invoice.total] -%>
-<%= CSV.generate_line(row).html_safe -%>
-<%- end -%>
+<% headers = [
+    'Invoice_number', 'UDF_1', 'Customer_Code', 'Invoice_Date', 'Order_number', 'ship_date',
+    'Sales_person', 'WHS_Location', 'Currency', 'Customer_name', 'Contact_name', 'Address1', 
+    'Address2', 'city', 'Province', 'Country',	'PostCode',	'email', 'Phone1', 'Phone2', 'Fax2', 
+    'website', 'Shipto_Name', 'Shipto_contact',	'ship_address1', 'ship_address2', 'ship_city', 'ship_province',
+    'ship_zip',	'ship_country',	'ship_phone', 'ship_phone_2', 'ship_fax', 'ship_email',	'Net_Days',	'Net_disc_percent',
+    'net_disc_days', 'invoice_comment',	'Header_GL_Account', 'Payment_method', 'CC_name', 'payment_text', 'record_type',
+    'shipper',	'tracking_number',	'add_info1', 'add_Date', 'line_number',	'item_code', 'item_description',
+    'UOM', 'qty_ordered', 'qty_shipped', 'qty_bo', 'base_price', 'line_disc_percent', 'unit_price',	'amount', 'tax_code',
+    'Detail_GL_account', 'Department', 'Project', 'Freight_Line' ] %>
+<%= CSV.generate_line headers %>
+<% @invoices.order('created_at DESC').each do |invoice| %>
+  <%# invoice.payments.each_with_index do |payment, index| %>
+    <% row = [
+        payment.invoice.code,
+        "",
+        payment.invoice.quote.client.reference,
+        l(payment.invoice.updated_at.to_date, :format => :long),
+        "",
+        "",
+        payment.invoice.creator.full_name,
+        "",
+        "CAD",
+        payment.invoice.quote.client.name,
+        payment.invoice.quote.client.try(:billing_contact),
+        payment.invoice.quote.client.address.address,
+        "",
+        payment.invoice.quote.client.address.try(:city),
+        payment.invoice.quote.client.address.try(:province),
+        payment.invoice.quote.client.address.try(:postal_code),
+        payment.invoice.quote.client.try(:email),
+        payment.invoice.quote.client.try(:phone1),
+        payment.invoice.quote.client.try(:phone2),
+        "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+        "0",
+        "", "", "",
+        # Header GL Account. What's this?
+        "10550",
+        t(payment.payment_method),
+        payment.credit_card_type.present? ? t(payment.credit_card_type) : '',
+        # Assuming payment_text is free text
+        payment.transaction_number.present? ? t(payment.transaction_number) : '',
+        # What's record_type?
+        "",
+        "", "", "", "",
+        # line_number. deposit should always comes first
+        index,
+        "", "", "",
+        "", "", "", "", "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        payment.amount,
+        "",
+        # Detail GL account, what's this?
+        "42200000",
+        "", "", ""
+      ] %>
+  <%# end %>
+<%= CSV.generate_line(row).html_safe %>
+<% end %>
