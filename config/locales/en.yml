@@ -47,6 +47,7 @@ en:
   comment: 'Comment'
   other: 'Other'
   internal: 'Internal'
+  internal_moving: Internal moving
   external: External
   from: 'From'
   to: 'To'

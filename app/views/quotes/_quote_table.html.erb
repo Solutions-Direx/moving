@@ -15,6 +15,10 @@
 <p><b><%= t 'removal_at' %>:</b> <%= l @quote.removal_at, :format => :long %> <%= "(PM) #{t 'removal_time_confirmation'}" if @quote.pm? %>
       || <%= @quote.is_house? ? "#{t 'house'}" : "#{t 'apartment'}" %></p>
 
+<% if @quote.contact.present? %>
+  <p><b><%= Quote.human_attribute_name("contact") %>:</b> <%= @quote.contact %></p>
+<% end %>
+
 <%= content_tag(:p, @quote.comment, style: "background: rgb(204, 201, 201); padding: 4px;") if @quote.comment.present? %>
 
 <!-- ADDRESSES -->
@@ -22,7 +26,7 @@
   <tr>
     <td style="padding-left: 0; width: 50%;">
       <table style="width: 100%; padding-left: 0;" class="grey-background addresses" border="0" cellpadding="0" cellspacing="0">
-        <tr><td style="padding: 0 10px 0 10px;"><h3><%= t 'from' %> <%= "#{t 'internal'}" if @quote.internal_address %></h3></td></tr>
+        <tr><td style="padding: 0 10px 0 10px;"><h3><%= @quote.internal_address? ? t('internal_moving') : t('from') %></h3></td></tr>
         <tr>
           <td style='padding-top:0;'>
             <% if @quote.from_address.has_storage? %>

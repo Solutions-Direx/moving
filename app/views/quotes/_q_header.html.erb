@@ -1,9 +1,10 @@
 <p>
   <b><%= t('company') %>: <%= quote.company.company_name %></b>
 </p>
+
 <% if quote.contact.present? %>
   <p>
-    <b><%= Quote.human_attribute_name("contact") %>: <%= quote.contact %></b>
+    <b><%= Quote.human_attribute_name("contact") %>:</b> <%= quote.contact %>
   </p>
 <% end %>
 

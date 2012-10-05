@@ -1,5 +1,5 @@
 <div class="span6 well col2 odd">
-  <h3><%= t 'from' %> <%= "#{t 'internal'}" if @quote.internal_address %></h3>
+  <h3><%= @quote.internal_address? ? t('internal_moving') : t('from') %></h3>
   <div class="storage">
   <% if @quote.from_address.has_storage? %>
     <h6><%= t 'storage' %>: <%= @quote.from_address.storage.name %></h6>

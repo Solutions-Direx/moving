@@ -45,6 +45,7 @@ fr:
   print: 'Imprimer'
   full_print: Imprimer la version complète
   internal: 'Interne'
+  internal_moving: 'Déménagement Interne'
   not_internal: 'Externe'
   terms: 'Termes'
   terms_and_conditions: Termes et conditions
