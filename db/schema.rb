@@ -194,9 +194,6 @@ ActiveRecord::Schema.define(:version => 20121004145309) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.float    "tip"
-    t.boolean  "deposit"
-    t.integer  "paymentable_id"
-    t.string   "paymentable_type"
   end
 
   create_table "pg_search_documents", :force => true do |t|

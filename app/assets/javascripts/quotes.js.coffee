@@ -44,14 +44,14 @@
         
     $('.internal_link').click ->
       # is internal
-      if $('#quote_internal_address').val() == '0'
-        $('#quote_internal_address').val('1')
+      if $('#quote_internal_address').val() == 'false'
+        $('#quote_internal_address').val('true')
         $('.to').hide()
-        $(this).text('not internal')
+        $(this).text(I18n.t('not_internal'))
       else
-        $('#quote_internal_address').val('0')
+        $('#quote_internal_address').val('false')
         $('.to').show()
-        $(this).text('internal')
+        $(this).text(I18n.t('internal'))
       return false  
       
   update_room_number: ->

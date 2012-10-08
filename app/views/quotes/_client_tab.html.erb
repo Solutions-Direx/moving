@@ -52,7 +52,7 @@
   </div>
   
   <%= f.input :is_house, :label => false, :as => :radio_buttons, :collection => [["#{t 'house', default: 'House'}", true],["#{t 'apartment', default: 'Apartment'}", false]], :item_wrapper_class => "inline" %>
-  <%= f.input :internal_address, :as => :hidden %>
+  <%= f.hidden_field :internal_address %>
 
   <!-- ADRESS ERRORS -->
   <% unless @quote.errors[:base].blank? %>
