@@ -11,9 +11,11 @@
 <hr />
 <h2 style="padding-left:0;"><%= t 'temp_invoice', default: 'Temporary Invoice' %></h2>
 <p>___ <%= label_tag "#{t 'billed_hours', default: 'Billed Hours'}" %> * <%= number_to_currency(@quote.price) %> = <%= text_field_tag 'Hours' %></p>
-<p><%= label_tag "", "TPS" %>: <%= text_field_tag 'tps' %></p>
+<p>_____________________________________________________________________________________</p><br />
+<p>_____________________________________________________________________________________</p><br />
+<p>_____________________________________________________________________________________</p><br />
+<p><%= label_tag "", "TPS / TVH" %>: <%= text_field_tag 'tps' %></p>
 <p><%= label_tag "", "TVQ" %>: <%= text_field_tag 'tvq' %></p>
-<p><%= label_tag "", "TVH" %>: <%= text_field_tag 'tvh' %></p>
 <p>TOTAL: <%= text_field_tag 'Total' %></p>
 
 <h4 style="padding-left:0;"><%= t 'payments' %></h4>
