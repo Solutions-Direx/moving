@@ -12,6 +12,7 @@
 <% @invoices.order('created_at DESC').each do |invoice| %>
   <%# invoice.payments.each_with_index do |payment, index| %>
     <% row = [
+        # A
         payment.invoice.code,
         "",
         payment.invoice.quote.client.reference,
@@ -31,32 +32,31 @@
         payment.invoice.quote.client.try(:email),
         payment.invoice.quote.client.try(:phone1),
         payment.invoice.quote.client.try(:phone2),
+        # U
         "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+        # AI
         "0",
         "", "", "",
+        # AM
         # Header GL Account. What's this?
-        "10550",
+        "",
         t(payment.payment_method),
         payment.credit_card_type.present? ? t(payment.credit_card_type) : '',
-        # Assuming payment_text is free text
         payment.transaction_number.present? ? t(payment.transaction_number) : '',
-        # What's record_type?
+        # AQ ignore record_type
         "",
         "", "", "", "",
-        # line_number. deposit should always comes first
+        # AV
         index,
-        "", "", "",
-        "", "", "", "", "",
         "",
-        "",
-        "",
-        "",
-        "",
-        "",
+        "Quote ##{payment.invoice.quote.code}", 
+        "", "", "", "", "", "", "",
+        # BF
         payment.amount,
-        "",
-        # Detail GL account, what's this?
-        "42200000",
+        "TPS",
+        # Revenues account
+        # 4200: Déménagement, 4206: Tip, 4207: Boites, Assurances: 4210
+        "4200",
         "", "", ""
       ] %>
   <%# end %>
