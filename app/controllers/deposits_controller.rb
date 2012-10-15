@@ -14,7 +14,7 @@ class DepositsController < ApplicationController
   
   def create
     @quote = Quote.find_by_code(params[:quote_id])
-    @deposit = @quote.create_deposit(params[:quote_deposit])
+    @deposit = @quote.create_deposit(params[:payment])
     @deposit.creator_id = current_user.id
 
     respond_to do |format|

@@ -13,6 +13,7 @@ class PaymentsController < ApplicationController
 
   def create
     @payment = @invoice.payments.build(params[:payment])
+    puts @payment.inspect
     @payment.creator = current_user
 
     respond_to do |format|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121004145309) do
+ActiveRecord::Schema.define(:version => 20121015161604) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
@@ -184,7 +184,6 @@ ActiveRecord::Schema.define(:version => 20121004145309) do
   end
 
   create_table "payments", :force => true do |t|
-    t.integer  "invoice_id"
     t.float    "amount"
     t.date     "date"
     t.string   "payment_method"
@@ -194,6 +193,8 @@ ActiveRecord::Schema.define(:version => 20121004145309) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.float    "tip"
+    t.integer  "payable_id"
+    t.string   "payable_type"
   end
 
   create_table "pg_search_documents", :force => true do |t|
@@ -231,17 +232,6 @@ ActiveRecord::Schema.define(:version => 20121004145309) do
     t.integer  "truck_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "quote_deposits", :force => true do |t|
-    t.integer  "quote_id"
-    t.float    "amount"
-    t.date     "date"
-    t.string   "payment_method"
-    t.string   "credit_card_type"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-    t.integer  "creator_id"
   end
 
   create_table "quote_documents", :force => true do |t|

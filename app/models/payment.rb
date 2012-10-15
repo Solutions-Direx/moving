@@ -1,11 +1,11 @@
 class Payment < ActiveRecord::Base
-  belongs_to :invoice
+  belongs_to :payable, :polymorphic => true
   belongs_to :creator, :class_name => "User", :foreign_key => "creator_id"
   has_one :client, :through => :invoice
   
   attr_accessible :amount, :credit_card_type, :date, :payment_method, :transaction_number, :tip
 
-  validates :amount, :date, :payment_method, :invoice_id, :presence => true
+  validates :amount, :date, :payment_method, :presence => true
   validates :amount, :numericality => { :greater_than => 0 }
   validates_presence_of :credit_card_type, :if => Proc.new{|p| p.payment_method == 'credit'}
 

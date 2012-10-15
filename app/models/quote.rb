@@ -70,7 +70,7 @@ class Quote < ActiveRecord::Base
   has_one :report, :dependent => :destroy
   accepts_nested_attributes_for :report
   
-  has_one :deposit, :class_name => "QuoteDeposit", :dependent => :destroy
+  has_one :deposit, :class_name => "Payment", :as => :payable, :dependent => :destroy
   accepts_nested_attributes_for :deposit
 
   has_many :surcharges, :as => :surchargeable, :dependent => :destroy

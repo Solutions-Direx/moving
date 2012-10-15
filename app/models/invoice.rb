@@ -24,7 +24,7 @@ class Invoice < ActiveRecord::Base
   has_many :invoice_forfaits, :dependent => :destroy
   has_many :forfaits, :through => :invoice_forfaits
 
-  has_many :payments, :dependent => :destroy
+  has_many :payments, :as => :payable, :dependent => :destroy
   accepts_nested_attributes_for :payments, :allow_destroy => true, :reject_if => lambda {|p| p['amount'].blank? && p['date'].blank? && p['payment_method'].blank?}
   
   has_one :account, :through => :quote
