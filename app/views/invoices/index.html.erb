@@ -26,7 +26,7 @@
 
 <% @invoices.each do |invoice| %>
   <tr>
-    <td><%= check_box_tag 'invoices[]', invoice.id, false, class: "invoice", id: "invoice_#{invoice.id}" %></td>
+    <td><%= check_box_tag 'quotes[]', invoice.quote_id, false, class: "quote", id: "quote_#{invoice.quote_id}" %></td>
     <td><%= l invoice.quote.removal_at.to_date %></td>
     <td><%= link_to "##{invoice.code}", quote_invoice_path(invoice.quote.code) %> 
         <%= invoice.signed? ? status_tag("#{t 'signed'}", :level => 'success') : status_tag("#{t 'not_signed'}", level: 'warning') %>
@@ -46,19 +46,19 @@
   $(function() {
     $('#select_all').click(function() {
       if ($(this).is(":checked")) {
-        $('.invoice').attr('checked', true);
+        $('.quote').attr('checked', true);
       } else {
-        $('.invoice').attr('checked', false);
+        $('.quote').attr('checked', false);
       }
     });
     $('#export').click(function(e) {
       e.preventDefault();
-      var selected_invoices = $('.invoice:checked');
+      var selected_invoices = $('.quote:checked');
       if (selected_invoices.length > 0) {
         var invoice_ids = selected_invoices.map(function () {
           return this.value;
         }).get();
-        window.location = $('#export').attr('href') + "?" + $.param({"invoices[]": invoice_ids});
+        window.location = $('#export').attr('href') + "?" + $.param({"quotes[]": invoice_ids});
         // return false;
       } else {
         alert("Please select invoices to export first.");

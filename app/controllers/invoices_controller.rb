@@ -1,3 +1,6 @@
+# encoding: utf-8
+require 'iconv'
+
 class InvoicesController < ApplicationController
   # load_and_authorize_resource
   before_filter :load_quote_and_invoice, :except => [:index, :export, :reports, :new, :create]
@@ -62,14 +65,16 @@ class InvoicesController < ApplicationController
   end
   
   def export
-    @payments = current_account.payments.includes({:invoice => [:quote, :client, :deposit]})
-    @invoices = current_account.invoices.includes({:quote => [:client, :quote_confirmation, :deposit]}, :forfaits, :surcharges, :supplies)
-    if params[:invoices].present?
-      @invoices = @invoices.where(id: params[:invoices])
-    end
-    
+
     respond_to do |format|
-      format.csv
+      format.csv { 
+        content = Quote.export_payments(current_account, params[:quotes])
+        content = Iconv.conv('ISO-8859-1','UTF-8', content)
+        send_data content, 
+          :filename => "invoice.csv", 
+          :type => 'text/csv; charset=utf-8; header=present',
+          :disposition => "attachment"
+      }
     end
   end
   
