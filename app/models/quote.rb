@@ -181,7 +181,7 @@ class Quote < ActiveRecord::Base
                 website Shipto_Name Shipto_contact ship_address1 ship_address2 ship_city ship_province
                 ship_zip ship_country ship_phone ship_phone_2 ship_fax ship_email Net_Days Net_disc_percent
                 net_disc_days invoice_comment Header_GL_Account Payment_method CC_name payment_text record_type
-                shipper  tracking_number  add_info1 add_Date line_number item_code item_description
+                shipper tracking_number add_info1 add_Date line_number item_code item_description
                 UOM qty_ordered qty_shipped qty_bo base_price line_disc_percent unit_price amount tax_code
                 Detail_GL_account Department Project Freight_Line}
     header_indexes = Hash[headers.map.with_index{|*x| x}]
@@ -196,7 +196,8 @@ class Quote < ActiveRecord::Base
         quote.payments.each_with_index do |payment, index|
           data["Invoice_number"] = payment.payable.try(:code)
           data["Customer_Code"] = quote.client.reference
-          data["Invoice_Date"] = payment.payable.is_a?(Invoice) ? I18n.l(payment.payable.updated_at.to_date, :format => :long) : ""
+          #data["Invoice_Date"] = payment.payable.is_a?(Invoice) ? I18n.l(payment.payable.updated_at.to_date, :format => :long) : ""
+          data["Invoice_Date"] = I18n.l(payment.date)
           data["Sales_person"] = payment.try(:creator).try(:full_name)
           data["Currency"] = "CAD"
           data["Customer_name"] = quote.client.name
@@ -209,14 +210,14 @@ class Quote < ActiveRecord::Base
           data["email"] = quote.client.try(:email)
           data["Phone1"] = quote.client.try(:phone1)
           data["Phone2"] = quote.client.try(:phone2)
-          data["Phone2"] = quote.client.try(:phone2)
           data["Payment_method"] = I18n.t(payment.payment_method)
           data["CC_name"] = payment.credit_card_type.present? ? I18n.t(payment.credit_card_type) : ''
           data["payment_text"] = payment.transaction_number.present? ? I18n.t(payment.transaction_number) : ''
           data["line_number"] = index + 1
           data["item_description"] = "Quote ##{quote.code}"
           data["amount"] = payment.amount
-          data["tax_code"] = "TPS"
+          data["tax_code"] = "TPS_TVQ"
+          data["Detail_GL_account"] = "4200"
 
           row = []
           header_indexes.each do |field, index|
