@@ -336,6 +336,7 @@ fr:
   both: Peu importe
   commercial: Commercial
   residential: Résidentiel
+  add_by_default_to_quote: Cocher si ce document doit être visible sur toutes les ententes par défaut
   activerecord:
     models:
       account: Compte

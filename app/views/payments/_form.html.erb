@@ -14,10 +14,6 @@
           <%= f.input_field :amount, :class => "span1 input-append" %><%= content_tag :span, '$', :class => "add-on" %>
         <% end %>
 
-        <%= f.input :tip, :wrapper => :append do %>
-          <%= f.input_field :tip, :class => "span1 input-append" %><%= content_tag :span, '$', :class => "add-on" %>
-        <% end %>
-
         <%= f.input :date do %>
           <%= text_field_tag '', payment.try(:date).try(:strftime, t('date.formats.default')), class: "datepicker" %>
           <%= f.input_field :date, as: :hidden, :class => "datepicker-alt" %>
