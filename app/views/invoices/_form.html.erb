@@ -4,6 +4,10 @@
   <%= locking_field_tag(f) %>
   
   <div class="form-inputs">
+    
+    <%= f.fields_for :lines %>
+    <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_line', default: 'Add line'}", :lines, :class => "btn btn-primary add-link" %>
+  
     <div class="control-group float optional">
       <%= f.label :time_spent %>
       <div class="controls">
@@ -113,19 +117,19 @@
   <% if @invoice.tax1.present? %>
     <div class="control-group">
       <div class="controls">
-        <%= f.input_field :tax1_label, :placeholder => "Tax1 Name", :class => 'span2' %>
+        <%= f.input_field :tax1_label, :placeholder => "Tax1 Name", class: 'span2' %>
         <div class='input-append'> 
-          <%= f.input_field :tax1, :placeholder => "Tax1 Rate", :class => 'span1' %><span class="add-on">%</span>
+          <%= f.input_field :tax1, :placeholder => "Tax1 Rate", class: 'span1' %><span class="add-on">%</span>
         </div>
-        <%= f.input_field :tax2_label, :placeholder => "Tax2 Name", :class => 'span2' %>
+        <%= f.input_field :tax2_label, :placeholder => "Tax2 Name", class: 'span2' %>
         <div class='input-append'> 
-          <%= f.input_field :tax2, :placeholder => "Tax2 Rate", :class => 'span1' %><span class="add-on">%</span>
+          <%= f.input_field :tax2, :placeholder => "Tax2 Rate", class: 'span1' %><span class="add-on">%</span>
         </div>
         <span><%= t 'accounts.show.compound_tax' %></span>
         <%= f.check_box :compound %>
       </div>
     </div>
-  <% end -%>
+  <% end %>
 
   <%= section %>
     <%= f.input :comment, :input_html => {:class => "live-input", :style => "width:500px; height:150px;"} %>

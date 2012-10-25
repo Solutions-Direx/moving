@@ -13,7 +13,7 @@ class QuoteConfirmation < ActiveRecord::Base
   after_create :mark_quote_confirmed
   after_destroy :delete_quote_confirmation_and_report
 
-  private
+private
 
   def mark_quote_confirmed
     quote.status = "confirmed"

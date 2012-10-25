@@ -8,5 +8,4 @@ class QuoteDeposit < ActiveRecord::Base
   validates :amount, :numericality => { :greater_than => 0 }
   validates_presence_of :credit_card_type, :if => Proc.new{|p| p.payment_method == 'credit'}
   
-
 end

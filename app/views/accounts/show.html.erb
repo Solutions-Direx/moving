@@ -6,7 +6,7 @@
         <li class="active"><a href="#1" data-toggle="tab"><%= t 'companies', default: 'Companies' %></a></li>
         <li><a href="#2" data-toggle="tab"><%= t '.taxes', default: 'Taxes' %></a></li>
         <li><a href="#3" data-toggle="tab"><%= t '.insurance', default: 'Insurance' %></a></li>
-        <li><a href="#4" data-toggle="tab"><%= t 'settings', default: 'Settings' %></a></li>
+        <li><a href="#4" data-toggle="tab"><%= t 'accounting', default: 'Accounting' %></a></li>
       </ul>
     <div class="tab-content" style="width: auto;">
       <div class="tab-pane active" id="1">
@@ -52,7 +52,12 @@
               <%= f.number_field :invoice_start_number, :class => 'span2' %>
               <%= f.full_error :invoice_start_number %>
             </div>
-          </div>
+          </div><br><br>
+          <p class='alert alert-warning'><%= t 'accounting_intro_helper', default: 'Define receivable accounts to export transactions' %>.</p>
+          <%= f.input :accounting_moving_account_number, placeholder: "4200" %>
+          <%= f.input :accounting_tip_account_number, placeholder: "4206" %>
+          <%= f.input :accounting_insurance_account_number, placeholder: "4210" %>
+          <%= f.input :accounting_supply_account_number, placeholder: "4207" %>
         </div>
       </div>
     </div>

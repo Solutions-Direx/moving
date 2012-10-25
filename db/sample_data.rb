@@ -4,6 +4,12 @@ require 'faker'
 puts "GENERATE SAMPLE DATA ..."
 
 account = Account.first
+account.update_attributes(
+  accounting_moving_account_number: "4200",
+  accounting_tip_account_number: "4206",
+  accounting_insurance_account_number: "4210",
+  accounting_supply_account_number: "4207"
+)
 
 company = account.companies.build(
   company_name: "Déménagement Minimum",

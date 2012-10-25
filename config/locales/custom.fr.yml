@@ -337,6 +337,10 @@ fr:
   commercial: Commercial
   residential: Résidentiel
   add_by_default_to_quote: Cocher si ce document doit être visible sur toutes les ententes par défaut
+  accounting: Comptabilité
+  accounting_intro_helper: Veuillez renseigner les comptes à recevoir utilisés dans votre logiciel de comptabilité pour utiliser l'export de données
+  add_line: Ajouter une ligne
+  moving_job: Déménagement
   activerecord:
     models:
       account: Compte

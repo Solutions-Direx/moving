@@ -36,16 +36,39 @@ class Invoice < ActiveRecord::Base
   has_many :surcharges, :as => :surchargeable, :dependent => :destroy
   accepts_nested_attributes_for :surcharges, :allow_destroy => true, :reject_if => :all_blank
   
+  has_many :lines, :class_name => "InvoiceLine", :foreign_key => "invoice_id"
+  accepts_nested_attributes_for :lines, :allow_destroy => true, :reject_if => lambda {|l| l[:amount].blank?}
+
   attr_accessor :amount_received
   attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :gas, :rate,
                   :invoice_supplies_attributes, :forfait_ids, :client_satisfaction,
                   :payment_method, :discount, :credit_card_type, :surcharges_attributes, :lock_version,
                   :too_big_for_stairway, :too_big_for_hallway, :too_big, :broken, :too_fragile, :furnitures,
-                  :tax1, :tax1_label, :tax2, :tax2_label, :compound, :purchase_order, :creator_id
+                  :tax1, :tax1_label, :tax2, :tax2_label, :compound, :purchase_order, :creator_id, :lines_attributes
   
   before_create :generate_code
   
   validates_presence_of :payment_method, :unless => Proc.new { |invoice| invoice.quote.client.commercial? }
+  
+  def build_lines(quote)
+    # moving type lines
+    lines.build(item_name: 'moving', amount: quote.price)
+    # gas type lines
+    lines.build(item_name: 'gas', amount: quote.gas)
+    # insurance type lines
+    lines.build(item_name: 'insurance', amount: quote.account.franchise_cancellation_amount) if !quote.quote_confirmation.insurance_limit_enough
+    lines.build(item_name: 'insurance', amount: quote.quote_confirmation.insurance_increase)
+    # tip type line
+    lines.build(item_name: 'tip')
+    # forfaits type lines
+    quote.forfaits.each do |forfait|
+      lines.build(item_name: 'forfait', amount: forfait.price)
+    end
+    # supplies type line
+    quote.quote_supplies.each do |supply|
+      lines.build(item_name: 'supply', quantity: supply.quantity, amount: supply.supply.price)
+    end
+  end
 
   # cache grand_total calculation since it's expensive
   # pass recalculate = true to recalculate

@@ -11,16 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121022235850) do
+ActiveRecord::Schema.define(:version => 20121024162326) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
     t.float    "insurance_coverage_short_distance"
     t.float    "insurance_coverage_long_distance"
     t.integer  "invoice_start_number"
-    t.boolean  "rebase_invoice_number",             :default => false
-    t.datetime "created_at",                                           :null => false
-    t.datetime "updated_at",                                           :null => false
+    t.boolean  "rebase_invoice_number",               :default => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
+    t.string   "accounting_moving_account_number"
+    t.string   "accounting_tip_account_number"
+    t.string   "accounting_insurance_account_number"
+    t.string   "accounting_supply_account_number"
   end
 
   create_table "activities", :force => true do |t|
@@ -139,6 +143,17 @@ ActiveRecord::Schema.define(:version => 20121022235850) do
     t.integer  "forfait_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "invoice_lines", :force => true do |t|
+    t.string   "item_name"
+    t.integer  "quantity"
+    t.float    "amount"
+    t.integer  "invoice_id"
+    t.string   "invoiceable_type"
+    t.integer  "invoiceable_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "invoice_supplies", :force => true do |t|

@@ -16,6 +16,10 @@ en:
         billing_contact: Billing contact person
         num_appliances: Nb of appliances
         num_boxes: Nb of boxes
+        accounting_moving_account_number: Receivable account - Moving jobs
+        accounting_tip_account_number: Receivable account - Tips
+        accounting_insurance_account_number: Receivable account - Insurance
+        accounting_supply_account_number: Receivable account - Supplies/Equipments
     #   password: 'Password'
     #   user:
     #     new:

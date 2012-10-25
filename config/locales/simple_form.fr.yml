@@ -100,6 +100,10 @@ fr:
         amount: Montant
         purchase_order: Bon de commande
         invoice_header: En-tête de facture
+        accounting_moving_account_number: Compte à recevoir - déménagements
+        accounting_tip_account_number: Compte à recevoir - pourboires
+        accounting_insurance_account_number: Compte à recevoir - assurances
+        accounting_supply_account_number: Compte àr ecevoir - fournitures/boites...
     hints:
       defaults:
       user:

@@ -27,7 +27,7 @@
 
 <% if @invoice.total_time_spent > 0 %>
   <div class="row">
-    <div class="span4"><%= t 'time_spent' %> (<%= @invoice.time_spent  %> * <%= number_to_currency(@invoice.rate) %>)</div>
+    <div class="span4"><%= t 'time_spent' %> (<%= number_with_precision(@invoice.time_spent, strip_insignificant_zeros: true) %>h * <%= number_to_currency(@invoice.rate, strip_insignificant_zeros: true) %>)</div>
     <div class="span2 money"><%= number_to_currency(@invoice.total_time_spent) %></div>
   </div>
 <% end %>  
@@ -183,6 +183,8 @@
   <%= section %>
   <p><i><%= simple_format(@invoice.comment) %></i></p>
 <% end %>
+
+<%= render 'lines' %>
 
 <!-- INVOICE SIGNED -->
 <% if @invoice.signed? %>
