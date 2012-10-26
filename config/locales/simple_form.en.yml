@@ -20,6 +20,10 @@ en:
         accounting_tip_account_number: Receivable account - Tips
         accounting_insurance_account_number: Receivable account - Insurance
         accounting_supply_account_number: Receivable account - Supplies/Equipments
+        accounting_payment_cash_account_number: Treasury account - Cash
+        accounting_payment_debit_account_number: Treasury account - Debit
+        accounting_payment_credit_account_number: Treasury account - Credit
+        accounting_payment_cheque_account_number: Treasury account - Cheque
     #   password: 'Password'
     #   user:
     #     new:

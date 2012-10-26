@@ -11,20 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121026043307) do
+ActiveRecord::Schema.define(:version => 20121026152219) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
     t.float    "insurance_coverage_short_distance"
     t.float    "insurance_coverage_long_distance"
     t.integer  "invoice_start_number"
-    t.boolean  "rebase_invoice_number",               :default => false
-    t.datetime "created_at",                                             :null => false
-    t.datetime "updated_at",                                             :null => false
+    t.boolean  "rebase_invoice_number",                    :default => false
+    t.datetime "created_at",                                                  :null => false
+    t.datetime "updated_at",                                                  :null => false
     t.string   "accounting_moving_account_number"
     t.string   "accounting_tip_account_number"
     t.string   "accounting_insurance_account_number"
     t.string   "accounting_supply_account_number"
+    t.string   "accounting_payment_cash_account_number"
+    t.string   "accounting_payment_debit_account_number"
+    t.string   "accounting_payment_credit_account_number"
+    t.string   "accounting_payment_cheque_account_number"
   end
 
   create_table "activities", :force => true do |t|

@@ -82,7 +82,7 @@
   <!-- SUPPLIES -->
   <% if @invoice.invoice_supplies.any? %>
     <tr>
-      <td colspan="2"><h3><%= Supply.model_name.human + 's' %></h3></td>
+      <td colspan="2"><h3><%= t 'supplies', default: 'Supplies' %></h3></td>
     </tr>
     <% @invoice.invoice_supplies.each do |inv_supply| %>
       <tr>
@@ -105,20 +105,25 @@
     <% end %>
   <% end %>
   
-  <!-- FRANCHISE CANCELLATION -->
-  <% if @invoice.quote.quote_confirmation.franchise_cancellation %>
-  <tr>
-    <td><%= t 'franchise_cancelation' %></td>
-    <td class="right"><%= number_to_currency(@quote.account.franchise_cancellation_amount) %></td>
-  </tr>
-  <% end %>
+  <% if @invoice.quote.quote_confirmation.franchise_cancellation or @invoice.total_insurance_increase > 0 %>
+    <tr>
+      <td colspan="2"><h3><%= t 'insurance' %></h3></td>
+    </tr>
+    <!-- FRANCHISE CANCELLATION -->
+    <% if @invoice.quote.quote_confirmation.franchise_cancellation %>
+    <tr>
+      <td><%= t 'franchise_cancelation' %></td>
+      <td class="right"><%= number_to_currency(@quote.account.franchise_cancellation_amount) %></td>
+    </tr>
+    <% end %>
 
-  <!-- INSURANCE -->
-  <% if @invoice.total_insurance_increase > 0 %>
-  <tr>
-    <td><%= t 'insurance_increase' %></td>
-    <td class="right"><%= number_to_currency(@invoice.total_insurance_increase) %></td>
-  </tr>
+    <!-- INSURANCE -->
+    <% if @invoice.total_insurance_increase > 0 %>
+    <tr>
+      <td><%= t 'insurance_increase' %></td>
+      <td class="right"><%= number_to_currency(@invoice.total_insurance_increase) %></td>
+    </tr>
+    <% end %>
   <% end %>
 
   <!-- STORAGES -->
@@ -144,8 +149,8 @@
   <!-- DISCOUNT -->
   <% if @invoice.total_discount > 0 %>
   <tr>
-    <td><%= t 'discount' %></td>
-    <td class="right">- <%= number_to_currency(@invoice.total_discount) %></td>
+    <td style="padding-top: 10px;"><%= t 'discount' %></td>
+    <td class="right" style="padding-top: 10px;">- <%= number_to_currency(@invoice.total_discount) %></td>
   </tr>
   <% end %>
 
@@ -173,6 +178,13 @@
     <td><h3 style="font-weight: normal;"><%= @invoice.tax2_name %></h3></td>
     <td class="right"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax2_amount) %></h3></td>
   </tr>
+  <% end %>
+  <!-- TIP -->
+  <% if (@invoice.try(:tip) || 0) > 0 %>
+    <tr>
+      <td><h3 style="font-weight: normal;"><%= t 'tip' %></h3></td>
+      <td class="right"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tip) %></h3></td>
+    </tr>
   <% end %>
   <!-- DEPOSIT -->
     <% if @invoice.quote.deposit %>

@@ -123,6 +123,7 @@ fr:
   amount: Montant
   removal_control: Contrôle des contrats de déménagements
   per_hour: 'par heure'
+  supplies: Matériels
   add_supply: Ajouter un matériel
   long_distance: Longue distance
   trucks: Camions
@@ -245,7 +246,8 @@ fr:
   failed_to_reject: "L'entente n'a pu être marquée comme 'Rejetée'. Veuillez contacter l'administrateur système."
   cancel_confirmation: Supprimer la confirmation
   cancel_rejection: Marquer comme non rejetéé
-  download_invoices: Exporter
+  export_invoices: Exporter les factures
+  export_payments: Exporter les paiements
   tip: Pourboire
   profile: Profil
   update_profile: 'Mettre à jour votre profil'
@@ -341,6 +343,7 @@ fr:
   accounting_intro_helper: Veuillez renseigner les comptes à recevoir utilisés dans votre logiciel de comptabilité pour utiliser l'export de données
   add_line: Ajouter une ligne
   moving_job: Déménagement
+  please_select_invoices_to_export: Veuillez sélectionner les factures à exporter
   activerecord:
     models:
       account: Compte

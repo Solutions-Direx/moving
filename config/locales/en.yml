@@ -115,6 +115,7 @@ en:
   view_invoice: View invoice
   insurance_cancellation: Insurance cancellation
   insurance_cancellation_info: We can not insure these furnitures for the following reasons
+  insurance: 'Insurance'
   too_big_for_stairway: Furniture too large for stairway
   too_big_for_hallway: Furniture too large for hallway
   too_big: Oversize furniture

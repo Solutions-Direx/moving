@@ -213,7 +213,6 @@ class Invoice < ActiveRecord::Base
         invoice.build_lines.select{|l| l.amount > 0}.each_with_index do |line, index|
           data["Invoice_number"] = invoice.code
           data["Customer_Code"] = quote.client.reference
-          #data["Invoice_Date"] = payment.payable.is_a?(Invoice) ? I18n.l(payment.payable.updated_at.to_date, :format => :long) : ""
           data["Invoice_Date"] = I18n.l(invoice.updated_at.to_date, format: :default)
           data["Sales_person"] = quote.try(:creator).try(:full_name)
           data["Currency"] = "CAD"
@@ -227,12 +226,12 @@ class Invoice < ActiveRecord::Base
           data["email"] = quote.client.try(:email)
           data["Phone1"] = quote.client.try(:phone1)
           data["Phone2"] = quote.client.try(:phone2)
-          data["Payment_method"] = I18n.t(invoice.payment_method)
+          data["Payment_method"] = invoice.payment_method
           data["CC_name"] = invoice.credit_card_type.present? ? I18n.t(invoice.credit_card_type) : ''
           data["payment_text"] = ""
           data["line_number"] = index + 1
-          data["invoice_comment"] = "Quote ##{quote.code}"
-          data["item_description"] = "Quote ##{quote.code}"
+          data["invoice_comment"] = "#{Quote.model_name.human} ##{quote.code}"
+          data["item_description"] = line.name
           data["amount"] = line.amount
           data["tax_code"] = "TPS_TVQ"
           data["Detail_GL_account"] = account.send("accounting_#{line.name}_account_number")

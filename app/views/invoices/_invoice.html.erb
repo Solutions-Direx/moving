@@ -50,7 +50,7 @@
 
 <!-- SUPPLIES -->
 <% if @invoice.invoice_supplies.any? %>
-  <h3 class="inv_section"><%= Supply.model_name.human + 's' %></h3>
+  <h3 class="inv_section"><%= t 'supplies', default: 'Supplies' %></h3>
   <% @invoice.invoice_supplies.each do |inv_supply| %>
     <div class="row">
       <div class="span4"><%= inv_supply.supply.name %> (<%= inv_supply.quantity %> * <%= number_to_currency(inv_supply.supply.price) %>)</div>
@@ -70,20 +70,24 @@
   <% end %>
 <% end %>
 
-<!-- FRANCHISE CANCELLATION -->
-<% if @invoice.quote.quote_confirmation.franchise_cancellation %>
-  <div class="row">
-    <div class="span4"><%= t 'franchise_cancelation' %></div>
-    <div class="span2 money"><%= number_to_currency(current_account.franchise_cancellation_amount) %></div>
-  </div>
-<% end %>
+<% if @invoice.quote.quote_confirmation.franchise_cancellation or @invoice.total_insurance_increase > 0 %>
+  <h3 class="inv_section"><%= t 'insurance' %></h3>
 
-<!-- INSURANCE -->
-<% if @invoice.total_insurance_increase > 0 %>
-  <div class="row">
-    <div class="span4"><%= t 'insurance_increase' %></div>
-    <div class="span2 money"><%= number_to_currency(@invoice.total_insurance_increase) %></div>
-  </div>
+  <!-- FRANCHISE CANCELLATION -->
+  <% if @invoice.quote.quote_confirmation.franchise_cancellation %>
+    <div class="row">
+      <div class="span4"><%= t 'franchise_cancelation' %></div>
+      <div class="span2 money"><%= number_to_currency(current_account.franchise_cancellation_amount) %></div>
+    </div>
+  <% end %>
+
+  <!-- INSURANCE -->
+  <% if @invoice.total_insurance_increase > 0 %>
+    <div class="row">
+      <div class="span4"><%= t 'insurance_increase' %></div>
+      <div class="span2 money"><%= number_to_currency(@invoice.total_insurance_increase) %></div>
+    </div>
+  <% end %>
 <% end %>
 
 <!-- STORAGES -->
@@ -108,6 +112,7 @@
 
 <!-- DISCOUNT -->
 <% if @invoice.total_discount > 0 %>
+  <br>
   <div class="row">
     <div class="span4"><%= t 'discount' %></div>
     <div class="span2 money">- <%= number_to_currency(@invoice.total_discount) %></div>

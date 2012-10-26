@@ -24,7 +24,6 @@ class InvoicesController < ApplicationController
     @quote = Quote.find_by_code(params[:quote_id])
     @invoice = @quote.build_invoice(payment_method: @quote.quote_confirmation.payment_method)
     @invoice.copy_quote_info
-    @invoice.build_lines(@invoice.quote)
   end
   
   def create

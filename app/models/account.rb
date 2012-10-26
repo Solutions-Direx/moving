@@ -21,7 +21,8 @@ class Account < ActiveRecord::Base
   # ATTRIBUTES
   attr_accessible :franchise_cancellation_amount, :companies_attributes,
                   :insurance_coverage_short_distance, :insurance_coverage_long_distance, :invoice_start_number, :taxes_attributes,
-                  :accounting_moving_account_number, :accounting_tip_account_number, :accounting_insurance_account_number, :accounting_supply_account_number
+                  :accounting_moving_account_number, :accounting_tip_account_number, :accounting_insurance_account_number, :accounting_supply_account_number,
+                  :accounting_payment_cash_account_number, :accounting_payment_debit_account_number, :accounting_payment_credit_account_number, :accounting_payment_cheque_account_number
   
   # VALIDATIONS
   validates :invoice_start_number, :presence => true, :uniqueness => true

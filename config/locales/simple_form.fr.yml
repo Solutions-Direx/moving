@@ -103,7 +103,11 @@ fr:
         accounting_moving_account_number: Compte à recevoir - déménagements
         accounting_tip_account_number: Compte à recevoir - pourboires
         accounting_insurance_account_number: Compte à recevoir - assurances
-        accounting_supply_account_number: Compte àr ecevoir - fournitures/boites...
+        accounting_supply_account_number: Compte à recevoir - fournitures/boites...
+        accounting_payment_cash_account_number: Compte de trésorerie - Comptant
+        accounting_payment_debit_account_number: Compte de trésorerie - Débit
+        accounting_payment_credit_account_number: Compte de trésorerie - Crédit
+        accounting_payment_cheque_account_number: Compte de trésorerie - Chèque
     hints:
       defaults:
       user:

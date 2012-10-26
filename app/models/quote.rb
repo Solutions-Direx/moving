@@ -188,13 +188,22 @@ class Quote < ActiveRecord::Base
       quotes.each do |quote|
         data = {}
         quote.payments.each_with_index do |payment, index|
-          data["Customer_Code"] = quote.client.reference
+          data["Customer_code"] = quote.client.code
           data["Customer_name"] = quote.client.name
           data["Invoice_number"] = payment.payable.try(:code)
           data["Payment_date"] = I18n.l(payment.date, format: :default)
+          data["Receipt_number"] = payment.transaction_number.present? ? "Transaction: #{payment.transaction_number}" : ''
           data["Pay_type"] = I18n.t(payment.payment_method)
-          data["payment_text"] = payment.transaction_number.present? ? I18n.t(payment.transaction_number) : ''
           data["CC_name"] = payment.credit_card_type.present? ? I18n.t(payment.credit_card_type) : ''
+          if payment.payment_method == "cash"
+            data["GL_account"] = quote.account.accounting_payment_cash_account_number
+          elsif payment.payment_method == "debit"
+            data["GL_account"] = quote.account.accounting_payment_debit_account_number
+          elsif payment.payment_method == "credit"
+            data["GL_account"] = quote.account.accounting_payment_credit_account_number
+          elsif payment.payment_method == "cheque"
+            data["GL_account"] = quote.account.accounting_payment_cheque_account_number  
+          end
           data["Amount"] = payment.amount
           data["deposit"] = payment.payable.is_a?(Quote) ? 1 : 0
           data["comment"] = payment.payable.is_a?(Quote) ? 'Deposit' : ''
