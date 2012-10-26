@@ -5,9 +5,6 @@
   
   <div class="form-inputs">
     
-    <%= f.fields_for :lines %>
-    <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_line', default: 'Add line'}", :lines, :class => "btn btn-primary add-link" %>
-  
     <div class="control-group float optional">
       <%= f.label :time_spent %>
       <div class="controls">
@@ -69,6 +66,15 @@
       <div class="controls">
         <div class='input-append'>
           <%= f.text_field :discount, :class => 'span1 input-append' %><span class="add-on">$</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="control-group float optional">
+      <%= f.label :tip %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= f.text_field :tip, :class => 'span1 input-append' %><span class="add-on">$</span>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121024162326) do
+ActiveRecord::Schema.define(:version => 20121026043307) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
@@ -145,17 +145,6 @@ ActiveRecord::Schema.define(:version => 20121024162326) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "invoice_lines", :force => true do |t|
-    t.string   "item_name"
-    t.integer  "quantity"
-    t.float    "amount"
-    t.integer  "invoice_id"
-    t.string   "invoiceable_type"
-    t.integer  "invoiceable_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
   create_table "invoice_supplies", :force => true do |t|
     t.integer  "invoice_id"
     t.integer  "supply_id"
@@ -196,6 +185,7 @@ ActiveRecord::Schema.define(:version => 20121024162326) do
     t.datetime "updated_at",                          :null => false
     t.string   "purchase_order"
     t.integer  "creator_id"
+    t.float    "tip"
   end
 
   create_table "payments", :force => true do |t|

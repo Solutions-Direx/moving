@@ -45,6 +45,7 @@ Moving::Application.routes.draw do
       get '/pending'
       get 'monthly'
       get 'daily'
+      get :export_payments
     end
   end
   resources :clients do
@@ -63,7 +64,6 @@ Moving::Application.routes.draw do
   resources :invoices, :only => :index do
     collection do
       get 'export'
-      # get 'reports'
     end
   end
   resources :documents do

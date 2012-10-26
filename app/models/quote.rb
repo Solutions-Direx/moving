@@ -175,18 +175,12 @@ class Quote < ActiveRecord::Base
   end
 
   def self.export_payments(account, quote_ids=[], options={})
-    headers = %w{Invoice_number UDF_1 Customer_Code Invoice_Date Order_number ship_date
-                Sales_person WHS_Location Currency Customer_name Contact_name Address1 
-                Address2 city Province Country  PostCode email Phone1 Phone2 Fax2 
-                website Shipto_Name Shipto_contact ship_address1 ship_address2 ship_city ship_province
-                ship_zip ship_country ship_phone ship_phone_2 ship_fax ship_email Net_Days Net_disc_percent
-                net_disc_days invoice_comment Header_GL_Account Payment_method CC_name payment_text record_type
-                shipper tracking_number add_info1 add_Date line_number item_code item_description
-                UOM qty_ordered qty_shipped qty_bo base_price line_disc_percent unit_price amount tax_code
-                Detail_GL_account Department Project Freight_Line}
+    headers = %w{Customer_code Customer_name Invoice_number Payment_date Receipt_number 
+                Pay_type payment_text CC_name Amount GL_account deposit 
+                Deposit_reference comment add_info add_date}
     header_indexes = Hash[headers.map.with_index{|*x| x}]
                 
-    quotes = account.quotes.includes(:client, :quote_confirmation, :deposit, :invoice, :forfaits, :surcharges, :supplies).order('created_at DESC')
+    quotes = account.quotes.includes(:client, :quote_confirmation, :deposit, :forfaits, :surcharges, :supplies).order('created_at DESC')
     quotes = quotes.where(id: quote_ids) if quote_ids.present?
 
     CSV.generate(options) do |csv|
@@ -194,30 +188,16 @@ class Quote < ActiveRecord::Base
       quotes.each do |quote|
         data = {}
         quote.payments.each_with_index do |payment, index|
-          data["Invoice_number"] = payment.payable.try(:code)
           data["Customer_Code"] = quote.client.reference
-          #data["Invoice_Date"] = payment.payable.is_a?(Invoice) ? I18n.l(payment.payable.updated_at.to_date, :format => :long) : ""
-          data["Invoice_Date"] = I18n.l(payment.date)
-          data["Sales_person"] = payment.try(:creator).try(:full_name)
-          data["Currency"] = "CAD"
           data["Customer_name"] = quote.client.name
-          data["Contact_name"] = quote.client.try(:billing_contact)
-          data["Address1"] = quote.client.address.address
-          data["city"] = quote.client.address.try(:city)
-          data["Province"] = quote.client.address.try(:province)
-          data["Country"] = quote.client.address.try(:country)
-          data["PostCode"] = quote.client.address.try(:postal_code)
-          data["email"] = quote.client.try(:email)
-          data["Phone1"] = quote.client.try(:phone1)
-          data["Phone2"] = quote.client.try(:phone2)
-          data["Payment_method"] = I18n.t(payment.payment_method)
-          data["CC_name"] = payment.credit_card_type.present? ? I18n.t(payment.credit_card_type) : ''
+          data["Invoice_number"] = payment.payable.try(:code)
+          data["Payment_date"] = I18n.l(payment.date, format: :default)
+          data["Pay_type"] = I18n.t(payment.payment_method)
           data["payment_text"] = payment.transaction_number.present? ? I18n.t(payment.transaction_number) : ''
-          data["line_number"] = index + 1
-          data["item_description"] = "Quote ##{quote.code}"
-          data["amount"] = payment.amount
-          data["tax_code"] = "TPS_TVQ"
-          data["Detail_GL_account"] = "4200"
+          data["CC_name"] = payment.credit_card_type.present? ? I18n.t(payment.credit_card_type) : ''
+          data["Amount"] = payment.amount
+          data["deposit"] = payment.payable.is_a?(Quote) ? 1 : 0
+          data["comment"] = payment.payable.is_a?(Quote) ? 'Deposit' : ''
 
           row = []
           header_indexes.each do |field, index|

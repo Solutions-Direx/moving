@@ -1,5 +1,8 @@
 <h1><%= t Invoice.model_name.human + 's' %>
-  <span class="submenu"><%= icon_button_link_to "#{t 'download_invoices', default: 'Download invoices'}", export_invoices_path(:format => :csv), icon: "download-alt", large: true, level: "primary", white: true, id: 'export' %></span>
+  <span class="submenu">
+    <%= icon_button_link_to "#{t 'download_invoices', default: 'Download invoices'}", export_invoices_path(:format => :csv), icon: "download-alt", large: true, level: "primary", white: true, class: 'download' %>
+    <%= icon_button_link_to "#{t 'download_payments', default: 'Download payments'}", export_payments_quotes_path(:format => :csv), icon: "download-alt", large: true, level: "primary", white: true, class: 'download' %>
+  </span>
 </h1>
 
 <div class="clearfix">
@@ -51,14 +54,15 @@
         $('.quote').attr('checked', false);
       }
     });
-    $('#export').click(function(e) {
+    $('.download').click(function(e) {
+      var $this = $(this);
       e.preventDefault();
       var selected_invoices = $('.quote:checked');
       if (selected_invoices.length > 0) {
         var invoice_ids = selected_invoices.map(function () {
           return this.value;
         }).get();
-        window.location = $('#export').attr('href') + "?" + $.param({"quotes[]": invoice_ids});
+        window.location = $this.attr('href') + "?" + $.param({"quotes[]": invoice_ids});
         // return false;
       } else {
         alert("Please select invoices to export first.");

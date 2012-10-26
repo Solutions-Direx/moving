@@ -36,38 +36,45 @@ class Invoice < ActiveRecord::Base
   has_many :surcharges, :as => :surchargeable, :dependent => :destroy
   accepts_nested_attributes_for :surcharges, :allow_destroy => true, :reject_if => :all_blank
   
-  has_many :lines, :class_name => "InvoiceLine", :foreign_key => "invoice_id"
-  accepts_nested_attributes_for :lines, :allow_destroy => true, :reject_if => lambda {|l| l[:amount].blank?}
-
   attr_accessor :amount_received
   attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :gas, :rate,
-                  :invoice_supplies_attributes, :forfait_ids, :client_satisfaction,
+                  :invoice_supplies_attributes, :forfait_ids, :client_satisfaction, :tip,
                   :payment_method, :discount, :credit_card_type, :surcharges_attributes, :lock_version,
                   :too_big_for_stairway, :too_big_for_hallway, :too_big, :broken, :too_fragile, :furnitures,
-                  :tax1, :tax1_label, :tax2, :tax2_label, :compound, :purchase_order, :creator_id, :lines_attributes
+                  :tax1, :tax1_label, :tax2, :tax2_label, :compound, :purchase_order, :creator_id
   
   before_create :generate_code
   
   validates_presence_of :payment_method, :unless => Proc.new { |invoice| invoice.quote.client.commercial? }
   
-  def build_lines(quote)
-    # moving type lines
-    lines.build(item_name: 'moving', amount: quote.price)
-    # gas type lines
-    lines.build(item_name: 'gas', amount: quote.gas)
-    # insurance type lines
-    lines.build(item_name: 'insurance', amount: quote.account.franchise_cancellation_amount) if !quote.quote_confirmation.insurance_limit_enough
-    lines.build(item_name: 'insurance', amount: quote.quote_confirmation.insurance_increase)
-    # tip type line
-    lines.build(item_name: 'tip')
-    # forfaits type lines
-    quote.forfaits.each do |forfait|
-      lines.build(item_name: 'forfait', amount: forfait.price)
-    end
-    # supplies type line
-    quote.quote_supplies.each do |supply|
-      lines.build(item_name: 'supply', quantity: supply.quantity, amount: supply.supply.price)
-    end
+  def build_lines
+    lines = []
+
+    # 1. moving line
+    moving_line = OpenStruct.new
+    moving_line.name = 'moving'
+    moving_line.amount = total_time_spent + (try(:gas) || 0) + total_surcharges + total_forfaits - total_discount
+    lines << moving_line
+
+    # 2. supplier line 
+    supplier_line = OpenStruct.new
+    supplier_line.name = 'supply'
+    supplier_line.amount = total_supplies
+    lines << supplier_line
+
+    # 3. insurance line 
+    insurance_line = OpenStruct.new
+    insurance_line.name = 'insurance'
+    insurance_line.amount = total_franchise_cancellation + total_insurance_increase + storages_amount
+    lines << insurance_line
+
+    # 4. tip line 
+    tip_line = OpenStruct.new
+    tip_line.name = 'tip'
+    tip_line.amount = (try(:tip) || 0)
+    lines << tip_line
+
+    lines
   end
 
   # cache grand_total calculation since it's expensive
@@ -142,7 +149,7 @@ class Invoice < ActiveRecord::Base
   end
 
   def total
-    t = total_with_taxes
+    t = total_with_taxes + (try(:tip) || 0)
     t -= quote.deposit.amount if quote.deposit
     t = 0 if t < 0
     t
@@ -170,7 +177,7 @@ class Invoice < ActiveRecord::Base
     unless @amount_received
       t = 0
       payments.select{|p| !p.new_record?}.each do |payment|
-        t += (payment.amount + (payment.try(:tip) || 0))
+        t += payment.amount
       end
       @amount_received = t.round(2)
     end
@@ -181,6 +188,64 @@ class Invoice < ActiveRecord::Base
     t = (total - amount_received).round(2)
     t = 0 if t < 0
     t
+  end
+
+  def self.export(account, quote_ids=[], options={})
+    headers = %w{Invoice_number UDF_1 Customer_Code Invoice_Date Order_number ship_date
+                Sales_person WHS_Location Currency Customer_name Contact_name Address1 
+                Address2 city Province Country  PostCode email Phone1 Phone2 Fax2 
+                website Shipto_Name Shipto_contact ship_address1 ship_address2 ship_city ship_province
+                ship_zip ship_country ship_phone ship_phone_2 ship_fax ship_email Net_Days Net_disc_percent
+                net_disc_days invoice_comment Header_GL_Account Payment_method CC_name payment_text record_type
+                shipper tracking_number add_info1 add_Date line_number item_code item_description
+                UOM qty_ordered qty_shipped qty_bo base_price line_disc_percent unit_price amount tax_code
+                Detail_GL_account Department Project Freight_Line}
+    header_indexes = Hash[headers.map.with_index{|*x| x}]
+                
+    quotes = account.quotes.includes(:client, :quote_confirmation, :deposit, :invoice, :forfaits, :surcharges, :supplies).order('created_at DESC')
+    quotes = quotes.where(id: quote_ids) if quote_ids.present?
+
+    CSV.generate(options) do |csv|
+      csv << headers
+      quotes.each do |quote|
+        data = {}
+        invoice = quote.invoice
+        invoice.build_lines.select{|l| l.amount > 0}.each_with_index do |line, index|
+          data["Invoice_number"] = invoice.code
+          data["Customer_Code"] = quote.client.reference
+          #data["Invoice_Date"] = payment.payable.is_a?(Invoice) ? I18n.l(payment.payable.updated_at.to_date, :format => :long) : ""
+          data["Invoice_Date"] = I18n.l(invoice.updated_at.to_date, format: :default)
+          data["Sales_person"] = quote.try(:creator).try(:full_name)
+          data["Currency"] = "CAD"
+          data["Customer_name"] = quote.client.name
+          data["Contact_name"] = quote.client.try(:billing_contact)
+          data["Address1"] = quote.client.address.address
+          data["city"] = quote.client.address.try(:city)
+          data["Province"] = quote.client.address.try(:province)
+          data["Country"] = quote.client.address.try(:country)
+          data["PostCode"] = quote.client.address.try(:postal_code)
+          data["email"] = quote.client.try(:email)
+          data["Phone1"] = quote.client.try(:phone1)
+          data["Phone2"] = quote.client.try(:phone2)
+          data["Payment_method"] = I18n.t(invoice.payment_method)
+          data["CC_name"] = invoice.credit_card_type.present? ? I18n.t(invoice.credit_card_type) : ''
+          data["payment_text"] = ""
+          data["line_number"] = index + 1
+          data["invoice_comment"] = "Quote ##{quote.code}"
+          data["item_description"] = "Quote ##{quote.code}"
+          data["amount"] = line.amount
+          data["tax_code"] = "TPS_TVQ"
+          data["Detail_GL_account"] = account.send("accounting_#{line.name}_account_number")
+
+          row = []
+          header_indexes.each do |field, index|
+            row << data[field] || ''
+          end
+          csv << row
+        end
+      end
+    end
+
   end
   
 private

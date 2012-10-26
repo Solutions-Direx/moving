@@ -137,6 +137,13 @@
   <div class="span2 money"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax2_amount) %></h3></div>
 </div>
 <% end %>
+<!-- TIP -->
+<% if (@invoice.try(:tip) || 0) > 0 %>
+<div class="row">
+  <div class="span4"><h3 style="font-weight: normal;"><%= t 'tip' %></h3></div>
+  <div class="span2 money"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tip) %></h3></div>
+</div>
+<% end %>
 
 <% if @invoice.quote.deposit %>
   <% deposit = @invoice.quote.deposit %>
@@ -183,8 +190,6 @@
   <%= section %>
   <p><i><%= simple_format(@invoice.comment) %></i></p>
 <% end %>
-
-<%= render 'lines' %>
 
 <!-- INVOICE SIGNED -->
 <% if @invoice.signed? %>

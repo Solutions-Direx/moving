@@ -71,10 +71,10 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       format.csv { 
-        content = Quote.export_payments(current_account, params[:quotes])
+        content = Invoice.export(current_account, params[:quotes])
         content = Iconv.conv('ISO-8859-1','UTF-8', content)
         send_data content, 
-          :filename => "invoice.csv", 
+          :filename => "invoices.csv", 
           :type => 'text/csv; charset=utf-8; header=present',
           :disposition => "attachment"
       }

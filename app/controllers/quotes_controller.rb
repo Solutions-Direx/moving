@@ -1,3 +1,6 @@
+# encoding: utf-8
+require 'iconv'
+
 class QuotesController < ApplicationController
   before_filter :load_quote, :only => [:show, :edit, :update, :destroy, :daily_update, :terms, :reject, :sign, :print]
   load_and_authorize_resource
@@ -198,6 +201,19 @@ class QuotesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf { render :text => PDFKit.new(render_to_string(:formats => [:html], :layout => 'print')).to_pdf }
+    end
+  end
+
+  def export_payments
+    respond_to do |format|
+      format.csv { 
+        content = Quote.export_payments(current_account, params[:quotes])
+        content = Iconv.conv('ISO-8859-1','UTF-8', content)
+        send_data content, 
+          :filename => "payments.csv", 
+          :type => 'text/csv; charset=utf-8; header=present',
+          :disposition => "attachment"
+      }
     end
   end
   
