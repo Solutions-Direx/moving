@@ -3,20 +3,20 @@
 <% if @quote.quote_supplies.any? %>
   <%= section %>
   <h3 class='with_margin'><%= Supply.model_name.human + 's' %></h3>
-  <% @quote.quote_supplies.each do |q_supply| %>
   <ul>
-    <li><%= q_supply.quantity %> * <%=q_supply.supply.name_with_price %></li>
+    <% @quote.quote_supplies.each do |q_supply| %>
+      <li><%= q_supply.quantity %> * <%=q_supply.supply.name_with_price %></li>
+    <% end %>
   </ul>
-  <% end %>
 <% end %>
 
 <% if @quote.forfaits.any? %>
   <%= section %>
   <h3 class='with_margin'>Forfaits</h3>
-  <% @quote.forfaits.each do |forfait| %>
   <ul>
-    <li><%= link_to forfait.name_with_price, '#', "rel"=>"popover", "data-original-title"=>"#{forfait.name_with_price}",
-      "data-content"=>"#{simple_format(forfait.description)}" %></li>
+    <% @quote.forfaits.each do |forfait| %>
+      <li><%= link_to forfait.name_with_price, '#', "rel"=>"popover", "data-original-title"=>"#{forfait.name_with_price}",
+        "data-content"=>"#{simple_format(forfait.description)}" %></li>
+    <% end %>
   </ul>
-  <% end %>
 <% end %>

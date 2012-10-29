@@ -1,4 +1,5 @@
-<p><b>Client:</b> <%= @report.quote.client.name %></p>
+<p><b>Client:</b> <%= @report.quote.client.name %> (<%= link_to "#{@report.quote.client.reference}", client_path(@report.quote.client.code) %>)</p>
+<p><b><%= Quote.model_name.human %>:</b> <%= link_to "#{@report.quote.reference}", quote_path(@report.quote.code) %></p>
 <p><b><%= t "removal_at" %>:</b> <%= l @report.quote.removal_at.to_date %></p>
 <%= render 'quotes/trucks' %>
 <%= section %>

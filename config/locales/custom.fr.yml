@@ -180,7 +180,7 @@ fr:
   supplies: 'Matériels'
   quote_email_notification: "L'entente a été envoyée avec succès à"
   invoice_email_notification: "La facture a été envoyée avec succès à"
-  report_for: Rapport du déménagement pour
+  report_for: Rapport du déménagement
   conflict: "Un autre utilisateur a apporté une modification à cet enregistrement depuis que vous y avez accédé. Veuillez vérifiez les informations puis mettre à jour."
   comptant: "Comptant"
   debit: "Débit"
@@ -344,6 +344,8 @@ fr:
   add_line: Ajouter une ligne
   moving_job: Déménagement
   please_select_invoices_to_export: Veuillez sélectionner les factures à exporter
+  for: pour
+  warehousing: Entreposage
   activerecord:
     models:
       account: Compte
