@@ -7,13 +7,11 @@
   <%= f.full_error :reset_password_token %>
 
   <div class="inputs">
-    <%= f.input :password, :label => "New password", :required => true %>
-    <%= f.input :password_confirmation, :label => "Confirm your new password", :required => true %>
+    <%= f.input :password, :label => "#{t 'new_password', default: 'New password'}", :required => true %>
+    <%= f.input :password_confirmation, :label => "#{t 'confirm_new_password', default: 'Confirm your new password'}", :required => true %>
   </div>
 
   <div class="actions">
     <%= f.button :submit, "#{t 'change_my_password', default: 'Change my password'}" %>
   </div>
 <% end %>
-
-<%= render "links" %>

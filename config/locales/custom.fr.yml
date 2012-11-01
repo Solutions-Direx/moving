@@ -346,6 +346,8 @@ fr:
   please_select_invoices_to_export: Veuillez sélectionner les factures à exporter
   for: pour
   warehousing: Entreposage
+  new_password: Nouveau mot de passe
+  confirm_new_password: Confirmer le nouveau mot de passe
   activerecord:
     models:
       account: Compte

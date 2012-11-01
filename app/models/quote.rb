@@ -188,11 +188,11 @@ class Quote < ActiveRecord::Base
       quotes.each do |quote|
         data = {}
         quote.payments.each_with_index do |payment, index|
-          data["Customer_code"] = quote.client.code
+          data["Customer_code"] = quote.client.reference
           data["Customer_name"] = quote.client.name
           data["Invoice_number"] = payment.payable.try(:code)
           data["Payment_date"] = I18n.l(payment.date, format: :default)
-          data["Receipt_number"] = payment.transaction_number.present? ? "Transaction: #{payment.transaction_number}" : ''
+          data["Receipt_number"] = payment.transaction_number.present? ? "#{payment.transaction_number}" : ''
           data["Pay_type"] = I18n.t(payment.payment_method)
           data["CC_name"] = payment.credit_card_type.present? ? I18n.t(payment.credit_card_type) : ''
           if payment.payment_method == "cash"

@@ -1,7 +1,7 @@
 <h1><%= t Invoice.model_name.human + 's' %>
   <span class="submenu">
-    <%= icon_button_link_to "#{t 'export_invoices', default: 'Export invoices'}", export_invoices_path(:format => :csv), icon: "download-alt", large: true, level: "primary", white: true, class: 'download' %>
-    <%= icon_button_link_to "#{t 'export_payments', default: 'Export payments'}", export_payments_quotes_path(:format => :csv), icon: "download-alt", large: true, level: "primary", white: true, class: 'download' %>
+    <%= icon_button_link_to "#{t 'export_invoices', default: 'Export invoices'}", export_invoices_path(:format => :csv), icon: "download-alt", large: true, level: "primary", white: true, class: 'download' if current_user.manager? %>
+    <%= icon_button_link_to "#{t 'export_payments', default: 'Export payments'}", export_payments_quotes_path(:format => :csv), icon: "download-alt", large: true, level: "primary", white: true, class: 'download' if current_user.manager? %>
   </span>
 </h1>
 

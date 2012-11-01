@@ -149,12 +149,12 @@
 
 <p>
   <b><%= t 'price' %>:</b>
-  <%= number_to_currency(@quote.price) %> <%= t 'per_hour' %>
+  <%= number_to_currency(@quote.price, strip_insignificant_zeros: true) %> <%= t 'per_hour' %>
 </p>
 
 <p>
   <b><%= t 'gas' %>:</b>
-  <%= number_to_currency(@quote.gas) %>
+  <%= number_to_currency(@quote.gas, strip_insignificant_zeros: true) %>
 </p>
 
 
@@ -162,9 +162,9 @@
   <p style="margin-bottom:0;"><b><%= t "#{Storage.model_name.human}" %>:</b></p>
   <h6 style="padding-left:0;"><%= @quote.from_address.storage.name %></h6>
   <p style="margin-top:0; margin-bottom:0;">
-    <b><%= t 'price_per_month' %>:</b> <%= number_to_currency(@quote.from_address.price) %>
+    <b><%= t 'price_per_month' %>:</b> <%= number_to_currency(@quote.from_address.price, strip_insignificant_zeros: true) %>
     <% if @quote.from_address.insurance.present? %>
-      + <%= t 'insurance' %>: <%= number_to_currency(@quote.from_address.insurance) %>
+      + <%= t 'insurance' %>: <%= number_to_currency(@quote.from_address.insurance, strip_insignificant_zeros: true) %>
     <% end %>
   </p>
 <% end %>
@@ -174,9 +174,9 @@
     <% if to_address.has_storage? %>
       <h6 style="padding-left:0;"><%= to_address.storage.name %></h6>
       <p style="margin-top:0;">
-        <b><%= t 'price_per_month' %>:</b> <%= number_to_currency(to_address.price) %>
+        <b><%= t 'price_per_month' %>:</b> <%= number_to_currency(to_address.price, strip_insignificant_zeros: true) %>
         <% if to_address.insurance.present? %>
-          + <%= t 'insurance' %>: <%= number_to_currency(to_address.insurance) %>
+          + <%= t 'insurance' %>: <%= number_to_currency(to_address.insurance, strip_insignificant_zeros: true) %>
         <% end %>
       </p>        
     <% end %>
@@ -187,7 +187,7 @@
   <% @quote.surcharges.each do |surcharge| %>
     <p>
       <b><%= surcharge.label %>:</b>
-      <%= number_to_currency(surcharge.price) %>
+      <%= number_to_currency(surcharge.price, strip_insignificant_zeros: true) %>
     </p>
   <% end %>
 <% end %>
@@ -254,7 +254,7 @@
   <h3><%= t 'quote_confirmation', default: 'Quote confirmation' %></h3>
   <p><%= t 'approved_on' %> <%= I18n.l(@quote.quote_confirmation.approved_at, :format => :long) %> <%= t 'by' %> <%= @quote.quote_confirmation.user.full_name %></p>
   <p><%= t 'insurance_increase' %>: 
-  <%= @quote.quote_confirmation.insurance_limit_enough? ? "#{t 'nope'}" : number_to_currency(@quote.quote_confirmation.insurance_increase) %>
+  <%= @quote.quote_confirmation.insurance_limit_enough? ? "#{t 'nope'}" : number_to_currency(@quote.quote_confirmation.insurance_increase, strip_insignificant_zeros: true) %>
   </p>
 
   <p><%= t 'franchise_cancelation' %>: <%= @quote.quote_confirmation.franchise_cancellation? ? 
@@ -279,7 +279,7 @@
 <% if @quote.deposit.present? %>
 <p>
   <b><%= t 'deposit_received' %>:</b>
-  <%= number_to_currency(@quote.deposit.amount) %> - <%= l @quote.deposit.date, format: :long %> - <%= t "#{@quote.deposit.payment_method}" %>
+  <%= number_to_currency(@quote.deposit.amount, strip_insignificant_zeros: true) %> - <%= l @quote.deposit.date, format: :long %> - <%= t "#{@quote.deposit.payment_method}" %>
   <%= "(#{t(@quote.deposit.credit_card_type)})" if @quote.deposit.credit_card_type.present? %>
 </p>
 <% end %>
