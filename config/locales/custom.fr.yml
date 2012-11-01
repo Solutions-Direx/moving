@@ -348,6 +348,10 @@ fr:
   warehousing: Entreposage
   new_password: Nouveau mot de passe
   confirm_new_password: Confirmer le nouveau mot de passe
+  q_confirmed: Confirmées
+  q_not_confirmed: Non confirmées
+  q_invoiced: Facturées
+  q_not_invoiced: Non facturées
   activerecord:
     models:
       account: Compte

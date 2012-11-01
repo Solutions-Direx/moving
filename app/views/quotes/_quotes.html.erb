@@ -1,25 +1,29 @@
-<div class="clearfix">
-  <%= form_tag '', :method => :get, :class => "form-search" do %>
+<div class="clearfix well">
+  <%= form_tag '', :method => :get, class: "form-search" do %>
     <%= hidden_field_tag 'sort', params[:sort] %>
     <%= hidden_field_tag 'direction', params[:direction] %>
-    <%= text_field_tag 'search', params[:search], placeholder: "Client, ID..." %>
+    <%= text_field_tag 'search', params[:search], placeholder: "Client, ID...", class: 'span2' %>
     <% if period_search %>
       <%= t 'from_date', default: 'From' %>
       <div class="input-append">
-        <%= text_field_tag '', params[:from], class: 'datepicker' %>
+        <%= text_field_tag '', params[:from], class: 'datepicker', style: "width:70px;" %>
         <%= hidden_field_tag :from, params[:from], :class => "datepicker-alt" %>
         <span class="add-on clear">×</span>
       </div>
       <%= t 'to_date', default: 'And' %>
       <div class="input-append">
-        <%= text_field_tag '', params[:to], class: 'datepicker' %>
+        <%= text_field_tag '', params[:to], class: 'datepicker', style: "width:70px;" %>
         <%= hidden_field_tag :to, params[:to], :class => "datepicker-alt" %>
         <span class="add-on clear">×</span>
       </div>
-    <% end -%>
+    <% end %>
+    <%= radio_button_tag 'confirmed', 'true' %> <%= t 'q_confirmed', default: 'Confirmed' %>
+    <%= radio_button_tag 'confirmed', 'false' %> <%= t 'q_not_confirmed', default: 'Not confirmed' %>
+    <%= radio_button_tag 'invoiced', 'true' %> <%= t 'q_invoiced', default: 'Invoiced' %>
+    <%= radio_button_tag 'invoiced', 'false' %> <%= t 'q_not_invoiced', default: 'Not invoiced' %>
     <%= submit_tag "#{t 'search'}", class: 'btn', name: nil %>
   <% end %>
-  <%= paginate @quotes %>
+  <%#= paginate @quotes %>
 </div>
 
 <table class="table table-striped">

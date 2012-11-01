@@ -59,4 +59,9 @@ input[type=checkbox] {
 
 .form-search {
 	margin-top: 0;
+	
+	input[type="radio"], input[type="submit"] {
+	  margin-left: 10px;
+		margin-right: 5px;
+	}
 }
