@@ -42,7 +42,6 @@ Moving::Application.routes.draw do
     end
     
     collection do
-      get '/pending'
       get 'monthly'
       get 'daily'
       get :export_payments
