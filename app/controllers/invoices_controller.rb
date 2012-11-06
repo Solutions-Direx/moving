@@ -83,7 +83,13 @@ class InvoicesController < ApplicationController
   def print
     respond_to do |format|
       format.html
-      format.pdf { render :text => PDFKit.new(render_to_string(:formats => [:html], :layout => 'print')).to_pdf }
+      # format.pdf { render :text => PDFKit.new(render_to_string(:formats => [:html], :layout => 'print')).to_pdf }
+      format.pdf do
+        pdf = InvoicePdf.new(@invoice)
+        send_data pdf.render, filename: "invoice_#{@invoice.code}.pdf",
+                              type: "application/pdf",
+                              disposition: "inline"
+      end
     end
   end
   

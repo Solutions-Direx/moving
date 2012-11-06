@@ -24,6 +24,7 @@ gem "paperclip"
 gem 'capistrano'
 gem 'unicorn'
 gem 'whenever', :require => false
+gem 'prawn', :git => "git://github.com/prawnpdf/prawn.git"
 
 # Gems used only for assets and not required
 # in production environments by default.
