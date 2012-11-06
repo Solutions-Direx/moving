@@ -89,6 +89,12 @@ class InvoicesController < ApplicationController
         send_data pdf.render, filename: "invoice_#{@invoice.code}.pdf",
                               type: "application/pdf",
                               disposition: "inline"
+
+        string = "page <page> of <total>"
+        options = { :at => [bounds.right - 150, 0],
+              :width => 150,
+              :align => :right }
+        number_pages string, options
       end
     end
   end

@@ -4,9 +4,9 @@
       <div class="btn-group">
         <button class="btn btn-large dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
         <ul class="dropdown-menu" style="font-size:14px;">
-          <li><%= icon_link_to "#{t 'print', default: 'Print'}", print_quote_invoice_path(:format => :pdf), icon: "print", large: true, level: "primary", target: "_blank" %></li>
+          <li><%= icon_link_to "#{t 'print', default: 'Print'}", print_quote_invoice_path(format: :pdf), icon: "print", large: true, level: "primary", target: "_blank" %></li>
           <% unless @quote.client.email.blank? %>
-            <li><%= icon_link_to "#{t 'email_to_client'}", email_quote_invoice_path(@quote), :method => :post, icon: "envelope", level: "success", large: true, disabled_with: "#{t 'email_to_client'}" %></li>
+            <li><%= icon_link_to "#{t 'email_to_client'}", email_quote_invoice_path(@quote), method: :post, icon: "envelope", level: "success", large: true, disabled_with: "#{t 'email_to_client'}" %></li>
           <% end %>
         </ul>
       </div>

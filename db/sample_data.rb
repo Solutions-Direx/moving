@@ -87,8 +87,8 @@ puts "Generated 10 sample documents."
   storage = account.storages.create!(name: Faker::Lorem.words(2).join(' ').titleize, internal: [true, false].sample)
   storage.create_address(address: Faker::Address.street_address(include_secondary = false), city: Faker::Address.city, postal_code: Faker::Address.zip_code, province: ['Québec', 'Ontario', 'New York'].sample, country: 'Canada')
 end
-s_internal = Storage.find_by_internal(true).first
-s_internal.update_attributes(name: "Entrepôt interne", price: '20')
+s_internal = Storage.first
+s_internal.update_attributes(name: "Entrepôt interne", price: '20', internal: true)
 s_internal.annexes.create([{name: 'Conditions', body: 'Coming up...'}, {name: 'Assurances', body: 'Coming up...'}])
 print "\n"
 puts "Generated 5 sample storages."
