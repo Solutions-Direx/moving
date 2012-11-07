@@ -8,6 +8,12 @@ class InvoicePdf < Prawn::Document
     super(top_margin: 20, left_margin: 20, right_margin: 20, bottom_margin: 20, page_layout: :portrait)
     @invoice = invoice
 
+    page_layout
+
+    number_pages "page <page> of <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 8, color: 'AAAAAA' }
+  end
+
+  def page_layout
     invoice_header
     move_down 10
     invoice_addresses
@@ -19,14 +25,22 @@ class InvoicePdf < Prawn::Document
     move_down 10
     price_details
 
-    start_new_page
-
     payments
     stroke_color "CCCCCC"           
     stroke_horizontal_rule
     move_down 10
     quote_details
   end
+
+  # def footer
+  #   bounding_box [bounds.left, bounds.bottom + 30], :width  => bounds.width do
+  #     stroke_color "CCCCCC"
+  #     stroke_horizontal_rule
+  #     move_down 10
+  #     text "©RatedTradie New Zealand Ltd", :size => 8, color: GRAY
+  #     text "Date: #{@contract.created_at.strftime('%d/%m/%y')}", :size => 8, color: GRAY
+  #   end
+  # end
 
   def invoice_header
     table([[company_address_block, invoice_number_block]]) do
@@ -170,12 +184,14 @@ class InvoicePdf < Prawn::Document
       cells.align = :right
     end    
 
-    table([[titles_table, prices_table]]) do
-      cells.borders = []
-      row(0).column(0).padding = [0, 22, 0, 0]
-    end
+    group do
+      table([[titles_table, prices_table]]) do
+        cells.borders = []
+        row(0).column(0).padding = [0, 22, 0, 0]
+      end
 
-    short_line
+      short_line
+    end
     
     # GRAND TOTAL
     titles_data = []
@@ -227,8 +243,6 @@ class InvoicePdf < Prawn::Document
       row(0).column(0).padding = [0, 22, 0, 0]
     end
 
-    short_line
-
     # TOTAL
     titles_data = [["<b><font size='13'>Total</font></b>"]]
     prices_data = [["<b><font size='13'>#{number_to_currency(@invoice.total)}</font></b>"]]
@@ -247,19 +261,25 @@ class InvoicePdf < Prawn::Document
       cells.align = :right
     end
 
-    table([[titles_table, prices_table]]) do
-      cells.borders = []
-      row(0).column(0).padding = [0, 22, 0, 0]
+    group do
+      short_line
+
+      table([[titles_table, prices_table]]) do
+        cells.borders = []
+        row(0).column(0).padding = [0, 22, 0, 0]
+      end
     end
 
   end
 
   def payments
-    if @invoice.payments.any?
-      text I18n.t('payments_received'), size: 13, style: :bold
-      move_down 5
-      @invoice.payments.each do |payment|
-        text "•  #{I18n.l(payment.date)}: #{number_to_currency(payment.amount)} - #{payment.payment_option_details}" , leading: 3, size: 11, indent_paragraphs: 10
+    group do
+      if @invoice.payments.any?
+        text I18n.t('payments_received'), size: 13, style: :bold
+        move_down 5
+        @invoice.payments.each do |payment|
+          text "•  #{I18n.l(payment.date)}: #{number_to_currency(payment.amount)} - #{payment.payment_option_details}" , leading: 3, size: 11, indent_paragraphs: 10
+        end
       end
     end
   end
@@ -271,7 +291,7 @@ class InvoicePdf < Prawn::Document
     from_data = [["<b><font size='13'>#{@invoice.quote.internal_address? ? I18n.t('internal_moving') : I18n.t('from')}</font></b>"]]
 
     if @invoice.quote.from_address.has_storage?
-      from_data << ["<font size='10'><color rgb='999999'>#{I18n.t('storage').upcase}:</color> #{@invoice.quote.from_address.storage.name}</font>"]
+      from_data << ["<font size='10'><color rgb='999999'>#{I18n.t('storage_upcase')}:</color> #{@invoice.quote.from_address.storage.name}</font>"]
       from_data << [address_for(@invoice.quote.from_address.storage.address)]
     else
       from_data << ["<color rgb='999999'><font size='10'>#{I18n.t('address').upcase}</font></color>"]
@@ -295,7 +315,7 @@ class InvoicePdf < Prawn::Document
         for to_address in @invoice.quote.to_addresses
           if to_address.has_storage?
             internal = to_address.storage_id && to_address.storage.internal? ? I18n.t('internal') : ''
-            to_data << ["<font size='10'><color rgb='999999'>#{I18n.t('storage').upcase}:</color> #{to_address.storage.name} #{internal}</font>"]
+            to_data << ["<font size='10'><color rgb='999999'>#{I18n.t('storage_upcase')}: #{to_address.storage.name.upcase} #{internal.upcase}</color></font>"]
             to_data << [address_for(to_address.storage.address)]
           else
             to_data << ["<color rgb='999999'><font size='10'>#{I18n.t('address').upcase}</font></color>"]
@@ -326,19 +346,118 @@ class InvoicePdf < Prawn::Document
     move_down 10
     removal_men = @invoice.quote.removal_men.any? ? "- #{@invoice.quote.removal_men.map(&:full_name).to_sentence}" : ""
     text "<b>#{I18n.t('removal_men', default: 'Removal men')}</b>: #{@invoice.quote.num_of_removal_man} #{removal_men}", inline_format: true
+    move_down 3    
     text "<b>#{I18n.t('price')}</b>: #{number_to_currency(@invoice.quote.price, strip_insignificant_zeros: true)} #{I18n.t('per_hour')}", inline_format: true
+    move_down 3    
     text "<b>#{I18n.t('gas')}</b>: #{number_to_currency(@invoice.quote.gas, strip_insignificant_zeros: true)}", inline_format: true
+    move_down 3
     if @invoice.quote.surcharges.any?
       @invoice.quote.surcharges.each do |surcharge|
         text "<b>#{surcharge.label}</b>: #{number_to_currency(surcharge.price, strip_insignificant_zeros: true)}", inline_format: true
+        move_down 3
       end
     end
 
     long_distance = @invoice.quote.long_distance ? "(#{I18n.t('long_distance')})" : ""
     text "<b>#{I18n.t('transport_time', default: 'Transport time')}</b>: #{@invoice.quote.transport_time} #{long_distance}", inline_format: true
+    move_down 3
+    
+    if @invoice.quote.from_address.has_storage?
+      group do
+        text "<b>#{Storage.model_name.human}</b>", inline_format: true
+        move_down 3
+        text "<font size='10'><color rgb='999999'>#{@invoice.quote.from_address.storage.name.upcase}</color></font>"
+        move_down 3
+        if @quote.from_address.insurance.present?
+          storage_insurance = "+ " + I18n.t('insurance') + ": " + number_to_currency(@invoice.quote.from_address.insurance, strip_insignificant_zeros: true)
+        end
+        text "<b>#{I18n.t('price_per_month')}</b>: #{number_to_currency(@invoice.quote.from_address.price, strip_insignificant_zeros: true)} #{storage_insurance}", inline_format: true
+      end
+      move_down 3
+    end
+
+    unless @invoice.quote.to_addresses.blank?
+      group do
+        for to_address in @invoice.quote.to_addresses
+          if to_address.has_storage?
+            text "<font size='10'><color rgb='999999'>#{to_address.storage.name.upcase}</color></font>", inline_format: true
+            move_down 3
+            if to_address.insurance.present?
+              storage_insurance = "+ " + I18n.t('insurance') + ": " + number_to_currency(to_address.insurance, strip_insignificant_zeros: true)
+            end
+            text "<b>#{I18n.t('price_per_month')}:</b> #{number_to_currency(to_address.price, strip_insignificant_zeros: true)} #{storage_insurance}", inline_format: true
+            move_down 3
+          end
+        end
+      end
+    end
+
+    insurance = @invoice.quote.insurance? ? "#{I18n.t('included')}" : "#{I18n.t('not_included')}"
+    text "<b>#{I18n.t('insurance')}</b>: #{insurance}", inline_format: true
+    move_down 3
+
+    equipment = @invoice.quote.materiel? ? "#{I18n.t('included')}" : "#{I18n.t('not_included')}"
+    text "<b>#{I18n.t('equipment', default: 'Equipment')}</b>: #{equipment}", inline_format: true
+    move_down 3
+
+    if @invoice.quote.deposit.present?
+      card_type = @invoice.quote.deposit.credit_card_type.present? ? "(#{I18n.t(@invoice.quote.deposit.credit_card_type)})" : ""
+      text "<b>#{I18n.t('deposit_received')}</b>: #{number_to_currency(@invoice.quote.deposit.amount, strip_insignificant_zeros: true)} - #{I18n.l(@invoice.quote.deposit.date, format: :long)} - #{I18n.t(@invoice.quote.deposit.payment_method)} #{card_type}", inline_format: true      
+      move_down 3
+    end
+
+    if @invoice.quote.trucks.any?
+      text "<b>#{Truck.model_name.human + 's'}</b>", inline_format: true
+      move_down 3
+      @invoice.quote.trucks.each do |truck|
+        text "•  #{truck.name_with_plate}" , leading: 3, size: 11, indent_paragraphs: 10
+        move_down 3
+      end
+    end
+
+    if @invoice.quote.quote_supplies.any?
+      text "<b>#{Supply.model_name.human + 's'}</b>", inline_format: true
+      move_down 3
+      @invoice.quote.quote_supplies.each do |q_supply|
+        text "•  #{q_supply.quantity} * #{q_supply.supply.name_with_price}" , leading: 3, size: 11, indent_paragraphs: 10
+        move_down 3
+      end
+    end
+
+    if @invoice.quote.forfaits.any?
+      text "<b>Forfaits</b>", inline_format: true
+      move_down 3
+      @invoice.quote.forfaits.each do |forfait|
+        text "•  #{forfait.name_with_price}" , leading: 3, size: 11, indent_paragraphs: 10
+        move_down 3
+      end
+    end
+
+    if @invoice.quote.documents.any?
+      text "<b>Documents</b>", inline_format: true
+      move_down 3
+      @invoice.quote.documents.each do |document|
+        text "•  #{document.name}" , leading: 3, size: 11, indent_paragraphs: 10
+        move_down 3
+      end
+    end
+
+    if @invoice.quote.confirmed?
+      text "<b>#{I18n.t('quote_confirmation', default: 'Quote confirmation')}</b>", inline_format: true
+      move_down 3
+      text "#{I18n.t('insurance_increase')} : #{@invoice.quote.quote_confirmation.insurance_limit_enough? ? I18n.t('nope') : number_to_currency(@invoice.quote.quote_confirmation.insurance_increase)}"
+      move_down 3
+      text I18n.t('franchise_cancelation') + ": " + (@invoice.quote.quote_confirmation.franchise_cancellation? ? I18n.t('yessai') + " (#{I18n.t('fees')} #{number_to_currency(@invoice.quote.account.franchise_cancellation_amount)})" : I18n.t('nope') )
+      move_down 3
+      unless @invoice.quote.client.commercial?
+        text I18n.t('payment_method') + ": " + I18n.t(@invoice.quote.quote_confirmation.payment_method)
+        move_down 3
+      end
+    end
   end
 
   def short_line
+    move_down 5
     empty_table = make_table([[""]], width: 370, :cell_style => {:border_color => "FFFFFF", :borders => []})
     line_table = make_table([[""]], width: 170, :cell_style => {:border_color => "CCCCCC", :borders => [:top]}) do
       cells.align = :right
@@ -360,7 +479,13 @@ class InvoicePdf < Prawn::Document
   end
 
   def company_address_block
-    data = [[@invoice.quote.company.invoice_header]]
+    data = []
+    if @invoice.quote.company.logo.present?
+      logo = Rails.root.join("public", "uploads", "company", @invoice.quote.company_id.to_s, "logo", "thumb", @invoice.quote.company.logo_file_name).to_s
+      data << [{:image => logo}]
+    end
+    data << [@invoice.quote.company.invoice_header]
+
     make_table(data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
       # cells.padding = [10, 10, 10, 10]
       rows(0).size = 10

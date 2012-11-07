@@ -18,6 +18,7 @@ fr:
   pending: 'En attente'
   address: 'Adresse'
   storage: 'Entrepôt'
+  storage_upcase: 'ENTREPÔT'
   search: 'Chercher'
   searching: 'Recherche en cours...'
   no_search_results_found: 'Aucun résultat trouvé'
