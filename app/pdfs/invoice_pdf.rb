@@ -10,7 +10,7 @@ class InvoicePdf < Prawn::Document
 
     page_layout
 
-    number_pages "page <page> of <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 8, color: 'AAAAAA' }
+    number_pages "Page <page> of <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 8, color: 'AAAAAA' }
   end
 
   def page_layout
@@ -20,7 +20,7 @@ class InvoicePdf < Prawn::Document
     move_down 10
     quote_dates
     move_down 10
-    stroke_color "CCCCCC"           
+    stroke_color "CCCCCC"
     stroke_horizontal_rule
     move_down 10
     price_details
@@ -29,18 +29,9 @@ class InvoicePdf < Prawn::Document
     stroke_color "CCCCCC"           
     stroke_horizontal_rule
     move_down 10
+    start_new_page
     quote_details
   end
-
-  # def footer
-  #   bounding_box [bounds.left, bounds.bottom + 30], :width  => bounds.width do
-  #     stroke_color "CCCCCC"
-  #     stroke_horizontal_rule
-  #     move_down 10
-  #     text "©RatedTradie New Zealand Ltd", :size => 8, color: GRAY
-  #     text "Date: #{@contract.created_at.strftime('%d/%m/%y')}", :size => 8, color: GRAY
-  #   end
-  # end
 
   def invoice_header
     table([[company_address_block, invoice_number_block]]) do
