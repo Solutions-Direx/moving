@@ -353,6 +353,7 @@ fr:
   q_not_confirmed: Non confirmées
   q_invoiced: Facturées
   q_not_invoiced: Non facturées
+  sending: 'En cours...'
   activerecord:
     models:
       account: Compte
