@@ -10,7 +10,7 @@ class InvoicePdf < Prawn::Document
 
     page_layout
 
-    number_pages "Page <page> of <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 8, color: 'AAAAAA' }
+    number_pages "Page <page> / <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 8, color: 'AAAAAA' }
   end
 
   def page_layout
@@ -266,6 +266,7 @@ class InvoicePdf < Prawn::Document
   def payments
     group do
       if @invoice.payments.any?
+
         text I18n.t('payments_received'), size: 13, style: :bold
         move_down 5
         @invoice.payments.each do |payment|
