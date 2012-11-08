@@ -10,11 +10,11 @@ class QuoteAddress < ActiveRecord::Base
   
   def self.static_map_link(from, to, options={})
     from_address = from.has_storage? ? from.storage.address : from.address
-    from_marker = "markers=" + "color:blue|label:D|#{CGI.escape(from_address.map_location)}"
+    from_marker = "markers=" + "color:blue|label:D|#{from_address.map_location}"
     to_address = to.has_storage? ? to.storage.address : to.address
-    to_marker = "markers=" + "color:purple|label:A|#{CGI.escape(to_address.map_location)}"
+    to_marker = "markers=" + "color:purple|label:A|#{to_address.map_location}"
     default_options = {
-      size: '255x255',
+      size: '200x200',
       maptype: 'roadmap',
       sensor: false
     }

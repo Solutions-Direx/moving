@@ -338,34 +338,34 @@ class InvoicePdf < Prawn::Document
     move_down 10
     removal_men = @invoice.quote.removal_men.any? ? "- #{@invoice.quote.removal_men.map(&:full_name).to_sentence}" : ""
     text "<b>#{I18n.t('removal_men', default: 'Removal men')}</b>: #{@invoice.quote.num_of_removal_man} #{removal_men}", inline_format: true
-    move_down 3    
+    move_down 10    
     text "<b>#{I18n.t('price')}</b>: #{number_to_currency(@invoice.quote.price, strip_insignificant_zeros: true)} #{I18n.t('per_hour')}", inline_format: true
-    move_down 3    
+    move_down 10    
     text "<b>#{I18n.t('gas')}</b>: #{number_to_currency(@invoice.quote.gas, strip_insignificant_zeros: true)}", inline_format: true
-    move_down 3
+    move_down 10
     if @invoice.quote.surcharges.any?
       @invoice.quote.surcharges.each do |surcharge|
         text "<b>#{surcharge.label}</b>: #{number_to_currency(surcharge.price, strip_insignificant_zeros: true)}", inline_format: true
-        move_down 3
+        move_down 10
       end
     end
 
     long_distance = @invoice.quote.long_distance ? "(#{I18n.t('long_distance')})" : ""
     text "<b>#{I18n.t('transport_time', default: 'Transport time')}</b>: #{@invoice.quote.transport_time} #{long_distance}", inline_format: true
-    move_down 3
+    move_down 10
     
     if @invoice.quote.from_address.has_storage?
       group do
         text "<b>#{Storage.model_name.human}</b>", inline_format: true
-        move_down 3
+        move_down 10
         text "<font size='10'><color rgb='999999'>#{@invoice.quote.from_address.storage.name.upcase}</color></font>"
-        move_down 3
+        move_down 10
         if @quote.from_address.insurance.present?
           storage_insurance = "+ " + I18n.t('insurance') + ": " + number_to_currency(@invoice.quote.from_address.insurance, strip_insignificant_zeros: true)
         end
         text "<b>#{I18n.t('price_per_month')}</b>: #{number_to_currency(@invoice.quote.from_address.price, strip_insignificant_zeros: true)} #{storage_insurance}", inline_format: true
       end
-      move_down 3
+      move_down 10
     end
 
     unless @invoice.quote.to_addresses.blank?
@@ -373,12 +373,12 @@ class InvoicePdf < Prawn::Document
         for to_address in @invoice.quote.to_addresses
           if to_address.has_storage?
             text "<font size='10'><color rgb='999999'>#{to_address.storage.name.upcase}</color></font>", inline_format: true
-            move_down 3
+            move_down 10
             if to_address.insurance.present?
               storage_insurance = "+ " + I18n.t('insurance') + ": " + number_to_currency(to_address.insurance, strip_insignificant_zeros: true)
             end
             text "<b>#{I18n.t('price_per_month')}:</b> #{number_to_currency(to_address.price, strip_insignificant_zeros: true)} #{storage_insurance}", inline_format: true
-            move_down 3
+            move_down 10
           end
         end
       end
@@ -386,64 +386,64 @@ class InvoicePdf < Prawn::Document
 
     insurance = @invoice.quote.insurance? ? "#{I18n.t('included')}" : "#{I18n.t('not_included')}"
     text "<b>#{I18n.t('insurance')}</b>: #{insurance}", inline_format: true
-    move_down 3
+    move_down 10
 
     equipment = @invoice.quote.materiel? ? "#{I18n.t('included')}" : "#{I18n.t('not_included')}"
     text "<b>#{I18n.t('equipment', default: 'Equipment')}</b>: #{equipment}", inline_format: true
-    move_down 3
+    move_down 10
 
     if @invoice.quote.deposit.present?
       card_type = @invoice.quote.deposit.credit_card_type.present? ? "(#{I18n.t(@invoice.quote.deposit.credit_card_type)})" : ""
       text "<b>#{I18n.t('deposit_received')}</b>: #{number_to_currency(@invoice.quote.deposit.amount, strip_insignificant_zeros: true)} - #{I18n.l(@invoice.quote.deposit.date, format: :long)} - #{I18n.t(@invoice.quote.deposit.payment_method)} #{card_type}", inline_format: true      
-      move_down 3
+      move_down 10
     end
 
     if @invoice.quote.trucks.any?
       text "<b>#{Truck.model_name.human + 's'}</b>", inline_format: true
-      move_down 3
+      move_down 10
       @invoice.quote.trucks.each do |truck|
         text "•  #{truck.name_with_plate}" , leading: 3, size: 11, indent_paragraphs: 10
-        move_down 3
+        move_down 10
       end
     end
 
     if @invoice.quote.quote_supplies.any?
       text "<b>#{Supply.model_name.human + 's'}</b>", inline_format: true
-      move_down 3
+      move_down 10
       @invoice.quote.quote_supplies.each do |q_supply|
         text "•  #{q_supply.quantity} * #{q_supply.supply.name_with_price}" , leading: 3, size: 11, indent_paragraphs: 10
-        move_down 3
+        move_down 10
       end
     end
 
     if @invoice.quote.forfaits.any?
       text "<b>Forfaits</b>", inline_format: true
-      move_down 3
+      move_down 10
       @invoice.quote.forfaits.each do |forfait|
         text "•  #{forfait.name_with_price}" , leading: 3, size: 11, indent_paragraphs: 10
-        move_down 3
+        move_down 10
       end
     end
 
     if @invoice.quote.documents.any?
       text "<b>Documents</b>", inline_format: true
-      move_down 3
+      move_down 10
       @invoice.quote.documents.each do |document|
         text "•  #{document.name}" , leading: 3, size: 11, indent_paragraphs: 10
-        move_down 3
+        move_down 10
       end
     end
 
     if @invoice.quote.confirmed?
       text "<b>#{I18n.t('quote_confirmation', default: 'Quote confirmation')}</b>", inline_format: true
-      move_down 3
+      move_down 10
       text "#{I18n.t('insurance_increase')} : #{@invoice.quote.quote_confirmation.insurance_limit_enough? ? I18n.t('nope') : number_to_currency(@invoice.quote.quote_confirmation.insurance_increase)}"
-      move_down 3
+      move_down 10
       text I18n.t('franchise_cancelation') + ": " + (@invoice.quote.quote_confirmation.franchise_cancellation? ? I18n.t('yessai') + " (#{I18n.t('fees')} #{number_to_currency(@invoice.quote.account.franchise_cancellation_amount)})" : I18n.t('nope') )
-      move_down 3
+      move_down 10
       unless @invoice.quote.client.commercial?
         text I18n.t('payment_method') + ": " + I18n.t(@invoice.quote.quote_confirmation.payment_method)
-        move_down 3
+        move_down 10
       end
     end
   end

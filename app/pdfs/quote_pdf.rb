@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'open-uri'
 class QuotePdf < Prawn::Document
   include ActionView::Helpers::NumberHelper
   include ActionView::Helpers::TextHelper
@@ -12,7 +13,7 @@ class QuotePdf < Prawn::Document
 
     page_layout
 
-    number_pages "Page <page> of <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 8, color: 'AAAAAA' }
+    number_pages "Page <page> / <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 8, color: 'AAAAAA' }
   end
 
   def page_layout
@@ -37,6 +38,11 @@ class QuotePdf < Prawn::Document
       rooms
       move_down 10
       furniture
+      hr
+      move_down 15
+      quote_details
+      start_new_page
+      google_map
     end
   end
 
@@ -44,6 +50,121 @@ class QuotePdf < Prawn::Document
     move_down 10
     stroke_color "CCCCCC"
     stroke_horizontal_rule
+  end
+
+  def quote_details
+    removal_men = @quote.removal_men.any? ? "- #{@quote.removal_men.map(&:full_name).to_sentence}" : ""
+    text "<b>#{I18n.t('removal_men', default: 'Removal men')}</b>: #{@quote.num_of_removal_man} #{removal_men}", inline_format: true
+    move_down 10    
+    text "<b>#{I18n.t('price')}</b>: #{number_to_currency(@quote.price, strip_insignificant_zeros: true)} #{I18n.t('per_hour')}", inline_format: true
+    move_down 10    
+    text "<b>#{I18n.t('gas')}</b>: #{number_to_currency(@quote.gas, strip_insignificant_zeros: true)}", inline_format: true
+    move_down 10
+    if @quote.surcharges.any?
+      @quote.surcharges.each do |surcharge|
+        text "<b>#{surcharge.label}</b>: #{number_to_currency(surcharge.price, strip_insignificant_zeros: true)}", inline_format: true
+        move_down 10
+      end
+    end
+
+    long_distance = @quote.long_distance ? "(#{I18n.t('long_distance')})" : ""
+    text "<b>#{I18n.t('transport_time', default: 'Transport time')}</b>: #{@quote.transport_time} #{long_distance}", inline_format: true
+    move_down 10
+    
+    if @quote.from_address.has_storage?
+      group do
+        text "<b>#{Storage.model_name.human}</b>", inline_format: true
+        move_down 10
+        text "<font size='10'><color rgb='999999'>#{@quote.from_address.storage.name.upcase}</color></font>"
+        move_down 10
+        if @quote.from_address.insurance.present?
+          storage_insurance = "+ " + I18n.t('insurance') + ": " + number_to_currency(@quote.from_address.insurance, strip_insignificant_zeros: true)
+        end
+        text "<b>#{I18n.t('price_per_month')}</b>: #{number_to_currency(@quote.from_address.price, strip_insignificant_zeros: true)} #{storage_insurance}", inline_format: true
+      end
+      move_down 10
+    end
+
+    unless @quote.to_addresses.blank?
+      group do
+        for to_address in @quote.to_addresses
+          if to_address.has_storage?
+            text "<font size='10'><color rgb='999999'>#{to_address.storage.name.upcase}</color></font>", inline_format: true
+            move_down 10
+            if to_address.insurance.present?
+              storage_insurance = "+ " + I18n.t('insurance') + ": " + number_to_currency(to_address.insurance, strip_insignificant_zeros: true)
+            end
+            text "<b>#{I18n.t('price_per_month')}:</b> #{number_to_currency(to_address.price, strip_insignificant_zeros: true)} #{storage_insurance}", inline_format: true
+            move_down 10
+          end
+        end
+      end
+    end
+
+    insurance = @quote.insurance? ? "#{I18n.t('included')}" : "#{I18n.t('not_included')}"
+    text "<b>#{I18n.t('insurance')}</b>: #{insurance}", inline_format: true
+    move_down 10
+
+    equipment = @quote.materiel? ? "#{I18n.t('included')}" : "#{I18n.t('not_included')}"
+    text "<b>#{I18n.t('equipment', default: 'Equipment')}</b>: #{equipment}", inline_format: true
+    move_down 10
+
+    if @quote.deposit.present?
+      card_type = @quote.deposit.credit_card_type.present? ? "(#{I18n.t(@quote.deposit.credit_card_type)})" : ""
+      text "<b>#{I18n.t('deposit_received')}</b>: #{number_to_currency(@quote.deposit.amount, strip_insignificant_zeros: true)} - #{I18n.l(@quote.deposit.date, format: :long)} - #{I18n.t(@quote.deposit.payment_method)} #{card_type}", inline_format: true      
+      move_down 10
+    end
+
+    if @quote.trucks.any?
+      text "<b>#{Truck.model_name.human + 's'}</b>", inline_format: true
+      move_down 10
+      @quote.trucks.each do |truck|
+        text "•  #{truck.name_with_plate}" , leading: 3, size: 11, indent_paragraphs: 10
+        move_down 10
+      end
+    end
+
+    if @quote.quote_supplies.any?
+      text "<b>#{Supply.model_name.human + 's'}</b>", inline_format: true
+      move_down 10
+      @quote.quote_supplies.each do |q_supply|
+        text "•  #{q_supply.quantity} * #{q_supply.supply.name_with_price}" , leading: 3, size: 11, indent_paragraphs: 10
+        move_down 10
+      end
+    end
+
+    if @quote.forfaits.any?
+      text "<b>Forfaits</b>", inline_format: true
+      move_down 10
+      @quote.forfaits.each do |forfait|
+        text "•  #{forfait.name_with_price}" , leading: 3, size: 11, indent_paragraphs: 10
+        move_down 10
+      end
+    end
+
+    if @quote.documents.any?
+      text "<b>Documents</b>", inline_format: true
+      move_down 10
+      @quote.documents.each do |document|
+        text "•  #{document.name}" , leading: 3, size: 11, indent_paragraphs: 10
+        move_down 10
+      end
+    end
+
+    if @quote.confirmed?
+      text "<b>#{I18n.t('quote_confirmation', default: 'Quote confirmation')}</b>", inline_format: true
+      move_down 10
+      text I18n.t('approved_on') + " " + I18n.l(@quote.quote_confirmation.approved_at, :format => :long) + " #{I18n.t('by')} " + @quote.quote_confirmation.user.full_name
+      move_down 10
+      text "#{I18n.t('insurance_increase')} : #{@quote.quote_confirmation.insurance_limit_enough? ? I18n.t('nope') : number_to_currency(@quote.quote_confirmation.insurance_increase)}"
+      move_down 10
+      text I18n.t('franchise_cancelation') + ": " + (@quote.quote_confirmation.franchise_cancellation? ? I18n.t('yessai') + " (#{I18n.t('fees')} #{number_to_currency(@quote.account.franchise_cancellation_amount)})" : I18n.t('nope') )
+      move_down 10
+      unless @quote.client.commercial?
+        text I18n.t('payment_method') + ": " + I18n.t(@quote.quote_confirmation.payment_method)
+        move_down 10
+      end
+    end
   end
 
   def furniture
@@ -54,9 +175,9 @@ class QuotePdf < Prawn::Document
       move_down 10
 
       kitchen_data = [["<b><font size='13'>#{I18n.t('kitchen')}</font></b>"]]
-      kitchen_data << [pluralize(@quote.furniture.kitchen_table, 'Table')] if @quote.furniture.kitchen_table.present?
-      kitchen_data << [pluralize(@quote.furniture.kitchen_chair, "#{I18n.t('chair')}")] if @quote.furniture.kitchen_chair.present?
-      kitchen_data << [pluralize(@quote.furniture.kitchen_buffet, 'Buffet')] if @quote.furniture.kitchen_buffet.present?
+      kitchen_data << ["•  " + pluralize(@quote.furniture.kitchen_table, 'Table')] if @quote.furniture.kitchen_table.present?
+      kitchen_data << ["•  " + pluralize(@quote.furniture.kitchen_chair, "#{I18n.t('chair')}")] if @quote.furniture.kitchen_chair.present?
+      kitchen_data << ["•  " + pluralize(@quote.furniture.kitchen_buffet, 'Buffet')] if @quote.furniture.kitchen_buffet.present?
 
       kitchen_table = make_table(kitchen_data, width: 275) do
         cells.inline_format = true
@@ -68,12 +189,12 @@ class QuotePdf < Prawn::Document
       end
 
       living_room_data = [["<b><font size='13'>#{I18n.t('living_room')}</font></b>"]]
-      living_room_data << [pluralize(@quote.furniture.living_couch_3pl, "#{I18n.t('sofa')}") + ' 3pl'] if @quote.furniture.living_couch_3pl.present?
-      living_room_data << [pluralize(@quote.furniture.living_couch_2pl, "#{I18n.t('sofa')}") + ' 2pl'] if @quote.furniture.living_couch_2pl.present?
-      living_room_data << [pluralize(@quote.furniture.living_table, 'Table')] if @quote.furniture.living_table.present?
-      living_room_data << [pluralize(@quote.furniture.living_armchair, "#{I18n.t('armchair')}")] if @quote.furniture.living_armchair.present?
-      living_room_data << [pluralize(@quote.furniture.living_wall_unit, "#{I18n.t('wall_unit')}")] if @quote.furniture.living_wall_unit.present?
-      living_room_data << [pluralize(@quote.furniture.living_tv, 'TV')] if @quote.furniture.living_tv.present?
+      living_room_data << ["•  " + pluralize(@quote.furniture.living_couch_3pl, "#{I18n.t('sofa')}") + ' 3pl'] if @quote.furniture.living_couch_3pl.present?
+      living_room_data << ["•  " + pluralize(@quote.furniture.living_couch_2pl, "#{I18n.t('sofa')}") + ' 2pl'] if @quote.furniture.living_couch_2pl.present?
+      living_room_data << ["•  " + pluralize(@quote.furniture.living_table, 'Table')] if @quote.furniture.living_table.present?
+      living_room_data << ["•  " + pluralize(@quote.furniture.living_armchair, "#{I18n.t('armchair')}")] if @quote.furniture.living_armchair.present?
+      living_room_data << ["•  " + pluralize(@quote.furniture.living_wall_unit, "#{I18n.t('wall_unit')}")] if @quote.furniture.living_wall_unit.present?
+      living_room_data << ["•  " + pluralize(@quote.furniture.living_tv, 'TV')] if @quote.furniture.living_tv.present?
 
       living_room_table = make_table(living_room_data, width: 275) do
         cells.inline_format = true
@@ -87,6 +208,49 @@ class QuotePdf < Prawn::Document
       table([[kitchen_table, living_room_table]]) do
         cells.borders = []
         row(0).column(0).padding = [0, 22, 0, 0]
+      end
+
+
+      basement_data = [["<b><font size='13'>#{I18n.t('basement')}</font></b>"]]
+      basement_data << ["•  " + pluralize(@quote.furniture.base_salon, I18n.t('salon_sets', default: 'Salon sets'))] if @quote.furniture.base_salon.present?
+      basement_data << ["•  " + pluralize(@quote.furniture.base_shelf, I18n.t('shelf'))] if @quote.furniture.base_shelf.present?
+      basement_data << ["•  " + pluralize(@quote.furniture.base_desk, I18n.t('desk', default: 'Desks'))] if @quote.furniture.base_desk.present?
+      basement_data << ["•  " + pluralize(@quote.furniture.base_training, I18n.t('training_sets', default: 'Training sets'))] if @quote.furniture.base_training.present?
+
+      basement_table = make_table(basement_data, width: 275) do
+        cells.inline_format = true
+        cells.padding = [10, 10, 0, 10]
+        cells.size = 11
+        cells.borders = []
+        cells.style(background_color: "f5f5f5", border_color: "CCCCCC")
+        row(basement_data.size - 1).padding = [10, 10, 10, 10]
+      end
+
+      outside_data = [["<b><font size='13'>#{I18n.t('outside')}</font></b>"]]
+      outside_data << ["•  " + pluralize(@quote.furniture.outside_tire, I18n.t('tires', default: 'Tires'))] if @quote.furniture.outside_tire.present?
+      outside_data << ["•  " + pluralize(@quote.furniture.outside_lawn_mower, I18n.t('lawn_mower'))] if @quote.furniture.outside_lawn_mower.present?
+      outside_data << ["•  " + pluralize(@quote.furniture.outside_bike, I18n.t('bike'))] if @quote.furniture.outside_bike.present?
+      outside_data << ["•  " + pluralize(@quote.furniture.outside_table, I18n.t('patio_tables', default: 'Patio tables'))] if @quote.furniture.outside_table.present?
+      outside_data << ["•  " + pluralize(@quote.furniture.outside_bbq, 'BBQ')] if @quote.furniture.outside_bbq.present?
+
+      outside_table = make_table(outside_data, width: 275) do
+        cells.inline_format = true
+        cells.padding = [10, 10, 0, 10]
+        cells.size = 11
+        cells.borders = []
+        cells.style(background_color: "f5f5f5", border_color: "CCCCCC")
+        row(outside_data.size - 1).padding = [10, 10, 10, 10]
+      end
+
+      move_down 15
+      table([[basement_table, outside_table]]) do
+        cells.borders = []
+        row(0).column(0).padding = [0, 22, 0, 0]
+      end
+
+      move_down 15
+      if @quote.furniture.furniture_other.present?
+        text I18n.t('other') + ": " + @quote.furniture.furniture_other
       end
     end
   end
@@ -165,10 +329,10 @@ class QuotePdf < Prawn::Document
 
   def company_address_block
     data = []
-    # if @quote.company.logo.present?
-    #   logo = Rails.root.join("public", "uploads", "company", @quote.company_id.to_s, "logo", "thumb", @quote.company.logo_file_name).to_s
-    #   data << [{:image => logo}]
-    # end
+    if @quote.company.logo.present?
+      logo = Rails.root.join("public", "uploads", "company", @quote.company_id.to_s, "logo", "thumb", @quote.company.logo_file_name).to_s
+      data << [{:image => logo}]
+    end
     data << [@quote.company.invoice_header]
 
     make_table(data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
@@ -191,6 +355,22 @@ class QuotePdf < Prawn::Document
   def address_for(address)
     optional_address = [address.city, address.province, address.postal_code].select{|s| s.present?}.join(", ")
     address.address + "\n" + optional_address
+  end
+
+  def google_map
+    if @to_addresses && @to_addresses.any?
+      @to_addresses.each do |to_address|
+        url = URI.escape(QuoteAddress.static_map_link(@quote.from_address, to_address, options={size: '600x300'}))
+        puts url
+        image open(url)
+        # <p class="static_map">
+        #   <img src="<%= QuoteAddress.static_map_link(@quote.from_address, to_address, options={size: '700x400'}) %>"/>
+        #   <br/>
+        #   <br/>
+        #   <%= link_to "#{t 'get_directions', default: 'Get Directions'}", QuoteAddress.driving_direction_link(@quote.from_address, to_address) %>
+        # </p>
+      end
+    end
   end
 
 end
