@@ -26,8 +26,6 @@ class InvoicePdf < Prawn::Document
     price_details
 
     payments
-    stroke_color "CCCCCC"           
-    stroke_horizontal_rule
     move_down 10
     start_new_page
     quote_details
@@ -266,6 +264,9 @@ class InvoicePdf < Prawn::Document
   def payments
     group do
       if @invoice.payments.any?
+        stroke_color "CCCCCC"           
+        stroke_horizontal_rule
+        move_down 15
         text I18n.t('payments_received'), size: 13, style: :bold
         move_down 5
         @invoice.payments.each do |payment|
