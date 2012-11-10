@@ -1,15 +1,17 @@
 # encoding: utf-8
 require 'open-uri'
+
 class QuotePdf < Prawn::Document
   include ActionView::Helpers::NumberHelper
   include ActionView::Helpers::TextHelper
 
   PAGE_WIDTH = 572
 
-  def initialize(quote, to_addresses)
+  def initialize(quote, to_addresses, full_print)
     super(top_margin: 20, left_margin: 20, right_margin: 20, bottom_margin: 20, page_layout: :portrait)
     @quote = quote
     @to_addresses = to_addresses
+    @full_print = full_print
 
     page_layout
 
@@ -32,17 +34,23 @@ class QuotePdf < Prawn::Document
         row(0).column(0).padding = [10, 10, 10, 10]
         cells.style(background_color: "f5f5f5", border_color: "CCCCCC")
       end  
-      move_down 15
-      addresses
-      move_down 10
-      rooms
-      move_down 10
-      furniture
-      hr
-      move_down 15
-      quote_details
+    end
+    move_down 15
+    addresses
+    move_down 10
+    rooms
+    move_down 10
+    furniture
+    hr
+    move_down 15
+    quote_details
+    start_new_page
+    # google_map
+
+    if @full_print
       start_new_page
-      google_map
+      documents
+      invoices
     end
   end
 
@@ -116,53 +124,63 @@ class QuotePdf < Prawn::Document
     end
 
     if @quote.trucks.any?
-      text "<b>#{Truck.model_name.human + 's'}</b>", inline_format: true
-      move_down 10
-      @quote.trucks.each do |truck|
-        text "•  #{truck.name_with_plate}" , leading: 3, size: 11, indent_paragraphs: 10
+      group do
+        text "<b>#{Truck.model_name.human + 's'}</b>", inline_format: true
         move_down 10
+        @quote.trucks.each do |truck|
+          text "•  #{truck.name_with_plate}" , leading: 3, size: 11, indent_paragraphs: 10
+          move_down 10
+        end
       end
     end
 
     if @quote.quote_supplies.any?
-      text "<b>#{Supply.model_name.human + 's'}</b>", inline_format: true
-      move_down 10
-      @quote.quote_supplies.each do |q_supply|
-        text "•  #{q_supply.quantity} * #{q_supply.supply.name_with_price}" , leading: 3, size: 11, indent_paragraphs: 10
+      group do
+        text "<b>#{Supply.model_name.human + 's'}</b>", inline_format: true
         move_down 10
+        @quote.quote_supplies.each do |q_supply|
+          text "•  #{q_supply.quantity} * #{q_supply.supply.name_with_price}" , leading: 3, size: 11, indent_paragraphs: 10
+          move_down 10
+        end
       end
     end
 
     if @quote.forfaits.any?
-      text "<b>Forfaits</b>", inline_format: true
-      move_down 10
-      @quote.forfaits.each do |forfait|
-        text "•  #{forfait.name_with_price}" , leading: 3, size: 11, indent_paragraphs: 10
+      group do
+        text "<b>Forfaits</b>", inline_format: true
         move_down 10
+        @quote.forfaits.each do |forfait|
+          text "•  #{forfait.name_with_price}" , leading: 3, size: 11, indent_paragraphs: 10
+          move_down 10
+        end
       end
     end
 
     if @quote.documents.any?
-      text "<b>Documents</b>", inline_format: true
-      move_down 10
-      @quote.documents.each do |document|
-        text "•  #{document.name}" , leading: 3, size: 11, indent_paragraphs: 10
+      group do
+        text "<b>Documents</b>", inline_format: true
         move_down 10
+        @quote.documents.each do |document|
+          text "•  #{document.name}" , leading: 3, size: 11, indent_paragraphs: 10
+          move_down 10
+        end
       end
     end
 
     if @quote.confirmed?
-      text "<b>#{I18n.t('quote_confirmation', default: 'Quote confirmation')}</b>", inline_format: true
-      move_down 10
-      text I18n.t('approved_on') + " " + I18n.l(@quote.quote_confirmation.approved_at, :format => :long) + " #{I18n.t('by')} " + @quote.quote_confirmation.user.full_name
-      move_down 10
-      text "#{I18n.t('insurance_increase')} : #{@quote.quote_confirmation.insurance_limit_enough? ? I18n.t('nope') : number_to_currency(@quote.quote_confirmation.insurance_increase)}"
-      move_down 10
-      text I18n.t('franchise_cancelation') + ": " + (@quote.quote_confirmation.franchise_cancellation? ? I18n.t('yessai') + " (#{I18n.t('fees')} #{number_to_currency(@quote.account.franchise_cancellation_amount)})" : I18n.t('nope') )
-      move_down 10
-      unless @quote.client.commercial?
-        text I18n.t('payment_method') + ": " + I18n.t(@quote.quote_confirmation.payment_method)
+      group do
+        text "<b>#{I18n.t('quote_confirmation', default: 'Quote confirmation')}</b>", inline_format: true
         move_down 10
+        text I18n.t('approved_on') + " " + I18n.l(@quote.quote_confirmation.approved_at, :format => :long) + " #{I18n.t('by')} " + @quote.quote_confirmation.user.full_name
+        move_down 10
+        text "#{I18n.t('insurance_increase')} : #{@quote.quote_confirmation.insurance_limit_enough? ? I18n.t('nope') : number_to_currency(@quote.quote_confirmation.insurance_increase)}"
+        move_down 10
+        text I18n.t('franchise_cancelation') + ": " + (@quote.quote_confirmation.franchise_cancellation? ? I18n.t('yessai') + " (#{I18n.t('fees')} #{number_to_currency(@quote.account.franchise_cancellation_amount)})" : I18n.t('nope') )
+        move_down 10
+        unless @quote.client.commercial?
+          text I18n.t('payment_method') + ": " + I18n.t(@quote.quote_confirmation.payment_method)
+          move_down 10
+        end
       end
     end
   end
@@ -279,10 +297,11 @@ class QuotePdf < Prawn::Document
       cells.padding = [10, 10, 10, 10]
       cells.size = 11
       cells.style(background_color: "f5f5f5", border_color: "CCCCCC")
+      cells.borders = []
 
-      row(0).style(borders: [:top, :left, :right], padding: [10, 10, 0, 10])
-      row(1).style(borders: [:left, :right], padding: [10, 10, 0, 10])
-      row(2).style(borders: [:bottom, :left, :right])
+      row(0).style(padding: [10, 10, 0, 10])
+      row(1).style(padding: [10, 10, 0, 10])
+      # row(2).style(borders: [:bottom, :left, :right])
     end
 
     unless @quote.internal_address?
@@ -305,10 +324,11 @@ class QuotePdf < Prawn::Document
         cells.padding = [10, 10, 10, 10]
         cells.size = 11
         cells.style(background_color: "f5f5f5", border_color: "CCCCCC")
+        cells.borders = []
 
-        row(0).style(borders: [:top, :left, :right], padding: [10, 10, 0, 10])
-        row(1).style(borders: [:left, :right], padding: [10, 10, 0, 10])
-        row(2).style(borders: [:bottom, :left, :right])
+        row(0).style(padding: [10, 10, 0, 10])
+        row(1).style(padding: [10, 10, 0, 10])
+        # row(2).style()
       end      
     else
       to_table = make_table([[""]], width: 275, :cell_style => {:border_color => "FFFFFF", :borders => []})
@@ -360,17 +380,110 @@ class QuotePdf < Prawn::Document
   def google_map
     if @to_addresses && @to_addresses.any?
       @to_addresses.each do |to_address|
-        url = URI.escape(QuoteAddress.static_map_link(@quote.from_address, to_address, options={size: '600x300'}))
-        puts url
+        url = URI.escape(QuoteAddress.static_map_link(@quote.from_address, to_address, options={size: '572x300'}))
         image open(url)
-        # <p class="static_map">
-        #   <img src="<%= QuoteAddress.static_map_link(@quote.from_address, to_address, options={size: '700x400'}) %>"/>
-        #   <br/>
-        #   <br/>
-        #   <%= link_to "#{t 'get_directions', default: 'Get Directions'}", QuoteAddress.driving_direction_link(@quote.from_address, to_address) %>
-        # </p>
+        move_down 10
+        text "<link href='#{QuoteAddress.static_map_link(@quote.from_address, to_address, options={size: '700x400'})}'>#{I18n.t('get_directions', default: 'Get Directions')}</link>", inline_format: true, :align => :center
       end
     end
+  end
+
+  def documents
+    if @quote.documents.any?
+      @quote.documents.each_with_index do |document, index|
+        text "<b><font size='14'>#{document.name}</font></b>", inline_format: true
+        move_down 15
+        text document.body
+        move_down 15
+        if index != @quote.documents.size - 1
+          stroke_color "CCCCCC"
+          stroke_horizontal_rule
+          move_down 15
+        end
+      end
+    end
+  end
+
+  def invoices
+    start_new_page
+    text "<b><font size='14'>#{I18n.t('temp_invoice', default: 'Temporary Invoice')}</font></b>", inline_format: true
+    move_down 15
+    text "___ " + I18n.t('billed_hours', default: 'Billed Hours') + " * " + number_to_currency(@quote.price) + " = _________________________"
+    move_down 15
+    text "<b>#{I18n.t('gas')}:</b> #{number_to_currency(@quote.gas)}", inline_format: true
+    move_down 15
+
+    if @quote.surcharges.any?
+      @quote.surcharges.each do |surcharge|
+        text "<b>#{surcharge.label}:</b> #{number_to_currency(surcharge.price)}", inline_format: true
+        move_down 15
+      end
+    end
+
+    text "<b>#{I18n.t('supplies')}:</b>", inline_format: true
+    move_down 15
+    @quote.quote_supplies.each do |q_supply|
+      text q_supply.quantity + " * " + q_supply.supply.name_with_price
+      move_down 15
+    end
+    text Supply.model_name.human + ": _________________________"
+    move_down 15
+
+    text "<b>#{I18n.t('forfaits', default: 'Forfaits')}:</b>", inline_format: true
+    move_down 15
+    @quote.forfaits.each do |forfait|
+      text "•  #{forfait.name_with_price}" , leading: 3, size: 11, indent_paragraphs: 10
+      move_down 15
+    end
+    text Forfait.model_name.human + ": _________________________"
+    move_down 15
+    text I18n.t('warehousing', default: 'Warehousing fee') + ": _________________________"
+    move_down 15
+    text I18n.t('insurance') + ": _________________________"
+    move_down 15
+    text I18n.t('other', default: 'Other') + ": _________________________"
+    move_down 15
+    3.times do
+      text "_" * 85
+      move_down 15
+    end
+    text "TPS / TVH: _________________________"
+    move_down 15
+    text "TVQ: _________________________"
+    move_down 15
+    if @quote.deposit.present?
+      text "<b>#{I18n.t('deposit_received')}:</b> " + number_to_currency(@quote.deposit.amount) + " - " + I18n.l(@quote.deposit.date, format: :long) + " - " + I18n.t(@quote.deposit.payment_method) + (@quote.deposit.credit_card_type.present? ? "(#{I18n.t(@quote.deposit.credit_card_type)})" : ""), inline_format: true
+      move_down 15
+    end
+    text "TOTAL: _________________________"
+    move_down 15
+
+    text "<b><font size='12'>#{I18n.t('payments')}</font></b>", inline_format: true
+    move_down 15
+    text I18n.t('cash') + ": _________________________"
+    move_down 15
+    text I18n.t('debit') + ": _________________________"
+    move_down 15
+    text I18n.t('credit') + ": _________________________   [  ] Visa  [  ] Mastercard"
+    move_down 15
+
+    signatures = [
+      ["", "<b>Client</b>", "<b>#{I18n.t('removal_team_lead')}</b>"],
+      ["Date", "____/____/____", "____/____/____"],
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""],
+      ["Signature", "______________", "______________"]
+    ]
+    table(signatures, width: PAGE_WIDTH) do
+      cells.borders = []
+      cells.inline_format = true
+
+      row(0).column(0).padding = [0, 32, 0, 0]
+      column(0).align = :right
+      column(1..2).align = :center
+    end
+
   end
 
 end
