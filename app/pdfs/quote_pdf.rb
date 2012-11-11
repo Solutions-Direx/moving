@@ -1,5 +1,7 @@
 # encoding: utf-8
 require 'open-uri'
+require 'nokogiri'
+require 'cgi'
 
 class QuotePdf < Prawn::Document
   include ActionView::Helpers::NumberHelper
@@ -44,8 +46,11 @@ class QuotePdf < Prawn::Document
     hr
     move_down 15
     quote_details
-    start_new_page
-    # google_map
+
+    if @to_addresses.present?
+      start_new_page
+      google_map
+    end
 
     if @full_print
       start_new_page
@@ -393,7 +398,8 @@ class QuotePdf < Prawn::Document
       @quote.documents.each_with_index do |document, index|
         text "<b><font size='14'>#{document.name}</font></b>", inline_format: true
         move_down 15
-        text document.body
+        s = html_to_text(document.body)
+        text s, inline_format: true
         move_down 15
         if index != @quote.documents.size - 1
           stroke_color "CCCCCC"
@@ -484,6 +490,41 @@ class QuotePdf < Prawn::Document
       column(1..2).align = :center
     end
 
+  end
+
+  def html_to_text(html)
+    html = html.gsub("<br>", "\n")
+    frag = Nokogiri::HTML::fragment(html)
+    frag.css("ul li").each do |node|
+      s = Nokogiri::XML::Text.new("•  " + node.inner_html + "\n", node.document)
+      node.replace(s)
+    end
+    frag.css("ol li").each_with_index do |node, index|
+      s = Nokogiri::XML::Text.new("#{index + 1}.  " + node.inner_html + "\n", node.document)
+      node.replace(s)
+    end
+    frag.css("p").each do |node|
+      unless node.inner_html.strip.empty?
+        s = Nokogiri::XML::Text.new(node.inner_html + "\n\n", node.document)
+        node.replace(s)
+      else
+        node.remove
+      end
+    end
+    frag.css("div").each do |node|
+      s = Nokogiri::XML::Text.new(node.inner_html + "\n", node.document)
+      node.replace(s)
+    end
+    frag.css("ul").each do |node|
+      s = Nokogiri::XML::Text.new(node.inner_html + "\n", node.document)
+      node.replace(s)
+    end
+    frag.css("ol").each do |node|
+      s = Nokogiri::XML::Text.new(node.inner_html + "\n", node.document)
+      node.replace(s)
+    end
+    
+    CGI.unescapeHTML(frag.to_html)
   end
 
 end
