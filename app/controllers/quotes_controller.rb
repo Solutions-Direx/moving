@@ -19,7 +19,21 @@ class QuotesController < ApplicationController
     elsif params[:from].present?
       @quotes = @quotes.from_date(Time.zone.parse(params[:from]))
     elsif params[:to].present?
-      @quotes = @quotes.to_date(Time.zone.parse(params[:to]))      
+      @quotes = @quotes.to_date(Time.zone.parse(params[:to]))
+    end
+
+    if params[:confirmed]
+      @quotes = @quotes.confirmed
+    end
+    if params[:non_confirmed]
+      @quotes = @quotes.pending
+    end
+
+    if params[:invoiced]
+      @quotes = @quotes.invoiced
+    end
+    if params[:non_invoiced]
+      @quotes = @quotes.not_invoiced
     end
 
     respond_to do |format|

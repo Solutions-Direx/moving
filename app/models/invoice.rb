@@ -44,6 +44,7 @@ class Invoice < ActiveRecord::Base
                   :tax1, :tax1_label, :tax2, :tax2_label, :compound, :purchase_order, :creator_id
   
   before_create :generate_code
+  after_create :mark_quote_invoiced
   
   validates_presence_of :payment_method, :unless => Proc.new { |invoice| invoice.quote.client.commercial? }
   
@@ -266,5 +267,10 @@ private
   
   def number_or_zero(field)
     try(field) || 0
+  end
+
+  def mark_quote_invoiced
+    quote.invoiced = true
+    quote.save
   end
 end
