@@ -10,7 +10,7 @@ class InvoicePdf < Prawn::Document
 
     page_layout
 
-    number_pages "Page <page> / <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 8, color: 'AAAAAA' }
+    number_pages "#{Invoice.model_name.human} ##{@invoice.code} | Page <page> / <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 8, color: 'AAAAAA' }
   end
 
   def page_layout
@@ -27,6 +27,7 @@ class InvoicePdf < Prawn::Document
 
     payments
     move_down 10
+
     start_new_page
     quote_details
   end
@@ -264,6 +265,7 @@ class InvoicePdf < Prawn::Document
   def payments
     group do
       if @invoice.payments.any?
+        move_down 15
         stroke_color "CCCCCC"           
         stroke_horizontal_rule
         move_down 15
@@ -480,7 +482,7 @@ class InvoicePdf < Prawn::Document
 
     make_table(data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
       # cells.padding = [10, 10, 10, 10]
-      rows(0).size = 10
+      rows(1).size = 9
     end
   end
 

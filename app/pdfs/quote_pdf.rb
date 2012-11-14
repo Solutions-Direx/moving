@@ -17,7 +17,7 @@ class QuotePdf < Prawn::Document
 
     page_layout
 
-    number_pages "Page <page> / <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 8, color: 'AAAAAA' }
+    number_pages "#{Quote.model_name.human} ##{@quote.code} | Page <page> / <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 8, color: 'AAAAAA' }
   end
 
   def page_layout
@@ -37,14 +37,14 @@ class QuotePdf < Prawn::Document
         cells.style(background_color: "f5f5f5", border_color: "CCCCCC")
       end  
     end
-    move_down 15
+    move_down 10
     addresses
     move_down 10
     rooms
     move_down 10
     furniture
     hr
-    move_down 15
+    move_down 10
     quote_details
 
     if @to_addresses.present?
@@ -161,17 +161,6 @@ class QuotePdf < Prawn::Document
       end
     end
 
-    if @quote.documents.any?
-      group do
-        text "<b>Documents</b>", inline_format: true
-        move_down 10
-        @quote.documents.each do |document|
-          text "•  #{document.name}" , leading: 3, size: 11, indent_paragraphs: 10
-          move_down 10
-        end
-      end
-    end
-
     if @quote.confirmed?
       group do
         text "<b>#{I18n.t('quote_confirmation', default: 'Quote confirmation')}</b>", inline_format: true
@@ -265,13 +254,13 @@ class QuotePdf < Prawn::Document
         row(outside_data.size - 1).padding = [10, 10, 10, 10]
       end
 
-      move_down 15
+      move_down 10
       table([[basement_table, outside_table]]) do
         cells.borders = []
         row(0).column(0).padding = [0, 22, 0, 0]
       end
 
-      move_down 15
+      move_down 10
       if @quote.furniture.furniture_other.present?
         text I18n.t('other') + ": " + @quote.furniture.furniture_other
       end
@@ -281,7 +270,7 @@ class QuotePdf < Prawn::Document
   def rooms
     @quote.rooms.each_with_index do |room, index|
       hr
-      move_down 15
+      move_down 10
       text I18n.t('room') + " ##{index + 1}: " + I18n.t(room.size) + " " + (room.comment.present? ? room.comment : "")
     end
   end
@@ -362,7 +351,7 @@ class QuotePdf < Prawn::Document
 
     make_table(data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
       # cells.padding = [10, 10, 10, 10]
-      rows(0).size = 10
+      rows(1).size = 9
     end
   end
 
@@ -388,7 +377,7 @@ class QuotePdf < Prawn::Document
         url = URI.escape(QuoteAddress.static_map_link(@quote.from_address, to_address, options={size: '572x300'}))
         image open(url)
         move_down 10
-        text "<link href='#{QuoteAddress.static_map_link(@quote.from_address, to_address, options={size: '700x400'})}'>#{I18n.t('get_directions', default: 'Get Directions')}</link>", inline_format: true, :align => :center
+        text "<link href='#{QuoteAddress.static_map_link(@quote.from_address, to_address, options={size: '700x400'})}'>#{I18n.t('get_directions', default: 'Get Directions')}</link>", inline_format: true, :align => :center, color: "#333399" 
       end
     end
   end
@@ -397,14 +386,14 @@ class QuotePdf < Prawn::Document
     if @quote.documents.any?
       @quote.documents.each_with_index do |document, index|
         text "<b><font size='14'>#{document.name}</font></b>", inline_format: true
-        move_down 15
+        move_down 10
         s = html_to_text(document.body)
         text s, inline_format: true
-        move_down 15
+        move_down 10
         if index != @quote.documents.size - 1
           stroke_color "CCCCCC"
           stroke_horizontal_rule
-          move_down 15
+          move_down 10
         end
       end
     end
@@ -413,66 +402,62 @@ class QuotePdf < Prawn::Document
   def invoices
     start_new_page
     quote_header
-    move_down 20
+    move_down 15
     text "<b><font size='14'>#{I18n.t('temp_invoice', default: 'Temporary Invoice')}</font></b>", inline_format: true
-    move_down 15
+    move_down 10
     text "___ " + I18n.t('billed_hours', default: 'Billed Hours') + " * " + number_to_currency(@quote.price) + " = _________________________"
-    move_down 15
+    move_down 10
     text "<b>#{I18n.t('gas')}:</b> #{number_to_currency(@quote.gas)}", inline_format: true
-    move_down 15
+    move_down 10
 
     if @quote.surcharges.any?
       @quote.surcharges.each do |surcharge|
         text "<b>#{surcharge.label}:</b> #{number_to_currency(surcharge.price)}", inline_format: true
-        move_down 15
+        move_down 10
       end
     end
 
     text "<b>#{I18n.t('supplies')}:</b>", inline_format: true
-    move_down 15
+    move_down 10
     @quote.quote_supplies.each do |q_supply|
       text q_supply.quantity + " * " + q_supply.supply.name_with_price
-      move_down 15
+      move_down 10
     end
     text Supply.model_name.human + ": _________________________"
-    move_down 15
+    move_down 10
 
     text "<b>#{I18n.t('forfaits', default: 'Forfaits')}:</b>", inline_format: true
-    move_down 15
+    move_down 10
     @quote.forfaits.each do |forfait|
       text "•  #{forfait.name_with_price}" , leading: 3, size: 11, indent_paragraphs: 10
-      move_down 15
+      move_down 10
     end
     text Forfait.model_name.human + ": _________________________"
-    move_down 15
+    move_down 10
     text I18n.t('warehousing', default: 'Warehousing fee') + ": _________________________"
-    move_down 15
+    move_down 10
     text I18n.t('insurance') + ": _________________________"
-    move_down 15
+    move_down 10
     text I18n.t('other', default: 'Other') + ": _________________________"
-    move_down 15
-    3.times do
+    move_down 10
+    2.times do
       text "_" * 85
-      move_down 15
+      move_down 10
     end
-    text "TPS / TVH: _________________________"
-    move_down 15
-    text "TVQ: _________________________"
-    move_down 15
+    text "TPS / TVH: _________________________", align: :right
+    move_down 10
+    text "TVQ: _________________________", align: :right
+    move_down 10
     if @quote.deposit.present?
-      text "<b>#{I18n.t('deposit_received')}:</b> " + number_to_currency(@quote.deposit.amount) + " - " + I18n.l(@quote.deposit.date, format: :long) + " - " + I18n.t(@quote.deposit.payment_method) + (@quote.deposit.credit_card_type.present? ? "(#{I18n.t(@quote.deposit.credit_card_type)})" : ""), inline_format: true
-      move_down 15
+      text "<b>#{I18n.t('deposit_received')}:</b> " + number_to_currency(@quote.deposit.amount) + " - " + I18n.l(@quote.deposit.date, format: :long) + " - " + I18n.t(@quote.deposit.payment_method) + (@quote.deposit.credit_card_type.present? ? "(#{I18n.t(@quote.deposit.credit_card_type)})" : ""), inline_format: true,  align: :right
+      move_down 10
     end
-    text "TOTAL: _________________________"
-    move_down 15
+    text "TOTAL: _________________________", align: :right
+    move_down 10
 
     text "<b><font size='12'>#{I18n.t('payments')}</font></b>", inline_format: true
-    move_down 15
-    text I18n.t('cash') + ": _________________________"
-    move_down 15
-    text I18n.t('debit') + ": _________________________"
-    move_down 15
-    text I18n.t('credit') + ": _________________________   [  ] Visa  [  ] Mastercard"
+    move_down 10
+    text I18n.t('cash') + ": ____________ " + " " + I18n.t('debit') + ": ____________ " + " " + I18n.t('credit') + ": ____________  [  ] Visa  [  ] Mastercard"  
     move_down 15
 
     signatures = [

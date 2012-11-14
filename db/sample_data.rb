@@ -16,12 +16,19 @@ company = account.companies.build(
   website: "http://demenagementmaximum.com/",
   phone: '(819) 777-9999',
   invoice_header: "6145515 Canada Inc.
-                   TPS: 875254302RT
-                   TVQ: 1205180652"
+  266 St-Louis - Unité 9
+  City, PQ, J3C 5B6
+  TPS: 875254302RT
+  TVQ: 1205180652
+
+  Tél: 819 777-MOVE (6683)
+  Fax: 819 111-2222"
 )
 
 company.build_address(address: "78 Blvd de l'aéroport", city: "Gatineau", province: "Ontario", postal_code: "SFDKL", country: "Canada")
 company.save!
+
+puts "Generated 1 company."
 
 # generate 3 managers
 3.times do |x|
