@@ -23,7 +23,7 @@ class Client < ActiveRecord::Base
   scope :commercial, where(commercial: true)
   scope :residential, where(commercial: false)
   
-  before_create :generate_code
+  before_save :update_code
 
   def name_with_code
     "#{name} (#{code})"
@@ -31,7 +31,7 @@ class Client < ActiveRecord::Base
   
 private
   
-  def generate_code
+  def update_code
     last_client_id = Client.last.present? ? Client.last.id : 0
     code_generation = "%05d" % (last_client_id + 1)
     self.code = commercial? ? "C#{code_generation}" : "R#{code_generation}"
