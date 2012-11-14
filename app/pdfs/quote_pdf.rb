@@ -282,7 +282,7 @@ class QuotePdf < Prawn::Document
     @quote.rooms.each_with_index do |room, index|
       hr
       move_down 15
-      text I18n.t('room') + " ##{index + 1}: " + I18n.t(room.size) + " " + room.try(:comment)
+      text I18n.t('room') + " ##{index + 1}: " + I18n.t(room.size) + " " + (room.comment.present? ? room.comment : "")
     end
   end
 
