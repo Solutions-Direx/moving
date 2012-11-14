@@ -13,7 +13,7 @@ Moving::Application.routes.draw do
   resources :trucks
   resources :quotes do
     resource :quote_confirmation, :except => [:index]
-    # HAS ONE ROUTES
+    # HAS ONE ROUTE
     resource :invoice, :only => [:new, :create, :show, :edit, :update] do
       post 'email'
       get 'print'

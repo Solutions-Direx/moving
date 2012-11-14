@@ -1,0 +1,42 @@
+<h1><%= Payment.model_name.human + 's' %> <%= t 'received_on', default: 'received on' %> <%= l @day, :format => :long %></h1>
+
+<%= form_tag '', :method => :get do %>
+  <%= text_field_tag :day, l(@day, :format => :default), :class => "datepicker", "data-date-format" => t('date.js_format') %>
+<% end %>
+
+<% if @payments.any? %>
+  <%= paginate @payments %>
+
+  <table class="table table-striped">
+    <tr>
+      <th style="width: 80px;"><%= sortable 'date' %></th>
+      <th><%= sortable 'clients.name', 'Client' %></th>
+      <th><%= t Payment.model_name.human %></th>
+      <th><%= t 'removal_team_lead' %></th>
+      <th><%= t Quote.model_name.human %></th>
+    </tr>
+
+    <% @payments.each do |payment| %>
+      <tr>
+        <td><%= l payment.date %></td>
+        <td><%= link_to payment.client.name, client_path(payment.client) %> <%= status_tag('comm.') if payment.client.commercial? %></td>
+        <td><%= number_to_currency(payment.amount) %> [<%= payment.payment_option_details %>]</td>
+        <td><%= payment.invoice.quote.removal_leader.full_name if payment.invoice.quote.removal_leader_id.present? %></td>
+        <td><%= link_to payment.invoice.quote.code, quote_path(payment.invoice.quote) %></td>
+      </tr>
+    <% end %>
+   </table>
+
+  <%= paginate @payments %>
+
+<% else %>
+  <p class='alert alert-info'><%= t "no_payments_found", default: 'No payments received.' %></p>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $('#day').on('change', function() {
+      $(this).closest('form').submit();
+    });
+  });
+</script>

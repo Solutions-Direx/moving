@@ -28,7 +28,7 @@
     <td><%= report.verified? ? status_tag(t 'verified') : button_link_to("#{t 'verify', default: 'Verify'}", verify_quote_report_path(report.quote), method: :post, level: "success", data: {confirm: "#{t 'please_confirm'}"}) %></td>
     <td><%= report && report.removal_men.any? ? link_to(l(report.quote.removal_at.to_date), quick_view_quote_report_path(report.quote), remote: true, class: "details", :"data-type" => 'html') : l(report.quote.removal_at.to_date) %></td>
     <td><%= link_to report.quote.client.name, client_path(report.quote.client) %> <%= status_tag('comm.') if report.quote.client.commercial? %></td>
-    <td><%= link_to "##{report.quote.code}", quote_path(report.quote) %></td>
+    <td><%= link_to "#{report.quote.code}", quote_path(report.quote) %></td>
     <td><%= report.quote.trucks.map(&:name_with_plate).to_sentence %></td>
     <td><%= report.quote.removal_leader.full_name if report.quote.removal_leader_id.present? %></td>
     <td><%= report.signed_at.present? ? (l report.signed_at.to_date) : (status_tag 'N/A') %></td>

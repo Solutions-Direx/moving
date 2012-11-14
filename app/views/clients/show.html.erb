@@ -49,7 +49,7 @@
 
   <% @client.quotes.each do |quote| %>
     <tr>
-      <td><%= link_to quote.reference, quote %> <%= status_tag(t(quote.status), level: quote.rejected? ? 'warning' : (quote.confirmed? ? 'success' : '')) %></td>
+      <td><%= link_to quote.code, quote %> <%= status_tag(t(quote.status), level: quote.rejected? ? 'warning' : (quote.confirmed? ? 'success' : '')) %></td>
       <td><%= l quote.removal_at, :format => :long %></td>
       <td><%= quote.creator.full_name %></td>
       <td><%= link_to quote.invoice.code, quote_invoice_path(quote) if quote.invoice %></td>

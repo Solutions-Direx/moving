@@ -1,6 +1,6 @@
 <p>
   <b>Client:</b> <%= link_to @invoice.client.name_with_code, client_path(@invoice.quote) %>
-  <span class='floatr'><b><%= t "#{Quote.model_name.human}" %>:</b> <%= link_to @invoice.quote.reference, quote_path(@invoice.quote) %> | <%= @invoice.quote.company.company_name %></span>
+  <span class='floatr'><b><%= t "#{Quote.model_name.human}" %>:</b> <%= link_to @invoice.quote.code, quote_path(@invoice.quote) %> | <%= @invoice.quote.company.company_name %></span>
 </p>
 <p>
   <b><%= t "removal_at" %>:</b> <%= l @invoice.quote.removal_at.to_date %>
