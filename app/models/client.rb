@@ -24,20 +24,17 @@ class Client < ActiveRecord::Base
   scope :residential, where(commercial: false)
   
   before_create :generate_code
-  
-  def reference
-    commercial? ? "C#{code}" : "R#{code}"
-  end
 
   def name_with_code
-    "#{name} (#{reference})"
+    "#{name} (#{code})"
   end
   
 private
   
   def generate_code
     last_client_id = Client.last.present? ? Client.last.id : 0
-    self.code = "%05d" % (last_client_id + 1)
+    code_generation = "%05d" % (last_client_id + 1)
+    self.code = commercial? ? "C#{code_generation}" : "R#{code_generation}"
   end
   
 end
