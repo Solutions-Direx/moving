@@ -29,7 +29,7 @@
     <table class="table table-striped">
       <tr>
         <th><%= sortable 'clients.name', t('client') %></th>
-        <th><%= sortable "invoices.code", t('ID') %></th>
+        <th><%= sortable "invoices.code", Invoice.model_name.human %></th>
         <th>Grand Total</th>
         <th>Total</th>
       </tr>

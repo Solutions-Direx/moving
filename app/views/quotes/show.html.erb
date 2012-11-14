@@ -1,4 +1,4 @@
-<h2><%= @quote.client.name %> <%= content_tag(:span, @quote.rating, :class => "badge badge-#{@quote.rating.downcase}") %> <%= content_tag(:span, 'commercial', :class => 'badge') if @quote.client.commercial? %>
+<h2><%= @quote.client.name_with_code %> <%= content_tag(:span, @quote.rating, :class => "badge badge-#{@quote.rating.downcase}") %> <%= content_tag(:span, 'commercial', :class => 'badge') if @quote.client.commercial? %>
   <span class='submenu'>
     <div class="btn-toolbar">
       <div class="btn-group">
