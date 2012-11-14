@@ -2,9 +2,9 @@
 class Quote < ActiveRecord::Base
   include Signable
   include PgSearch
-  multisearchable :against => [:code]
+  multisearchable :against => [:code, :reference]
   pg_search_scope :search_by_keyword, 
-                  :against => :code,
+                  :against => [:code, :reference],
                   :associated_against  => {
                     :client => :name,
                     :creator => [:first_name, :last_name]
@@ -93,7 +93,7 @@ class Quote < ActiveRecord::Base
   
   # CALLBACKS
   before_create :generate_code, :copy_billing_address
-  before_save :ignore_blank_addresses, :ignore_blank_rooms
+  before_save :ignore_blank_addresses, :ignore_blank_rooms, :update_reference
   after_destroy :track_activity
   
   # SCOPES
@@ -172,9 +172,9 @@ class Quote < ActiveRecord::Base
     end
   end
   
-  def reference
-    client.commercial? ? "C#{code}" : "R#{code}"
-  end
+  # def reference
+  #   client.commercial? ? "C#{code}" : "R#{code}"
+  # end
 
   def self.export_payments(account, quote_ids=[], options={})
     headers = %w{Customer_code Customer_name Invoice_number Payment_date Receipt_number 
@@ -224,8 +224,10 @@ class Quote < ActiveRecord::Base
 private
 
   def generate_code
-    last_quote_id = Quote.last.present? ? Quote.last.id : 0
-    self.code = "%06d" % (last_quote_id + 1)
+    if code.blank?
+      last_quote_id = Quote.last.present? ? Quote.last.id : 0
+      self.code = "%06d" % (last_quote_id + 1)
+    end
   end
 
   def copy_billing_address
@@ -276,6 +278,11 @@ private
     act.action = 'destroyed'
     act.quote_id = nil
     act.save
+  end
+
+  def update_reference
+    generate_code
+    self.reference = client.commercial? ? "C#{code}" : "R#{code}" 
   end
   
 end
