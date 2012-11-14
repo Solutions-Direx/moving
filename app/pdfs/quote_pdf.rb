@@ -412,6 +412,8 @@ class QuotePdf < Prawn::Document
 
   def invoices
     start_new_page
+    quote_header
+    move_down 20
     text "<b><font size='14'>#{I18n.t('temp_invoice', default: 'Temporary Invoice')}</font></b>", inline_format: true
     move_down 15
     text "___ " + I18n.t('billed_hours', default: 'Billed Hours') + " * " + number_to_currency(@quote.price) + " = _________________________"

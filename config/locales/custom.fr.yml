@@ -241,7 +241,7 @@ fr:
   deposit_received: Dépôt reçu
   cannot_be_saved: "n' a pu être sauvegardée. Veuillez contacter l'administrateur système."
   successfully_rejected: rejetée avec succès.
-  can_no_longer_be_edited: ne peut plus être modifiée quand la facture a étésignée par le client.
+  can_no_longer_be_edited: ne peut plus être modifiée quand la facture a été signée par le client.
   revert_to_pending: "marquée de nouveau comme 'En attente'."
   failed_to_cancel_rejection: Impossible d'annuler le rejet de l'entente. Veuillez contacter l'administrateur système.
   failed_to_reject: "L'entente n'a pu être marquée comme 'Rejetée'. Veuillez contacter l'administrateur système."
