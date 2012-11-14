@@ -22,17 +22,17 @@ class QuotesController < ApplicationController
       @quotes = @quotes.to_date(Time.zone.parse(params[:to]))
     end
 
-    if params[:confirmed]
+    if params[:confirmed] && !params[:non_confirmed]
       @quotes = @quotes.confirmed
     end
-    if params[:non_confirmed]
+    if !params[:confirmed] && params[:non_confirmed]
       @quotes = @quotes.pending
     end
 
-    if params[:invoiced]
+    if params[:invoiced] && !params[:non_invoiced]
       @quotes = @quotes.invoiced
     end
-    if params[:non_invoiced]
+    if !params[:invoiced] && params[:non_invoiced]
       @quotes = @quotes.not_invoiced
     end
 
