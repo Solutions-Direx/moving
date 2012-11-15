@@ -24,9 +24,11 @@ module BootstrapHelper
     title ||= column.titleize
     css_class = column == sort_column ? "current #{sort_direction}" : nil
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
-    options = {:sort => column, :direction => direction}
-    options.merge!(params.slice(:search, :day, :from, :to))
-    link_to title, options, {:class => css_class}
+    options = {"sort" => column, "direction" => direction}
+    # options.merge!(params.except(:sort, :direction))
+    puts params
+    puts params.merge(options)
+    link_to title, params.merge(options), {:class => css_class}
   end
   
   def button_link_to(text, url, options)
