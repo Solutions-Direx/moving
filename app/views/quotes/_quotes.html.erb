@@ -22,6 +22,7 @@
     <label class="checkbox"><%= check_box_tag 'invoiced', '1', params[:invoiced].present? %> <%= t 'q_invoiced', default: 'Invoiced' %></label>
     <label class="checkbox"><%= check_box_tag 'non_invoiced', '1', params[:non_invoiced].present? %> <%= t 'q_not_invoiced', default: 'Not invoiced' %></label>
     <%= submit_tag "#{t 'search'}", class: 'btn', name: nil %>
+    <%= submit_tag "<i class='icon-print'></i>", class: 'btn', name: nil %>
   <% end %>
   <%#= paginate @quotes %>
 </div>

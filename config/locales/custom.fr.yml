@@ -354,6 +354,7 @@ fr:
   q_invoiced: Facturées
   q_not_invoiced: Non facturées
   sending: 'En cours...'
+  quotes_list: Liste des ententes
   activerecord:
     models:
       account: Compte

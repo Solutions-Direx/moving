@@ -39,6 +39,12 @@ class QuotesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @quotes }
+      format.pdf do
+        pdf = QuotesPdf.new(@quotes)
+        send_data pdf.render, filename: "#{t 'quotes_list', default: 'Quotes list'}.pdf",
+                              type: "application/pdf",
+                              disposition: "inline"
+      end
     end
   end
 
@@ -205,7 +211,6 @@ class QuotesController < ApplicationController
     @to_addresses = @quote.to_addresses.select {|a| to_ids.include?(a.id.to_s) }
     respond_to do |format|
       format.html
-      # format.pdf { render :text => PDFKit.new(render_to_string(:formats => [:html], :layout => 'print')).to_pdf }
       format.pdf do
         pdf = QuotePdf.new(@quote, @to_addresses, true)
         send_data pdf.render, filename: "quote_#{@quote.code}.pdf",
