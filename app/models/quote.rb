@@ -6,7 +6,7 @@ class Quote < ActiveRecord::Base
   pg_search_scope :search_by_keyword, 
                   :against => :code,
                   :associated_against  => {
-                    :client => :name,
+                    :client => [:name, :code],
                     :creator => [:first_name, :last_name]
                   },
                   :using => { 
