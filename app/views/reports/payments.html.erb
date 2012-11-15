@@ -19,10 +19,10 @@
     <% @payments.each do |payment| %>
       <tr>
         <td><%= l payment.date %></td>
-        <td><%= link_to payment.client.name, client_path(payment.client) %> <%= status_tag('comm.') if payment.client.commercial? %></td>
+        <td><%= link_to payment.payable.client.name, client_path(payment.payable.client) %> <%= status_tag('comm.') if payment.payable.client.commercial? %></td>
         <td><%= number_to_currency(payment.amount) %> [<%= payment.payment_option_details %>]</td>
-        <td><%= payment.invoice.quote.removal_leader.full_name if payment.invoice.quote.removal_leader_id.present? %></td>
-        <td><%= link_to payment.invoice.quote.code, quote_path(payment.invoice.quote) %></td>
+        <td><%= payment.payable.quote.removal_leader.full_name if payment.payable.quote.removal_leader_id.present? %></td>
+        <td><%= link_to payment.payable.quote.code, quote_path(payment.payable.quote) %></td>
       </tr>
     <% end %>
    </table>

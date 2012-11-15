@@ -44,12 +44,12 @@ class ReportsController < ApplicationController
   def payments
     if params[:day].present?
       @day = Time.zone.parse(params[:day]).to_date
-      @payments = Payment.includes(:client, :invoice).by_day(@day).order(sort_column + " " + sort_direction).page(params[:page])
-      @total = Payment.includes(:client, :invoice).by_day(@day).sum('amount')
+      @payments = Payment.includes(:payable => :client).where("payable_type = ?", "Invoice").by_day(@day).order(sort_column + " " + sort_direction).page(params[:page])
+      @total = Payment.includes(:payable => :client).where("payable_type = ?", "Invoice").by_day(@day).sum('amount')
     else
       @day = Time.zone.today
-      @payments = Payment.includes(:client, :invoice).today.order(sort_column + " " + sort_direction).page(params[:page])
-      @total = Payment.includes(:client, :invoice).today.sum('amount')
+      @payments = Payment.includes(:payable => :client).where("payable_type = ?", "Invoice").today.order(sort_column + " " + sort_direction).page(params[:page])
+      @total = Payment.includes(:payable => :client).where("payable_type = ?", "Invoice").today.sum('amount')
     end
 
     respond_to do |format|
