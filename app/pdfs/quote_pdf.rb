@@ -408,6 +408,8 @@ class QuotePdf < Prawn::Document
     move_down 10
     if @quote.price.present?
       text "___ " + I18n.t('billed_hours', default: 'Billed Hours') + " * " + number_to_currency(@quote.price) + " = _________________________"
+    else
+      text "___ " + I18n.t('billed_hours', default: 'Billed Hours') + " * " + "___________$" + " = _________________________"
     end
     move_down 10
     text "<b>#{I18n.t('gas')}:</b> #{number_to_currency(@quote.gas)}", inline_format: true
