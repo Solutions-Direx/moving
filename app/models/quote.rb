@@ -190,7 +190,7 @@ class Quote < ActiveRecord::Base
       quotes.each do |quote|
         data = {}
         quote.payments.each_with_index do |payment, index|
-          data["Customer_code"] = quote.client.reference
+          data["Customer_code"] = quote.client.code
           data["Customer_name"] = quote.client.name
           data["Invoice_number"] = payment.payable.try(:code)
           data["Payment_date"] = I18n.l(payment.date, format: :default)

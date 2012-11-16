@@ -1,5 +1,5 @@
 <% body_class('reports') %>
-<h2><%= t 'report_for', default: 'Job Report' %> (<%= link_to "#{@report.quote.reference}", quote_path(@report.quote.code) %>) <%= t 'for', default: 'for' %> <%= @quote.client.name %> (<%= link_to "#{@report.quote.client.reference}", client_path(@report.quote.client.code) %>)
+<h2><%= t 'report_for', default: 'Job Report' %> (<%= link_to "#{@report.quote.reference}", quote_path(@report.quote.code) %>) <%= t 'for', default: 'for' %> <%= @quote.client.name %> (<%= link_to "#{@report.quote.client.code}", client_path(@report.quote.client.code) %>)
   <span class='submenu'>
     <span id="msg" style="display: none;">Form saved</span>
     <%= button_link_to "#{t 'preview'}", '#', level: "success", large: true, id: "preview" %>  

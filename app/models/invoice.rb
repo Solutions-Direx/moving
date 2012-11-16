@@ -213,7 +213,7 @@ class Invoice < ActiveRecord::Base
         invoice = quote.invoice
         invoice.build_lines.select{|l| l.amount > 0}.each_with_index do |line, index|
           data["Invoice_number"] = invoice.code
-          data["Customer_Code"] = quote.client.reference
+          data["Customer_Code"] = quote.client.code
           data["Invoice_Date"] = I18n.l(invoice.updated_at.to_date, format: :default)
           data["Sales_person"] = quote.try(:creator).try(:full_name)
           data["Currency"] = "CAD"
