@@ -55,7 +55,7 @@ class InvoicePdf < Prawn::Document
 
   def quote_date_left
     data = [
-      ["<b>#{Quote.model_name.human}:</b> #{@invoice.quote.reference}"],
+      ["<b>#{Quote.model_name.human}:</b> #{@invoice.quote.code}"],
       ["<b>#{I18n.t 'reserved_on'}:</b> #{I18n.l @invoice.quote.created_at.to_date}"],
       ["<b>#{I18n.t 'approved_on'}:</b> #{I18n.l @invoice.quote.quote_confirmation.approved_at.to_date}"]
     ]
@@ -104,8 +104,8 @@ class InvoicePdf < Prawn::Document
 
     # SUPPLIERS
     if @invoice.invoice_supplies.any?
-      titles_data << ["<b><font size='13'>#{I18n.t 'supplies', default: 'Supplies'}</font></b>"]
-      prices_data << ["<b><font size='13'> </font></b>"]
+      titles_data << ["<b><font size='12'>#{I18n.t 'supplies', default: 'Supplies'}</font></b>"]
+      prices_data << ["<b><font size='12'> </font></b>"]
 
       @invoice.invoice_supplies.each do |inv_supply|
         titles_data << ["#{inv_supply.supply.name} (#{inv_supply.quantity} * #{number_to_currency(inv_supply.supply.price)})"]
@@ -115,8 +115,8 @@ class InvoicePdf < Prawn::Document
 
     # FORFAIT
     if @invoice.forfaits.any?
-      titles_data << ["<b><font size='13'>#{Forfait.model_name.human + 's'}</font></b>"]
-      prices_data << ["<b><font size='13'> </font></b>"]
+      titles_data << ["<b><font size='12'>#{Forfait.model_name.human + 's'}</font></b>"]
+      prices_data << ["<b><font size='12'> </font></b>"]
 
       @invoice.forfaits.each do |forfait|
         titles_data << [forfait.name]
@@ -125,8 +125,8 @@ class InvoicePdf < Prawn::Document
     end
 
     if @invoice.quote.quote_confirmation.franchise_cancellation or @invoice.total_insurance_increase > 0
-      titles_data << ["<b><font size='13'>#{I18n.t 'insurance'}</font></b>"]
-      prices_data << ["<b><font size='13'> </font></b>"]
+      titles_data << ["<b><font size='12'>#{I18n.t 'insurance'}</font></b>"]
+      prices_data << ["<b><font size='12'> </font></b>"]
 
       # FRANCHISE CANCELLATION
 
@@ -144,8 +144,8 @@ class InvoicePdf < Prawn::Document
     if @invoice.quote.to_addresses.present?
       @invoice.quote.to_addresses.each do |to_address|
         if to_address.storage_id && to_address.storage.internal?
-          titles_data << ["<b><font size='13'>#{I18n.t 'storage'}: #{to_address.storage.name}</font></b>"]
-          prices_data << ["<b><font size='13'> </font></b>"]
+          titles_data << ["<b><font size='12'>#{I18n.t 'storage'}: #{to_address.storage.name}</font></b>"]
+          prices_data << ["<b><font size='12'> </font></b>"]
 
           titles_data << ["#{I18n.t('price')} #{I18n.t 'per_month'}"]
           prices_data << [number_to_currency(to_address.price)]
@@ -187,8 +187,8 @@ class InvoicePdf < Prawn::Document
     titles_data = []
     prices_data = []
 
-    titles_data << ["<b><font size='13'>Grand Total</font></b>"]
-    prices_data << ["<b><font size='13'>#{number_to_currency(@invoice.grand_total)}</font></b>"]
+    titles_data << ["<b><font size='12'>Grand Total</font></b>"]
+    prices_data << ["<b><font size='12'>#{number_to_currency(@invoice.grand_total)}</font></b>"]
 
     # TAX 1
     if @invoice.tax1_amount > 0
@@ -234,8 +234,8 @@ class InvoicePdf < Prawn::Document
     end
 
     # TOTAL
-    titles_data = [["<b><font size='13'>Total</font></b>"]]
-    prices_data = [["<b><font size='13'>#{number_to_currency(@invoice.total)}</font></b>"]]
+    titles_data = [["<b><font size='12'>Total</font></b>"]]
+    prices_data = [["<b><font size='12'>#{number_to_currency(@invoice.total)}</font></b>"]]
 
     titles_table = make_table(titles_data, width: 370, :cell_style => {:border_color => "FFFFFF"}) do
       # cells.padding = [10, 10, 10, 10]
@@ -269,7 +269,7 @@ class InvoicePdf < Prawn::Document
         stroke_color "CCCCCC"           
         stroke_horizontal_rule
         move_down 15
-        text I18n.t('payments_received'), size: 13, style: :bold
+        text I18n.t('payments_received'), size: 12, style: :bold
         move_down 5
         @invoice.payments.each do |payment|
           text "•  #{I18n.l(payment.date)}: #{number_to_currency(payment.amount)} - #{payment.payment_option_details}" , leading: 3, size: 11, indent_paragraphs: 10
@@ -282,7 +282,7 @@ class InvoicePdf < Prawn::Document
     text I18n.t('quote_details', default: 'Quote Details'), size: 16, style: :bold
     move_down 10
 
-    from_data = [["<b><font size='13'>#{@invoice.quote.internal_address? ? I18n.t('internal_moving') : I18n.t('from')}</font></b>"]]
+    from_data = [["<b><font size='12'>#{@invoice.quote.internal_address? ? I18n.t('internal_moving') : I18n.t('from')}</font></b>"]]
 
     if @invoice.quote.from_address.has_storage?
       from_data << ["<font size='10'><color rgb='999999'>#{I18n.t('storage_upcase')}:</color> #{@invoice.quote.from_address.storage.name}</font>"]
@@ -304,7 +304,7 @@ class InvoicePdf < Prawn::Document
     end
 
     unless @invoice.quote.internal_address?
-      to_data = [["<b><font size='13'>#{I18n.t('to')}</font></b>"]]
+      to_data = [["<b><font size='12'>#{I18n.t('to')}</font></b>"]]
       unless @invoice.quote.to_addresses.blank?
         for to_address in @invoice.quote.to_addresses
           if to_address.has_storage?
