@@ -46,16 +46,16 @@ class QuotePdf < Prawn::Document
     hr
     move_down 10
     quote_details
+    documents
+
+    if @full_print
+      start_new_page
+      invoices
+    end
 
     if @to_addresses.present?
       start_new_page
       google_map
-    end
-
-    if @full_print
-      start_new_page
-      documents
-      invoices
     end
   end
 
@@ -351,7 +351,7 @@ class QuotePdf < Prawn::Document
 
     make_table(data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
       # cells.padding = [10, 10, 10, 10]
-      rows(1).size = 9
+      rows(1).size = 8
     end
   end
 
@@ -384,6 +384,8 @@ class QuotePdf < Prawn::Document
 
   def documents
     if @quote.documents.any?
+      hr
+      move_down 20
       @quote.documents.each_with_index do |document, index|
         text "<b><font size='14'>#{document.name}</font></b>", inline_format: true
         move_down 10
@@ -400,7 +402,6 @@ class QuotePdf < Prawn::Document
   end
 
   def invoices
-    start_new_page
     quote_header
     move_down 15
     text "<b><font size='14'>#{I18n.t('temp_invoice', default: 'Temporary Invoice')}</font></b>", inline_format: true
@@ -418,7 +419,7 @@ class QuotePdf < Prawn::Document
     end
 
     text "<b>#{I18n.t('supplies')}:</b>", inline_format: true
-    move_down 10
+    move_down 5
     @quote.quote_supplies.each do |q_supply|
       text q_supply.quantity + " * " + q_supply.supply.name_with_price
       move_down 10
@@ -427,7 +428,7 @@ class QuotePdf < Prawn::Document
     move_down 10
 
     text "<b>#{I18n.t('forfaits', default: 'Forfaits')}:</b>", inline_format: true
-    move_down 10
+    move_down 5
     @quote.forfaits.each do |forfait|
       text "•  #{forfait.name_with_price}" , leading: 3, size: 11, indent_paragraphs: 10
       move_down 10
