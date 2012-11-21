@@ -10,7 +10,7 @@ class InvoicePdf < Prawn::Document
 
     page_layout
 
-    number_pages "#{Invoice.model_name.human} ##{@invoice.code} | Page <page> / <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 8, color: 'AAAAAA' }
+    number_pages "#{Invoice.model_name.human} ##{@invoice.code} | Page <page> / <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 10, color: 'AAAAAA' }
   end
 
   def page_layout
@@ -338,8 +338,9 @@ class InvoicePdf < Prawn::Document
     end
 
     move_down 10
-    removal_men = @invoice.quote.removal_men.any? ? "- #{@invoice.quote.removal_men.map(&:full_name).to_sentence}" : ""
-    text "<b>#{I18n.t('removal_men', default: 'Removal men')}</b>: #{@invoice.quote.num_of_removal_man} #{removal_men}", inline_format: true
+    removal_leader = @invoice.quote.removal_leader.present? ? "- #{@invoice.quote.removal_leader.full_name}" : ""
+    removal_men = @invoice.quote.removal_men.any? ? ", #{@invoice.quote.removal_men.map(&:full_name).to_sentence}" : ""
+    text "<b>#{I18n.t('removal_men', default: 'Removal men')}</b>: #{@invoice.quote.num_of_removal_man} #{removal_leader}#{removal_men}", inline_format: true
     move_down 10    
     text "<b>#{I18n.t('price')}</b>: #{number_to_currency(@invoice.quote.price, strip_insignificant_zeros: true)} #{I18n.t('per_hour')}", inline_format: true
     move_down 10    

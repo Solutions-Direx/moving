@@ -17,7 +17,7 @@ class QuotePdf < Prawn::Document
 
     page_layout
 
-    number_pages "#{Quote.model_name.human} ##{@quote.code} | Page <page> / <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 8, color: 'AAAAAA' }
+    number_pages "#{Quote.model_name.human} ##{@quote.code} | Page <page> / <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 10, color: 'AAAAAA' }
   end
 
   def page_layout
@@ -66,11 +66,12 @@ class QuotePdf < Prawn::Document
   end
 
   def quote_details
-    removal_men = @quote.removal_men.any? ? "- #{@quote.removal_men.map(&:full_name).to_sentence}" : ""
-    text "<b>#{I18n.t('removal_men', default: 'Removal men')}</b>: #{@quote.num_of_removal_man} #{removal_men}", inline_format: true
-    move_down 10    
+    removal_leader = @quote.removal_leader.present? ? "- #{@quote.removal_leader.full_name}" : ""
+    removal_men = @quote.removal_men.any? ? ", #{@quote.removal_men.map(&:full_name).to_sentence}" : ""
+    text "<b>#{I18n.t('removal_men', default: 'Removal men')}</b>: #{@quote.num_of_removal_man} #{removal_leader}#{removal_men}", inline_format: true
+    move_down 10
     text "<b>#{I18n.t('price')}</b>: #{number_to_currency(@quote.price, strip_insignificant_zeros: true)} #{I18n.t('per_hour')}", inline_format: true
-    move_down 10    
+    move_down 10
     text "<b>#{I18n.t('gas')}</b>: #{number_to_currency(@quote.gas, strip_insignificant_zeros: true)}", inline_format: true
     move_down 10
     if @quote.surcharges.any?
@@ -449,9 +450,9 @@ class QuotePdf < Prawn::Document
       text "_" * 85
       move_down 10
     end
-    text "TPS / TVH: _________________________", align: :right
+    text "TPS / TVH (#{Tax.first.tax1.round(0)}% / 13%): _________________________", align: :right
     move_down 10
-    text "TVQ: _________________________", align: :right
+    text "TVQ (#{Tax.first.tax2}%): _________________________", align: :right
     move_down 10
     if @quote.deposit.present?
       text "<b>#{I18n.t('deposit_received')}:</b> " + number_to_currency(@quote.deposit.amount) + " - " + I18n.l(@quote.deposit.date, format: :long) + " - " + I18n.t(@quote.deposit.payment_method) + (@quote.deposit.credit_card_type.present? ? "(#{I18n.t(@quote.deposit.credit_card_type)})" : ""), inline_format: true,  align: :right

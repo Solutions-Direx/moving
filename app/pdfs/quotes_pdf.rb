@@ -15,7 +15,7 @@ class QuotesPdf < Prawn::Document
 
     page_layout
 
-    number_pages "Page <page> / <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 8, color: 'AAAAAA' }
+    number_pages "Page <page> / <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 10, color: 'AAAAAA' }
   end
 
   def page_layout
@@ -35,7 +35,7 @@ class QuotesPdf < Prawn::Document
     @quotes.each do |quote|
   	  data += [["#{quote.code}", "#{quote.client.name}", "#{I18n.l(quote.removal_at, format: :short)}", "#{quote.creator.first_name}", "#{quote.company.company_name}"]]
     end
-    
+
     table(data, header: true, :row_colors => ["F0F0F0", "FFFFFF"]) do
       cells.colors = ["F0F0F0", "FFFFFF"],
       cells.size = 11,

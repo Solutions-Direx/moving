@@ -144,7 +144,7 @@
 <hr/>
 <p>
   <b><%= t 'removal_men', default: 'Removal men' %>:</b>
-  <%= @quote.num_of_removal_man %> <%= "- #{@quote.removal_men.map(&:full_name).to_sentence}" if @quote.removal_men.any? %>
+  <%= "- #{@quote.removal_leader.full_name}" if @quote.removal_leader.present? %><%= ", #{@quote.removal_men.map(&:full_name).to_sentence}" if @quote.removal_men.any? %>
 </p>
 
 <p>
