@@ -36,6 +36,14 @@ class QuotesController < ApplicationController
       @quotes = @quotes.not_invoiced
     end
 
+    if !params[:commercial] && params[:residential]
+      @quotes = @quotes.joins(:client).where('clients.commercial = ?', false)
+    end
+
+    if params[:commercial] && !params[:residential]
+      @quotes = @quotes.joins(:client).where('clients.commercial = ?', true)
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @quotes }
@@ -241,7 +249,7 @@ private
   end
   
   def sort_column
-    params[:sort].present? ? params[:sort] : "created_at"
+    params[:sort].present? ? params[:sort] : "quotes.created_at"
   end
 
   def sort_direction

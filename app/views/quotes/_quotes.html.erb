@@ -17,14 +17,18 @@
         <span class="add-on clear">×</span>
       </div>
     <% end %>
-    <label class="checkbox"><%= check_box_tag 'confirmed', '1', params[:confirmed].present? %> <%= t 'q_confirmed', default: 'Confirmed' %></label>
-    <label class="checkbox"><%= check_box_tag 'non_confirmed', '1', params[:non_confirmed].present? %> <%= t 'q_not_confirmed', default: 'Not confirmed' %></label>
-    <label class="checkbox"><%= check_box_tag 'invoiced', '1', params[:invoiced].present? %> <%= t 'q_invoiced', default: 'Invoiced' %></label>
-    <label class="checkbox"><%= check_box_tag 'non_invoiced', '1', params[:non_invoiced].present? %> <%= t 'q_not_invoiced', default: 'Not invoiced' %></label>
-    <%= submit_tag "#{t 'search'}", class: 'btn', name: nil %>
-    <% if @quotes.any? %>
-      <button class="btn" type="submit" name="format" value="pdf"><i class="icon-print"></i></button>
-    <% end -%>
+    <p>
+      <label class="checkbox"><%= check_box_tag 'confirmed', '1', params[:confirmed].present? %> <%= t 'q_confirmed', default: 'Confirmed' %></label>
+      <label class="checkbox"><%= check_box_tag 'non_confirmed', '1', params[:non_confirmed].present? %> <%= t 'q_not_confirmed', default: 'Not confirmed' %></label>
+      <label class="checkbox"><%= check_box_tag 'invoiced', '1', params[:invoiced].present? %> <%= t 'q_invoiced', default: 'Invoiced' %></label>
+      <label class="checkbox"><%= check_box_tag 'non_invoiced', '1', params[:non_invoiced].present? %> <%= t 'q_not_invoiced', default: 'Not invoiced' %></label>
+      <label class="checkbox"><%= check_box_tag 'commercial', '1', params[:commercial].present? %> <%= t 'commercial' %></label>
+      <label class="checkbox"><%= check_box_tag 'residential', '0', params[:residential].present? %> <%= t 'residential' %></label>
+      <%= submit_tag "#{t 'search'}", class: 'btn', name: nil %>
+      <% if @quotes.any? %>
+        <button class="btn" type="submit" name="format" value="pdf"><i class="icon-print"></i></button>
+      <% end -%>
+    </p>
   <% end %>
   <%#= paginate @quotes %>
 </div>
