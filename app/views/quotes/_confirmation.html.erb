@@ -3,15 +3,15 @@
   <h3 class='with_margin'><%= t 'quote_confirmation', default: 'Quote confirmation' %></h3>
   
   <p><%= t 'insurance_increase' %>: 
-  <%= @quote.quote_confirmation.insurance_limit_enough? ? "#{t 'nope'}" : number_to_currency(@quote.quote_confirmation.insurance_increase) %>
+  <%= @quote.quote_confirmation.insurance_limit_enough? ? "#{t 'nope'}" : number_to_currency(@quote.quote_confirmation.insurance_increase, strip_insignificant_zeros: true) %>
   </p>
   
   <p><%= t 'franchise_cancelation' %>: <%= @quote.quote_confirmation.franchise_cancellation? ? 
-  "#{t 'yessai'} (#{t 'fees'} #{@quote.account.franchise_cancellation_amount}$)" : "#{t 'nope'}" %></p>
+  "#{t 'yessai'} (#{t 'fees'} #{number_to_currency(@quote.account.franchise_cancellation_amount, strip_insignificant_zeros: true)})" : "#{t 'nope'}" %></p>
+  <p><%= t 'tv_insurance' %>: 
+  <%= @quote.quote_confirmation.tv_insurance? ? "#{t 'yessai'} (#{t 'fees'} #{number_to_currency(@quote.quote_confirmation.tv_insurance_price, strip_insignificant_zeros: true)})" : "#{t 'nope'}" %>
+  </p>
   <% unless @quote.client.commercial? %>
     <p><%= t 'payment_method' %>: <%= @quote.quote_confirmation.payment_method %></p>
   <% end %>
-  <p><%= t 'tv_insurance' %>: 
-  <%= @quote.quote_confirmation.tv_insurance? ? number_to_currency(@quote.quote_confirmation.tv_insurance_price) : "#{t 'nope'}" %>
-  </p>
 <% end %>

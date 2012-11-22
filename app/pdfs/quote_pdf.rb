@@ -170,9 +170,9 @@ class QuotePdf < Prawn::Document
         move_down 10
         text "#{I18n.t('insurance_increase')} : #{@quote.quote_confirmation.insurance_limit_enough? ? I18n.t('nope') : number_to_currency(@quote.quote_confirmation.insurance_increase)}"
         move_down 10
-        text I18n.t('franchise_cancelation') + ": " + (@quote.quote_confirmation.franchise_cancellation? ? I18n.t('yessai') + " (#{I18n.t('fees')} #{number_to_currency(@quote.account.franchise_cancellation_amount)})" : I18n.t('nope') )
+        text I18n.t('franchise_cancelation') + ": " + (@quote.quote_confirmation.franchise_cancellation? ? I18n.t('yessai') + " (#{I18n.t('fees')} #{number_to_currency(@quote.account.franchise_cancellation_amount, strip_insignificant_zeros: true)})" : I18n.t('nope') )
         move_down 10
-        text "#{I18n.t('tv_insurance')} : #{@quote.quote_confirmation.tv_insurance? ? number_to_currency(@quote.quote_confirmation.tv_insurance_price) : I18n.t('nope')}"
+        text I18n.t('tv_insurance') + ": " + (@quote.quote_confirmation.tv_insurance? ? I18n.t('yessai') + " (#{I18n.t('fees')} #{number_to_currency(@quote.quote_confirmation.tv_insurance_price, strip_insignificant_zeros: true)})" : I18n.t('nope') )
         move_down 10
         unless @quote.client.commercial?
           text I18n.t('payment_method') + ": " + I18n.t(@quote.quote_confirmation.payment_method)

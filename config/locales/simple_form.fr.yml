@@ -108,6 +108,7 @@ fr:
         accounting_payment_debit_account_number: Compte de trésorerie - Débit
         accounting_payment_credit_account_number: Compte de trésorerie - Crédit
         accounting_payment_cheque_account_number: Compte de trésorerie - Chèque
+        tv_insurance: Assurance TV
     hints:
       defaults:
       user:
