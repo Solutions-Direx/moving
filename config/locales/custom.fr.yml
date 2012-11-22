@@ -106,6 +106,7 @@ fr:
   franchise_cancelation: 'Annulation de la franchise'
   insurance_increase: "Augmentation de l'assurance"
   tv_insurance: "Assurance TV"
+  tv_insurance_price: "Montant de l'assurance TV"
   payment_method: Méthode de paiement
   credit_card_type: Type de carte
   km_start: "KM au départ"

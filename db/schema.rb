@@ -234,7 +234,7 @@ ActiveRecord::Schema.define(:version => 20121122021423) do
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
     t.boolean  "tv_insurance",           :default => false
-    t.float    "tv_insurance_price",     :default => 20.0
+    t.float    "tv_insurance_price"
   end
 
   create_table "quote_daily_trucks", :force => true do |t|

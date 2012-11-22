@@ -109,6 +109,7 @@ fr:
         accounting_payment_credit_account_number: Compte de trésorerie - Crédit
         accounting_payment_cheque_account_number: Compte de trésorerie - Chèque
         tv_insurance: Assurance TV
+        tv_insurance_price: "Montant de l'assurance TV"
     hints:
       defaults:
       user:

@@ -9,6 +9,7 @@ class QuoteConfirmation < ActiveRecord::Base
   
   validates_presence_of :payment_method, :if => lambda {|q| !q.quote.client.commercial? }
   validates_presence_of :insurance_increase, :if => lambda {|q| !q.insurance_limit_enough }
+  validates_presence_of :tv_insurance_price, :if => lambda {|q| q.tv_insurance? }
   validates_inclusion_of :franchise_cancellation, :insurance_limit_enough, :in => [true,false]
   
   after_create :mark_quote_confirmed
