@@ -361,6 +361,7 @@ fr:
   total_before_taxes: Total avant taxes
   total_with_taxes: Total après taxes
   amount_to_pay: Montant à payer
+  quantity: Quantité
   activerecord:
     models:
       account: Compte

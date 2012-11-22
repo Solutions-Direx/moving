@@ -8,6 +8,13 @@ h2. Bootstrap db
 
 $ rake db:bootstrap
 
+h2. Load pg db copy
+
+$ rake db:drop
+$ rake db:create
+open pgsqldata file. search/replace 'pg_main' by 'your_local_pg_username'
+$ psql moving_development < pgsqldata
+
 h2. Deploy to Heroku
 
 h4. 1. Switch to master branch

@@ -87,18 +87,18 @@ class InvoicePdf < Prawn::Document
 
     if @invoice.total_time_spent > 0
       titles_data << ["#{I18n.t 'time_spent'} (#{@invoice.time_spent} * #{number_to_currency(@invoice.rate, strip_insignificant_zeros: true)})"] 
-      prices_data << [number_to_currency(@invoice.total_time_spent)]
+      prices_data << [number_to_currency(@invoice.total_time_spent, strip_insignificant_zeros: true)]
     end
 
     if (@invoice.try(:gas) || 0) > 0
       titles_data << ["#{I18n.t 'gas'}"]
-      prices_data << [number_to_currency(@invoice.gas)] 
+      prices_data << [number_to_currency(@invoice.gas, strip_insignificant_zeros: true)] 
     end
 
     if @invoice.total_surcharges > 0
       @invoice.surcharges.each do |surcharge|
         titles_data << [surcharge.label]
-        prices_data << [number_to_currency(surcharge.price)]
+        prices_data << [number_to_currency(surcharge.price, strip_insignificant_zeros: true)]
       end
     end
 
@@ -108,8 +108,8 @@ class InvoicePdf < Prawn::Document
       prices_data << ["<b><font size='11'> </font></b>"]
 
       @invoice.invoice_supplies.each do |inv_supply|
-        titles_data << ["#{inv_supply.supply.name} (#{inv_supply.quantity} * #{number_to_currency(inv_supply.supply.price)})"]
-        prices_data << [number_to_currency(inv_supply.quantity * inv_supply.supply.price)]
+        titles_data << ["#{inv_supply.supply.name} (#{inv_supply.quantity} * #{number_to_currency(inv_supply.supply.price, strip_insignificant_zeros: true)})"]
+        prices_data << [number_to_currency(inv_supply.quantity * inv_supply.supply.price, strip_insignificant_zeros: true)]
       end
     end
 
@@ -426,11 +426,11 @@ class InvoicePdf < Prawn::Document
     if @invoice.quote.confirmed?
       text "<b>#{I18n.t('quote_confirmation', default: 'Quote confirmation')}</b>", inline_format: true
       move_down 10
-      text "#{I18n.t('insurance_increase')} : #{@invoice.quote.quote_confirmation.insurance_limit_enough? ? I18n.t('nope') : number_to_currency(@invoice.quote.quote_confirmation.insurance_increase)}"
+      text "#{I18n.t('insurance_increase')} : #{@invoice.quote.quote_confirmation.insurance_limit_enough? ? I18n.t('nope') : number_to_currency(@invoice.quote.quote_confirmation.insurance_increase, strip_insignificant_zeros: true)}"
       move_down 10
-      text I18n.t('franchise_cancelation') + ": " + (@invoice.quote.quote_confirmation.franchise_cancellation? ? I18n.t('yessai') + " (#{I18n.t('fees')} #{number_to_currency(@invoice.quote.account.franchise_cancellation_amount)})" : I18n.t('nope') )
+      text I18n.t('franchise_cancelation') + ": " + (@invoice.quote.quote_confirmation.franchise_cancellation? ? I18n.t('yessai') + " (#{I18n.t('fees')} #{number_to_currency(@invoice.quote.account.franchise_cancellation_amount, strip_insignificant_zeros: true)})" : I18n.t('nope') )
       move_down 10
-      text "#{I18n.t('tv_insurance')} : #{@invoice.quote.quote_confirmation.tv_insurance? ? number_to_currency(@invoice.quote.quote_confirmation.tv_insurance_price) : I18n.t('nope')}"
+      text "#{I18n.t('tv_insurance')} : #{@invoice.quote.quote_confirmation.tv_insurance? ? number_to_currency(@invoice.quote.quote_confirmation.tv_insurance_price, strip_insignificant_zeros: true) : I18n.t('nope')}"
       move_down 10
       unless @invoice.quote.client.commercial?
         text I18n.t('payment_method') + ": " + I18n.t(@invoice.quote.quote_confirmation.payment_method)

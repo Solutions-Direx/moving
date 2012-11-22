@@ -167,6 +167,7 @@ en:
   q_not_confirmed: Not confirmed
   q_invoiced: Invoiced
   q_not_invoiced: Not invoiced
+  quantity: Quantity
   activerecord:
     attributes:
       user:  
