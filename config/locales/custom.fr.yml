@@ -356,6 +356,10 @@ fr:
   q_not_invoiced: Non facturées
   sending: 'En cours...'
   quotes_list: Liste des ententes
+  subtotal: Sous-total
+  total_before_taxes: Total avant taxes
+  total_with_taxes: Total après taxes
+  amount_to_pay: Montant à payer
   activerecord:
     models:
       account: Compte

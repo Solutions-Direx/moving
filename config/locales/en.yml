@@ -157,8 +157,16 @@ en:
   for_total_amount_of: for total amount of
   both: Both
   commercial: Commercial
-  residential: Résidentiel
+  residential: Residential
   no_search_results_found: No records found
+  subtotal: Subtotal
+  total_before_taxes: Total before tax
+  total_with_taxes: Total with tax
+  amount_to_pay: Amount to Pay
+  q_confirmed: Confirmed
+  q_not_confirmed: Not confirmed
+  q_invoiced: Invoiced
+  q_not_invoiced: Not invoiced
   activerecord:
     attributes:
       user:  
