@@ -59,6 +59,17 @@
       </div>
     </div>
     <% end %>
+
+    <% if @invoice.total_tv_insurance > 0 %>
+    <div class="control-group float optional">
+      <%= f.label :tv_insurance %>
+      <div class="controls">
+        <div class='input-append'>
+          <%= text_field_tag :tv_insurance, @invoice.total_tv_insurance, :class => 'span1 input-append', :disabled => true %><span class="add-on">$</span>
+        </div>
+      </div>
+    </div>
+    <% end %>
     
     <div class="control-group float optional">
       <%= f.label :discount %>

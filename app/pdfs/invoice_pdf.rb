@@ -124,7 +124,7 @@ class InvoicePdf < Prawn::Document
       end
     end
 
-    if @invoice.quote.quote_confirmation.franchise_cancellation or @invoice.total_insurance_increase > 0
+    if @invoice.quote.quote_confirmation.franchise_cancellation || @invoice.total_insurance_increase > 0 || @invoice.total_tv_insurance > 0
       titles_data << ["<b><font size='12'>#{I18n.t 'insurance'}</font></b>"]
       prices_data << ["<b><font size='12'> </font></b>"]
 
@@ -138,6 +138,11 @@ class InvoicePdf < Prawn::Document
       if @invoice.total_insurance_increase > 0
         titles_data << [I18n.t('insurance_increase')]
         prices_data << [number_to_currency(@invoice.total_insurance_increase)]
+      end
+
+      if @invoice.total_tv_insurance > 0
+        titles_data << [I18n.t('tv_insurance')]
+        prices_data << [number_to_currency(@invoice.total_tv_insurance)]
       end
     end
 
@@ -443,6 +448,8 @@ class InvoicePdf < Prawn::Document
       text "#{I18n.t('insurance_increase')} : #{@invoice.quote.quote_confirmation.insurance_limit_enough? ? I18n.t('nope') : number_to_currency(@invoice.quote.quote_confirmation.insurance_increase)}"
       move_down 10
       text I18n.t('franchise_cancelation') + ": " + (@invoice.quote.quote_confirmation.franchise_cancellation? ? I18n.t('yessai') + " (#{I18n.t('fees')} #{number_to_currency(@invoice.quote.account.franchise_cancellation_amount)})" : I18n.t('nope') )
+      move_down 10
+      text "#{I18n.t('tv_insurance')} : #{@invoice.quote.quote_confirmation.tv_insurance? ? number_to_currency(@invoice.quote.quote_confirmation.tv_insurance_price) : I18n.t('nope')}"
       move_down 10
       unless @invoice.quote.client.commercial?
         text I18n.t('payment_method') + ": " + I18n.t(@invoice.quote.quote_confirmation.payment_method)

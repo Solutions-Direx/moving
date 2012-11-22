@@ -11,4 +11,7 @@
   <% unless @quote.client.commercial? %>
     <p><%= t 'payment_method' %>: <%= @quote.quote_confirmation.payment_method %></p>
   <% end %>
+  <p><%= t 'tv_insurance' %>: 
+  <%= @quote.quote_confirmation.tv_insurance? ? number_to_currency(@quote.quote_confirmation.tv_insurance_price) : "#{t 'nope'}" %>
+  </p>
 <% end %>

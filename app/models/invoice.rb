@@ -66,7 +66,7 @@ class Invoice < ActiveRecord::Base
     # 3. insurance line 
     insurance_line = OpenStruct.new
     insurance_line.name = 'insurance'
-    insurance_line.amount = total_franchise_cancellation + total_insurance_increase + storages_amount
+    insurance_line.amount = total_franchise_cancellation + total_insurance_increase + storages_amount + total_tv_insurance
     lines << insurance_line
 
     # 4. tip line 
@@ -82,7 +82,16 @@ class Invoice < ActiveRecord::Base
   # pass recalculate = true to recalculate
   def grand_total(recalculate = false)
     if @grand_total.nil? || recalculate
-      @grand_total = total_time_spent + (try(:gas) || 0) + total_surcharges + total_supplies + total_forfaits + total_franchise_cancellation + total_insurance_increase + storages_amount - total_discount
+      @grand_total = total_time_spent + 
+                     (try(:gas) || 0) + 
+                     total_surcharges + 
+                     total_supplies + 
+                     total_forfaits + 
+                     total_franchise_cancellation + 
+                     total_insurance_increase + 
+                     total_tv_insurance + 
+                     storages_amount - 
+                     total_discount
       @grand_total = 0 if @grand_total < 0
     end
     @grand_total
@@ -135,6 +144,10 @@ class Invoice < ActiveRecord::Base
   
   def total_insurance_increase
     quote.quote_confirmation.insurance_limit_enough ? 0 : (quote.quote_confirmation.try(:insurance_increase) || 0).round(2)
+  end
+
+  def total_tv_insurance
+    quote.quote_confirmation.tv_insurance ? (quote.quote_confirmation.try(:tv_insurance_price) || 0).round(2) : 0
   end
 
   def storages_amount

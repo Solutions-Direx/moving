@@ -13,6 +13,13 @@
     <% unless @quote.client.commercial? %>
       <%= f.input :payment_method, :as => :radio_buttons, :collection => payment_method_options, :item_wrapper_class => "inline" %>
     <% end %>
+
+    <%= f.input :tv_insurance, as: :radio_buttons, collection: [["#{t 'yessai'}", true],["#{t 'nope'}", false]], item_wrapper_class: "inline" %>
+    <%= f.input :tv_insurance_price, wrapper_html: {id: "tv_insurance_price", style: "display: #{@quote_confirmation.tv_insurance? ? 'block' : 'none'}"} do %>
+      <div class='input-append'>
+        <%= f.text_field :tv_insurance_price, :class => 'span1 input-append' %><span class="add-on">$</span>
+      </div>
+    <% end %>
   </div>
 
   <div class="form-actions actions">
@@ -28,6 +35,12 @@
     });
     $('#quote_confirmation_insurance_limit_enough_true').click(function() {
       $('#insurance_increase').hide();
+    });
+    $('#quote_confirmation_tv_insurance_true').click(function() {
+      $('#tv_insurance_price').show();
+    });
+    $('#quote_confirmation_tv_insurance_false').click(function() {
+      $('#tv_insurance_price').hide();
     });
   });
 </script>

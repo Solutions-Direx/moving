@@ -70,7 +70,7 @@
   <% end %>
 <% end %>
 
-<% if @invoice.quote.quote_confirmation.franchise_cancellation or @invoice.total_insurance_increase > 0 %>
+<% if @invoice.quote.quote_confirmation.franchise_cancellation || @invoice.total_insurance_increase > 0 || @invoice.total_tv_insurance > 0 %>
   <h3 class="inv_section"><%= t 'insurance' %></h3>
 
   <!-- FRANCHISE CANCELLATION -->
@@ -86,6 +86,14 @@
     <div class="row">
       <div class="span4"><%= t 'insurance_increase' %></div>
       <div class="span2 money"><%= number_to_currency(@invoice.total_insurance_increase) %></div>
+    </div>
+  <% end %>
+
+  <!-- TV INSURANCE -->
+  <% if @invoice.total_tv_insurance > 0 %>
+    <div class="row">
+      <div class="span4"><%= t 'tv_insurance' %></div>
+      <div class="span2 money"><%= number_to_currency(@invoice.total_tv_insurance) %></div>
     </div>
   <% end %>
 <% end %>

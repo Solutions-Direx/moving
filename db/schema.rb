@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121114210822) do
+ActiveRecord::Schema.define(:version => 20121122021423) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
@@ -231,8 +231,10 @@ ActiveRecord::Schema.define(:version => 20121114210822) do
     t.boolean  "franchise_cancellation"
     t.boolean  "insurance_limit_enough"
     t.float    "insurance_increase"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.boolean  "tv_insurance",           :default => false
+    t.float    "tv_insurance_price",     :default => 20.0
   end
 
   create_table "quote_daily_trucks", :force => true do |t|
