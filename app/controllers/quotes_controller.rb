@@ -22,26 +22,25 @@ class QuotesController < ApplicationController
       @quotes = @quotes.to_date(Time.zone.parse(params[:to]))
     end
 
-    if params[:confirmed] && !params[:non_confirmed]
+    if params[:confirmed] == '1'
       @quotes = @quotes.confirmed
     end
-    if !params[:confirmed] && params[:non_confirmed]
+    if params[:confirmed] == '0'
       @quotes = @quotes.pending
     end
 
-    if params[:invoiced] && !params[:non_invoiced]
+    if params[:invoiced] == '1'
       @quotes = @quotes.invoiced
     end
-    if !params[:invoiced] && params[:non_invoiced]
+    if params[:invoiced] == '0'
       @quotes = @quotes.not_invoiced
     end
 
-    if !params[:commercial] && params[:residential]
-      @quotes = @quotes.joins(:client).where('clients.commercial = ?', false)
-    end
-
-    if params[:commercial] && !params[:residential]
+    if params[:commercial] == '1'
       @quotes = @quotes.joins(:client).where('clients.commercial = ?', true)
+    end
+    if params[:commercial] == '0'
+      @quotes = @quotes.joins(:client).where('clients.commercial = ?', false)
     end
 
     respond_to do |format|
