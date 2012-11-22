@@ -82,7 +82,15 @@ class Invoice < ActiveRecord::Base
   # pass recalculate = true to recalculate
   def grand_total(recalculate = false)
     if @grand_total.nil? || recalculate
-      @grand_total = total_time_spent + 
+      @grand_total = item_total(recalculate) - total_discount
+      @grand_total = 0 if @grand_total < 0
+    end
+    @grand_total
+  end
+
+  def item_total(recalculate = false)
+    if @item_total.nil? || recalculate
+      @item_total = total_time_spent + 
                      (try(:gas) || 0) + 
                      total_surcharges + 
                      total_supplies + 
@@ -90,11 +98,9 @@ class Invoice < ActiveRecord::Base
                      total_franchise_cancellation + 
                      total_insurance_increase + 
                      total_tv_insurance + 
-                     storages_amount - 
-                     total_discount
-      @grand_total = 0 if @grand_total < 0
+                     storages_amount
     end
-    @grand_total
+    @item_total
   end
 
   # alias subtotal for Taxable module

@@ -161,33 +161,20 @@ class InvoicePdf < Prawn::Document
       end
     end
 
+    make_lines_group(titles_data, prices_data, :left, false)
+
     if @invoice.total_discount > 0
+      titles_data = []
+      prices_data = []
+      titles_data << ["<b><font size='12'>Subtotal</font></b>"]
+      prices_data << ["<b><font size='12'>#{number_to_currency(@invoice.item_total)}</font></b>"]
       titles_data << [I18n.t('discount')]
       prices_data << ["- #{number_to_currency(@invoice.total_discount)}"]
+      make_lines_group(titles_data, prices_data)
     end
 
-    titles_table = make_table(titles_data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
-      # cells.padding = [10, 10, 10, 10]
-      cells.size = 10
-      cells.inline_format = true
-    end
-
-    prices_table = make_table(prices_data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
-      # cells.padding = [10, 10, 10, 10]
-      cells.size = 10
-      cells.inline_format = true
-      cells.align = :right
-    end    
-
-    group do
-      table([[titles_table, prices_table]]) do
-        cells.borders = []
-        row(0).column(0).padding = [0, 22, 0, 0]
-      end
-
-      short_line
-    end
     
+
     # GRAND TOTAL
     titles_data = []
     prices_data = []
@@ -207,6 +194,14 @@ class InvoicePdf < Prawn::Document
       prices_data << [number_to_currency(@invoice.tax2_amount)]
     end
 
+    make_lines_group(titles_data, prices_data, :right)
+
+    titles_data = []
+    prices_data = []
+
+    titles_data << ["<b><font size='12'>Total</font></b>"]
+    prices_data << ["<b><font size='12'>#{number_to_currency(@invoice.total_with_taxes)}</font></b>"]
+
     if (@invoice.try(:tip) || 0) > 0
       titles_data << [I18n.t('tip')]
       prices_data << [number_to_currency(@invoice.tip)]
@@ -220,33 +215,22 @@ class InvoicePdf < Prawn::Document
       prices_data << ["- #{number_to_currency(@invoice.quote.deposit.amount)}"]
     end
 
-    titles_table = make_table(titles_data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
-      # cells.padding = [10, 10, 10, 10]
-      cells.size = 10
-      cells.inline_format = true
-    end
-
-    prices_table = make_table(prices_data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
-      # cells.padding = [10, 10, 10, 10]
-      cells.size = 10
-      cells.inline_format = true
-      cells.align = :right
-    end    
-
-    table([[titles_table, prices_table]]) do
-      cells.borders = []
-      row(0).column(0).padding = [0, 22, 0, 0]
-    end
+    make_lines_group(titles_data, prices_data, :right)
 
     # TOTAL
     titles_data = [["<b><font size='12'>Total</font></b>"]]
     prices_data = [["<b><font size='12'>#{number_to_currency(@invoice.total)}</font></b>"]]
 
+    make_lines_group(titles_data, prices_data, :right)
+
+  end
+
+  def make_lines_group(titles_data, prices_data, align = :left, show_line = true)
     titles_table = make_table(titles_data, width: 370, :cell_style => {:border_color => "FFFFFF"}) do
       # cells.padding = [10, 10, 10, 10]
       cells.size = 10
       cells.inline_format = true
-      cells.align = :right
+      cells.align = align
     end
 
     prices_table = make_table(prices_data, width: 170, :cell_style => {:border_color => "FFFFFF"}) do
@@ -257,14 +241,13 @@ class InvoicePdf < Prawn::Document
     end
 
     group do
-      short_line
+      short_line if show_line
 
       table([[titles_table, prices_table]]) do
         cells.borders = []
         row(0).column(0).padding = [0, 22, 0, 0]
       end
     end
-
   end
 
   def payments

@@ -120,7 +120,16 @@
 
 <!-- DISCOUNT -->
 <% if @invoice.total_discount > 0 %>
-  <br>
+  <!-- SUBTOTAL -->
+  <div class="row">
+    <div class="span4">&nbsp;</div>
+    <div class="span2"><div style="height: 1px; background: #CCC; margin-top: 10px;"></div></div>
+  </div>
+  <div class="row">
+    <div class="span4"><h3><%= t 'subtotal' %></h3></div>
+    <div class="span2 money"><h3><%= number_to_currency(@invoice.item_total) %></h3></div>
+  </div>
+
   <div class="row">
     <div class="span4"><%= t 'discount' %></div>
     <div class="span2 money">- <%= number_to_currency(@invoice.total_discount) %></div>
@@ -150,6 +159,17 @@
   <div class="span2 money"><h3 style="font-weight: normal;"><%= number_to_currency(@invoice.tax2_amount) %></h3></div>
 </div>
 <% end %>
+
+<div class="row">
+  <div class="span4">&nbsp;</div>
+  <div class="span2"><div style="height: 1px; background: #CCC; margin-top: 10px;"></div></div>
+</div>
+<!-- TOTAL WITH TAXES -->
+<div class="row">
+  <div class="span4"><h3>Total</h3></div>
+  <div class="span2 money"><h3><%= number_to_currency(@invoice.total_with_taxes) %></h3></div>
+</div>
+
 <!-- TIP -->
 <% if (@invoice.try(:tip) || 0) > 0 %>
 <div class="row">
