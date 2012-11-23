@@ -465,7 +465,7 @@ class InvoicePdf < Prawn::Document
     data = []
     if @invoice.quote.company.logo.present?
       logo = Rails.root.join("public", "uploads", "company", @invoice.quote.company_id.to_s, "logo", "thumb", @invoice.quote.company.logo_file_name).to_s
-      data << [{:image => logo}]
+      data << [{:image => logo, :scale => 0.8}]
     end
     data << [@invoice.quote.company.invoice_header]
 
