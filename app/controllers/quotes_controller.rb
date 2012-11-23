@@ -43,6 +43,8 @@ class QuotesController < ApplicationController
       @quotes = @quotes.joins(:client).where('clients.commercial = ?', false)
     end
 
+    @quotes = @quotes.where('quotes.sale_representative_id = ?', params[:sale_representative_id]) if params[:sale_representative_id].present?
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @quotes }

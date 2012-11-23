@@ -19,7 +19,7 @@
       <%= hidden_field_tag :to, params[:to], :class => "datepicker-alt" %>
       <span class="add-on clear">×</span>
     </div>
-    <%= select_tag :sale_representative_id, options_for_select(User.all.map{|c| [c.full_name, c.id]}, params[:sale_representative_id]), prompt: "#{t 'select'}" %>
+    <%= select_tag :sale_representative_id, options_for_select(@current_accounts.users.order('first_name').map{|c| [c.full_name, c.id]}, params[:sale_representative_id]), prompt: "#{t 'select'}" %>
     <%= submit_tag "#{t 'search'}", class: 'btn', name: nil, disable_with: "#{t 'searching'}" %>
   <% end %>
 </div>

@@ -17,9 +17,10 @@
         <span class="add-on clear">×</span>
       </div>
     <% end %>
-    <%= select_tag 'confirmed', options_for_select([[t('status'), ''], [t('q_confirmed'), 1], [t('q_not_confirmed'), 0]], params[:confirmed]), style: 'width: 150px;' %>
-    <%= select_tag 'invoiced', options_for_select([[Invoice.model_name.human, ''], [t('q_invoiced'), 1], [t('q_not_invoiced'), 0]], params[:invoiced]), style: 'width: 150px;' %>
-    <%= select_tag 'commercial', options_for_select([[t('client_type'), ''], [t('commercial'), 1], [t('residential'), 0]], params[:commercial]), style: 'width: 150px;' %>
+    <%= select_tag 'confirmed', options_for_select([[t('status'), ''], [t('q_confirmed'), 1], [t('q_not_confirmed'), 0]], params[:confirmed]), style: 'width: 135px;' %>
+    <%= select_tag 'invoiced', options_for_select([[Invoice.model_name.human, ''], [t('q_invoiced'), 1], [t('q_not_invoiced'), 0]], params[:invoiced]), style: 'width: 135px;' %>
+    <%= select_tag 'commercial', options_for_select([[t('client_type'), ''], [t('commercial'), 1], [t('residential'), 0]], params[:commercial]), style: 'width: 135px;' %>
+    <%= select_tag :sale_representative_id, options_for_select(@current_account.users.order('first_name').map{|c| [c.full_name, c.id]}, params[:sale_representative_id]), prompt: "#{t 'sale_representative'}", style: 'width: 135px;' %>
     <%= submit_tag "#{t 'search'}", class: 'btn', name: nil %>
     <% if @quotes.any? %>
       <button class="btn" type="submit" name="format" value="pdf"><i class="icon-print"></i></button>
@@ -34,7 +35,6 @@
     <th><%= sortable 'clients.name', 'Client' %></th>
     <th><%= sortable "removal_at", t('removal_at', default: 'Removal at') %></th>
     <th><%= sortable 'users.first_name', t('creator', default: 'Creator') %></th>
-    <th><%= sortable 'users.first_name', t('sale_representative', default: 'Sale Representative') %></th>
     <th><%= sortable 'companies.company_name', t('company') %></th>
     <% if can? :update, Quote %>
       <th></th>
@@ -51,7 +51,6 @@
     <td><%= l quote.removal_at, :format => :long %> 
         <%= quote.removal_at.future? ? "(#{t 'in'} #{distance_of_time_in_words_to_now(quote.removal_at)})" : '' %></td>
     <td><%= quote.creator.first_name %></td>
-    <td><%= quote.sale_representative.first_name %></td>
     <td><%= quote.company.company_name %></td>
     <% if can? :update, Quote %>
     <td><%= link_to "#{t 'edit'}", edit_quote_path(quote) unless quote.signed? %></td>

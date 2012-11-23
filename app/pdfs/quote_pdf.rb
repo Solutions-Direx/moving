@@ -196,11 +196,11 @@ class QuotePdf < Prawn::Document
 
       kitchen_table = make_table(kitchen_data, width: 275) do
         cells.inline_format = true
-        cells.padding = [10, 10, 0, 10]
+        cells.padding = [5, 5, 0, 5]
         cells.size = 11
         cells.borders = []
         cells.style(background_color: "f5f5f5", border_color: "CCCCCC")
-        row(kitchen_data.size - 1).padding = [10, 10, 10, 10]
+        row(kitchen_data.size - 1).padding = [5, 5, 5, 5]
       end
 
       living_room_data = [["<b><font size='13'>#{I18n.t('living_room')}</font></b>"]]
@@ -213,11 +213,11 @@ class QuotePdf < Prawn::Document
 
       living_room_table = make_table(living_room_data, width: 275) do
         cells.inline_format = true
-        cells.padding = [10, 10, 0, 10]
+        cells.padding = [5, 5, 0, 5]
         cells.size = 11
         cells.borders = []
         cells.style(background_color: "f5f5f5", border_color: "CCCCCC")
-        row(living_room_data.size - 1).padding = [10, 10, 10, 10]
+        row(living_room_data.size - 1).padding = [5, 5, 5, 5]
       end
 
       table([[kitchen_table, living_room_table]]) do
@@ -234,11 +234,11 @@ class QuotePdf < Prawn::Document
 
       basement_table = make_table(basement_data, width: 275) do
         cells.inline_format = true
-        cells.padding = [10, 10, 0, 10]
+        cells.padding = [5, 5, 0, 5]
         cells.size = 11
         cells.borders = []
         cells.style(background_color: "f5f5f5", border_color: "CCCCCC")
-        row(basement_data.size - 1).padding = [10, 10, 10, 10]
+        row(basement_data.size - 1).padding = [5, 5, 5, 5]
       end
 
       outside_data = [["<b><font size='13'>#{I18n.t('outside')}</font></b>"]]
@@ -250,11 +250,11 @@ class QuotePdf < Prawn::Document
 
       outside_table = make_table(outside_data, width: 275) do
         cells.inline_format = true
-        cells.padding = [10, 10, 0, 10]
+        cells.padding = [5, 5, 0, 5]
         cells.size = 11
         cells.borders = []
         cells.style(background_color: "f5f5f5", border_color: "CCCCCC")
-        row(outside_data.size - 1).padding = [10, 10, 10, 10]
+        row(outside_data.size - 1).padding = [5, 5, 5, 5]
       end
 
       move_down 10
@@ -291,13 +291,13 @@ class QuotePdf < Prawn::Document
 
     from_table = make_table(kitchen_data, width: 275) do
       cells.inline_format = true
-      cells.padding = [10, 10, 10, 10]
+      cells.padding = [5, 5, 5, 5]
       cells.size = 11
       cells.style(background_color: "f5f5f5", border_color: "CCCCCC")
       cells.borders = []
 
-      row(0).style(padding: [10, 10, 0, 10])
-      row(1).style(padding: [10, 10, 0, 10])
+      row(0).style(padding: [5, 5, 0, 5])
+      row(1).style(padding: [5, 5, 0, 5])
       # row(2).style(borders: [:bottom, :left, :right])
     end
 
@@ -318,13 +318,13 @@ class QuotePdf < Prawn::Document
 
       to_table = make_table(to_data, width: 275) do
         cells.inline_format = true
-        cells.padding = [10, 10, 10, 10]
+        cells.padding = [5, 5, 5, 5]
         cells.size = 11
         cells.style(background_color: "f5f5f5", border_color: "CCCCCC")
         cells.borders = []
 
-        row(0).style(padding: [10, 10, 0, 10])
-        row(1).style(padding: [10, 10, 0, 10])
+        row(0).style(padding: [5, 5, 0, 5])
+        row(1).style(padding: [5, 5, 0, 5])
         # row(2).style()
       end      
     else
@@ -348,7 +348,7 @@ class QuotePdf < Prawn::Document
     data = []
     if @quote.company.logo.present?
       logo = Rails.root.join("public", "uploads", "company", @quote.company_id.to_s, "logo", "thumb", @quote.company.logo_file_name).to_s
-      data << [{:image => logo}]
+      data << [{:image => logo, :scale => 0.6}]
     end
     data << [@quote.company.invoice_header]
 
@@ -473,7 +473,7 @@ class QuotePdf < Prawn::Document
     move_down 15
 
     signatures = [
-      ["", "<b>Client</b>", "<b>#{I18n.t('removal_team_lead')}</b>"],
+      ["", "<b>Client</b>", "<b>#{@quote.removal_leader.full_name}</b> - #{I18n.t('removal_team_lead')}"],
       ["Date", "____/____/____", "____/____/____"],
       ["", "", ""],
       ["", "", ""],
