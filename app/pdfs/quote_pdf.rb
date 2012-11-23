@@ -446,21 +446,25 @@ class QuotePdf < Prawn::Document
     move_down 10
     text I18n.t('insurance') + ": _________________________"
     move_down 10
-    text I18n.t('other', default: 'Other') + ": _________________________"
-    move_down 10
     2.times do
       text "_" * 85
       move_down 10
     end
+    text "<b>#{I18n.t('total_before_taxes')}</b>: _________________________", align: :right, inline_format: true
+    move_down 10
     text "TPS / TVH (#{Tax.first.tax1.round(0)}% / 13%): _________________________", align: :right
     move_down 10
     text "TVQ (#{Tax.first.tax2}%): _________________________", align: :right
+    move_down 10
+    text "<b>#{I18n.t('total_with_taxes')}</b>: _________________________", align: :right, inline_format: true
     move_down 10
     if @quote.deposit.present?
       text "<b>#{I18n.t('deposit_received')}:</b> " + number_to_currency(@quote.deposit.amount) + " - " + I18n.l(@quote.deposit.date, format: :long) + " - " + I18n.t(@quote.deposit.payment_method) + (@quote.deposit.credit_card_type.present? ? "(#{I18n.t(@quote.deposit.credit_card_type)})" : ""), inline_format: true,  align: :right
       move_down 10
     end
-    text "TOTAL: _________________________", align: :right
+    text I18n.t('tip') + ": _________________________", align: :right
+    move_down 10
+    text "<b>#{I18n.t('amount_to_pay')}</b>: _________________________", align: :right, inline_format: true
     move_down 10
 
     text "<b><font size='12'>#{I18n.t('payments')}</font></b>", inline_format: true
@@ -471,7 +475,6 @@ class QuotePdf < Prawn::Document
     signatures = [
       ["", "<b>Client</b>", "<b>#{I18n.t('removal_team_lead')}</b>"],
       ["Date", "____/____/____", "____/____/____"],
-      ["", "", ""],
       ["", "", ""],
       ["", "", ""],
       ["Signature", "______________", "______________"]
