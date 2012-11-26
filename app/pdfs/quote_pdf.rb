@@ -473,7 +473,7 @@ class QuotePdf < Prawn::Document
     move_down 15
 
     signatures = [
-      ["", "<b>Client</b>", "<b>#{@quote.removal_leader.full_name}</b> - #{I18n.t('removal_team_lead')}"],
+      ["", "<b>Client</b>", "<b>#{@quote.removal_leader.full_name if @quote.removal_leader_id.present?}</b> - #{I18n.t('removal_team_lead')}"],
       ["Date", "____/____/____", "____/____/____"],
       ["", "", ""],
       ["", "", ""],
