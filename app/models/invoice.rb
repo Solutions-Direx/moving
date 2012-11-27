@@ -47,6 +47,7 @@ class Invoice < ActiveRecord::Base
   after_create :mark_quote_invoiced
   
   validates_presence_of :payment_method, :unless => Proc.new { |invoice| invoice.quote.client.commercial? }
+  validates_numericality_of :discount, greater_than: 0, all_blank: true
   
   def build_lines
     lines = []
