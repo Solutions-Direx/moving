@@ -469,7 +469,7 @@ class QuotePdf < Prawn::Document
 
     text "<b><font size='12'>#{I18n.t('payments')}</font></b>", inline_format: true
     move_down 10
-    text I18n.t('cash') + ": ____________ " + " " + I18n.t('debit') + ": ____________ " + " " + I18n.t('credit') + ": ____________  [  ] Visa  [  ] Mastercard"  
+    text I18n.t('comptant') + ": ____________ " + " " + I18n.t('debit') + ": ____________ " + " " + I18n.t('credit') + ": ____________  [  ] Visa  [  ] Mastercard"  
     move_down 15
 
     signatures = [

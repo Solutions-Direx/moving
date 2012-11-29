@@ -197,7 +197,7 @@ class Quote < ActiveRecord::Base
           data["Receipt_number"] = payment.transaction_number.present? ? "#{payment.transaction_number}" : ''
           data["Pay_type"] = I18n.t(payment.payment_method)
           data["CC_name"] = payment.credit_card_type.present? ? I18n.t(payment.credit_card_type) : ''
-          if payment.payment_method == "cash"
+          if payment.payment_method == "comptant"
             data["GL_account"] = quote.account.accounting_payment_cash_account_number
           elsif payment.payment_method == "debit"
             data["GL_account"] = quote.account.accounting_payment_debit_account_number
