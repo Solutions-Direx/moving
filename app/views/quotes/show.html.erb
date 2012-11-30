@@ -5,7 +5,9 @@
         <button class="btn btn-large dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
         <ul class="dropdown-menu" style="font-size:14px;">
           <li><%= icon_link_to "#{t 'billing_address', default: 'Billing Address'}", edit_quote_billing_address_path(@quote), icon: "edit", remote: true %></li>
-          <% unless @quote.deposit %>
+          <% if @quote.deposit %>
+            <li><%= icon_link_to "#{t 'edit_deposit', default: 'Edit Deposit'}", edit_quote_deposit_path(@quote), icon: "download", remote: true %></li>
+          <% else %>
             <li><%= icon_link_to "#{t 'deposit', default: 'Deposit'}", new_quote_deposit_path(@quote), icon: "download", remote: true %></li>
           <% end %>
           <% unless @quote.client.email.blank? %>

@@ -1,0 +1,8 @@
+try {
+  $('<%= j(render :template => 'deposits/edit', :formats => [:html]) %>').dialog2({
+    title: "<%= t('edit_deposit', default: "Edit Deposit") %>",
+    id: "edit-quote-deposit"
+  });
+} catch(e) {
+  console.log(e);
+}

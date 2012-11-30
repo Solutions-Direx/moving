@@ -190,6 +190,7 @@ fr:
   credit: "Crédit"
   cheque: "Chèque"
   deposit: "Faire un dépôt"
+  edit_deposit: "Modifier le dépôt"
   deposit_name: Dépôt
   visa: "Visa"
   mastercard: "Master Card"

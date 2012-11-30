@@ -47,7 +47,7 @@ class Invoice < ActiveRecord::Base
   after_create :mark_quote_invoiced
   
   validates_presence_of :payment_method, :unless => Proc.new { |invoice| invoice.quote.client.commercial? }
-  validates_numericality_of :discount, greater_than: 0, all_blank: true
+  validates_numericality_of :discount, greater_than: 0, allow_blank: true
   
   def build_lines
     lines = []
@@ -251,10 +251,10 @@ class Invoice < ActiveRecord::Base
           data["CC_name"] = invoice.credit_card_type.present? ? I18n.t(invoice.credit_card_type) : ''
           data["payment_text"] = ""
           data["line_number"] = index + 1
-          data["invoice_comment"] = "#{Quote.model_name.human} ##{quote.code}"
+          data["invoice_comment"] = "#{Quote.model_name.human} ##{quote.code} / Client #{quote.client.code}"
           data["item_description"] = line.name
           data["amount"] = line.amount
-          data["tax_code"] = "TPS_TVQ"
+          data["tax_code"] = line.name == 'tip'? "" : "TPS_TVQ"
           data["Detail_GL_account"] = account.send("accounting_#{line.name}_account_number")
 
           row = []

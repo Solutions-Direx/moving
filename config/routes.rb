@@ -29,7 +29,7 @@ Moving::Application.routes.draw do
         post :verify
       end
     end
-    resource :deposit, :only => [:new, :create]
+    resource :deposit
     resource :billing_address, :only => [:edit, :update]
     member do
       get '/confirmation', :controller => :quote_confirmations, :action => 'new'

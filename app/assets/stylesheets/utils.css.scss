@@ -16,13 +16,13 @@
 
 /* Bootstrap override */
 .label-danger {
-	background-color:#BD362F;
+	background-color:#bd362f;
 
-    &:hover { background-color: #97310E;}
+    &:hover { background-color: #97310e;}
 }
 .label-warning {
-	background-color:#BD362F;
-	@include background-image(linear-gradient(top, #F5D185, #EFB73E));
+	background-color:#efb73e;
+	@include background-image(linear-gradient(top, #f5d185, #efb73e));
 
     &:hover { background-color: #efb73e;}
 }
