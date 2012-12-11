@@ -9,6 +9,7 @@ class Supply < ActiveRecord::Base
   validates_uniqueness_of :name
   
   def name_with_price
-    "#{name} (#{number_to_currency(price)})"
+    "#{name} (#{number_to_currency(price || 0, strip_insignificant_zeros: true)})"
   end
+
 end

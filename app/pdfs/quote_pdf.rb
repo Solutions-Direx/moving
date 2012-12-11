@@ -428,7 +428,7 @@ class QuotePdf < Prawn::Document
     text "<b>#{I18n.t('supplies')}:</b>", inline_format: true
     move_down 5
     @quote.quote_supplies.each do |q_supply|
-      text q_supply.quantity + " * " + q_supply.supply.name_with_price
+      text q_supply.quantity && " * " && q_supply.supply.name_with_price
       move_down 10
     end
     text Supply.model_name.human + ": _________________________"
