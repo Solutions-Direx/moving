@@ -19,7 +19,7 @@
             <span class='floatr'><b><%= link_to "##{quote.code}", quote_path(quote) %></b></span>
           </p>
           <p><b><%= quote.phone1 %></b>
-             <span class='floatr'><%= quote.creator.full_name %></span>
+             <span class='floatr'><%= t 'prepared_by' %> <%= quote.creator.full_name %></span>
           </p>
           <%= content_tag(:p, quote.comment, class: "alert alert-info") if quote.comment.present? %>
           <%= content_tag(:p, "#{t 'removal_time_confirmation'} #{quote.removal_at_comment}", class: "alert alert-info") if quote.pm? %>
@@ -56,8 +56,9 @@
           <% end %>
           
           <div class='span4 from cal_additional' id='cal_price'>
-            <p><%= Quote.human_attribute_name(:price) %>: <b><%= number_to_currency(quote.price, strip_insignificant_zeros: true) %></b> par heure</p>
-            <p><%= Quote.human_attribute_name(:payment_method) %>: <b><%= quote.quote_confirmation.payment_method %></b></p>
+            <p><%= t 'nb_removal_men' %>: <b><%= quote.num_of_removal_man %></b></p>
+            <p><%= t 'price' %>: <b><%= number_to_currency(quote.price, strip_insignificant_zeros: true) %></b> par heure</p>
+            <p><%= Quote.human_attribute_name(:payment_method) %>: <b><%= I18n.t(quote.quote_confirmation.payment_method) if quote.quote_confirmation.payment_method.present? %></b></p>
             <p>Augmentation de l'assurance: 
               <b><%= quote.quote_confirmation.insurance_limit_enough? ? "#{t 'nope'}" : number_to_currency(quote.quote_confirmation.insurance_increase, strip_insignificant_zeros: true) %></b></p>
               <p>Annulation de franchise: 
@@ -65,13 +66,17 @@
           </div>
           <div class='span6'>
             <% quote.copy_trucks_to_daily %>
-            <%= simple_form_for(quote, :url => daily_update_quote_path(quote), :method => :put, :remote => true) do |f| %>
-              <%= f.association :removal_leader, :label => "#{t 'removal_team_lead'}", :collection => current_account.users.active.removal_men.all.map{|s| [s.full_name, s.id]}, :input_html => {:class => "chzn-deselectable", "data-placeholder" => "#{t 'select_team_lead'}", :id => "team-lead-#{quote.id}"} %>
-              <%= f.association :removal_men, :label => "#{t 'removal_men'}", :collection => current_account.users.active.removal_men.all.map{|s| [s.full_name, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "#{t 'type_to_select_removal_men'}", :id => "removal-men-#{quote.id}", :multiple => true, :style => "width: 360px;"} %>
-              <%= f.association :daily_trucks, :label => "#{Truck.model_name.human}", :collection => current_account.trucks.available.map{|s| [s.name_with_plate, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "#{t 'type_to_select_trucks'}", :multiple => true, :style => "width: 360px;", :id => "trucks-#{quote.id}"} %>
-              <%= submit_tag "#{t 'update'}", :class => "btn btn-primary" %>
-            <% end %>
+            <%= simple_form_for(quote, url: daily_update_quote_path(quote), method: :put, remote: true) do |f| %>
+              <%= f.association :removal_leader, label: "#{t 'removal_team_lead'}", collection: current_account.users.active.removal_men.all.map{|s| [s.full_name, s.id]}, input_html: {class: "chzn-deselectable", "data-placeholder"=>"#{t 'select_team_lead'}", id: "team-lead-#{quote.id}"} %>
+              <%= f.association :removal_men, label: "#{t 'removal_men'}", collection: current_account.users.active.removal_men.all.map{|s| [s.full_name, s.id]}, input_html: {:class => "chzn", "data-placeholder"=>"#{t 'type_to_select_removal_men'}", id: "removal-men-#{quote.id}", multiple: true, style: "width: 360px;"} %>
+              <%= f.association :daily_trucks, label: "#{Truck.model_name.human}", collection: current_account.trucks.available.map{|s| [s.name_with_plate, s.id]}, input_html: {:class => "chzn", "data-placeholder"=>"#{t 'type_to_select_trucks'}", multiple: true, style: "width: 360px;", id: "trucks-#{quote.id}"} %>
+            
           </div>
+          <div style="width: 100%; margin-left:0;">
+            <%= f.input :internal_note, label: false, input_html: {style: 'margin-bottom:0; width:99%; height:20px;' }, placeholder: "#{t 'internal_note_placeholder'}" %>
+            <%= submit_tag "#{t 'update'}", :class => "btn btn-primary" %>
+          </div>
+          <% end %>
         </div>   
       </div>
     <% end %>

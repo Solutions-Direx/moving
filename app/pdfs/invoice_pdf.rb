@@ -70,7 +70,8 @@ class InvoicePdf < Prawn::Document
   def quote_date_right
     data = [
       ["<b>#{I18n.t 'invoice_date'}:</b> #{I18n.l @invoice.created_at.to_date}"],
-      ["<b>#{I18n.t 'prepared_by'}:</b> #{@invoice.creator.full_name}"]
+      ["<b>#{I18n.t 'prepared_by'}:</b> #{@invoice.creator.full_name}"],
+      ["<b>#{I18n.t 'sale_representative'}:</b> #{@invoice.quote.sale_representative.full_name}"]
     ]
 
     make_table(data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do

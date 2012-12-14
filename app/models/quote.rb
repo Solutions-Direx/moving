@@ -80,7 +80,7 @@ class Quote < ActiveRecord::Base
   
   # ATTRIBUTES
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, :rejected_by, :rejected_at,
-                  :materiel, :num_of_removal_man, :price, :rating, :removal_at, :company_id,
+                  :materiel, :num_of_removal_man, :price, :rating, :removal_at, :company_id, :internal_note,
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :daily_truck_ids, :from_address_attributes, :phone1, :phone2, 
                   :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment, :surcharges_attributes,
                   :document_ids, :forfait_ids, :quote_supplies_attributes, :pm, :long_distance, :lock_version, :sale_representative_id,

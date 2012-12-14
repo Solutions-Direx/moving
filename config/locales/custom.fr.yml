@@ -363,6 +363,7 @@ fr:
   total_with_taxes: Total après taxes
   amount_to_pay: Montant à payer
   quantity: Quantité
+  internal_note_placeholder: Insérez une note interne...
   activerecord:
     models:
       account: Compte

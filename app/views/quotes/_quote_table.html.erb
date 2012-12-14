@@ -15,6 +15,8 @@
 <p><b><%= t 'removal_at' %>:</b> <%= l @quote.removal_at, :format => :long %> <%= "(PM) #{t 'removal_time_confirmation'}" if @quote.pm? %>
       || <%= @quote.is_house? ? "#{t 'house'}" : "#{t 'apartment'}" %></p>
 
+<p><b><%= t 'sale_representative' %>:</b> <%= @quote.sale_representative.full_name %></p>
+
 <% if @quote.contact.present? %>
   <p><b><%= Quote.human_attribute_name("contact") %>:</b> <%= @quote.contact %></p>
 <% end %>

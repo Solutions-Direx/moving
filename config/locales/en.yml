@@ -79,6 +79,7 @@ en:
   reserved_on: Reserved on
   prepared_by: Prepared by
   removal_man: Removal man
+  nb_removal_men: Nb removal men
   are_you_sure: "Are sure sure?"
   removal_time_confirmation: 'The exact time will be confirmed the same day.'
   i_approve: I approve
@@ -168,6 +169,7 @@ en:
   q_invoiced: Invoiced
   q_not_invoiced: Not invoiced
   quantity: Quantity
+  internal_note_placeholder: This note is for internal purpose only...
   activerecord:
     attributes:
       user:  

@@ -24,7 +24,9 @@ class QuotePdf < Prawn::Document
     quote_header
     move_down 20
     text "<b>#{I18n.t('removal_at')}:</b> " + I18n.l(@quote.removal_at, :format => :long) + (@quote.pm? ? "(PM) #{I18n.t('removal_time_confirmation')}" : "") + " || " + (@quote.is_house? ? "#{I18n.t('house')}" : "#{I18n.t('apartment')}"), inline_format: true
-    move_down 5    
+    move_down 5
+    text "<b>#{I18n.t('sale_representative')}:</b> #{@quote.sale_representative.full_name}", inline_format: true
+    move_down 5
     if @quote.contact.present?
       text "<b>#{Quote.human_attribute_name("contact")}:</b> " + @quote.contact, inline_format: true
       move_down 5
@@ -50,7 +52,7 @@ class QuotePdf < Prawn::Document
 
     if @full_print
       start_new_page
-      invoices
+      invoice
     end
 
     if @to_addresses.present?
@@ -68,7 +70,7 @@ class QuotePdf < Prawn::Document
   def quote_details
     removal_leader = @quote.removal_leader.present? ? "- #{@quote.removal_leader.full_name}" : ""
     removal_men = @quote.removal_men.any? ? ", #{@quote.removal_men.map(&:full_name).to_sentence}" : ""
-    text "<b>#{I18n.t('removal_men', default: 'Removal men')}</b>: #{@quote.num_of_removal_man} #{removal_leader}#{removal_men}", inline_format: true
+    text "<b>#{I18n.t('nb_removal_men')}</b>: #{@quote.num_of_removal_man} #{removal_leader}#{removal_men}", inline_format: true
     move_down 10
     text "<b>#{I18n.t('price')}</b>: #{number_to_currency(@quote.price, strip_insignificant_zeros: true)} #{I18n.t('per_hour')}", inline_format: true
     move_down 10
@@ -404,23 +406,38 @@ class QuotePdf < Prawn::Document
     end
   end
 
-  def invoices
+  def invoice
     quote_header
     move_down 15
     text "<b><font size='14'>#{I18n.t('temp_invoice', default: 'Temporary Invoice')}</font></b>", inline_format: true
     move_down 10
     if @quote.price.present?
-      text "___ " + I18n.t('billed_hours', default: 'Billed Hours') + " * " + number_to_currency(@quote.price) + " = _________________________"
+      text "___ " + I18n.t('billed_hours', default: 'Billed Hours') + " * " + number_to_currency(@quote.price, strip_insignificant_zeros: true) + " = _________________________"
     else
       text "___ " + I18n.t('billed_hours', default: 'Billed Hours') + " * " + "___________$" + " = _________________________"
     end
     move_down 10
-    text "<b>#{I18n.t('gas')}:</b> #{number_to_currency(@quote.gas)}", inline_format: true
+    text "<b>#{I18n.t('gas')}:</b> #{number_to_currency(@quote.gas, strip_insignificant_zeros: true)}", inline_format: true
     move_down 10
+    if @quote.confirmed?
+
+      if !@quote.quote_confirmation.insurance_limit_enough?
+        text "<b>#{I18n.t('insurance_increase')}:</b> #{number_to_currency(@quote.quote_confirmation.insurance_increase, strip_insignificant_zeros: true)}", inline_format: true
+        move_down 10
+      end
+      if @quote.quote_confirmation.franchise_cancellation?
+        text "<b>#{I18n.t('franchise_cancelation')}:</b> #{number_to_currency(@quote.account.franchise_cancellation_amount, strip_insignificant_zeros: true)}", inline_format: true
+        move_down 10
+      end
+      if @quote.quote_confirmation.tv_insurance?
+        text "<b>#{I18n.t('insurance_increase')}:</b> #{number_to_currency(@quote.quote_confirmation.tv_insurance_price, strip_insignificant_zeros: true)}", inline_format: true
+        move_down 10
+      end
+    end
 
     if @quote.surcharges.any?
       @quote.surcharges.each do |surcharge|
-        text "<b>#{surcharge.label}:</b> #{number_to_currency(surcharge.price)}", inline_format: true
+        text "<b>#{surcharge.label}:</b> #{number_to_currency(surcharge.price, strip_insignificant_zeros: true)}", inline_format: true
         move_down 10
       end
     end

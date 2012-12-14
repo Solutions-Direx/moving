@@ -51,7 +51,10 @@
   <b><%= t 'reserved_on' %>:</b> <%= l @invoice.quote.created_at.to_date %>
   <span style="float:right;"><b><%= t 'prepared_by' %>:</b> <%= @invoice.creator.full_name %></span>
 </p>
-<p><b><%= t 'approved_on' %>:</b> <%= l @invoice.quote.quote_confirmation.approved_at.to_date %></p>
+<p>
+  <b><%= t 'approved_on' %>:</b> <%= l @invoice.quote.quote_confirmation.approved_at.to_date %>
+  <span style="float:right;"><b><%= t 'sale_representative' %>:</b> <%= @invoice.quote.sale_representative.full_name %></span>
+</p>
 
 <hr/>
 

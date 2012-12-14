@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121122021423) do
+ActiveRecord::Schema.define(:version => 20121213233134) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
@@ -317,6 +317,7 @@ ActiveRecord::Schema.define(:version => 20121122021423) do
     t.datetime "rejected_at"
     t.integer  "sale_representative_id"
     t.boolean  "invoiced",               :default => false
+    t.text     "internal_note"
   end
 
   create_table "report_removal_men", :force => true do |t|

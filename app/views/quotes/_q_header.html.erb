@@ -1,5 +1,12 @@
 <p>
   <b><%= t('company') %>:</b> <%= quote.company.company_name %>
+  <span class='fr'><b><%= t 'created_by', default: 'Created by' %>: </b><%= quote.creator.full_name %> - <%= l quote.created_at, :format => :short %></span>
+</p>
+
+<p>
+  <b><%= t 'removal_at' %>:</b>
+  <%= l quote.removal_at, :format => :long %> || <%= quote.is_house? ? "#{t 'house'}" : "#{t 'apartment'}" %>
+  <span class="fr"><b><%= t 'sale_representative', default: "Sale Representative" %>:</b> <%= quote.sale_representative.full_name %></span>
 </p>
 
 <% if quote.contact.present? %>
@@ -7,17 +14,6 @@
     <b><%= Quote.human_attribute_name("contact") %>:</b> <%= quote.contact %>
   </p>
 <% end %>
-
-<p>
-  <b><%= t 'removal_at' %>:</b>
-  <%= l quote.removal_at, :format => :long %> || <%= quote.is_house? ? "#{t 'house'}" : "#{t 'apartment'}" %>
-  <span class='submenu'><b><%= t 'created_by', default: 'Created by' %>: </b><%= quote.creator.full_name %> - <%= l quote.created_at, :format => :short %></span>
-</p>
-
-<p>
-  <b><%= t 'sale_representative', default: "Sale Representative" %>:</b>
-  <%= quote.sale_representative.full_name %>
-</p>
 
 <%= content_tag(:p, "#{t 'removal_time_confirmation'} #{quote.removal_at_comment}", class: "alert alert-info") if quote.pm? %>
 

@@ -7,7 +7,7 @@
   <span class='floatr'><b> <%= t 'approved_on' %>:</b> <%= l @invoice.quote.quote_confirmation.approved_at, format: :long %></span>
 </p>
 <p>
-  <b><%= t 'prepared_by' %>:</b> <%= @invoice.creator.full_name %>
+  <b><%= t 'prepared_by' %>:</b> <%= @invoice.creator.full_name %> (<%= t 'sale_representative' %>: <b><%= @invoice.quote.sale_representative.full_name %></b>)
   <span class='floatr'><b> <%= t 'reserved_on' %>:</b> <%= l @invoice.quote.created_at, format: :long %></span>
 </p>
 <p>
