@@ -170,6 +170,7 @@ en:
   q_not_invoiced: Not invoiced
   quantity: Quantity
   internal_note_placeholder: This note is for internal purpose only...
+  edit_confirmation: Edit Confirmation
   activerecord:
     attributes:
       user:  

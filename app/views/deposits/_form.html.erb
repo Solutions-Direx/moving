@@ -1,4 +1,4 @@
-<%= simple_form_for @deposit, :url => quote_deposit_path(@quote), html: {class: @ajax ? 'ajax' : ''} do |f| %>
+<%= simple_form_for @deposit, :url => quote_deposit_path(@quote), remote: true, format: :js, html: {class: @ajax ? 'ajax' : ''} do |f| %>
   <%= f.input :amount, label: t('amount') %>
   <%= f.input :date do %>
     <%= text_field_tag '', @deposit.try(:date).try(:strftime, t('date.formats.default')), class: "datepicker" %>

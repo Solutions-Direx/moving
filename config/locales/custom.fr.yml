@@ -364,6 +364,7 @@ fr:
   amount_to_pay: Montant à payer
   quantity: Quantité
   internal_note_placeholder: Insérez une note interne...
+  edit_confirmation: Modifier la confirmation
   activerecord:
     models:
       account: Compte
@@ -373,6 +374,7 @@ fr:
       payment: Paiement
       quote: Entente
       quote_confirmation: Confirmation de l'entente
+      quote_deposit: Dépôt
       report: Rapport
       storage: Entrepôt
       supply: Matériel

@@ -1,5 +1,6 @@
 class DepositsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :load_deposit, :except => [:new, :create, :create]
   
   def new
     @quote = Quote.find_by_code(params[:quote_id])
@@ -7,14 +8,11 @@ class DepositsController < ApplicationController
     
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @deposit }
       format.js
     end
   end
 
   def edit
-    @quote = Quote.find_by_code(params[:quote_id])
-    @deposit = @quote.deposit
 
     respond_to do |format|
       format.html # new.html.erb
@@ -23,16 +21,14 @@ class DepositsController < ApplicationController
   end
 
   def update
-    @quote = Quote.find_by_code(params[:quote_id])
-    @deposit = @quote.deposit
     
     respond_to do |format|
       if @deposit.update_attributes(params[:deposit])
         format.html { redirect_to quote_url(@quote), notice: "#{QuoteDeposit.model_name.human} #{t 'is_updated'}" }
-        format.json { head :no_content }
+        format.js
       else
         format.html { render action: "edit" }
-        format.json { render json: @deposit.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -60,13 +56,18 @@ class DepositsController < ApplicationController
   end
 
   def destroy
-    @quote = Quote.find_by_code(params[:quote_id])
-    @deposit = @quote.create_deposit(params[:payment])
     @deposit.destroy
 
     respond_to do |format|
       format.html { redirect_to quote_url(@quote), notice: "#{QuoteDeposit.model_name.human} #{t 'is_deleted'}" }
       format.json { head :no_content }
     end
+  end
+
+private
+
+  def load_deposit
+    @quote = Quote.find_by_code(params[:quote_id])
+    @deposit = @quote.deposit
   end
 end
