@@ -24,9 +24,8 @@
     <%= submit_tag "#{t 'search'}", class: 'btn', name: nil %>
     <% if @quotes.any? %>
       <button class="btn" type="submit" name="format" value="pdf"><i class="icon-print"></i></button>
-    <% end -%>
+    <% end %>
   <% end %>
-  <%#= paginate @quotes %>
 </div>
 
 <table class="table table-striped">

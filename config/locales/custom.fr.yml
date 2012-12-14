@@ -44,7 +44,7 @@ fr:
   rejected: Rejetée
   rejected_at: Rejetée le
   print: 'Imprimer'
-  full_print: Imprimer la version complète
+  fullprint: Imprimer la version complète
   internal: 'Interne'
   internal_moving: 'Déménagement Interne'
   not_internal: 'Externe'

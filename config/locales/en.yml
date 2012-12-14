@@ -1,6 +1,3 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
   site_name: "Déménagement Maximum"
   cancel: 'Cancel'
@@ -26,7 +23,6 @@ en:
   not_signed: Not signed
   preview: Preview
   view: View
-  search: Rechercher
   close: Close
   update: Update
   created: was successfully created
@@ -145,7 +141,7 @@ en:
   gas: Gas
   price_per_month: Price per month
   ID: ID
-  sale_representative: Sale rep.
+  sale_representative: Sale Rep.
   label: Label
   amount: Amount
   invoice_date: Invoice date
@@ -171,6 +167,18 @@ en:
   quantity: Quantity
   internal_note_placeholder: This note is for internal purpose only...
   edit_confirmation: Edit Confirmation
+  fullprint: Full Print
+  removal_at: Removal Date
+  kitchen: Kitchen
+  living_room: Living Room
+  basement: Basement
+  outside: Outside
+  tv_insurance: TV Insurance
+  price: Price
+  removal_team_lead: Team Lead
+  time_spent: Time spent
+  phone: Phone
+  website: Website
   activerecord:
     attributes:
       user:  

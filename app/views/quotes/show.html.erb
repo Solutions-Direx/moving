@@ -6,15 +6,15 @@
         <ul class="dropdown-menu" style="font-size:14px;">
           <li><%= icon_link_to "#{t 'billing_address', default: 'Billing Address'}", edit_quote_billing_address_path(@quote), icon: "edit", remote: true %></li>
           <% if @quote.deposit %>
-            <li><%= icon_link_to "#{t 'edit_deposit', default: 'Edit Deposit'}", edit_quote_deposit_path(@quote), icon: "download", remote: true %></li>
+            <li><%#= icon_link_to "#{t 'edit_deposit', default: 'Edit Deposit'}", edit_quote_deposit_path(@quote), icon: "download", remote: true %></li>
           <% else %>
-            <li><%= icon_link_to "#{t 'deposit', default: 'Deposit'}", new_quote_deposit_path(@quote), icon: "download", remote: true %></li>
+            <li><%= icon_link_to "#{t 'deposit', default: 'Add Deposit'}", new_quote_deposit_path(@quote), icon: "download", remote: true %></li>
           <% end %>
           <% unless @quote.client.email.blank? %>
             <li><%= icon_link_to "#{t 'email_to_client'}", email_quote_path, :method => :post, icon: "envelope" %></li>
           <% end %>
           <li><%= icon_link_to "#{t 'print'}", '#print-modal', "data-toggle" => "modal", icon: "print" %></li>
-          <li><%= icon_link_to "#{t 'full_print'}", '#fullprint-modal', "data-toggle" => "modal", icon: "print" %></li>
+          <li><%= icon_link_to "#{t 'fullprint'}", '#fullprint-modal', "data-toggle" => "modal", icon: "print" %></li>
           <% if @quote.confirmed? %>
             <li><%= @quote.invoice.blank? ? (icon_link_to "#{t 'create_invoice'}", new_quote_invoice_path(@quote), icon: "plus") : (icon_link_to "#{t 'view_invoice'}", quote_invoice_path(@quote), icon: "file") %></li>
           <% end %>
