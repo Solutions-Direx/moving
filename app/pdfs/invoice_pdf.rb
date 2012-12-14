@@ -348,7 +348,7 @@ class InvoicePdf < Prawn::Document
       group do
         text "<b>#{Storage.model_name.human}</b>", inline_format: true
         move_down 10
-        text "<font size='10'><color rgb='999999'>#{@invoice.quote.from_address.storage.name.upcase}</color></font>"
+        text "<font size='10'><color rgb='999999'>#{@invoice.quote.from_address.storage.name.upcase}</color></font>", inline_format: true
         move_down 10
         if @invoice.quote.from_address.insurance.present?
           storage_insurance = "+ " + I18n.t('insurance') + ": " + number_to_currency(@invoice.quote.from_address.insurance, strip_insignificant_zeros: true)
