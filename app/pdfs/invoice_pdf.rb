@@ -495,11 +495,11 @@ class InvoicePdf < Prawn::Document
   end
 
   def client_address_block
-    data = [
-      ["<b>#{@invoice.quote.client.name_with_code}</b>"],
-      ["<i>#{address_for @invoice.quote.billing_address.address}</i>"],
-      ["<b>#{I18n.t 'removal_at'}:</b> #{I18n.l @invoice.quote.removal_at.to_date}"]
-    ]
+    data = [["<b>#{@invoice.quote.client.name_with_code}</b>"]]
+    data << ["#{@invoice.client.billing_contact}"] if @invoice.client.billing_contact.present?
+    data << ["<i>#{address_for @invoice.quote.billing_address.address}</i>"]
+    data << ["<b>#{I18n.t 'removal_at'}:</b> #{I18n.l @invoice.quote.removal_at.to_date}"]
+    data << ["<b>#{I18n.t 'purchase_order'}:</b> #{@invoice.purchase_order}"] if @invoice.purchase_order.present?
 
     make_table(data, width: 275) do
       cells.inline_format = true
@@ -508,8 +508,8 @@ class InvoicePdf < Prawn::Document
       cells.style(background_color: "f5f5f5", border_color: "CCCCCC")
 
       row(0).style(borders: [:top, :left, :right], padding: [10, 10, 0, 10])
-      row(1).style(borders: [:left, :right], padding: [10, 10, 0, 10])
-      row(2).style(borders: [:bottom, :left, :right])
+      row(1..data.size - 2).style(borders: [:left, :right], padding: [10, 10, 0, 10])
+      row(data.size - 1).style(borders: [:bottom, :left, :right])
     end
   end
 

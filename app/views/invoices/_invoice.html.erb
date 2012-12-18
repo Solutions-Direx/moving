@@ -15,8 +15,7 @@
   <%= address_for @invoice.quote.billing_address.address %>
 </p>
 <p>
-  
-</p>
+
 <% if @invoice.purchase_order.present? %>
   <p class='floatr'>
     <b><%= t "purchase_order" %>:</b> <%= @invoice.purchase_order %>
