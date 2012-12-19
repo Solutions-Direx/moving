@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   scope :removal_men, where(role: Role::REMOVAL_MAN)
   default_scope :order => "first_name, last_name"
   scope :active, where(active: true)
+  scope :inactive, where(active: false)
   
   # INSTANCE METHODS
   

@@ -2,7 +2,11 @@
   <span class='submenu'><%= icon_button_link_to "#{t 'new_user', default: 'New user'}", new_user_path, icon: "plus", level: "inverse", large: true, white: true %></span>
 </h1>
 
-<%= paginate @users %>
+<div class="btn-group">    
+  <button class="btn btn-large"><%= t 'active' %></button>
+  <button class="btn btn-large"><%= t 'inactive' %></button>
+</div>
+<br>
 
 <table class="table table-striped">
   <tr>
@@ -27,10 +31,9 @@
       <% else %>
         <%= icon_button_link_to "#{t 'activate'}", activate_user_path(user), level: 'success', size: 'small', icon: 'play', white: true, method: :post %>
       <% end %>
-    <%#= link_to "#{t 'destroy'}", user, :data => { :confirm => "#{t 'are_you_sure'}" }, method: :delete %></td>
+    </td>
   </tr>
 <% end %>
 </table>
 
 <%= paginate @users %>
-
