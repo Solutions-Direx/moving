@@ -2,9 +2,9 @@
   <span class='submenu'><%= icon_button_link_to "#{t 'new_user', default: 'New user'}", new_user_path, icon: "plus", level: "inverse", large: true, white: true %></span>
 </h1>
 
-<div class="btn-group">    
-  <button class="btn btn-large"><%= t 'active' %></button>
-  <button class="btn btn-large"><%= t 'inactive' %></button>
+<div class="btn-group">
+  <%= link_to "#{t 'active'}s", users_path(active: true), class: "btn btn-large" %>
+  <%= link_to "#{t 'inactive'}s", users_path(active: false), class: "btn btn-large" %>
 </div>
 <br>
 

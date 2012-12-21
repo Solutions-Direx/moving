@@ -38,10 +38,18 @@
 
     &:hover { background-color: #efb73e;}
 }
-
-.label-created, .label-verified { background: #468847; }
-.label-updated { background: #3a87ad; }
-.label-destroyed { background: #b94a48; }
+.label.label-success:hover {
+  background-color: #38b44a;
+}
+.label-created, .label-verified {
+	background: #468847;
+}
+.label-updated {
+	background: #3a87ad;
+}
+.label-destroyed {
+	background: #b94a48;
+}
 .well form {
 	margin-bottom: 0
 }

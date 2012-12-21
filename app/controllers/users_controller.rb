@@ -3,7 +3,14 @@ class UsersController < ApplicationController
   helper_method :sort_column
 
   def index
-    @users = current_account.users.where("id != ?", current_user.id).order(sort_column + " " + sort_direction).page(params[:page])
+    if params[:active] == "true"
+      @users = current_account.users.active.where("id != ?", current_user.id).order(sort_column + " " + sort_direction).page(params[:page])
+    elsif params[:active] == "false"
+      @users = current_account.users.inactive.where("id != ?", current_user.id).order(sort_column + " " + sort_direction).page(params[:page])
+    else
+      @users = current_account.users.where("id != ?", current_user.id).order(sort_column + " " + sort_direction).page(params[:page])
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
