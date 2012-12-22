@@ -1,6 +1,6 @@
 class DepositsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :load_deposit, :except => [:new, :create, :create]
+  before_filter :load_deposit, :except => [:new, :create ]
   
   def new
     @quote = Quote.find_by_code(params[:quote_id])
@@ -21,9 +21,8 @@ class DepositsController < ApplicationController
   end
 
   def update
-    
     respond_to do |format|
-      if @deposit.update_attributes(params[:deposit])
+      if @deposit.update_attributes(params[:payment])
         format.html { redirect_to quote_url(@quote), notice: "#{QuoteDeposit.model_name.human} #{t 'is_updated'}" }
         format.js
       else
@@ -57,7 +56,6 @@ class DepositsController < ApplicationController
 
   def destroy
     @deposit.destroy
-
     respond_to do |format|
       format.html { redirect_to quote_url(@quote), notice: "#{QuoteDeposit.model_name.human} #{t 'is_deleted'}" }
       format.json { head :no_content }

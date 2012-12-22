@@ -191,6 +191,7 @@ fr:
   cheque: "Chèque"
   deposit: "Faire un dépôt"
   edit_deposit: "Modifier le dépôt"
+  delete_deposit: "Supprimer ce dépôt"
   deposit_name: Dépôt
   visa: "Visa"
   mastercard: "Master Card"
