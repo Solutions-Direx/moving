@@ -5,12 +5,12 @@
     <%= f.input_field :date, as: :hidden, :class => "datepicker-alt" %>
   <% end %>
   
-  <%= f.input :payment_method, :as => :radio_buttons, :collection => payment_method_options, :item_wrapper_class => "inline", :wrapper_html => {:id => "payment_methods"} %>
-  <%= f.input :credit_card_type, :collection => credit_card_type_options, :include_blank => true, :wrapper_html => {:id => "credit_card_type", :style => "display: none;"}  %>
+  <%= f.input :payment_method, as: :radio_buttons, collection: payment_method_options, item_wrapper_class: "inline", wrapper_html: {id: "payment_methods"} %>
+  <%= f.input :credit_card_type, collection: credit_card_type_options, include_blank: true, wrapper_html: {id: "credit_card_type", style: "display: none;"}  %>
   
-  <div class="form-actions actions ">
-    <%= button_link_to "#{t 'delete_deposit', default: 'Delete Deposit'}", quote_deposit_path(@quote), :method => :delete, :class => 'btn btn-warning pull-left', :confirm => "#{t 'are_you_sure'}"  %>
-    <%= f.button :submit, :class => 'btn btn-success' %>
+  <div class="form-actions actions">
+    <%= button_link_to "#{t 'delete_deposit', default: 'Delete Deposit'}", quote_deposit_path(@quote), method: :delete, class: 'btn btn-danger pull-left', confirm: "#{t 'are_you_sure'}" if @current_user.manager? %>
+    <%= f.button :submit, class: 'btn btn-success' %>
   </div>
 <% end %>
 
