@@ -9,7 +9,7 @@
   <%= f.input :credit_card_type, collection: credit_card_type_options, include_blank: true, wrapper_html: {id: "credit_card_type", style: "display: none;"}  %>
   
   <div class="form-actions actions">
-    <%= button_link_to "#{t 'delete_deposit', default: 'Delete Deposit'}", quote_deposit_path(@quote), method: :delete, class: 'btn btn-danger pull-left', confirm: "#{t 'are_you_sure'}" if @current_user.manager? %>
+    <%= button_link_to "#{t 'delete_deposit', default: 'Delete Deposit'}", quote_deposit_path(@quote), method: :delete, class: 'btn btn-danger pull-left', confirm: "#{t 'are_you_sure'}" if @current_user.manager? && !@deposit.new_record? %>
     <%= f.button :submit, class: 'btn btn-success' %>
   </div>
 <% end %>
