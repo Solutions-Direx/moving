@@ -1,51 +1,49 @@
 <h1><%= Payment.model_name.human + 's' %> <%= t 'received_on', default: 'received on' %> <%= l @day, :format => :long %></h1>
 
 <%= form_tag '', :method => :get do %>
-    <%= text_field_tag :day, l(@day, :format => :default), :class => "datepicker", "data-date-format" => t('date.js_format') %>
+  <%= text_field_tag :day, l(@day, :format => :default), :class => "datepicker", "data-date-format" => t('date.js_format') %>
 <% end %>
 
 <% if @payments.any? %>
-    <%= paginate @payments %>
+  <table class="table table-striped">
+    <tr>
+      <th style="width: 80px;"><%= sortable 'date' %></th>
+      <th><%= sortable 'clients.name', 'Client' %></th>
+      <th><%= t Payment.model_name.human %></th>
+      <th><%= t 'removal_team_lead' %></th>
+      <th><%= t Quote.model_name.human %></th>
+    </tr>
 
-    <table class="table table-striped">
+    <% @payments.each do |payment| %>
       <tr>
-        <th style="width: 80px;"><%= sortable 'date' %></th>
-        <th><%= sortable 'clients.name', 'Client' %></th>
-        <th><%= t Payment.model_name.human %></th>
-        <th><%= t 'removal_team_lead' %></th>
-        <th><%= t Quote.model_name.human %></th>
+        <td><%= l payment.date %></td>
+        <td><%= link_to payment.payable.client.name, client_path(payment.payable.client) %> <%= status_tag('comm.') if payment.payable.client.commercial? %></td>
+        <% if payment.payable_type == 'Quote' %>
+          <td><%= number_to_currency(payment.amount) %> [<%= payment.payment_option_details %>] <%= status_tag("#{t 'deposit_name'}") %></td>
+          <td><%= payment.payable.removal_leader.full_name if payment.payable.removal_leader_id.present? %></td>
+          <td><%= link_to payment.payable.code, quote_path(payment.payable) %></td>
+        <% else %>
+          <td><%= number_to_currency(payment.amount) %> [<%= payment.payment_option_details %>]</td>
+          <td><%= payment.payable.quote.removal_leader.full_name if payment.payable.quote.removal_leader_id.present? %></td>
+          <td><%= link_to payment.payable.quote.code, quote_path(payment.payable.quote) %></td>
+        <% end %>
       </tr>
+    <% end %>
+  </table>
 
-      <% @payments.each do |payment| %>
-          <tr>
-            <td><%= l payment.date %></td>
-            <td><%= link_to payment.payable.client.name, client_path(payment.payable.client) %> <%= status_tag('comm.') if payment.payable.client.commercial? %></td>
-            <% if payment.payable_type == 'Quote' %>
-                <td><%= number_to_currency(payment.amount) %> <span class="badge badge-success">&nbsp;</span></td>
-                <td><%= payment.payable.removal_leader.full_name if payment.payable.removal_leader_id.present? %></td>
-                <td><%= link_to payment.payable.code, quote_path(payment.payable) %></td>
-            <% else %>
-                <td><%= number_to_currency(payment.amount) %> [<%= payment.payment_option_details %>]</td>
-                <td><%= payment.payable.quote.removal_leader.full_name if payment.payable.quote.removal_leader_id.present? %></td>
-                <td><%= link_to payment.payable.quote.code, quote_path(payment.payable.quote) %></td>
-            <% end %>
-          </tr>
-      <% end %>
-    </table>
+  <%= paginate @payments %>
 
-    <%= paginate @payments %>
-
-    <div class='table_bottom'>
-      <%= pluralize(@payments.total_count, t('payment', default: 'payment')) %> <%= t 'for_total_amount_of' %> <%= number_to_currency(@total) %>
-    </div>
+  <div class='table_bottom'>
+    <%= pluralize(@payments.total_count, t('payment', default: 'payment')) %> <%= t 'for_total_amount_of' %> <%= number_to_currency(@total) %>
+  </div>
 <% else %>
-    <p class='alert alert-info'><%= t "no_payments_found", default: 'No payments received.' %></p>
+  <p class='alert alert-info'><%= t "no_payments_found", default: 'No payments received.' %></p>
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
-    $(function () {
-        $('#day').on('change', function () {
-            $(this).closest('form').submit();
-        });
+  $(function () {
+    $('#day').on('change', function () {
+      $(this).closest('form').submit();
     });
+  });
 </script>
