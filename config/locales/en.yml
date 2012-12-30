@@ -151,7 +151,7 @@ en:
   verified_on: verified on
   please_confirm: Please confirm
   srch_inpt_placeholder: "Client, Phone, Quote ID..."
-  for_total_amount_of: for total amount of
+  for_total_amount_of: "- Total amount"
   both: Both
   commercial: Commercial
   residential: Residential
