@@ -179,6 +179,8 @@ en:
   time_spent: Time spent
   phone: Phone
   website: Website
+  activate: Activate
+  deactivate: Deactivate
   activerecord:
     attributes:
       user:  
