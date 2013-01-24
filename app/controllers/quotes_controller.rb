@@ -9,7 +9,7 @@ class QuotesController < ApplicationController
   
   def index
     if params[:search].present?
-      @quotes = current_account.quotes.order("created_at DESC").includes(:client, :creator, :company).search_by_keyword(params[:search]).page(params[:page])
+      @quotes = current_account.quotes.order("created_at DESC").search_by_keyword(params[:search]).page(params[:page])
     else
       @quotes = current_account.quotes.includes(:client, :creator, :company).order(sort_column + " " + sort_direction).page(params[:page])
     end
