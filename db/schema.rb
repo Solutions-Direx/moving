@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213233134) do
+ActiveRecord::Schema.define(:version => 20130128160537) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
@@ -126,7 +126,7 @@ ActiveRecord::Schema.define(:version => 20121213233134) do
     t.integer  "living_table"
     t.integer  "living_wall_unit"
     t.integer  "living_tv"
-    t.string   "furniture_other"
+    t.text     "furniture_other"
     t.integer  "base_salon"
     t.integer  "base_shelf"
     t.integer  "base_desk"
