@@ -8,7 +8,7 @@ gem 'rails', '3.2.11'
 gem 'pg'
 gem 'tabs_on_rails', "~> 2.1.1"
 gem 'jquery-rails'
-gem 'devise'
+gem 'devise', "2.2.3"
 gem 'simple_form'
 gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
 gem 'kaminari'
