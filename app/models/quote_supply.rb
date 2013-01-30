@@ -4,4 +4,5 @@ class QuoteSupply < ActiveRecord::Base
   attr_accessible :quantity, :quote_id, :supply_id
   
   validates_presence_of :quantity
+  validates_presence_of :supply_id
 end
