@@ -18,7 +18,7 @@ class Client < ActiveRecord::Base
   attr_accessible :email, :name, :phone1, :phone2, :account_id, :address_attributes, :commercial, :billing_contact, :code
   
   validates_presence_of :name, :phone1
-  validates_uniqueness_of :phone1 
+  validates_uniqueness_of :phone1
   
   scope :commercial, where(commercial: true)
   scope :residential, where(commercial: false)
