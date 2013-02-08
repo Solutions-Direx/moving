@@ -93,7 +93,7 @@ class Quote < ActiveRecord::Base
   
   # CALLBACKS
   before_create :generate_code, :copy_billing_address
-  before_save :ignore_blank_addresses, :ignore_blank_rooms
+  before_save   :ignore_blank_addresses, :ignore_blank_rooms
   after_destroy :track_activity
   
   # SCOPES
