@@ -14,6 +14,7 @@ class Client < ActiveRecord::Base
   has_one :address, :as => :addressable, :dependent => :destroy
   accepts_nested_attributes_for :address
   has_many :quotes, :dependent => :destroy
+  has_many :invoices
   
   attr_accessible :email, :name, :phone1, :phone2, :account_id, :address_attributes, :commercial, :billing_contact, :code
   
@@ -27,6 +28,10 @@ class Client < ActiveRecord::Base
 
   def name_with_code
     "#{name} (#{code})"
+  end
+
+  def can_be_deleted?
+    !quotes.any? and !invoices.any?
   end
   
 private

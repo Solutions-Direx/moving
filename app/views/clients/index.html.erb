@@ -30,10 +30,10 @@
     <td><%= client.code %></td>
     <td><%= client.phone1 %></td>
     <td><%= client.phone2 %></td>
-    <td><%= address_for(client.address) %></td>
+    <td><%= address_for(client.address) if client.address %></td>
     <td><%= mail_to client.email, client.email %></td>
     <td><%= link_to "#{t 'edit'}", edit_client_path(client) %></td>
-    <td><%= link_to "#{t 'destroy'}", client, :data => { confirm: "#{t 'are_you_sure'}"}, method: :delete %></td>
+    <td><%= link_to "#{t 'destroy'}", client, data: { confirm: "#{t 'are_you_sure'}"}, method: :delete if client.can_be_deleted? %></td>
   </tr>
 <% end %>
 </table>

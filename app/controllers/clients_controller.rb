@@ -3,8 +3,6 @@ class ClientsController < ApplicationController
   helper_method :sort_column
   set_tab :clients
   
-  # GET /clients
-  # GET /clients.json
   def index
     if params[:search].present?
       @clients = current_account.clients.includes(:address).search_by_keyword(params[:search]).page(params[:page])
@@ -18,8 +16,6 @@ class ClientsController < ApplicationController
     end
   end
 
-  # GET /clients/1
-  # GET /clients/1.json
   def show
     @client = Client.find(params[:id])
 
@@ -30,8 +26,6 @@ class ClientsController < ApplicationController
     end
   end
 
-  # GET /clients/new
-  # GET /clients/new.json
   def new
     @client = current_account.clients.new
 
@@ -42,7 +36,6 @@ class ClientsController < ApplicationController
     end
   end
 
-  # GET /clients/1/edit
   def edit
     @client = Client.find(params[:id])
     
@@ -53,8 +46,6 @@ class ClientsController < ApplicationController
     end
   end
 
-  # POST /clients
-  # POST /clients.json
   def create
     @client = current_account.clients.new(params[:client])
 
@@ -75,8 +66,6 @@ class ClientsController < ApplicationController
     end
   end
 
-  # PUT /clients/1
-  # PUT /clients/1.json
   def update
     @client = Client.find(params[:id])
 
@@ -97,15 +86,17 @@ class ClientsController < ApplicationController
     end
   end
 
-  # DELETE /clients/1
-  # DELETE /clients/1.json
   def destroy
     @client = Client.find(params[:id])
-    @client.destroy
 
     respond_to do |format|
-      format.html { redirect_to clients_url, :notice => "Client #{@client.name} was successfully deleted." }
-      format.json { head :no_content }
+      if @client.can_be_deleted?
+        @client.destroy
+        format.html { redirect_to clients_url, notice: "Client #{@client.name} was successfully deleted." }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to client_url(@client), alert: "Client cannot be deleted because of associated quotes/invoices." }
+      end
     end
   end
   
