@@ -32,8 +32,12 @@ class Client < ActiveRecord::Base
 private
   
   def update_code
-    last_client_id = Client.last.present? ? Client.last.id : 0
-    code_generation = "%05d" % (last_client_id + 1)
+    if self.new_record?
+      last_client_id = Client.last.present? ? Client.last.id : 0
+      code_generation = "%05d" % (last_client_id + 1)
+    else
+      code_generation = "%05d" % (self.id)
+    end
     self.code = commercial? ? "C#{code_generation}" : "R#{code_generation}"
   end
   
