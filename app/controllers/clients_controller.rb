@@ -7,7 +7,8 @@ class ClientsController < ApplicationController
   # GET /clients.json
   def index
     if params[:search].present?
-      @clients = current_account.clients.includes(:address).search_by_keyword(params[:search]).page(params[:page])
+      query = params[:search].gsub(".", " ")
+      @clients = current_account.clients.includes(:address).search_by_keyword(query).page(params[:page])
     else
       @clients = current_account.clients.includes(:address).order(sort_column + " " + sort_direction).page(params[:page])
     end

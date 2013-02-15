@@ -9,7 +9,8 @@ class InvoicesController < ApplicationController
   
   def index
     if params[:search].present?
-      @invoices = current_account.invoices.includes({:quote => [:client, :quote_confirmation, {:to_addresses => [:storage]}]}, :forfaits, :surcharges, :supplies).search_by_keyword(params[:search]).page(params[:page])
+      query = params[:search].gsub(".", " ")
+      @invoices = current_account.invoices.includes({:quote => [:client, :quote_confirmation, {:to_addresses => [:storage]}]}, :forfaits, :surcharges, :supplies).search_by_keyword(query).page(params[:page])
     else
       @invoices = current_account.invoices.includes({:quote => [:client, :quote_confirmation]}, :forfaits, :surcharges, :supplies).order(sort_column + " " + sort_direction).page(params[:page])
     end
