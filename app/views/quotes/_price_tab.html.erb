@@ -38,6 +38,12 @@
   </div>
   <%= f.input :insurance %>
   <%= f.input :materiel %>
+  <% if f.error(:'quote_supplies.supply_id').present? || f.error(:'quote_supplies.quantity').present?  %>
+    <div class="alert alert-error"><a class="close">×</a>
+      <%= f.full_error :'quote_supplies.supply_id' %>
+      <%= f.full_error :'quote_supplies.quantity' %>
+    </div>
+  <% end %>
   <%= f.fields_for :quote_supplies %>
   <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_supply', default: 'Add supply'}", :quote_supplies, :class => "btn btn-primary add-link", :id => "add-supply" %>
   <%= f.association :forfaits, :collection => current_account.forfaits.all.map{|s| [s.name_with_price, s.id]}, :input_html => {:class => "chzn", "data-placeholder" => "#{t 'type_to_select_forfaits'}", :multiple => true, :style => "width: 360px;"} %>

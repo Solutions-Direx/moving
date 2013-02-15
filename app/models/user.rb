@@ -59,7 +59,8 @@ class User < ActiveRecord::Base
       where(conditions).where(["confirmation_token = ?", confirmation_token]).first
     else
       login = conditions.delete(:login).downcase
-      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login ? login.downcase : "" }]).first
+      #where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login ? login.downcase : "" }]).first
+      where(conditions).where(["(lower(username) = :value OR lower(email) = :value) AND active = :active", { value: login ? login.downcase : "", active: true }]).first
     end
   end
   

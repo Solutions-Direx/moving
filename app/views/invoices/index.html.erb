@@ -18,12 +18,12 @@
 <table class="table table-striped">
   <tr>
     <th><input type="checkbox" value="" id="select_all"></th>
-    <th><%= sortable 'removal_at', t('removal_at') %></th>
-    <th><%= t 'invoice_code' %></th>
+    <th style="width:120px;"><%= sortable 'removal_at', t('removal_at') %></th>
+    <th><%= sortable 'code', t('invoice_code') %></th>
     <th><%= sortable 'clients.name', 'Client' %></th>
     <th><%= Quote.model_name.human %></th>
     <th>Grand Total</th>
-    <th>Total</th>
+    <th style="width:70px;">Total</th>
     <th><%= t 'payments_received', default: 'Payments received' %></th>
   </tr>
 
@@ -36,9 +36,9 @@
     </td>
     <td><%= link_to "#{invoice.client.name} (#{invoice.client.code})", client_path(invoice.client) %></td>
     <td><%= link_to "#{invoice.quote.code}", quote_path(invoice.quote) %></td>
-    <td><%= number_to_currency(invoice.grand_total) %></td>
-    <td><%= link_to number_to_currency(invoice.total), quote_invoice_path(invoice.quote) %></td>
-    <td><%= number_to_currency(invoice.payments.sum(:amount)) %></td>
+    <td><%= number_to_currency(invoice.grand_total, strip_insignificant_zeros: true) %></td>
+    <td><%= link_to number_to_currency(invoice.total, strip_insignificant_zeros: true), quote_invoice_path(invoice.quote) %></td>
+    <td><%= number_to_currency(invoice.payments.sum(:amount), strip_insignificant_zeros: true) %></td>
   </tr>
 <% end %>
 </table>

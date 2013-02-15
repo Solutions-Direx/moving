@@ -1,6 +1,9 @@
 <h2>
   <%= @client.name %> (<%= @client.code %>) <%= content_tag(:span, 'commercial', :class => "badge") if @client.commercial? %>
-  <span class='submenu'><%= button_link_to "#{t 'edit'}", edit_client_path(@client), level: "inverse", large: true  %></span>
+  <span class='submenu'>
+    <%= icon_button_link_to "#{t 'edit'}", edit_client_path(@client), level: "inverse", large: true, icon: 'pencil', white: true %>
+    <%= icon_button_link_to "#{t 'destroy'}", @client, data: { confirm: "#{t 'are_you_sure'}"}, method: :delete, level: 'danger', icon: 'remove', white: true, large: true if @client.can_be_deleted? %>
+  </span>
 </h2>
 
 <p>

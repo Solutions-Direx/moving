@@ -24,7 +24,8 @@ class InvoicePdf < Prawn::Document
     stroke_horizontal_rule
     move_down 10
     price_details
-
+    
+    comment
     payments
     move_down 10
 
@@ -246,6 +247,14 @@ class InvoicePdf < Prawn::Document
         cells.borders = []
         row(0).column(0).padding = [0, 22, 0, 0]
       end
+    end
+  end
+
+  def comment
+    if @invoice.comment.present?
+      move_down 30
+      text "<b>#{@invoice.comment}</b>", inline_format: true
+      move_down 10
     end
   end
 
