@@ -10,9 +10,9 @@ class InvoicesController < ApplicationController
   def index
     if params[:search].present?
       query = params[:search].gsub(".", " ")
-      @invoices = current_account.invoices.includes({:quote => [:client, :quote_confirmation, {:to_addresses => [:storage]}]}, :forfaits, :surcharges, :supplies).search_by_keyword(query).page(params[:page])
+      @invoices = current_account.invoices.includes({quote: [:client, :quote_confirmation, {to_addresses: [:storage]}]}, :forfaits, :surcharges, :supplies).search_by_keyword(query).page(params[:page])
     else
-      @invoices = current_account.invoices.includes({:quote => [:client, :quote_confirmation]}, :forfaits, :surcharges, :supplies).order(sort_column + " " + sort_direction).page(params[:page])
+      @invoices = current_account.invoices.includes({quote: [:client, :quote_confirmation]}, :forfaits, :surcharges, :supplies).order(sort_column + " " + sort_direction).page(params[:page])
     end
 
     respond_to do |format|
@@ -34,6 +34,7 @@ class InvoicesController < ApplicationController
     @invoice.copy_tax_setting_from(@quote.tax)
     @invoice.client_id = @quote.client_id
     @invoice.creator_id = current_user.id
+
     if @invoice.save
       redirect_to quote_invoice_url(@quote), notice: "#{Invoice.model_name.human} #{t 'created'}."
     else
@@ -42,8 +43,6 @@ class InvoicesController < ApplicationController
   end
   
   def show
-    #@quote = Quote.find_by_code(params[:quote_id])
-    #@invoice = @quote.invoice.includes(:lines)
     @payments = @invoice.payments.order("date ASC")
   end
   
@@ -84,7 +83,6 @@ class InvoicesController < ApplicationController
   def print
     respond_to do |format|
       format.html
-      # format.pdf { render :text => PDFKit.new(render_to_string(:formats => [:html], :layout => 'print')).to_pdf }
       format.pdf do
         pdf = InvoicePdf.new(@invoice)
         send_data pdf.render, filename: "invoice_#{@invoice.code}.pdf",
