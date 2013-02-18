@@ -194,7 +194,6 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    pdfkit (0.5.2)
     pg (0.14.1)
     pg_search (0.5.7)
       activerecord (>= 3)
@@ -332,7 +331,6 @@ DEPENDENCIES
   letter_opener
   nested_form!
   paperclip
-  pdfkit
   pg
   pg_search
   prawn!

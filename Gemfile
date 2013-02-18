@@ -12,19 +12,17 @@ gem 'kaminari'
 gem 'cancan'
 gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
 gem 'faker'
-gem "watu_table_builder", :require => "table_builder", :git => "git://github.com/watu/table_builder.git"
+gem 'watu_table_builder', :require => "table_builder", :git => "git://github.com/watu/table_builder.git"
 gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
 gem 'roadie'
 gem 'pg_search'
-gem 'pdfkit'
-gem "paperclip"
+#gem 'pdfkit'
+gem 'paperclip'
 gem 'capistrano'
 gem 'unicorn'
 gem 'whenever', :require => false
 gem 'prawn', :git => "git://github.com/prawnpdf/prawn.git"
 
-# Gems used only for assets and not required
-# in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
