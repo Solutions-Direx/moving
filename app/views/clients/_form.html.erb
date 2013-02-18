@@ -6,15 +6,15 @@
     <%= f.input :phone1 %>
     <%= f.input :phone2 %>
     <%= f.input :email %>
-    <%= f.input :commercial, :as => :radio_buttons %>
-    <%= f.input :billing_contact, :wrapper_html => { :id => 'billing_contact', :style => "display: #{@client.commercial? ? 'block' : 'none'};"} %>
+    <%= f.input :commercial, as: :radio_buttons %>
+    <%= f.input :billing_contact, wrapper_html: {id: 'billing_contact', style: "display: #{@client.commercial? ? 'block' : 'none'};"} %>
     
     <% @client.build_address unless @client.address %>
       <%= f.fields_for :address do |fa| %>
-        <%= fa.input :address, :required => true %>
-        <%= fa.input :city, :required => true %>
+        <%= fa.input :address, required: true %>
+        <%= fa.input :city, required: true %>
         <%= fa.input :postal_code %>
-        <%= fa.input :province, :collection => Address::PROVINCE %>
+        <%= fa.input :province, collection: Address::PROVINCE, required: true %>
       <% end %>
   </div>
   
