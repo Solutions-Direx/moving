@@ -62,7 +62,6 @@ class InvoicePdf < Prawn::Document
     ]
 
     make_table(data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
-      # cells.padding = [10, 10, 10, 10]
       cells.size = 10
       cells.inline_format = true
     end
@@ -76,7 +75,6 @@ class InvoicePdf < Prawn::Document
     ]
 
     make_table(data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
-      # cells.padding = [10, 10, 10, 10]
       cells.size = 10
       cells.inline_format = true
       cells.align = :right
@@ -227,14 +225,12 @@ class InvoicePdf < Prawn::Document
 
   def make_lines_group(titles_data, prices_data, align = :left, show_line = true)
     titles_table = make_table(titles_data, width: 370, :cell_style => {:border_color => "FFFFFF"}) do
-      # cells.padding = [10, 10, 10, 10]
       cells.size = 10
       cells.inline_format = true
       cells.align = align
     end
 
     prices_table = make_table(prices_data, width: 170, :cell_style => {:border_color => "FFFFFF"}) do
-      # cells.padding = [10, 10, 10, 10]
       cells.size = 10
       cells.inline_format = true
       cells.align = :right

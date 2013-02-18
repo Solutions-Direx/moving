@@ -3,8 +3,6 @@ class DocumentsController < ApplicationController
   helper_method :sort_column
   set_tab :documents
   
-  # GET /documents
-  # GET /documents.json
   def index
     @documents = current_account.documents.order(sort_column + " " + sort_direction).page(params[:page])
 
@@ -14,8 +12,6 @@ class DocumentsController < ApplicationController
     end
   end
 
-  # GET /documents/1
-  # GET /documents/1.json
   def show
     @document = Document.find(params[:id])
 
@@ -25,8 +21,6 @@ class DocumentsController < ApplicationController
     end
   end
 
-  # GET /documents/new
-  # GET /documents/new.json
   def new
     @document = Document.new
 
@@ -36,13 +30,10 @@ class DocumentsController < ApplicationController
     end
   end
 
-  # GET /documents/1/edit
   def edit
     @document = Document.find(params[:id])
   end
 
-  # POST /documents
-  # POST /documents.json
   def create
     @document = current_account.documents.new(params[:document])
 
@@ -57,8 +48,6 @@ class DocumentsController < ApplicationController
     end
   end
 
-  # PUT /documents/1
-  # PUT /documents/1.json
   def update
     @document = Document.find(params[:id])
 
@@ -73,8 +62,6 @@ class DocumentsController < ApplicationController
     end
   end
 
-  # DELETE /documents/1
-  # DELETE /documents/1.json
   def destroy
     @document = Document.find(params[:id])
     @document.destroy

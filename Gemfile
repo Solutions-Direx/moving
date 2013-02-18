@@ -16,7 +16,7 @@ gem 'watu_table_builder', :require => "table_builder", :git => "git://github.com
 gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
 gem 'roadie'
 gem 'pg_search'
-#gem 'pdfkit'
+gem 'pdfkit'
 gem 'paperclip'
 gem 'capistrano'
 gem 'unicorn'
