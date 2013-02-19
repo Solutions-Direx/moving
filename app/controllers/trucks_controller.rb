@@ -1,3 +1,4 @@
+00011502130074001594
 class TrucksController < ApplicationController
   # GET /trucks
   # GET /trucks.json

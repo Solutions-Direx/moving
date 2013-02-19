@@ -8,9 +8,9 @@
 
       idle_time = 5 # seconds
       $.idleTimer(1000 * idle_time)
-    
+
     # toggle insurance
-    $('#payment_methods input:radio').live 'click', ->
+    $('#payment_methods input:radio').on 'click', ->
       if $(this).val() == "credit"
         $('#credit_card_type').slideDown()
       else
