@@ -1,9 +1,7 @@
-00011502130074001594
 class TrucksController < ApplicationController
-  # GET /trucks
-  # GET /trucks.json
+
   def index
-    @trucks = Truck.all
+    @trucks = current_account.trucks.order('name')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -11,8 +9,6 @@ class TrucksController < ApplicationController
     end
   end
 
-  # GET /trucks/1
-  # GET /trucks/1.json
   def show
     @truck = Truck.find(params[:id])
 
@@ -22,8 +18,6 @@ class TrucksController < ApplicationController
     end
   end
 
-  # GET /trucks/new
-  # GET /trucks/new.json
   def new
     @truck = Truck.new
 
@@ -33,13 +27,10 @@ class TrucksController < ApplicationController
     end
   end
 
-  # GET /trucks/1/edit
   def edit
     @truck = Truck.find(params[:id])
   end
 
-  # POST /trucks
-  # POST /trucks.json
   def create
     @truck = current_account.trucks.build(params[:truck])
 
@@ -54,8 +45,6 @@ class TrucksController < ApplicationController
     end
   end
 
-  # PUT /trucks/1
-  # PUT /trucks/1.json
   def update
     @truck = Truck.find(params[:id])
 
@@ -70,8 +59,6 @@ class TrucksController < ApplicationController
     end
   end
 
-  # DELETE /trucks/1
-  # DELETE /trucks/1.json
   def destroy
     @truck = Truck.find(params[:id])
     @truck.destroy
