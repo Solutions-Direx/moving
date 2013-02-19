@@ -36,7 +36,7 @@
       $('#submit-to-preview').trigger('click')
       return false
       
-    $('#invoice_time_spent, #invoice_rate, #invoice_gas, .duration, .rate, #invoice_discount').live 'change', ->
+    $('#invoice_time_spent, #invoice_rate, #invoice_gas, .duration, .rate, #invoice_discount').on 'change', ->
       Invoices.Form.calculate_grand_total()
       
   calculate_grand_total: ->
