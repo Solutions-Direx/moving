@@ -38,7 +38,7 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
-  $('#payment_methods input:radio').live('click', function() {
+  $('#payment_methods input:radio').on('click', function() {
     if (($(this).val() == "credit") || ($(this).val() == "debit")) {
       $('#transaction_number').show();
     } else {
@@ -56,14 +56,14 @@
     e.preventDefault();
     $('#payment-form').submit();
   });
-  $('.datepicker').live('click', function () {
+  $('.datepicker').on('click', function () {
     <% if I18n.locale == :fr %>
     $(this).datepicker('destroy').datepicker($.extend($.datepicker.regional["fr"], {altFormat: "yy/mm/dd", altField: $(this).next()})).focus();
     <% else %>
     $(this).datepicker('destroy').datepicker($.extend($.datepicker.regional["en-GB"], {altFormat: "yy/mm/dd", altField: $(this).next()})).focus();
     <% end %>  
   });
-  $('#show-form').live('click', function(e) {
+  $('#show-form').on('click', function(e) {
     e.preventDefault();
     $("#new-payment-container").show();
     $('#legend').hide();
