@@ -2,9 +2,9 @@
   <!-- COMPANY -->
   <% if current_account.companies.active.count > 1 %>
     <% if f.object.new_record? %>
-      <%= f.association :company, :collection => Company.active.map{|c| [c.company_name, c.id]}, :label => "#{t 'company'}", :include_blank => false %>
+      <%= f.association :company, collection: Company.active.map{|c| [c.company_name, c.id]}, label: "#{t 'company'}", include_blank: false %>
     <% else %>
-      <%= f.association :company, :collection => Company.all.map{|c| [c.company_name, c.id]}, :label => "#{t 'company'}", :include_blank => false %>
+      <%= f.association :company, collection: Company.all.map{|c| [c.company_name, c.id]}, label: "#{t 'company'}", include_blank: false %>
     <% end %>
   <% else %>
     <%= f.input :company_id, :as => :hidden  %>
@@ -13,12 +13,12 @@
   <!-- SALE REPRESENTATIVE -->
   <%= f.input :sale_representative_id do %>
     <div id="change-sale-representative"><%= f.object.sale_representative.full_name %> <%= link_to "#{t 'change'}", "#", id: "change-rp" %></div>
-    <div id="select-sale-representative" style="display: none;"><%= f.input_field :sale_representative_id, :collection => User.active.all.map{|c| [c.full_name, c.id]}, :class => "chzn", "data-placeholder" => "#{t'select'}" %></div>
+    <div id="select-sale-representative" style="display: none;"><%= f.input_field :sale_representative_id, collection: User.active.all.map{|c| [c.full_name, c.id]}, class: "chzn", "data-placeholder" => "#{t'select'}" %></div>
   <% end %>
 
   <!-- CLIENT -->
   <%= f.input :client_id do %>
-    <%= f.input_field :client_id, :collection => Client.order('name ASC').map{|c| [c.name, c.id]}, :class => "chzn", "data-placeholder" => "#{t 'select'}", :id => "select-clients" %> <%= t 'or' %> 
+    <%= f.input_field :client_id, collection: Client.order('name ASC').map{|c| [c.name, c.id]}, class: "chzn", "data-placeholder" => "#{t 'select'}", id: "select-clients" %> <%= t 'or' %> 
     <%= icon_button_link_to "#{t 'new'} client", new_client_path, icon: 'plus', level: "inverse", white: true, remote: true %>
   <% end %>
   <%= f.input :phone1 %>
