@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title><%= t('site_name') %></title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="locale" content="<%= I18n.locale.to_s %>">
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <script type="text/javascript">
-    CURRENT_LOCALE = '<%= I18n.locale %>';
-  </script>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+  <head>
+    <title><%= t('site_name') %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="locale" content="<%= I18n.locale.to_s %>">
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <script type="text/javascript">
+      CURRENT_LOCALE = '<%= I18n.locale %>';
+    </script>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
 
-</head>
-<body data-spy="scroll" data-target=".subnav" data-offset="50" class="<%= yield(:body_class) || '' %>">
-  <%= render 'layouts/navbar' %>
-  
-  <div class="container">
-    <%= render 'layouts/subnav' %>
-    <%= render 'layouts/flash' %>
-    <%= yield %>
-  </div>
-
-</body>
+  </head>
+  <body data-spy="scroll" data-target=".subnav" data-offset="50" class="<%= yield(:body_class) || '' %>">
+    <%= render 'layouts/navbar' %>
+    
+    <div class="container">
+      <%= render 'layouts/subnav' %>
+      <%= render 'layouts/flash' %>
+      <%= yield %>
+    </div>
+  </body>
 </html>

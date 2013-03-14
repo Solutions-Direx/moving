@@ -81,7 +81,7 @@ Moving::Application.configure do
   
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[Exception]",
-    :sender_address => %{"Exception Notifier [Dem. Max]" <app@demenagementmaximum.com>},
+    :sender_address => %{"[Dem. Max] Exception Notifier" <app@demenagementmaximum.com>},
     :exception_recipients => %w{alert@yafoy.com}
   
 end
