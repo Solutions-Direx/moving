@@ -5,7 +5,7 @@ class Supply < ActiveRecord::Base
   
   attr_accessible :account_id, :active, :name, :price
   
-  validates_presence_of :name
+  validates_presence_of :name, :price
   validates_uniqueness_of :name
   
   def name_with_price
