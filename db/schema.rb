@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130204044403) do
+ActiveRecord::Schema.define(:version => 20130314151538) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
@@ -379,7 +379,7 @@ ActiveRecord::Schema.define(:version => 20130204044403) do
   create_table "surcharges", :force => true do |t|
     t.integer  "surchargeable_id"
     t.string   "surchargeable_type"
-    t.string   "label"
+    t.text     "label"
     t.float    "price"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
