@@ -1,27 +1,27 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.16'
 
 gem 'pg'
 gem 'tabs_on_rails', "~> 2.1.1"
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'devise', "2.2.3"
 gem 'simple_form'
-gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
 gem 'kaminari'
 gem 'cancan'
-gem 'nested_form', :git => 'git://github.com/ryanb/nested_form.git'
+gem 'nested_form', github: 'ryanb/nested_form'
 gem 'faker'
-gem 'watu_table_builder', :require => "table_builder", :git => "git://github.com/watu/table_builder.git"
-gem 'rails-settings', :git => 'git://github.com/100hz/rails-settings.git'
+gem 'watu_table_builder', :require => "table_builder", github: "watu/table_builder"
+gem 'rails-settings', github: 'renderedtext/rails-settings'
 gem 'roadie'
 gem 'pg_search'
 gem 'pdfkit'
 gem 'paperclip'
-gem 'capistrano'
 gem 'unicorn'
 gem 'whenever', :require => false
-gem 'prawn', :git => "git://github.com/prawnpdf/prawn.git"
+gem 'prawn', github: "prawnpdf/prawn"
+gem 'hirb'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -32,23 +32,11 @@ end
 
 group :development do
   gem 'letter_opener'
-  gem 'guard'
+  gem 'rack-mini-profiler'
   gem 'quiet_assets'
   gem 'thin'
-end
-
-group :development, :test do
-  gem 'debugger'
-  gem 'spork'
-  gem 'factory_girl_rails'
-  gem 'rspec-rails'
-  gem 'capybara'
-  gem 'guard-rspec'
-  gem 'guard-spork'
-  gem 'database_cleaner'
-  gem 'email_spec'
-  gem 'simplecov', :require => false
-  gem 'hirb'
+  gem 'capistrano', '~> 2.15.0'
+  gem 'capistrano-nc'
 end
 
 group :production do

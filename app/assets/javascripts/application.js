@@ -11,39 +11,35 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery-ui
+//= require jquery.ui.all
 //= require jquery_ujs
-//= require ../../../vendor/assets/javascripts/jquery.controls
-//= require ../../../vendor/assets/javascripts/jquery.form
-//= require ../../../vendor/assets/javascripts/jquery.dialog2
-//= require ../../../vendor/assets/javascripts/jquery.dialog2.helpers
 //= require_tree ../../../vendor/assets/javascripts
 //= require_tree .
 
 
 $(function() {
   // Popover
-     $('a[rel=popover]').popover();
+  $('a[rel=popover]').popover();
 
   // fix sub nav on scroll
-      var $win = $(window)
-        , $nav = $('.subnav')
-  	  , navHeight = $('.navbar').first().height()
-        , navTop = $('.subnav').length && $('.subnav').offset().top - navHeight
-        , isFixed = 0
+  var $win = $(window)
+    , $nav = $('.subnav')
+  , navHeight = $('.navbar').first().height()
+    , navTop = $('.subnav').length && $('.subnav').offset().top - navHeight
+    , isFixed = 0
 
-      processScroll()
+  processScroll()
 
-      $win.on('scroll', processScroll)
+  $win.on('scroll', processScroll)
 
-      function processScroll() {
-        var i, scrollTop = $win.scrollTop()
-        if (scrollTop >= navTop && !isFixed) {
-          isFixed = 1
-          $nav.addClass('subnav-fixed')
-        } else if (scrollTop <= navTop && isFixed) {
-          isFixed = 0
-          $nav.removeClass('subnav-fixed')
-        }
-      }
+  function processScroll() {
+    var i, scrollTop = $win.scrollTop()
+    if (scrollTop >= navTop && !isFixed) {
+      isFixed = 1
+      $nav.addClass('subnav-fixed')
+    } else if (scrollTop <= navTop && isFixed) {
+      isFixed = 0
+      $nav.removeClass('subnav-fixed')
+    }
+  }
 });

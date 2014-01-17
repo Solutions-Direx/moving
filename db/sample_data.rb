@@ -30,6 +30,7 @@ company.save!
 
 puts "Generated 1 company."
 
+
 # generate 3 managers
 3.times do |x|
   print '.'
@@ -41,6 +42,7 @@ end
 print "\n"
 puts "Generated 3 sample managers."
 
+
 # generate 10 standard users
 10.times do |x|
   print '.'
@@ -50,6 +52,7 @@ end
 print "\n"
 puts "Generated 10 sample standard users."
 
+
 # generate 10 removal men
 10.times do |x|
   print '.'
@@ -58,6 +61,7 @@ puts "Generated 10 sample standard users."
 end
 print "\n"
 puts "Generated 10 sample removal men."
+
 
 # generate 50 clients
 50.times do |x|
@@ -69,6 +73,7 @@ end
 print "\n"
 puts "Generated 50 sample clients."
 
+
 # generate 10 trucks
 10.times do |x|
   print '.'
@@ -78,6 +83,7 @@ end
 print "\n"
 puts "Generated 10 sample trucks."
 
+
 # generate 10 documents
 10.times do |x|
   print '.'
@@ -86,6 +92,7 @@ puts "Generated 10 sample trucks."
 end
 print "\n"
 puts "Generated 10 sample documents."
+
 
 # generate 5 storages
 5.times do |x|
@@ -99,6 +106,7 @@ s_internal.update_attributes(name: "Entrepôt interne", price: '20', internal: t
 s_internal.annexes.create([{name: 'Conditions', body: 'Coming up...'}, {name: 'Assurances', body: 'Coming up...'}])
 print "\n"
 puts "Generated 5 sample storages."
+
 
 # generate 3 forfaits
 3.times do |x|
@@ -116,6 +124,7 @@ puts "Generated 3 sample forfaits."
 end
 print "\n"
 puts "Generated 3 sample supplies."
+
 
 # generate 50 quotes
 50.times do |x|

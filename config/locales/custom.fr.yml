@@ -32,7 +32,6 @@ fr:
   sign: Signer
   logout: 'Déconnexion'
   login: 'Connexion'
-  edit: 'Editer'
   view: 'Voir'
   close: Fermer
   update: Mettre à jour
@@ -56,6 +55,7 @@ fr:
   price: 'Prix'
   details: 'Détails'
   editing_annex: "Édition de l'annexe"
+  editing_client: "Édition du client"
   editing_document: "Édition du document"
   editing_forfait: "Édition du forfait"
   editing_quote: "Édition de l'entente"
@@ -63,7 +63,7 @@ fr:
   editing_supply: "Édition du matériel"
   editing_truck: "Édition du camion"
   editing_user: "Édition de l'utilisateur"
-  editing_payment: "Édition de paiements"
+  editing_payment: "Édition des paiements"
   new: 'Nouveau'
   new_quote: 'Nouvelle entente'
   new_storage: 'Nouvel entrepôt'
