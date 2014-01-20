@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
+
   # CONSTANTS
+  # ------------------------------------------------------------------------------------------------------
   module Role
     MANAGER     = 'manager'
     STANDARD    = 'standard'
@@ -9,38 +11,49 @@ class User < ActiveRecord::Base
       [[I18n.t(MANAGER), MANAGER], [I18n.t(STANDARD), STANDARD], [I18n.t(REMOVAL_MAN), REMOVAL_MAN]]
     end
   end
-  
+
+
   # DEVISE
+  # ------------------------------------------------------------------------------------------------------
   devise :database_authenticatable, :timeoutable, :recoverable, :rememberable, :trackable, :validatable
 
+
   # ASSOCIATIONS
+  # ------------------------------------------------------------------------------------------------------
   belongs_to :account
   has_many :quote_confirmations
   has_many :quotes
-  
+
+
   # ATTRIBUTES
+  # ------------------------------------------------------------------------------------------------------
   cattr_accessor :current_user
   attr_accessible :login, :username, :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :role, :localization
   
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
-  
+
+
   # VALIDATIONS
-  validates :account_id, :role, :username, :first_name, :last_name, :presence => true
-  validates :username, :uniqueness => true
-  
+  # ------------------------------------------------------------------------------------------------------
+  validates_presence_of :account_id, :role, :username, :first_name, :last_name
+  validates_uniqueness_of :username
+
+
   # SCOPES
+  # ------------------------------------------------------------------------------------------------------
   scope :account_owner, where(account_owner: true)
-  scope :managers, where(role: Role::MANAGER)
-  scope :standards, where(role: Role::STANDARD)
-  scope :removal_men, where(role: Role::REMOVAL_MAN)
+  scope :managers,      where(role: Role::MANAGER)
+  scope :standards,     where(role: Role::STANDARD)
+  scope :removal_men,   where(role: Role::REMOVAL_MAN)
   default_scope :order => "first_name, last_name"
-  scope :active, where(active: true)
-  scope :inactive, where(active: false)
-  
+  scope :active,        where(active: true)
+  scope :inactive,      where(active: false)
+
+
   # INSTANCE METHODS
-  
+  # ------------------------------------------------------------------------------------------------------  
   [Role::MANAGER, Role::STANDARD, Role::REMOVAL_MAN].each do |method|
    define_method "#{method}?" do
       self.role == method
@@ -59,7 +72,6 @@ class User < ActiveRecord::Base
       where(conditions).where(["confirmation_token = ?", confirmation_token]).first
     else
       login = conditions.delete(:login).downcase
-      #where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login ? login.downcase : "" }]).first
       where(conditions).where(["(lower(username) = :value OR lower(email) = :value) AND active = :active", { value: login ? login.downcase : "", active: true }]).first
     end
   end
@@ -72,4 +84,5 @@ class User < ActiveRecord::Base
 
     update_attributes(params) 
   end
+
 end

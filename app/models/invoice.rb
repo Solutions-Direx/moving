@@ -1,6 +1,9 @@
 class Invoice < ActiveRecord::Base
   include Taxable
   include Signable
+
+  # SEARCH
+  # ------------------------------------------------------------------------------------------------------
   include PgSearch
   multisearchable :against => [:code]
   pg_search_scope :search_by_keyword, 
@@ -15,27 +18,33 @@ class Invoice < ActiveRecord::Base
                     } 
                   },
                   :ignoring => :accents
-                  
+  
+
+  # ASSOCIATIONS
+  # ------------------------------------------------------------------------------------------------------             
   belongs_to :quote
   belongs_to :client
   belongs_to :tax
-  belongs_to :creator, :class_name => "User", :foreign_key => "creator_id"
+  belongs_to :creator, class_name: "User", foreign_key: "creator_id"
   
-  has_many :invoice_forfaits, :dependent => :destroy
-  has_many :forfaits, :through => :invoice_forfaits
+  has_many :invoice_forfaits, dependent: :destroy
+  has_many :forfaits, through: :invoice_forfaits
 
-  has_many :payments, :as => :payable, :dependent => :destroy
-  accepts_nested_attributes_for :payments, :allow_destroy => true, :reject_if => lambda {|p| p['amount'].blank? && p['date'].blank? && p['payment_method'].blank?}
+  has_many :payments, as: :payable, dependent: :destroy
+  accepts_nested_attributes_for :payments, allow_destroy: true, reject_if: lambda {|p| p['amount'].blank? && p['date'].blank? && p['payment_method'].blank?}
   
-  has_one :account, :through => :quote
+  has_one :account, through: :quote
   
-  has_many :invoice_supplies, :dependent => :destroy
-  has_many :supplies, :through => :invoice_supplies
-  accepts_nested_attributes_for :invoice_supplies, :allow_destroy => true, :reject_if => lambda {|qs| qs[:quantity].blank? || qs[:supply_id].blank?}
+  has_many :invoice_supplies, dependent: :destroy
+  has_many :supplies, through: :invoice_supplies
+  accepts_nested_attributes_for :invoice_supplies, allow_destroy: true, reject_if: lambda {|qs| qs[:quantity].blank? || qs[:supply_id].blank?}
   
-  has_many :surcharges, :as => :surchargeable, :dependent => :destroy
-  accepts_nested_attributes_for :surcharges, :allow_destroy => true, :reject_if => :all_blank
+  has_many :surcharges, as: :surchargeable, dependent: :destroy
+  accepts_nested_attributes_for :surcharges, allow_destroy: true, reject_if: :all_blank
   
+
+  # ATTRIBUTES
+  # ------------------------------------------------------------------------------------------------------
   attr_accessor :amount_received
   attr_accessible :comment, :signature, :signer_name, :time_spent, :quote_id, :gas, :rate,
                   :invoice_supplies_attributes, :forfait_ids, :client_satisfaction, :tip,
@@ -43,12 +52,21 @@ class Invoice < ActiveRecord::Base
                   :too_big_for_stairway, :too_big_for_hallway, :too_big, :broken, :too_fragile, :furnitures,
                   :tax1, :tax1_label, :tax2, :tax2_label, :compound, :purchase_order, :creator_id
   
+
+  # CALLBACKS
+  # ------------------------------------------------------------------------------------------------------
   before_create :generate_code
   after_create :mark_quote_invoiced
   
+
+  # VALIDATIONS
+  # ------------------------------------------------------------------------------------------------------
   validates_presence_of :payment_method, :unless => Proc.new { |invoice| invoice.quote.client.commercial? }
   validates_numericality_of :discount, greater_than: 0, allow_blank: true
   
+
+  # INSTANCE METHODS
+  # ------------------------------------------------------------------------------------------------------
   def build_lines
     lines = []
 
@@ -268,29 +286,30 @@ class Invoice < ActiveRecord::Base
 
   end
   
-private
+  private
 
-  def generate_code
-    last_invoice = Invoice.last
-    account = quote.company.account
-    # force new invoice code
-    if account.rebase_invoice_number
-      last_code = account.invoice_start_number
-      account.rebase_invoice_number = false
-      account.save!(validation: false)
-    else
-      last_code = last_invoice ? last_invoice.code : account.invoice_start_number
+    def generate_code
+      last_invoice = Invoice.last
+      account = quote.company.account
+      # force new invoice code
+      if account.rebase_invoice_number
+        last_code = account.invoice_start_number
+        account.rebase_invoice_number = false
+        account.save!(validation: false)
+      else
+        last_code = last_invoice ? last_invoice.code : account.invoice_start_number
+      end
+      
+      self.code = last_code + 1
     end
     
-    self.code = last_code + 1
-  end
-  
-  def number_or_zero(field)
-    try(field) || 0
-  end
+    def number_or_zero(field)
+      try(field) || 0
+    end
 
-  def mark_quote_invoiced
-    quote.invoiced = true
-    quote.save
-  end
+    def mark_quote_invoiced
+      quote.invoiced = true
+      quote.save
+    end
+
 end

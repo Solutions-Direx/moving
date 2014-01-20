@@ -1,16 +1,25 @@
 # encoding: utf-8
 class Address < ActiveRecord::Base
-  # ASSOCIATIONS
-  belongs_to :addressable, :polymorphic => true
   
+  # ASSOCIATIONS
+  # ------------------------------------------------------------------------------------------------------
+  belongs_to :addressable, polymorphic: true
+  
+
   # ATTRIBUTES
+  # ------------------------------------------------------------------------------------------------------
   attr_accessor :bypass_validation
   attr_accessible :address, :addressable_id, :addressable_type, :city, :country, :postal_code, :province, :bypass_validation
   
+
   # VALIDATIONS
+  # ------------------------------------------------------------------------------------------------------
   validates :address, :city, :province, :presence => true, :if => lambda {|a| a.bypass_validation.blank?}
   validates_presence_of :address, :if => lambda {|a| a.bypass_validation.blank?}
   
+
+  # CONSTANTS
+  # ------------------------------------------------------------------------------------------------------
   PROVINCE = ['Québec', 'Ontario', 'Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland and Labrador', 'Northwest Territories', 'Nova Scotia',
              'Nunavut', 'Prince Edward Island', 'Saskatchewan', 'Yukon', 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 
              'California', 'Colorado','Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 
@@ -22,6 +31,9 @@ class Address < ActiveRecord::Base
   
   COUNTRY = ['Canada', 'USA']
   
+
+  # INSTANCE METHODS
+  # ------------------------------------------------------------------------------------------------------
   def all_blank?
     attributes.except("addressable_type").values.compact.reject{|s| s.blank?}.empty?
   end

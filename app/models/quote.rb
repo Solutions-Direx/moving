@@ -1,5 +1,8 @@
 # encoding: utf-8
 class Quote < ActiveRecord::Base
+
+  # SEARCH
+  # ------------------------------------------------------------------------------------------------------
   include Signable
   include PgSearch
   multisearchable :against => [:code]
@@ -16,99 +19,115 @@ class Quote < ActiveRecord::Base
                   },
                   :ignoring => :accents
   
+
+  # CONSTANTS
+  # ------------------------------------------------------------------------------------------------------
   STATUSES = %w{pending confirmed rejected}
   
+
   # ASSOCIATIONS
+  # ------------------------------------------------------------------------------------------------------
   belongs_to :account
   belongs_to :company
   belongs_to :client
-  belongs_to :creator, :class_name => "User", :foreign_key => "creator_id"
-  belongs_to :sale_representative, :class_name => "User", :foreign_key => "sale_representative_id"
-  belongs_to :rejector, :class_name => "User", :foreign_key => "rejected_by"
+  belongs_to :creator, class_name: "User", foreign_key: "creator_id"
+  belongs_to :sale_representative, class_name: "User", foreign_key: "sale_representative_id"
+  belongs_to :rejector, class_name: "User", foreign_key: "rejected_by"
   
-  has_many :rooms, :dependent => :destroy
-  accepts_nested_attributes_for :rooms, :reject_if => lambda {|room| room[:size].blank?}, :allow_destroy => true
+  has_many :rooms, dependent: :destroy
+  accepts_nested_attributes_for :rooms, reject_if: lambda {|room| room[:size].blank?}, allow_destroy: true
   
-  has_one :furniture, :dependent => :destroy
+  has_one :furniture, dependent: :destroy
   accepts_nested_attributes_for :furniture
   
-  has_many :quote_trucks, :class_name => "QuoteTruck", :dependent => :destroy
-  has_many :trucks, :through => :quote_trucks
+  has_many :quote_trucks, class_name: "QuoteTruck", dependent: :destroy
+  has_many :trucks, through: :quote_trucks
 
-  has_many :quote_daily_trucks, :class_name => "QuoteDailyTruck", :dependent => :destroy
-  has_many :daily_trucks, :through => :quote_daily_trucks, :source => :truck
+  has_many :quote_daily_trucks, class_name: "QuoteDailyTruck", dependent: :destroy
+  has_many :daily_trucks, through: :quote_daily_trucks, :source => :truck
   
-  has_many :quote_documents, :dependent => :destroy
-  has_many :documents, :through => :quote_documents
+  has_many :quote_documents, dependent: :destroy
+  has_many :documents, through: :quote_documents
   
-  has_many :quote_forfaits, :dependent => :destroy
-  has_many :forfaits, :through => :quote_forfaits
+  has_many :quote_forfaits, dependent: :destroy
+  has_many :forfaits, through: :quote_forfaits
 
-  has_one :billing_address, :class_name => "QuoteBillingAddress", :foreign_key => "quote_id", :dependent => :destroy
+  has_one :billing_address, class_name: "QuoteBillingAddress", foreign_key: "quote_id", dependent: :destroy
   accepts_nested_attributes_for :billing_address
   
-  has_one :from_address, :class_name => "QuoteFromAddress", :foreign_key => "quote_id", :dependent => :destroy
+  has_one :from_address, class_name: "QuoteFromAddress", foreign_key: "quote_id", dependent: :destroy
   accepts_nested_attributes_for :from_address
   
-  has_many :to_addresses, :class_name => "QuoteToAddress", :foreign_key => "quote_id", :dependent => :destroy
-  accepts_nested_attributes_for :to_addresses, :allow_destroy => true
+  has_many :to_addresses, class_name: "QuoteToAddress", foreign_key: "quote_id", dependent: :destroy
+  accepts_nested_attributes_for :to_addresses, allow_destroy: true
   
-  has_many :quote_supplies, :dependent => :destroy
-  has_many :supplies, :through => :quote_supplies
-  accepts_nested_attributes_for :quote_supplies, :allow_destroy => true, :reject_if => lambda {|qs| qs[:quantity].blank? && qs[:supply_id].blank?}
+  has_many :quote_supplies, dependent: :destroy
+  has_many :supplies, through: :quote_supplies
+  accepts_nested_attributes_for :quote_supplies, allow_destroy: true, reject_if: lambda {|qs| qs[:quantity].blank? && qs[:supply_id].blank?}
   
-  belongs_to :removal_leader, :class_name => "User", :foreign_key => "removal_leader_id"
+  belongs_to :removal_leader, class_name: "User", foreign_key: "removal_leader_id"
   
-  has_many :quote_removal_men, :dependent => :destroy
-  has_many :removal_men, :through => :quote_removal_men
+  has_many :quote_removal_men, dependent: :destroy
+  has_many :removal_men, through: :quote_removal_men
   
-  has_one :quote_confirmation, :dependent => :destroy
+  has_one :quote_confirmation, dependent: :destroy
   
-  has_one :invoice, :dependent => :destroy
+  has_one :invoice, dependent: :destroy
   accepts_nested_attributes_for :invoice
   
-  has_one :report, :dependent => :destroy
+  has_one :report, dependent: :destroy
   accepts_nested_attributes_for :report
   
-  has_one :deposit, :class_name => "Payment", :as => :payable, :dependent => :destroy
+  has_one :deposit, class_name: "Payment", as: :payable, dependent: :destroy
   accepts_nested_attributes_for :deposit
 
-  has_many :surcharges, :as => :surchargeable, :dependent => :destroy
-  accepts_nested_attributes_for :surcharges, :allow_destroy => true, :reject_if => :all_blank
+  has_many :surcharges, as: :surchargeable, dependent: :destroy
+  accepts_nested_attributes_for :surcharges, allow_destroy: true, reject_if: :all_blank
 
-  has_many :activities, :dependent => :destroy
-  
+  has_many :activities, dependent: :destroy
+
+
   # ATTRIBUTES
+  # ------------------------------------------------------------------------------------------------------
   attr_accessible :client_id, :creator_id, :date, :gas, :insurance, :is_house, :rejected_by, :rejected_at,
                   :materiel, :num_of_removal_man, :price, :rating, :removal_at, :company_id, :internal_note,
                   :transport_time, :rooms_attributes, :comment, :truck_ids, :daily_truck_ids, :from_address_attributes, :phone1, :phone2, 
                   :furniture_attributes, :to_addresses_attributes, :removal_at_picker, :removal_at_comment, :surcharges_attributes,
                   :document_ids, :forfait_ids, :quote_supplies_attributes, :pm, :long_distance, :lock_version, :sale_representative_id,
                   :removal_leader_id, :removal_man_ids, :internal_address, :invoice_attributes, :signer_name, :signature, :contact
-  
+
+
   # VALIDATIONS
+  # ------------------------------------------------------------------------------------------------------  
   validates_presence_of :removal_at_picker, :removal_at, :company_id, :creator, :client_id, :phone1, :price, :creator_id, :sale_representative_id
   validate :validate_addresses
   validates_uniqueness_of :code
-  
+
+
   # CALLBACKS
+  # ------------------------------------------------------------------------------------------------------ 
   before_create :generate_code, :copy_billing_address
   before_save   :ignore_blank_addresses, :ignore_blank_rooms
   after_destroy :track_activity
-  
-  # SCOPES
-  scope :pending, where(status: 'pending')
-  scope :confirmed, where(status: 'confirmed')
-  scope :invoiced, where(invoiced: true)
-  scope :not_invoiced, where(invoiced: false)
-  scope :rejected, where(status: 'rejected')
-  scope :applicable, where(status: ['pending', 'confirmed'])
-  scope :today, lambda { where("removal_at BETWEEN '#{Date.today.beginning_of_day.utc}' AND '#{Date.today.end_of_day.utc}'") }
-  scope :by_day, lambda { |day| where("removal_at BETWEEN '#{day.beginning_of_day.utc}' AND '#{day.end_of_day.utc}'") }
-  scope :within_period, lambda {|from, to| where(removal_at: (from..to))}
-  scope :from_date, lambda {|from| where("removal_at >= ?", from)}
-  scope :to_date, lambda {|to| where("removal_at <= ?", to)}
 
+
+  # SCOPES
+  # ------------------------------------------------------------------------------------------------------ 
+  scope :pending,       where(status: 'pending')
+  scope :confirmed,     where(status: 'confirmed')
+  scope :invoiced,      where(invoiced: true)
+  scope :not_invoiced,  where(invoiced: false)
+  scope :rejected,      where(status: 'rejected')
+  scope :applicable,    where(status: ['pending', 'confirmed'])
+  scope :today,         lambda { where("removal_at BETWEEN '#{Date.today.beginning_of_day.utc}' AND '#{Date.today.end_of_day.utc}'") }
+  scope :by_day,        lambda { |day| where("removal_at BETWEEN '#{day.beginning_of_day.utc}' AND '#{day.end_of_day.utc}'") }
+  scope :within_period, lambda {|from, to| where(removal_at: (from..to))}
+  scope :from_date,     lambda {|from| where("removal_at >= ?", from)}
+  scope :to_date,       lambda {|to| where("removal_at <= ?", to)}
+
+
+  # INSTANCE METHODS
+  # ------------------------------------------------------------------------------------------------------
   # define pending?, confirmed? and rejected?
   STATUSES.each do |method|
    define_method "#{method.downcase}?" do
@@ -221,61 +240,61 @@ class Quote < ActiveRecord::Base
 
   end
   
-private
+  private
 
-  def generate_code
-    last_quote_id = Quote.last.present? ? Quote.last.id : 0
-    self.code = "%06d" % (last_quote_id + 1)
-  end
+    def generate_code
+      last_quote_id = Quote.last.present? ? Quote.last.id : 0
+      self.code = "%06d" % (last_quote_id + 1)
+    end
 
-  def copy_billing_address
-    client_address = client.address
-    ba = self.build_billing_address
-    ba.build_address({
-      address: client_address.address,
-      city: client_address.city,
-      province: client_address.province,
-      postal_code: client_address.postal_code,
-      country: client_address.country
-    })
-  end
-  
-  def ignore_blank_addresses
-    if internal_address?
-      to_addresses.each do |to_address|
-        to_address.mark_for_destruction
-      end
-    else
-      tmp = to_addresses.clone
-      tmp.each do |to_address|
-        to_addresses.delete(to_address) if !to_address.has_storage? && to_address.address.all_blank?
-      end
-      to_addresses.each do |to_address|
-        to_address.address = nil if to_address.has_storage?
+    def copy_billing_address
+      client_address = client.address
+      ba = self.build_billing_address
+      ba.build_address({
+        address: client_address.address,
+        city: client_address.city,
+        province: client_address.province,
+        postal_code: client_address.postal_code,
+        country: client_address.country
+      })
+    end
+    
+    def ignore_blank_addresses
+      if internal_address?
+        to_addresses.each do |to_address|
+          to_address.mark_for_destruction
+        end
+      else
+        tmp = to_addresses.clone
+        tmp.each do |to_address|
+          to_addresses.delete(to_address) if !to_address.has_storage? && to_address.address.all_blank?
+        end
+        to_addresses.each do |to_address|
+          to_address.address = nil if to_address.has_storage?
+        end
       end
     end
-  end
-  
-  def ignore_blank_rooms
-    copy = rooms.clone
-    copy.each do |room|
-      rooms.delete(room) if room.size.blank?
+    
+    def ignore_blank_rooms
+      copy = rooms.clone
+      copy.each do |room|
+        rooms.delete(room) if room.size.blank?
+      end
     end
-  end
-  
-  def validate_addresses
-    if from_address && from_address.address.all_blank?
-      errors.add(:base, "#{I18n.t 'from_address_cannot_be_blank', default: 'From address cannot be blank'}")
+    
+    def validate_addresses
+      if from_address && from_address.address.all_blank?
+        errors.add(:base, "#{I18n.t 'from_address_cannot_be_blank', default: 'From address cannot be blank'}")
+      end
     end
-  end
 
-  def track_activity
-    act = Activity.new
-    act.actor_id = User.current_user.present? ? User.current_user.id : nil
-    act.trackable = self
-    act.action = 'destroyed'
-    act.quote_id = nil
-    act.save
-  end
+    def track_activity
+      act = Activity.new
+      act.actor_id = User.current_user.present? ? User.current_user.id : nil
+      act.trackable = self
+      act.action = 'destroyed'
+      act.quote_id = nil
+      act.save
+    end
   
 end

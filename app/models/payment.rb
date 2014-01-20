@@ -1,19 +1,37 @@
 class Payment < ActiveRecord::Base
-  belongs_to :payable, :polymorphic => true
-  belongs_to :creator, :class_name => "User", :foreign_key => "creator_id"
-  has_one :client, :through => :invoice
+
+  # ASSOCIATIONS
+  # ------------------------------------------------------------------------------------------------------
+  belongs_to :payable, polymorphic: true
+  belongs_to :creator, class_name: "User", foreign_key: "creator_id"
+  has_one :client, through: :invoice
   
+
+  # ATTRIBUTES
+  # ------------------------------------------------------------------------------------------------------
   attr_accessible :amount, :credit_card_type, :date, :payment_method, :transaction_number, :tip
 
-  validates :amount, :date, :payment_method, :presence => true
-  validates :amount, :numericality => { :greater_than => 0 }
+
+  # VALIDATIONS
+  # ------------------------------------------------------------------------------------------------------
+  validates_presence_of :amount, :date, :payment_method
+  validates_numericality_of :amount, greater_than: 0
   validates_presence_of :credit_card_type, :if => Proc.new{|p| p.payment_method == 'credit'}
 
+
+  # CALLBACKS
+  # ------------------------------------------------------------------------------------------------------
   before_save :cleanup
-  
+
+
+  # SCOPES
+  # ------------------------------------------------------------------------------------------------------
   scope :today, lambda { where(date: Date.today) }
   scope :by_day, lambda { |day| where("date BETWEEN '#{day.beginning_of_day}' AND '#{day.end_of_day}'") }
 
+
+  # INSTANCE METHODS
+  # ------------------------------------------------------------------------------------------------------
   def cleanup
     # clear transaction number if not credit/debit
     unless ["credit", "debit"].include?(payment_method)

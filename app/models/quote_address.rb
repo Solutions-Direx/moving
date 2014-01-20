@@ -1,9 +1,18 @@
 class QuoteAddress < ActiveRecord::Base
+
+  # ASSOCIATIONS
+  # ------------------------------------------------------------------------------------------------------
   belongs_to :quote
   belongs_to :storage
-    
+
+
+  # ATTRIBUTES
+  # ------------------------------------------------------------------------------------------------------
   attr_accessible :quote_id, :type, :address_attributes, :storage_id, :insurance, :price
-  
+
+
+  # INSTANCE METHODS
+  # ------------------------------------------------------------------------------------------------------
   def has_storage?
     !storage_id.blank?
   end

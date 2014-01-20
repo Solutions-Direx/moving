@@ -1,9 +1,18 @@
 class QuoteBillingAddress < QuoteAddress
-  has_one :address, :as => :addressable, :dependent => :destroy
+
+  # ASSOCIATIONS
+  # ------------------------------------------------------------------------------------------------------
+  has_one :address, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :address
 
+
+  # CALLBACKS
+  # ------------------------------------------------------------------------------------------------------
   after_save :update_invoice_tax
 
+
+  # INSTANCE METHODS
+  # ------------------------------------------------------------------------------------------------------
   def update_invoice_tax
     invoice = quote.invoice
 
@@ -12,4 +21,5 @@ class QuoteBillingAddress < QuoteAddress
       invoice.save!
     end
   end
+
 end
