@@ -1,11 +1,12 @@
 GIT
   remote: git://github.com/prawnpdf/prawn.git
-  revision: 042529265ebd71dc1bd05c87167b35adcc18af1b
+  revision: 9c0c8999b6cd2040532d012086671a831859f399
   specs:
     prawn (0.15.0)
+      pdf-core (~> 0.1.1)
       pdf-reader (~> 1.2)
       ruby-rc4
-      ttfunk (~> 1.0.3)
+      ttfunk (~> 1.1.0)
 
 GIT
   remote: git://github.com/renderedtext/rails-settings.git
@@ -148,6 +149,10 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    pdf-core (0.1.1)
+      pdf-reader (~> 1.2)
+      ruby-rc4
+      ttfunk (~> 1.1.0)
     pdf-reader (1.3.3)
       Ascii85 (~> 1.0.0)
       afm (~> 0.2.0)
@@ -166,7 +171,7 @@ GEM
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-mini-profiler (0.1.31)
+    rack-mini-profiler (0.9.0)
       rack (>= 1.1.3)
     rack-ssl (1.3.3)
       rack
@@ -221,7 +226,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    ttfunk (1.0.3)
+    ttfunk (1.1.0)
     tzinfo (0.3.38)
     uglifier (2.4.0)
       execjs (>= 0.3.0)
