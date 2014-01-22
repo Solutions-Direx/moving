@@ -59,7 +59,8 @@ class InvoicesController < ApplicationController
   end
   
   def update
-    if @invoice.update_attributes(params[:invoice])
+    if @invoice.update_attributes(params[:invoice]) && @invoice.client.address.update_attributes(params[:address])
+      @invoice.quote.update_billing_address
       redirect_to quote_invoice_url(@quote), notice: "#{Invoice.model_name.human} #{t 'updated'}"
     else
       render action: :edit

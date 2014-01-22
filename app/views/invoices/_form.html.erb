@@ -2,7 +2,14 @@
 <%= simple_nested_form_for(@invoice, :url => url, :remote => mobile, :html => {:id => "edit-invoice"}) do |f| %>
   <%= f.error_notification %>
   <%= locking_field_tag(f) %>
-  
+
+  <%= simple_fields_for :address, @invoice.client.address do |address| %>
+    <%= address.input :address %>
+    <%= address.input :city %>
+    <%= address.input :postal_code %>
+    <%= address.input :province, collection: Address::PROVINCE %>
+  <% end %>
+
   <div class="form-inputs"> 
     <div class="control-group float optional">
       <%= f.label :time_spent %>

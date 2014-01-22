@@ -239,7 +239,18 @@ class Quote < ActiveRecord::Base
     end
 
   end
-  
+
+  def update_billing_address
+    client_address = client.address
+    billing_address.address.update_attributes(
+        address: client_address.address,
+        city: client_address.city,
+        province: client_address.province,
+        postal_code: client_address.postal_code,
+        country: client_address.country
+    )
+  end
+
   private
 
     def generate_code
