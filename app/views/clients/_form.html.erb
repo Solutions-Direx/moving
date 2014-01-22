@@ -7,8 +7,9 @@
     <%= f.input :phone2 %>
     <%= f.input :email %>
     <%= f.input :commercial, as: :radio_buttons %>
-    <%= f.input :billing_contact, wrapper_html: {id: 'billing_contact', style: "display: #{@client.commercial? ? 'block' : 'none'};"} %>
-    
+    <%= f.input :billing_contact, wrapper_html: {class: 'commercial', style: "display: #{@client.commercial? ? 'block' : 'none'};"} %>
+    <%= f.input :department, wrapper_html: {class: 'commercial', style: "display: #{@client.commercial? ? 'block' : 'none'};"} %>
+
     <% @client.build_address unless @client.address %>
       <%= f.fields_for :address do |fa| %>
         <%= fa.input :address, required: true %>
@@ -25,9 +26,9 @@
 
 <script type="text/javascript" charset="utf-8">
   $("#client_commercial_true").click(function () {
-    $("#billing_contact").show();
+    $(".commercial").show();
   });
   $("#client_commercial_false").click(function () {
-    $("#billing_contact").hide();
+    $(".commercial").hide();
   });
 </script>

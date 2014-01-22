@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130314151538) do
+ActiveRecord::Schema.define(:version => 20140122094703) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20130314151538) do
     t.datetime "updated_at",                         :null => false
     t.string   "billing_contact"
     t.string   "code"
+    t.string   "department"
   end
 
   add_index "clients", ["phone1"], :name => "index_clients_on_phone1"

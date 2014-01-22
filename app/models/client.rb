@@ -25,7 +25,7 @@ class Client < ActiveRecord::Base
 
   # ATTRIBUTES
   # ------------------------------------------------------------------------------------------------------
-  attr_accessible :email, :name, :phone1, :phone2, :account_id, :address_attributes, :commercial, :billing_contact, :code
+  attr_accessible :email, :name, :phone1, :phone2, :account_id, :address_attributes, :commercial, :billing_contact, :code, :department
   
 
   # VALIDATIONS
@@ -54,7 +54,11 @@ class Client < ActiveRecord::Base
   def can_be_deleted?
     !quotes.any? and !invoices.any?
   end
-  
+
+  def name_with_department
+    name + ' ' + department.to_s
+  end
+
   private
     
     def update_code
