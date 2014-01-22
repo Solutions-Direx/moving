@@ -31,8 +31,8 @@ class Client < ActiveRecord::Base
   # VALIDATIONS
   # ------------------------------------------------------------------------------------------------------
   validates_presence_of :name, :phone1
-  validates_uniqueness_of :phone1, :code
-  
+  validates_uniqueness_of :code
+  validates_uniqueness_of :name, scope: [:phone1, :department]
 
   # SCOPES
   # ------------------------------------------------------------------------------------------------------
