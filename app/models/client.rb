@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Client < ActiveRecord::Base
 
   # SEARCH
@@ -32,12 +33,13 @@ class Client < ActiveRecord::Base
   # ------------------------------------------------------------------------------------------------------
   validates_presence_of :name, :phone1
   validates_uniqueness_of :code
-  validates_uniqueness_of :name, scope: [:phone1, :department]
+  validates_uniqueness_of :name, scope: [:phone1, :department], message: "Combinaison du nom/téléphone/département doit être unique"
+
 
   # SCOPES
   # ------------------------------------------------------------------------------------------------------
-  scope :commercial, where(commercial: true)
-  scope :residential, where(commercial: false)
+  scope :commercial, -> { where(commercial: true) }
+  scope :residential, -> { where(commercial: false) }
   
 
   # CALLBACKS

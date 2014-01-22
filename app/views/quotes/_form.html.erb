@@ -15,10 +15,10 @@
         <li class=""><a href="#lD" data-toggle="tab">Documents</a></li>
       </ul>
       <div class="tab-content span12">
-        <%= render 'client_tab', :f => f %>
-        <%= render 'details_tab', :f => f %>
-        <%= render 'price_tab', :f => f %>
-        <%= render 'document_tab', :f => f %>
+        <%= render 'client_tab', f: f %>
+        <%= render 'details_tab', f: f %>
+        <%= render 'price_tab', f: f %>
+        <%= render 'document_tab', f: f %>
       </div>
     </div>
   </div>
@@ -32,7 +32,7 @@
   $(function() {
     var client = null;
     <% if @client.present? %>
-      client = $.parseJSON('<%= @client.to_json(:include => :address, :except => [:updated_at, :created_at]).html_safe %>');
+      client = $.parseJSON('<%= @client.to_json(include: :address, except: [:updated_at, :created_at]).html_safe %>');
     <% end %>
     Quote.Form.init(client);
   });
