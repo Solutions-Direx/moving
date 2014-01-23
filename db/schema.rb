@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140122094703) do
+ActiveRecord::Schema.define(:version => 20140122135859) do
 
   create_table "accounts", :force => true do |t|
     t.float    "franchise_cancellation_amount"
@@ -281,6 +281,9 @@ ActiveRecord::Schema.define(:version => 20140122094703) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "quote_trucks", ["quote_id"], :name => "quote_trucks_quote_id_index"
+  add_index "quote_trucks", ["truck_id"], :name => "quote_trucks_truck_id_index"
+
   create_table "quotes", :force => true do |t|
     t.string   "code"
     t.integer  "account_id"
@@ -320,6 +323,8 @@ ActiveRecord::Schema.define(:version => 20140122094703) do
     t.boolean  "invoiced",               :default => false
     t.text     "internal_note"
   end
+
+  add_index "quotes", ["status", "removal_at"], :name => "quotes_removal_at_index"
 
   create_table "report_removal_men", :force => true do |t|
     t.integer  "report_id"
@@ -407,6 +412,8 @@ ActiveRecord::Schema.define(:version => 20140122094703) do
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
   end
+
+  add_index "trucks", ["name"], :name => "trucks_name_index"
 
   create_table "users", :force => true do |t|
     t.string   "username"

@@ -12,9 +12,8 @@ class Truck < ActiveRecord::Base
 
   # SCOPES
   # ------------------------------------------------------------------------------------------------------
-  default_scope :order => "name"
   scope :available, where(available: true)
-
+  scope :sorted, :order => "name"
 
   # INSTANCE METHODS
   # ------------------------------------------------------------------------------------------------------

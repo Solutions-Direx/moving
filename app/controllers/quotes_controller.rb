@@ -6,7 +6,7 @@ class QuotesController < ApplicationController
   load_and_authorize_resource
   helper_method :sort_column
   set_tab :quotes
-  
+
   def index
     if params[:search].present?
       query = params[:search].gsub(".", " ")
@@ -52,8 +52,8 @@ class QuotesController < ApplicationController
       format.pdf do
         pdf = QuotesPdf.new(@quotes)
         send_data pdf.render, filename: "#{t 'quotes_list', default: 'Quotes list'}.pdf",
-                              type: "application/pdf",
-                              disposition: "inline"
+                  type: "application/pdf",
+                  disposition: "inline"
       end
     end
   end
@@ -85,7 +85,7 @@ class QuotesController < ApplicationController
 
   def edit
     if @quote.invoice.present? && @quote.invoice.signed?
-      
+
       respond_to do |format|
         format.html { redirect_to @quote, alert: "#{Quote.model_name.human} #{t 'can_no_longer_be_edited'}" }
       end
@@ -132,19 +132,19 @@ class QuotesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   def monthly
     set_tab :calendar
     @date = params[:month] ? Date.strptime(params[:month], "%Y-%m") : Date.today
     @quotes = Quote.applicable.where(removal_at: (@date - 1.month).beginning_of_month..(@date + 1.month).end_of_month).order('removal_at')
   end
-  
+
   def daily
     set_tab :calendar
     @day = params[:day] ? Date.strptime(params[:day], "%Y-%m-%d") : Date.today
     @quotes = Quote.applicable.includes(:from_address => [:address], :to_addresses => [:address]).confirmed.where(removal_at: @day.beginning_of_day..@day.end_of_day).order('removal_at')
   end
-  
+
   def daily_update
     @quote.assign_attributes(params[:quote])
 
@@ -160,12 +160,12 @@ class QuotesController < ApplicationController
       end
     end
   end
-  
+
   def reject
     @quote.status = "rejected"
     @quote.rejected_by = current_user.id
     @quote.rejected_at = Time.zone.now
-    
+
     respond_to do |format|
       if @quote.save
         format.html { redirect_to @quote, notice: "#{Quote.model_name.human} #{t 'rejected'}" }
@@ -176,12 +176,12 @@ class QuotesController < ApplicationController
       end
     end
   end
-  
+
   def cancel_reject
     @quote.status = "pending"
     @quote.rejected_by = nil
     @quote.rejected_at = nil
-    
+
     respond_to do |format|
       if @quote.save
         format.html { redirect_to @quote, notice: "#{Quote.model_name.human} #{t 'revert_to_pending'}" }
@@ -192,7 +192,7 @@ class QuotesController < ApplicationController
       end
     end
   end
-  
+
   def email
     Mailer.quote_email(@quote).deliver
     respond_to do |format|
@@ -200,54 +200,65 @@ class QuotesController < ApplicationController
       format.json { render json: @quote }
     end
   end
-  
+
   def print
     to_ids = params[:to] || []
-    @to_addresses = @quote.to_addresses.select {|a| to_ids.include?(a.id.to_s) }
+    @to_addresses = @quote.to_addresses.select { |a| to_ids.include?(a.id.to_s) }
     respond_to do |format|
       format.html
       format.pdf do
         pdf = QuotePdf.new(@quote, @to_addresses, false)
         send_data pdf.render, filename: "quote_#{@quote.code}.pdf",
-                              type: "application/pdf",
-                              disposition: "inline"
+                  type: "application/pdf",
+                  disposition: "inline"
       end
     end
   end
-  
+
   def fullprint
     to_ids = params[:to] || []
-    @to_addresses = @quote.to_addresses.select {|a| to_ids.include?(a.id.to_s) }
+    @to_addresses = @quote.to_addresses.select { |a| to_ids.include?(a.id.to_s) }
     respond_to do |format|
       format.pdf do
         pdf = QuotePdf.new(@quote, @to_addresses, true)
         send_data pdf.render, filename: "quote_#{@quote.code}.pdf",
-                              type: "application/pdf",
-                              disposition: "inline"
+                  type: "application/pdf",
+                  disposition: "inline"
       end
     end
   end
 
   def export_payments
     respond_to do |format|
-      format.csv { 
+      format.csv {
         content = Quote.export_payments(current_account, params[:quotes])
-        content = Iconv.conv('ISO-8859-1','UTF-8', content)
-        send_data content, 
-          :filename => "payments.csv", 
-          :type => 'text/csv; charset=utf-8; header=present',
-          :disposition => "attachment"
+        content = Iconv.conv('ISO-8859-1', 'UTF-8', content)
+        send_data content,
+                  :filename => "payments.csv",
+                  :type => 'text/csv; charset=utf-8; header=present',
+                  :disposition => "attachment"
       }
     end
   end
-  
-private
+
+  def get_info
+    quote = Quote.find(params[:quote_id])
+    if quote.present?
+      removal_man = view_context.pluralize(quote.num_of_removal_man, "#{t 'removal_man'}")
+      trucks = quote.trucks.map(&:name_with_plate).to_sentence
+      render json: [{removal_man: removal_man}, {trucks: trucks}]
+    else
+      render json: {}, status: 404
+    end
+  end
+
+  private
 
   def load_quote
-    @quote = Quote.includes(:from_address, :to_addresses, :quote_forfaits, :quote_supplies, :quote_documents, :quote_trucks, 
+    @quote = Quote.includes(:from_address, :to_addresses, :quote_forfaits, :quote_supplies, :quote_documents, :quote_trucks,
                             :quote_confirmation, :furniture, :rooms).find_by_code(params[:id])
   end
-  
+
   def sort_column
     params[:sort].present? ? params[:sort] : "quotes.created_at"
   end
@@ -255,7 +266,7 @@ private
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
-  
+
   def correct_stale_record_version
     @quote.reload
   end

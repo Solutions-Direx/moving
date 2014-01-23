@@ -15,7 +15,7 @@
       <%= link_to day, daily_quotes_path(:day => day), :style => "display: none;", :class => "daily" %>
       <ul>
       <% quotes.each do |quote| %>
-        <li><%= content_tag :span, quote.removal_at.strftime("%H:%M"), :class => "time" %> <%= status_tag "#{quote.long_distance? ? '** ' : ''}" + quote.client.name, :level => quote.confirmed? ? 'success' : '', :class => "client", "data-content" => "#{render('monthly_popover', quote: quote)}", "data-original-title" => "#{quote.removal_at.strftime('%H:%M')} #{'(PM)' if quote.pm.present?} #{quote.client.name}", :style => "position: relative;" %></li>
+        <li><%= content_tag :span, quote.removal_at.strftime("%H:%M"), :class => "time" %> <%= status_tag "#{quote.long_distance? ? '** ' : ''}" + quote.client.name, :level => quote.confirmed? ? 'success' : '', :class => "client", "data-qoute-id" => "#{quote.id}", "data-original-title" => "#{quote.removal_at.strftime('%H:%M')} #{'(PM)' if quote.pm.present?} #{quote.client.name}", :style => "position: relative;" %></li>
       <% end %>
       </ul>
     <% end %>
@@ -30,22 +30,7 @@
 </ul>
 
 <script type="text/javascript" charset="utf-8">
-  $(function() {
-    $(".client")
-      .popover({
-          // offset: 10,
-          trigger: 'manual',
-          animate: false,
-          html: true,
-          placement: 'top',
-          template: '<div class="popover" onmouseover="$(this).mouseleave(function() {$(this).hide(); });"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
-      }).click(function(e) {
-          e.preventDefault() ;
-      }).mouseenter(function(e) {
-          $(this).popover('show');
-      });
     $('#calendar td').click(function() {
       window.location = $(this).find('.daily').attr('href');
     });
-  });
 </script>

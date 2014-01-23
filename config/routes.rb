@@ -12,6 +12,7 @@ Moving::Application.routes.draw do
   resources :supplies
   resources :trucks
   resources :quotes do
+    get 'get_info', on: :collection
     resource :quote_confirmation, :except => [:index]
     # HAS ONE ROUTE
     resource :invoice, :only => [:new, :create, :show, :edit, :update] do

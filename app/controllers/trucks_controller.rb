@@ -1,7 +1,7 @@
 class TrucksController < ApplicationController
 
   def index
-    @trucks = current_account.trucks.order('name')
+    @trucks = current_account.trucks.sorted
 
     respond_to do |format|
       format.html # index.html.erb
