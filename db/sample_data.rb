@@ -13,19 +13,18 @@ account.update_attributes(
 
 company = account.companies.build(
   company_name: "Déménagement Minimum",
-  website: "http://demenagementmaximum.com/",
-  phone: '(819) 777-9999',
-  invoice_header: "6145515 Canada Inc.
-  266 St-Louis - Unité 9
-  City, PQ, J3C 5B6
+  website: "http://demenagementdr.ca/",
+  phone: '(819) 281-4000',
+  invoice_header: "Déménagement DR
+  1713 Atmec - Local 1
+  Gatineau, QC, J8R 0E7
   TPS: 875254302RT
   TVQ: 1205180652
 
-  Tél: 819 777-MOVE (6683)
-  Fax: 819 111-2222"
+  Tél: (819) 281-4000"
 )
 
-company.build_address(address: "78 Blvd de l'aéroport", city: "Gatineau", province: "Ontario", postal_code: "SFDKL", country: "Canada")
+company.build_address(address: "1713 Atmec - Local 1", city: "Gatineau", province: "Québec", postal_code: "J8R0E7", country: "Canada")
 company.save!
 
 puts "Generated 1 company."

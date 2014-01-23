@@ -8,16 +8,16 @@ account = Account.create!(
                           invoice_start_number: 100000
                          )
 company = account.companies.build(
-  company_name: "Déménagement Maximum",
-  website: "http://demenagementmaximum.com/",
-  phone: '(819) 777-6683',
+  company_name: "Déménagement DR",
+  website: "http://demenagementdr.ca/",
+  phone: '(819) 281-4000',
   invoice_header: "6145515 Canada Inc.
 
                    TPS: 875254302RT
                    TVQ: 1205180652"
 )
 
-company.build_address(address: "266 St-Louis - Unité 9", city: "Gatineau", province: "Québec", postal_code: "J8P 8B3", country: "Canada")
+company.build_address(address: "1713 Atmec - Local 1", city: "Gatineau", province: "Québec", postal_code: "J8R 0E7", country: "Canada")
 company.save!
 
 owner = account.users.build(username: "super", 
@@ -32,7 +32,7 @@ owner.account_owner = true
 owner.save!
 
 # default tax
-default_tax = account.taxes.build(tax1_label: 'TPS', tax1: 5, tax2_label: "TVQ", tax2: 9.5, compound: true)
+default_tax = account.taxes.build(tax1_label: 'TPS', tax1: 5, tax2_label: "TVQ", tax2: 9.975, compound: false)
 default_tax.is_default = true
 default_tax.save!
 
