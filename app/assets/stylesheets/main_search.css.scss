@@ -5,21 +5,25 @@
 	position:relative;
 	margin-bottom: 20px;
 
-    form {
-	    width: auto;
+  form {
+	  width: auto;
 		height: 72px;
 		margin: 0;
 		padding-top: 21px;
+		text-align: center;
 		@include border-radius(5px);
 		border: 1px solid #3B863B;
-		text-align: center;
-		background-color: #5BB75B;
-		@include background-image(linear-gradient(top, #62C462, #51A351));
+		//background-color: #5BB75B;
+		//@include background-image(linear-gradient(top, #62C462, #51A351));
 		background-repeat: repeat-x;
-		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#62C462', endColorstr='#51A351', GradientType=0);
-		border-color: #51A351 #51A351 #387038;
-		border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-		filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+		//filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#62C462', endColorstr='#51A351', GradientType=0);
+		//border-color: #51A351 #51A351 #387038;
+		//border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+		//filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+		background-image: -webkit-linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);
+    background-image: linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);
+    background-repeat: no-repeat;
+    border: 1px solid #178acc;
 	}
 }
 
@@ -74,7 +78,9 @@
 
 #main_search form .btn-search {
 	vertical-align: top;
-	text-shadow: -1px -1px 1px #F89406;
+	//text-shadow: -1px -1px 1px #F89406;
+	text-shadow: none;
+	font-weight: normal;
 	color: white;
 	background-color: #FAA732;
 	@include background-image(linear-gradient(top, #FBB450, #F89406));

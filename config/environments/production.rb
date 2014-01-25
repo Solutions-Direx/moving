@@ -65,7 +65,7 @@ Moving::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   
-  config.action_mailer.default_url_options = { :host => ENV['MAILER_URL'] }
+  config.action_mailer.default_url_options = { host: ENV['MAILER_URL'] }
   config.action_mailer.asset_host = ENV['MAILER_ASSET_URL']
   
   ActionMailer::Base.delivery_method = :smtp
@@ -81,7 +81,7 @@ Moving::Application.configure do
   
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[Exception]",
-    :sender_address => %{"[Dem. Max] Exception Notifier" <app@demenagementmaximum.com>},
+    :sender_address => %{"[Dem. DR] Exception Notifier" <app@demenagementdr.ca>},
     :exception_recipients => %w{alert@yafoy.com}
   
 end

@@ -1,12 +1,14 @@
-.short {width:60px;}
+.short {
+	width: 60px;
+}
 
 .control-group.datetime_picker {
 	select:first-child {
-      padding-left: 10px;
-    }
-    select {
-      width: 60px;
-    }
+    padding-left: 10px;
+  }
+  select {
+    width: 60px;
+  }
 }
 
 .comment_one_liner {

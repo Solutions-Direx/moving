@@ -160,7 +160,7 @@ class InvoicePdf < Prawn::Document
       end
     end
 
-    unless  titles_data.empty? || prices_data.empty?
+    unless titles_data.empty? || prices_data.empty?
       make_lines_group(titles_data, prices_data, :left, false)
     end
 
