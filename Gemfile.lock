@@ -227,6 +227,8 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     ttfunk (1.1.0)
+    turbolinks (2.1.0)
+      coffee-rails
     tzinfo (0.3.38)
     uglifier (2.4.0)
       execjs (>= 0.3.0)
@@ -273,6 +275,7 @@ DEPENDENCIES
   simple_form
   tabs_on_rails (~> 2.1.1)
   thin
+  turbolinks
   uglifier (>= 1.0.3)
   unicorn
   watu_table_builder!

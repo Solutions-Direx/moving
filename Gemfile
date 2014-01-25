@@ -22,6 +22,7 @@ gem 'unicorn'
 gem 'whenever', :require => false
 gem 'prawn', github: "prawnpdf/prawn"
 gem 'hirb'
+gem 'turbolinks'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

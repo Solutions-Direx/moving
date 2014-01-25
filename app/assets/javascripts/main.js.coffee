@@ -1,5 +1,5 @@
 # common js runner
-$ ->
+Util.onReady ->
   $(document).controls()
   
   $('.modal #close').click ->

@@ -54,7 +54,7 @@ class ClientsController < ApplicationController
       if @client.save
         format.html {
           if request.xhr?
-            render :partial => "flash_modal_msg", :locals => { :message => "Client #{t 'is_created'}", :close_dialog_id => "new-client", :client => @client }
+            render partial: "flash_modal_msg", locals: { message: "Client #{t 'is_created'}", close_dialog_id: "new-client", client: @client }
           else
             redirect_to @client, notice: "Client #{t 'is_created'}"
           end
@@ -74,7 +74,7 @@ class ClientsController < ApplicationController
       if @client.update_attributes(params[:client])
         format.html { 
           if request.xhr?
-            render :partial => "flash_modal_msg", :locals => { :message => "Client was successfully updated.", :close_dialog_id => "edit-client", :client => @client }
+            render partial: "flash_modal_msg", locals: { message: "Client was successfully updated.", close_dialog_id: "edit-client", client: @client }
           else
             redirect_to @client, notice: "Client #{t 'is_updated'}"
           end
@@ -108,10 +108,9 @@ class ClientsController < ApplicationController
     end
   end
 
-private
+  private
 
-  def sort_column
-    Client.column_names.include?(params[:sort]) ? params[:sort] : "name"
-  end
-
+    def sort_column
+      Client.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    end
 end
