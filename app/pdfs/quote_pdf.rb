@@ -330,7 +330,7 @@ class QuotePdf < Prawn::Document
         # row(2).style()
       end      
     else
-      to_table = make_table([[""]], width: 275, :cell_style => {:border_color => "FFFFFF", :borders => []})
+      to_table = make_table([[""]], width: 275, cell_style: { border_color: "FFFFFF", borders: [] })
     end
 
     table([[from_table, to_table]]) do
@@ -350,11 +350,11 @@ class QuotePdf < Prawn::Document
     data = []
     if @quote.company.logo.present?
       logo = Rails.root.join("public", "uploads", "company", @quote.company_id.to_s, "logo", "thumb", @quote.company.logo_file_name).to_s
-      data << [{:image => logo, :scale => 0.6}]
+      data << [{ image: logo, scale: 0.6 }]
     end
     data << [@quote.company.invoice_header]
 
-    make_table(data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
+    make_table(data, width: 270, cell_style: {border_color: "FFFFFF"}) do
       # cells.padding = [10, 10, 10, 10]
       rows(1).size = 8
     end
@@ -365,7 +365,7 @@ class QuotePdf < Prawn::Document
       [@quote.client.name_with_code],
       [Quote.model_name.human + " ##{@quote.code}"]
     ]
-    make_table(data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
+    make_table(data, width: 270, cell_style: {border_color: "FFFFFF"}) do
       cells.padding = [0, 0, 0, 0]
       cells.style(size: 18, font_style: :bold, align: :right)
     end
@@ -382,7 +382,7 @@ class QuotePdf < Prawn::Document
         url = URI.escape(QuoteAddress.static_map_link(@quote.from_address, to_address, options={size: '572x300'}))
         image open(url)
         move_down 10
-        text "<link href='#{QuoteAddress.static_map_link(@quote.from_address, to_address, options={size: '700x400'})}'>#{I18n.t('get_directions', default: 'Get Directions')}</link>", inline_format: true, :align => :center, color: "#333399" 
+        text "<link href='#{QuoteAddress.static_map_link(@quote.from_address, to_address, options={size: '700x400'})}'>#{I18n.t('get_directions', default: 'Get Directions')}</link>", inline_format: true, align: :center, color: "#333399" 
       end
     end
   end

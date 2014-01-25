@@ -50,7 +50,7 @@ class Client < ActiveRecord::Base
   # INSTANCE METHODS
   # ------------------------------------------------------------------------------------------------------
   def name_with_code
-    "#{name} (#{code})"
+    department.present? ? "#{name_with_department} (#{code})" : "#{name} (#{code})"
   end
 
   def can_be_deleted?
@@ -58,7 +58,7 @@ class Client < ActiveRecord::Base
   end
 
   def name_with_department
-    name + ' ' + department.to_s
+    department.present? ? "#{name} - #{department}" : name
   end
 
   private

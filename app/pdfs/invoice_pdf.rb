@@ -10,7 +10,7 @@ class InvoicePdf < Prawn::Document
 
     page_layout
 
-    number_pages "#{Invoice.model_name.human} ##{@invoice.code} | Page <page> / <total>", { :start_count_at => 1, :at => [bounds.right - 200, 5], :align => :right, :size => 10, color: 'AAAAAA' }
+    number_pages "#{Invoice.model_name.human} ##{@invoice.code} | Page <page> / <total>", { start_count_at: 1, at: [bounds.right - 200, 5], align: :right, size: 10, color: 'AAAAAA' }
   end
 
   def page_layout
@@ -61,7 +61,7 @@ class InvoicePdf < Prawn::Document
       ["<b>#{I18n.t 'approved_on'}:</b> #{I18n.l @invoice.quote.quote_confirmation.approved_at.to_date}"]
     ]
 
-    make_table(data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
+    make_table(data, width: 270, cell_style: {border_color: "FFFFFF"}) do
       cells.size = 10
       cells.inline_format = true
     end
@@ -74,7 +74,7 @@ class InvoicePdf < Prawn::Document
       ["<b>#{I18n.t 'sale_representative'}:</b> #{@invoice.quote.sale_representative.full_name}"]
     ]
 
-    make_table(data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
+    make_table(data, width: 270, cell_style: {border_color: "FFFFFF"}) do
       cells.size = 10
       cells.inline_format = true
       cells.align = :right
@@ -226,13 +226,13 @@ class InvoicePdf < Prawn::Document
   end
 
   def make_lines_group(titles_data, prices_data, align = :left, show_line = true)
-    titles_table = make_table(titles_data, width: 370, :cell_style => {:border_color => "FFFFFF"}) do
+    titles_table = make_table(titles_data, width: 370, cell_style: {border_color: "FFFFFF"}) do
       cells.size = 10
       cells.inline_format = true
       cells.align = align
     end
 
-    prices_table = make_table(prices_data, width: 170, :cell_style => {:border_color => "FFFFFF"}) do
+    prices_table = make_table(prices_data, width: 170, cell_style: {border_color: "FFFFFF"}) do
       cells.size = 10
       cells.inline_format = true
       cells.align = :right
@@ -323,7 +323,7 @@ class InvoicePdf < Prawn::Document
         row(2).style(borders: [:bottom, :left, :right])
       end      
     else
-      to_table = make_table([[""]], width: 275, :cell_style => {:border_color => "FFFFFF", :borders => []})
+      to_table = make_table([[""]], width: 275, cell_style: { border_color: "FFFFFF", borders: [] })
     end
 
     table([[from_table, to_table]]) do
@@ -449,8 +449,8 @@ class InvoicePdf < Prawn::Document
 
   def short_line
     move_down 5
-    empty_table = make_table([[""]], width: 370, :cell_style => {:border_color => "FFFFFF", :borders => []})
-    line_table = make_table([[""]], width: 170, :cell_style => {:border_color => "CCCCCC", :borders => [:top]}) do
+    empty_table = make_table([[""]], width: 370, cell_style: { border_color: "FFFFFF", borders: [] })
+    line_table = make_table([[""]], width: 170, cell_style: { border_color: "CCCCCC", borders: [:top] }) do
       cells.align = :right
     end
 
@@ -462,22 +462,21 @@ class InvoicePdf < Prawn::Document
 
   def invoice_number_block
     data = [["#{Invoice.model_name.human} ##{@invoice.code}"]]
-    make_table(data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
+    make_table(data, width: 270, cell_style: {border_color: "FFFFFF"}) do
       # cells.padding = [10, 10, 10, 10]
       rows(0).style(size: 22, font_style: :bold, align: :right)
     end
-    # text "#{Invoice.model_name.human} ##{@invoice.code}", size: 22, style: :bold
   end
 
   def company_address_block
     data = []
     if @invoice.quote.company.logo.present?
       logo = Rails.root.join("public", "uploads", "company", @invoice.quote.company_id.to_s, "logo", "thumb", @invoice.quote.company.logo_file_name).to_s
-      data << [{:image => logo, :scale => 0.6}]
+      data << [{ image: logo, scale: 0.6 }]
     end
     data << [@invoice.quote.company.invoice_header]
 
-    make_table(data, width: 270, :cell_style => {:border_color => "FFFFFF"}) do
+    make_table(data, width: 270, cell_style: {border_color: "FFFFFF"}) do
       # cells.padding = [10, 10, 10, 10]
       rows(1).size = 9
     end
@@ -503,6 +502,7 @@ class InvoicePdf < Prawn::Document
 
   def client_address_block
     data = [["<b>#{@invoice.quote.client.name_with_code}</b>"]]
+    data << ["#{@invoice.client.department}"] if @invoice.client.department.present?
     data << ["#{@invoice.client.billing_contact}"] if @invoice.client.billing_contact.present?
     data << ["<i>#{address_for @invoice.quote.billing_address.address}</i>"]
     data << ["<b>#{I18n.t 'removal_at'}:</b> #{I18n.l @invoice.quote.removal_at.to_date}"]

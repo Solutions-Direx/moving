@@ -3,7 +3,7 @@
 </h1>
 
 <div class="clearfix">
-  <%= form_tag '', :method => :get, :class => "form-search" do %>
+  <%= form_tag '', method: :get, class: "form-search" do %>
     <%= hidden_field_tag 'sort', params[:sort] %>
     <%= hidden_field_tag 'direction', params[:direction] %>
     <%= text_field_tag 'search', params[:search] %>
@@ -26,7 +26,7 @@
 
 <% @clients.each do |client| %>
   <tr>
-    <td><%= link_to client.name, client %> <%= status_tag('comm.') if client.commercial? %></td>
+    <td><%= link_to client.name_with_department, client %> <%= status_tag('comm.') if client.commercial? %></td>
     <td><%= client.code %></td>
     <td><%= client.phone1 %></td>
     <td><%= client.phone2 %></td>

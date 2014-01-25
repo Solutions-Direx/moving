@@ -10,10 +10,10 @@
           <% end %>
         </ul>
       </div>
-      <%= icon_button_link_to "#{t 'payments', default: 'Payments'}", '#payments-modal', icon: "list-alt", large: true, level: "primary", white: true, "data-toggle" => "modal" %>
+      <%= icon_button_link_to "#{t 'payments', default: 'Payments'}", '#payments-modal', icon: "list-alt", large: true, level: "primary", white: true, data: {toggle: "modal"} %>
       <% unless @invoice.signed? %>
         <%= button_link_to "#{t 'edit'}", edit_quote_invoice_path(@quote), level: 'inverse', large: true %>
-        <%= button_link_to 'Signature', '#signature', "data-toggle" => "modal", level: "success", large: true, id: "approve" %>
+        <%= button_link_to 'Signature', '#signature', data: {toggle: "modal"}, level: "success", large: true, id: "approve" %>
       <% end %>
      </div>
   </span>
