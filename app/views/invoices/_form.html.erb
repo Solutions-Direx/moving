@@ -1,21 +1,24 @@
 <% url = mobile ? mobile_quote_invoice_path(@quote) : quote_invoice_path(@quote) %>
-<%= simple_nested_form_for(@invoice, :url => url, :remote => mobile, :html => {:id => "edit-invoice"}) do |f| %>
+<%= simple_nested_form_for(@invoice, url: url, remote: mobile, html: {id: "edit-invoice"}) do |f| %>
   <%= f.error_notification %>
   <%= locking_field_tag(f) %>
-
-  <%= simple_fields_for :address, @invoice.client.address do |address| %>
+  
+  <h3><%= t 'billing_address' %></h3>
+  <%= simple_fields_for :address, @invoice.quote.billing_address.address do |address| %>
     <%= address.input :address %>
     <%= address.input :city %>
     <%= address.input :postal_code %>
     <%= address.input :province, collection: Address::PROVINCE %>
   <% end %>
-
+  <%= section %>
+  
+  <h3><%= t 'details' %></h3>
   <div class="form-inputs"> 
     <div class="control-group float optional">
       <%= f.label :time_spent %>
       <div class="controls">
         <div class='input-append'>
-          <%= f.text_field :time_spent, :class => 'span1 input-append' %><span class="add-on"><i class="icon-time"></i></span> heure(s)
+          <%= f.text_field :time_spent, class: 'span1 input-append' %><span class="add-on"><i class="icon-time"></i></span> heure(s)
         </div>
       </div>
     </div>
@@ -23,7 +26,7 @@
       <%= f.label :rate %>
       <div class="controls">
         <div class='input-append'>
-          <%= f.text_field :rate, :class => 'span1 input-append' %><span class="add-on">$</span> <%= t 'hourly', :default => 'hourly' %>
+          <%= f.text_field :rate, class: 'span1 input-append' %><span class="add-on">$</span> <%= t 'hourly', :default => 'hourly' %>
         </div>
       </div>
     </div>
@@ -31,58 +34,58 @@
       <%= f.label :gas %>
       <div class="controls">
         <div class='input-append'>
-          <%= f.text_field :gas, :class => 'span1 input-append' %><span class="add-on">$</span>
+          <%= f.text_field :gas, class: 'span1 input-append' %><span class="add-on">$</span>
         </div>
       </div>
     </div>
     <%= content_tag "div", id: "surchages" do %>
       <%= f.fields_for :surcharges %>
-      <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_surcharge'}", :surcharges, :class => "btn btn-primary add-link", :id => "add-surcharge" %>
+      <%= f.link_to_add content_tag(:i, '', class: "icon-plus icon-white") + "#{t 'add_surcharge'}", :surcharges, class: "btn btn-primary add-link", id: "add-surcharge" %>
     <% end %>
     
     <% unless @invoice.quote.client.commercial? %>
-      <%= f.input :payment_method, required: false, :as => :radio_buttons, :collection => payment_method_options, :item_wrapper_class => "inline", :wrapper_html => {:id => "payment_methods"} %>
-      <%= f.input :credit_card_type, :collection => credit_card_type_options, :include_blank => false, :wrapper_html => {:id => "credit_card_type", :style => "display: #{@invoice.payment_method == 'credit' ? 'block' : 'none'};"}  %>
+      <%= f.input :payment_method, required: false, as: :radio_buttons, collection: payment_method_options, item_wrapper_class: "inline", wrapper_html: {id: "payment_methods"} %>
+      <%= f.input :credit_card_type, collection: credit_card_type_options, include_blank: false, wrapper_html: {id: "credit_card_type", style: "display: #{@invoice.payment_method == 'credit' ? 'block' : 'none'};"}  %>
     <% end %>
     
     <% if @invoice.quote.quote_confirmation.franchise_cancellation %>
-    <div class="control-group float optional">
-      <%= f.label :franchise_cancellation %>
-      <div class="controls">
-        <div class='input-append'>
-          <%= text_field_tag :franchise_cancellation, current_account.franchise_cancellation_amount, :class => 'span1 input-append', :disabled => true %><span class="add-on">$</span>
+      <div class="control-group float optional">
+        <%= f.label :franchise_cancellation %>
+        <div class="controls">
+          <div class='input-append'>
+            <%= text_field_tag :franchise_cancellation, current_account.franchise_cancellation_amount, class: 'span1 input-append', disabled: true %><span class="add-on">$</span>
+          </div>
         </div>
       </div>
-    </div>
     <% end %>
     
     <% if @invoice.total_insurance_increase > 0 %>
-    <div class="control-group float optional">
-      <%= f.label :insurance_increase %>
-      <div class="controls">
-        <div class='input-append'>
-          <%= text_field_tag :insurance_increase, @invoice.total_insurance_increase, :class => 'span1 input-append', :disabled => true %><span class="add-on">$</span>
+      <div class="control-group float optional">
+        <%= f.label :insurance_increase %>
+        <div class="controls">
+          <div class='input-append'>
+            <%= text_field_tag :insurance_increase, @invoice.total_insurance_increase, class: 'span1 input-append', disabled: true %><span class="add-on">$</span>
+          </div>
         </div>
       </div>
-    </div>
     <% end %>
 
     <% if @invoice.total_tv_insurance > 0 %>
-    <div class="control-group float optional">
-      <%= f.label :tv_insurance %>
-      <div class="controls">
-        <div class='input-append'>
-          <%= text_field_tag :tv_insurance, @invoice.total_tv_insurance, :class => 'span1 input-append', :disabled => true %><span class="add-on">$</span>
+      <div class="control-group float optional">
+        <%= f.label :tv_insurance %>
+        <div class="controls">
+          <div class='input-append'>
+            <%= text_field_tag :tv_insurance, @invoice.total_tv_insurance, class: 'span1 input-append', disabled: true %><span class="add-on">$</span>
+          </div>
         </div>
       </div>
-    </div>
     <% end %>
     
     <div class="control-group float optional">
       <%= f.label :discount %>
       <div class="controls">
         <div class='input-append'>
-          <%= f.text_field :discount, :class => 'span1 input-append' %><span class="add-on">$</span>
+          <%= f.text_field :discount, class: 'span1 input-append' %><span class="add-on">$</span>
         </div>
       </div>
     </div>
@@ -91,7 +94,7 @@
       <%= f.label :tip %>
       <div class="controls">
         <div class='input-append'>
-          <%= f.text_field :tip, :class => 'span1 input-append' %><span class="add-on">$</span>
+          <%= f.text_field :tip, class: 'span1 input-append' %><span class="add-on">$</span>
         </div>
       </div>
     </div>
@@ -101,7 +104,7 @@
       <%= f.label :deposit, t('deposit'), class: "float control-label" %>
       <div class="controls">
         <div class='input-append'>
-          <%= text_field_tag :deposit, @invoice.quote.deposit.amount, :class => 'span1 input-append', :disabled => true %><span class="add-on">$</span>
+          <%= text_field_tag :deposit, @invoice.quote.deposit.amount, class: 'span1 input-append', disabled: true %><span class="add-on">$</span>
         </div>
       </div>
     </div>
@@ -116,16 +119,16 @@
   <h3><%= t 'supplies' %></h3>
   <%= content_tag "div", id: "supply-list", data: {supplies: current_account.supplies.all } do %>
     <%= f.fields_for :invoice_supplies %>
-    <%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_supply', default: 'Add supply'}", :invoice_supplies, :class => "btn btn-primary add-link", :id => "add-supply" %>
+    <%= f.link_to_add content_tag(:i, '', class: "icon-plus icon-white") + "#{t 'add_supply', default: 'Add supply'}", :invoice_supplies, class: "btn btn-primary add-link", id: "add-supply" %>
   <% end %>
   
   <%= section %>
   <h3>Forfaits</h3>
-    <%= f.association :forfaits, :collection => current_account.forfaits.all.map{|s| [s.name_with_price, s.id]}, :input_html => {:id => "forfaits", :class => "chzn", "data-placeholder" => "#{t 'type_to_select_forfaits'}", :multiple => true, :style => "width: 508px;", :data => {:forfaits => current_account.forfaits.all}} %>
+    <%= f.association :forfaits, collection: current_account.forfaits.all.map{|s| [s.name_with_price, s.id]}, input_html: {id: "forfaits", class: "chzn", "data-placeholder" => "#{t 'type_to_select_forfaits'}", multiple: true, style: "width: 508px;", data: {forfaits:  current_account.forfaits.all}} %>
   
   <%= section %>
   <h3><%= t 'insurance_cancellation', default: 'Insurance cancellation' %></h3>
-    <%= f.input :furnitures, :input_html => {:class => "comment_one_liner"} %>
+    <%= f.input :furnitures, input_html: {class: "comment_one_liner"} %>
     
     <%= f.input :misc, :label => false do %>
       <label for="invoice_too_big_for_stairway" class="checkbox"><%= f.check_box :too_big_for_stairway %> <%= t('too_big_for_stairway') %></label>
@@ -153,13 +156,13 @@
   </div>
 
   <%= section %>
-    <%= f.input :comment, :input_html => {:class => "live-input", :style => "width:500px; height:150px;"} %>
+    <%= f.input :comment, input_html: {class: "live-input", style: "width:500px; height:150px;"} %>
   
   <%= section %>
     <h3>Grand Total: <span id="grand-total"><%= number_to_currency(@invoice.grand_total) %></span></h3>
   
   <div class="form-actions" style="display: none;">
     <%= submit_or_cancel(f) %>
-    <%= submit_tag 'Preview', style: "display: none;", :id => "submit-to-preview" %>
+    <%= submit_tag 'Preview', style: "display: none;", id: "submit-to-preview" %>
   </div>
 <% end %>

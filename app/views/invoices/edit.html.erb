@@ -1,9 +1,10 @@
 <% body_class('quotes') %>
-<h2><%= t 'invoice_for', default: 'Invoice for' %> <%= @quote.client.name %>
+<h2><%= t 'invoice_for', default: 'Invoice for' %> <%= @quote.client.name_with_department %>
   <span class='submenu'>
     <%= button_link_to "#{t 'preview'}", '#', level: "success", large: true, id: "preview" %>  
   </span>
 </h2>
+
 <div id="invoice-form-container">
   <%= render 'form', mobile: false %>
 </div>

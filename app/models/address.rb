@@ -14,7 +14,7 @@ class Address < ActiveRecord::Base
 
   # VALIDATIONS
   # ------------------------------------------------------------------------------------------------------
-  validates :address, :city, :province, :presence => true, :if => lambda {|a| a.bypass_validation.blank?}
+  validates_presence_of :address, :city, :province, :if => lambda {|a| a.bypass_validation.blank?}
   validates_presence_of :address, :if => lambda {|a| a.bypass_validation.blank?}
   
 
