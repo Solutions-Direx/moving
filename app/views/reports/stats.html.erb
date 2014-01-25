@@ -10,13 +10,13 @@
     <%= t 'from_date', default: 'From' %>
     <div class="input-append">
       <%= text_field_tag '', params[:from], class: 'datepicker', style: 'width: 100px;' %>
-      <%= hidden_field_tag :from, params[:from], :class => "datepicker-alt" %>
+      <%= hidden_field_tag :from, params[:from], class: "datepicker-alt" %>
       <span class="add-on clear">×</span>
     </div>
     <%= t 'to_date', default: 'And' %>
     <div class="input-append">
       <%= text_field_tag '', params[:to], class: 'datepicker', style: 'width: 100px;' %>
-      <%= hidden_field_tag :to, params[:to], :class => "datepicker-alt" %>
+      <%= hidden_field_tag :to, params[:to], class: "datepicker-alt" %>
       <span class="add-on clear">×</span>
     </div>
     <%= select_tag :sale_representative_id, options_for_select(current_account.users.order('first_name').map{|c| [c.full_name, c.id]}, params[:sale_representative_id]), prompt: "#{t 'select'}" %>
