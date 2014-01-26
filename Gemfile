@@ -23,6 +23,7 @@ gem 'whenever', :require => false
 gem 'prawn', github: "prawnpdf/prawn"
 gem 'hirb'
 gem 'turbolinks'
+gem 'jquery-turbolinks'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

@@ -11,11 +11,18 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery.ui.all
 //= require jquery_ujs
-//= require turbolinks
+//= require address_widget.js.coffee
+//= require i18n.js
+//= require invoices.js.coffee.erb
+//= require main.js.coffee
+//= require nested_form.js
+//= require quotes.js.coffee
+//= require reports.js.coffee
 //= require_tree ../../../vendor/assets/javascripts
-//= require_tree .
+//= require turbolinks
 
 
 $(function() {
