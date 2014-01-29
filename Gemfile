@@ -44,5 +44,5 @@ end
 group :production do
   gem 'exception_notification'
   gem 'execjs'
-  gem 'therubyracer'
+  #gem 'therubyracer'
 end

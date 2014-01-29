@@ -78,6 +78,7 @@ Moving::Application.configure do
     #:domain         => ENV['MAILER_DOMAIN'],
     :enable_starttls_auto => false
   }
+  
   config.middleware.use ExceptionNotification::Rack,
   :email => {
     :email_prefix => "[Exception] ",
