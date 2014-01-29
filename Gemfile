@@ -24,6 +24,7 @@ gem 'prawn', github: "prawnpdf/prawn"
 gem 'hirb'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
+gem 'hirb'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -43,4 +44,6 @@ end
 
 group :production do
   gem 'exception_notification'
+  gem 'execjs'
+  gem 'therubyracer'
 end
