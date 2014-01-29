@@ -46,5 +46,5 @@ $ ->
           '<p>' + '<a href=/quotes/' + i.attr('data-qoute-id') + " class='btn'>Voir</a></p>"
           popover.options.content = content
           i.popover "show"
-
+  $('.phone').mask('(000) 000-0000 x ZZZ',{translation: {'Z': {pattern: /[0-9]/, optional: true}}})
 
