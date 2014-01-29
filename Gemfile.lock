@@ -107,6 +107,9 @@ GEM
     execjs (2.0.2)
     faker (1.2.0)
       i18n (~> 0.5)
+    figaro (0.7.0)
+      bundler (~> 1.0)
+      rails (>= 3, < 5)
     fssm (0.2.10)
     hashery (2.1.1)
     highline (1.6.20)
@@ -259,6 +262,7 @@ DEPENDENCIES
   exception_notification
   execjs
   faker
+  figaro
   hirb
   jquery-rails
   jquery-turbolinks

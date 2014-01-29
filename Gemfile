@@ -24,6 +24,7 @@ gem 'prawn', github: "prawnpdf/prawn"
 gem 'hirb'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
+gem 'figaro'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
