@@ -78,10 +78,10 @@ Moving::Application.configure do
     #:domain         => ENV['MAILER_DOMAIN'],
     :enable_starttls_auto => false
   }
-  
-  config.middleware.use ExceptionNotifier,
-    :email_prefix => "[Exception]",
-    :sender_address => %{"[Dem. DR] Exception Notifier" <app@demenagementdr.ca>},
-    :exception_recipients => %w{alert@yafoy.com}
+  # Disabled for deploy
+  # config.middleware.use ExceptionNotifier,
+  #   :email_prefix => "[Exception]",
+  #   :sender_address => %{"[Dem. DR] Exception Notifier" <app@demenagementdr.ca>},
+  #   :exception_recipients => %w{alert@yafoy.com}
   
 end
