@@ -1,21 +1,21 @@
 <span class='floatr'>
-  <%= link_to "#{t 'current_month', default: 'Current Month'}", :month => (Date.today.beginning_of_month).strftime("%Y-%m") %>
+  <%= link_to "#{t 'current_month', default: 'Current Month'}", month: (Date.today.beginning_of_month).strftime("%Y-%m") %>
 </span>
 
 <div id="calendar">
-  <%= calendar_for(@quotes, :year => @date.year, :month => @date.month, :html => {:class => 'monthly'}) do |t| %>
+  <%= calendar_for(@quotes, year: @date.year, month: @date.month, html: {class: 'monthly'}) do |t| %>
     <h2 id="month">
-      <%= link_to '&#x2190;'.html_safe, :month => (@date.beginning_of_month-1).strftime("%Y-%m") %>
-      <%= I18n.localize(@date, :format => '%B %Y') %>
-      <%= link_to "&#x2192;".html_safe, :month => (@date.end_of_month+1).strftime("%Y-%m") %>
+      <%= link_to '&#x2190;'.html_safe, month: (@date.beginning_of_month-1).strftime("%Y-%m") %>
+      <%= I18n.localize(@date, format: '%B %Y') %>
+      <%= link_to "&#x2192;".html_safe, month: (@date.end_of_month+1).strftime("%Y-%m") %>
     </h2>
     <%= t.head("#{t 'sun'}", "#{t 'mon'}", "#{t 'tue'}", "#{t 'wed'}", "#{t 'thu'}", "#{t 'fri'}", "#{t 'sat'}") %>
-    <%= t.day(:day_method => :removal_at) do |day, quotes| %>
+    <%= t.day(day_method: :removal_at) do |day, quotes| %>
       <%= day.day %>
-      <%= link_to day, daily_quotes_path(:day => day), :style => "display: none;", :class => "daily" %>
+      <%= link_to day, daily_quotes_path(day: day), style: "display: none;", class: "daily" %>
       <ul>
       <% quotes.each do |quote| %>
-        <li><%= content_tag :span, quote.removal_at.strftime("%H:%M"), :class => "time" %> <%= status_tag "#{quote.long_distance? ? '** ' : ''}" + quote.client.name, :level => quote.confirmed? ? 'success' : '', :class => "client", "data-qoute-id" => "#{quote.id}", "data-original-title" => "#{quote.removal_at.strftime('%H:%M')} #{'(PM)' if quote.pm.present?} #{quote.client.name}", :style => "position: relative;" %></li>
+        <li><%= content_tag :span, quote.removal_at.strftime("%H:%M"), class: "time" %> <%= status_tag "#{quote.long_distance? ? '** ' : ''}" + quote.client.name, level: quote.confirmed? ? 'success' : '', class: "client", "data-quote-id" => "#{quote.id}", "data-original-title" => "#{quote.removal_at.strftime('%H:%M')} #{'(PM)' if quote.pm.present?} #{quote.client.name}", style: "position: relative;" %></li>
       <% end %>
       </ul>
     <% end %>
@@ -30,7 +30,7 @@
 </ul>
 
 <script type="text/javascript" charset="utf-8">
-    $('#calendar td').click(function() {
-      window.location = $(this).find('.daily').attr('href');
-    });
+  $('#calendar td').click(function() {
+    window.location = $(this).find('.daily').attr('href');
+  });
 </script>

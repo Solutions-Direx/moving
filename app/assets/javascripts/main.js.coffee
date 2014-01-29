@@ -36,15 +36,16 @@ $ ->
       $.ajax
         url: "/quotes/get_info/"
         data:
-          quote_id: i.attr('data-qoute-id')
+          quote_id: i.attr('data-quote-id')
         dataType: "script"
         cache: false
         success: (response) ->
           popover = i.data('popover')
           content = '<p>' + JSON.parse(response)[0].removal_man + '</p>' +
           '<p>' + JSON.parse(response)[1].trucks +  '</p>' +
-          '<p>' + '<a href=/quotes/' + i.attr('data-qoute-id') + " class='btn'>Voir</a></p>"
+          '<p>' + '<a href=/quotes/' + i.attr('data-quote-id') + " class='btn'>Voir</a></p>"
           popover.options.content = content
           i.popover "show"
-  $('.phone').mask('(000) 000-0000 x ZZZ',{translation: {'Z': {pattern: /[0-9]/, optional: true}}})
+  
+  #$('.phone').mask('(000) 000-0000 x ZZZ',{translation: {'Z': {pattern: /[0-9]/, optional: true}}})
 
