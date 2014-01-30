@@ -21,8 +21,8 @@
     <%= f.input_field :client_id, collection: Client.order('name ASC').map{|c| [c.name, c.id]}, class: "chzn", "data-placeholder" => "#{t 'select'}", id: "select-clients" %> <%= t 'or' %> 
     <%= icon_button_link_to "#{t 'new'} client", new_client_path, icon: 'plus', level: "inverse", white: true, remote: true %>
   <% end %>
-  <%= f.input :phone1 %>
-  <%= f.input :phone2 %>
+  <%= f.input :phone1, input_html: {class: 'formatted_phone'} %>
+  <%= f.input :phone2, input_html: {class: 'formatted_phone'} %>
   <%= f.input :contact %>
 
   <!-- RATING -->

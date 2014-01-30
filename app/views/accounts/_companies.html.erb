@@ -4,17 +4,17 @@
       <%= fc.input :company_name %>
       <%= fc.input :active, disabled: fc.object.is_default unless fc.object.new_record? %>
       <%= fc.input :email %>
-      <%= fc.input :phone %>
+      <%= fc.input :phone, input_html: {class: 'formatted_phone'} %>
       <%= fc.input :website %>
       <%= fc.input :logo %>
       <%= fc.fields_for :address do |fa| %>
-        <%= fa.input :address, :required => true %>
-        <%= fa.input :city, :required => true %>
-        <%= fa.input :postal_code, :required => true %>
-        <%= fa.input :province, :collection => Address::PROVINCE %>
-        <%= fa.input :country, :collection => Address::COUNTRY %>
+        <%= fa.input :address, required: true %>
+        <%= fa.input :city, required: true %>
+        <%= fa.input :postal_code, required: true %>
+        <%= fa.input :province, collection: Address::PROVINCE %>
+        <%= fa.input :country, collection: Address::COUNTRY %>
       <% end %>
-      <%= fc.input :invoice_header, as: :text, :input_html => { maxlength: 200, rows: 4} %>
+      <%= fc.input :invoice_header, as: :text, input_html: { maxlength: 200, rows: 4} %>
       <% if fc.object.new_record? %>
         <%= fc.link_to_remove "#{t 'remove'}" %> (<%= t 'remove_company_warning', default: 'once created, company cannot be deleted. Please use inactive instead' %>.)
       <% end %> 
@@ -24,4 +24,4 @@
     </div>
   </div>
 <% end %>
-<%= f.link_to_add content_tag(:i, '', :class => "icon-plus icon-white") + "#{t 'add_company', default: 'Add company'}", :companies, :class => "btn btn-primary add-link", :id => "add-company" %>
+<%= f.link_to_add content_tag(:i, '', class: "icon-plus icon-white") + "#{t 'add_company', default: 'Add company'}", :companies, class: "btn btn-primary add-link", id: "add-company" %>
