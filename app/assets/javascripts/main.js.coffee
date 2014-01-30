@@ -47,5 +47,5 @@ $ ->
           popover.options.content = content
           i.popover "show"
   
-  $('.phone').mask('(000) 000-0000 x ZZZ',{translation: {'Z': {pattern: /[0-9]/, optional: true}}})
+  $('.formatted_phone').mask('(000) 000-0000 x ZZZ',{translation: {'Z': {pattern: /[0-9]/, optional: true}}})
 
