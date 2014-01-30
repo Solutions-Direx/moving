@@ -17,6 +17,7 @@
 //= require address_widget.js.coffee
 //= require i18n.js
 //= require invoices.js.coffee.erb
+//= require jquery.mask.min
 //= require main.js.coffee
 //= require nested_form.js
 //= require quotes.js.coffee
